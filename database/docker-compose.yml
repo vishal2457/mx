@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  # Postgres service
+  PostgreSQL:
+    # Image to be pulled from Docker Hub
+    image: postgres
+    # Name of the container
+    container_name: im_postgres_database
+    restart: always
+    # Environment variables
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: maximus
+    # Ports used, format: <host_port>:<container_port>
+    ports:
+      - '5432:5432'
+    # Volume to persist the data even after the container is stopped
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      # Script to run and initialise the database
+      - ./sql/db.sql:/docker-entrypoint-initdb.d/db.sql
+    # Healthcheck command because other containers depend on this one
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5

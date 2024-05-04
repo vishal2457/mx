@@ -1,14 +1,18 @@
-import express from 'express';
+import * as dotenv from 'dotenv';
+dotenv.config();
+import http from 'http';
+import app from './express-app';
+import { APP_SETTINGS } from './shared/app-settings';
+import chalk from 'chalk';
+import { logger } from './shared/logger/logger';
 
-const host = process.env.HOST ?? 'localhost';
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+async function main() {
+  const server = http.createServer(app);
 
-const app = express();
-
-app.get('/', (req, res) => {
-  res.send({ message: 'Hello API' });
-});
-
-app.listen(port, host, () => {
-  console.log(`[ ready ] http://${host}:${port}`);
-});
+  server.listen(APP_SETTINGS.PORT, () => {
+    const { IS_DEVELOPMENT, NODE_ENV, PORT } = APP_SETTINGS;
+    const msg = `${NODE_ENV.toUpperCase()} server started at port ${PORT}`;
+    logger.log(IS_DEVELOPMENT ? chalk.cyanBright(msg) : chalk.redBright(msg));
+  });
+}
+main();
