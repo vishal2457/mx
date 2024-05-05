@@ -1,4 +1,5 @@
 import express from 'express';
+import compression from 'compression';
 import cors from 'cors';
 import path from 'path';
 import errorHandler from './shared/middlewares/error-handler.middleware';
@@ -7,13 +8,13 @@ import { logHttpRequests } from './shared/logger/morgan-logger';
 
 const app = express();
 
-app.use(logHttpRequests);
-
 app
   .use('/static', express.static(path.join(__dirname, '../src/public')))
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
-  .use(cors());
+  .use(compression())
+  .use(cors())
+  .use(logHttpRequests);
 
 //init all the modules
 app.use('/api/v1', routerv1);
