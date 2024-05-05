@@ -4,19 +4,15 @@ module.exports = isDryRun() ? getDryRunConfig() : getCIConfig();
 
 function getDryRunConfig() {
   return {
-    repositoryUrl: getLocalRepoUrl(),
-    branches: getCurrentBranch(),
-    generateNotes : ['@semantic-release/release-notes-generator'],
-    plugins: [
-      '@semantic-release/commit-analyzer',
-      '@semantic-release/release-notes-generator',
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogFile": "CHANGELOG.md"
-        }
-      ]
-    ],
+      repositoryUrl: getLocalRepoUrl(),
+      branches: getCurrentBranch(),
+      generateNotes: [
+        '@semantic-release/release-notes-generator',
+      ],
+      plugins: [
+        '@semantic-release/commit-analyzer',
+        '@semantic-release/changelog',
+      ],
   };
 }
 
