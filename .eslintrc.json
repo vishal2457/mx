@@ -18,6 +18,14 @@
               }
             ]
           }
+        ],
+        "no-console": [
+          "error",
+          {
+            "allow": [
+              "error"
+            ]
+          }
         ]
       }
     },

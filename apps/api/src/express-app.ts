@@ -2,12 +2,11 @@ import express from 'express';
 import compression from 'compression';
 import cors from 'cors';
 import path from 'path';
-import errorHandler from './shared/middlewares/error-handler.middleware';
 import routerv1 from './routes/v1/router';
 import { logHttpRequests } from './shared/logger/morgan-logger';
 
 const app = express();
-
+console.log('test');
 app
   .use('/static', express.static(path.join(__dirname, '../src/public')))
   .use(express.json())
