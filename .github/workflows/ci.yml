@@ -22,6 +22,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: install dependencies
+        run: npm ci --no-audit --progress=false
+
       - name: Build Docker image
         run: npx nx run api:docker-build
 
