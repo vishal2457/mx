@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -f apps/api/Dockerfile . -t vishalacharya221997335/maximus-api:nodeapi
+        run: npx nx run api:docker-build
 
       - name: Push Docker image
         run: docker push vishalacharya221997335/maximus-api:nodeapi
