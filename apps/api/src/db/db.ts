@@ -1,6 +1,8 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import { APP_SETTINGS } from '../shared/app-settings';
+import { logger } from '../shared/logger/logger';
+import { TB_adminUser } from './schema/admin-user.schema';
 
 // or
 const pool = new Pool({
@@ -11,4 +13,15 @@ const pool = new Pool({
   database: APP_SETTINGS.DB_NAME,
 });
 
-export const db = drizzle(pool, {logger: true});
+export const checkDbConnection = async () => {
+  try {
+    await pool.query('SELECT NOW()');
+    logger.info(
+      `Environment:${APP_SETTINGS.NODE_ENV} DB:${APP_SETTINGS.DB_NAME} Status:connected`
+    );
+  } catch (error) {
+    logger.error(`Error: connecting ${APP_SETTINGS} DB, ${error.stack}`);
+  }
+};
+
+export const db = drizzle(pool, { logger: true, schema: { TB_adminUser } });
