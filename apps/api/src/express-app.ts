@@ -6,6 +6,7 @@ import routerv1 from './routes/v1/router';
 import { logHttpRequests } from './shared/logger/morgan-logger';
 
 const app = express();
+
 app
   .use('/static', express.static(path.join(__dirname, '../src/public')))
   .use(express.json())
