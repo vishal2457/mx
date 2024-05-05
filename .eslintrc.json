@@ -26,7 +26,8 @@
               "error"
             ]
           }
-        ]
+        ],
+        "no-await-in-loop": ["error"]
       }
     },
     {
