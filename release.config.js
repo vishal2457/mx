@@ -44,7 +44,10 @@ function getCIConfig() {
           "releaseRules": [
             { "type": "docs", "scope": "README", "release": "patch" },
             { "type": "refactor", "release": "patch" },
-            { "type": "style", "release": "patch" }
+            { "type": "style", "release": "patch" },
+            { "type": "feat", "release": "minor" },
+            { "type": "bug", "release": "patch" },
+            { "type": "perf", "release": "patch" },
           ],
           "parserOpts": {
             "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]

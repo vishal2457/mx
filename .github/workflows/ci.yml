@@ -30,3 +30,8 @@ jobs:
 
       - name: Push Docker image
         run: docker push vishalacharya221997335/maximus-api:nodeapi
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GH_TOKEN }}
+        run: npx semantic-release
