@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/vishal2457/mx/compare/v2.0.0...v2.1.0) (2024-05-06)
+
+
+### Features
+
+* lib added, untracked files ([702ec7d](https://github.com/vishal2457/mx/commit/702ec7db35d8c360a8e9ec38a800dfa99a8526f6)), closes [#321](https://github.com/vishal2457/mx/issues/321)
+
 # [2.0.0](https://github.com/vishal2457/mx/compare/v1.0.0...v2.0.0) (2024-05-06)
 
 
