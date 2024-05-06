@@ -2,11 +2,11 @@ version: '3'
 
 services:
   # Postgres service
-  PostgreSQL:
+  Mxpgsql:
     # Image to be pulled from Docker Hub
     image: postgres
     # Name of the container
-    container_name: im_postgres_database
+    container_name: mx_postgres_database
     restart: always
     # Environment variables
     environment:

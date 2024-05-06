@@ -39,7 +39,6 @@ testem.log
 Thumbs.db
 
 .nx/cache
-
-database
-
+database/sql
+database/data
 logs

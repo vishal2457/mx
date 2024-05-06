@@ -13,7 +13,7 @@ export const TB_adminUser = pgTable(
     name: text('name'),
     email: text('email').notNull(),
     password: text('password').notNull(),
-    active2: boolean('active2').default(false),
+    active: boolean('active').default(false),
   },
   (adminUser) => ({
     nameIdx: uniqueIndex('nameIdx').on(adminUser.name),

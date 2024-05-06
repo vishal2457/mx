@@ -1,0 +1,21 @@
+{
+  "name": "mx-models",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/mx-models/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/mx-models",
+        "main": "libs/mx-models/src/index.ts",
+        "tsConfig": "libs/mx-models/tsconfig.lib.json",
+        "assets": ["libs/mx-models/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}
