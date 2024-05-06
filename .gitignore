@@ -40,8 +40,6 @@ Thumbs.db
 
 .nx/cache
 
-database/data
-database/data/postgres
-database/sql
+database
 
 logs

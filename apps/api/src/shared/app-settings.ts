@@ -5,9 +5,9 @@ const {
   ENCRYPT = false,
   DB_NAME = 'maximus',
   DB_HOST = 'localhost',
-  DB_PORT = '3306',
+  DB_PORT = '5432',
   DB_USERNAME = 'root',
-  DB_PASSWORD = '',
+  DB_PASSWORD = 'root',
   DB_SYNC = false,
   NODE_HOST = 'localhost',
   AWS_SECRET_KEY = '',
@@ -21,7 +21,7 @@ const {
   SENDER_EMAIL_PASSWORD = '',
   ROOT_DIR = 'apps/api',
   ENCRYPTION = false,
-  JWT_SECRET
+  JWT_SECRET,
 } = process.env;
 
 export const APP_SETTINGS = {
@@ -50,5 +50,5 @@ export const APP_SETTINGS = {
   ),
   ENCRYPTION,
   IS_DEVELOPMENT: NODE_ENV === 'development',
-  JWT_SECRET
+  JWT_SECRET,
 };

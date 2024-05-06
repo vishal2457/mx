@@ -4,29 +4,27 @@ module.exports = isDryRun() ? getDryRunConfig() : getCIConfig();
 
 function getDryRunConfig() {
   return {
-      repositoryUrl: getLocalRepoUrl(),
-      branches: getCurrentBranch(),
-      generateNotes: [
-        '@semantic-release/release-notes-generator',
+    repositoryUrl: getLocalRepoUrl(),
+    branches: getCurrentBranch(),
+    generateNotes: ['@semantic-release/release-notes-generator'],
+    plugins: [
+      [
+        '@semantic-release/commit-analyzer',
+        {
+          preset: 'angular',
+          releaseRules: [
+            { type: 'docs', scope: 'README', release: 'patch' },
+            { type: 'refactor', release: 'patch' },
+            { type: 'style', release: 'patch' },
+          ],
+          parserOpts: {
+            noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
+          },
+        },
       ],
-      plugins: [
-        [
-          "@semantic-release/commit-analyzer",
-          {
-            "preset": "angular",
-            "releaseRules": [
-              { "type": "docs", "scope": "README", "release": "patch" },
-              { "type": "refactor", "release": "patch" },
-              { "type": "style", "release": "patch" }
-            ],
-            "parserOpts": {
-              "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
-            }
-          }
-        ],
-        '@semantic-release/release-notes-generator',
-        '@semantic-release/changelog',
-      ],
+      '@semantic-release/release-notes-generator',
+      '@semantic-release/changelog',
+    ],
   };
 }
 
@@ -38,26 +36,31 @@ function getCIConfig() {
     branches: ['main'],
     plugins: [
       [
-        "@semantic-release/commit-analyzer",
+        '@semantic-release/commit-analyzer',
         {
-          "preset": "angular",
-          "releaseRules": [
-            { "type": "docs", "scope": "README", "release": "patch" },
-            { "type": "refactor", "release": "patch" },
-            { "type": "style", "release": "patch" },
-            { "type": "feat", "release": "minor" },
-            { "type": "bug", "release": "patch" },
-            { "type": "perf", "release": "patch" },
+          preset: 'angular',
+          releaseRules: [
+            { type: 'docs', scope: 'README', release: 'patch' },
+            { type: 'refactor', release: 'patch' },
+            { type: 'style', release: 'patch' },
+            { type: 'feat', release: 'minor' },
+            { type: 'bug', release: 'patch' },
+            { type: 'perf', release: 'patch' },
           ],
-          "parserOpts": {
-            "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
-          }
-        }
+          parserOpts: {
+            noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
+          },
+        },
       ],
       '@semantic-release/release-notes-generator',
       '@semantic-release/changelog',
-      // '@semantic-release/npm',
-      // '@semantic-release/github',
+      '@semantic-release/git',
+      [
+        '@semantic-release/github',
+        {
+          assets: [{ path: 'dist', label: 'build' }],
+        },
+      ],
     ],
   };
 }
