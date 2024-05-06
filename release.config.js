@@ -55,12 +55,7 @@ function getCIConfig() {
       '@semantic-release/release-notes-generator',
       '@semantic-release/changelog',
       '@semantic-release/git',
-      [
-        '@semantic-release/github',
-        {
-          assets: [{ path: 'dist', label: 'build' }],
-        },
-      ],
+      '@semantic-release/github',
     ],
   };
 }
