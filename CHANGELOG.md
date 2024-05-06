@@ -1,3 +1,16 @@
+# [2.0.0](https://github.com/vishal2457/mx/compare/v1.0.0...v2.0.0) (2024-05-06)
+
+
+### chore
+
+* assets removed from release config ([c5795b6](https://github.com/vishal2457/mx/commit/c5795b6cce5a0f0612ea8e882ce0b3634b8c099d))
+
+
+### BREAKING CHANGES
+
+* assets removed from github release config
+11
+
 # 1.0.0 (2024-05-06)
 
 
