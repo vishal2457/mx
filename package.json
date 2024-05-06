@@ -2,6 +2,10 @@
   "name": "@maximus/source",
   "version": "0.0.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vishal2457/mx"
+  },
   "scripts": {
     "prepare": "husky install",
     "lint:affected": "nx affected -t lint"

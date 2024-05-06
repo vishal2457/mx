@@ -32,7 +32,7 @@ function getCIConfig() {
   // contains your normal semantic-release config
   // this will be used on your CI environment
   return {
-    repositoryUrl: getLocalRepoUrl(),
+    repositoryUrl: 'https://github.com/vishal2457/mx',
     branches: ['main'],
     plugins: [
       [
