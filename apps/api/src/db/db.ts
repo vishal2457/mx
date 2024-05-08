@@ -2,7 +2,11 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import { APP_SETTINGS } from '../shared/app-settings';
 import { logger } from '../shared/logger/logger';
-import { TB_adminUser } from './schema/admin-user.schema';
+import {
+  TB_customer,
+  TB_customerFcm,
+  TB_user,
+} from '../../../../libs/mx-schema/src';
 
 // or
 const pool = new Pool({
@@ -24,4 +28,7 @@ export const checkDbConnection = async () => {
   }
 };
 
-export const db = drizzle(pool, { logger: true, schema: { TB_adminUser } });
+export const db = drizzle(pool, {
+  logger: true,
+  schema: { TB_user, TB_customer, TB_customerFcm },
+});

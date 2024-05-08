@@ -1,5 +1,5 @@
 {
-  "name": "@maximus/mx-models",
+  "name": "@maximus/mx-schema",
   "version": "0.0.1",
   "dependencies": {},
   "type": "commonjs",

@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@maximus/mx-models": ["libs/mx-models/src/index.ts"]
+      "@maximus/mx-schema": ["libs/mx-schema/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
