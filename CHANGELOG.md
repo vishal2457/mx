@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/vishal2457/mx/compare/v2.1.0...v2.2.0) (2024-05-08)
+
+
+### Features
+
+* pg schemas added in lib ([e594367](https://github.com/vishal2457/mx/commit/e5943673bf93ec9fd9d941f2d092bc8314ca6ef7)), closes [#1](https://github.com/vishal2457/mx/issues/1)
+
+
+### BREAKING CHANGES
+
+* admin user changed to user
+
 # [2.1.0](https://github.com/vishal2457/mx/compare/v2.0.0...v2.1.0) (2024-05-06)
 
 
