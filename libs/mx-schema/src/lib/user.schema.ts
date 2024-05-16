@@ -4,13 +4,15 @@ import {
   integer,
   uniqueIndex,
   boolean,
+  serial,
 } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
+import { TMenu } from './menu.schema';
 
 export const TB_user = pgTable(
-  'adminUsers',
+  'user',
   {
-    id: integer('id').primaryKey(),
+    id: serial('id').primaryKey(),
     name: text('name'),
     email: text('email').notNull(),
     password: text('password').notNull(),
@@ -23,3 +25,4 @@ export const TB_user = pgTable(
 
 export const Z_user_insert = createInsertSchema(TB_user);
 export const Z_user = createSelectSchema(TB_user);
+export type R_userLogin = { token: string; menu: TMenu[] };

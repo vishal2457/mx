@@ -6,7 +6,7 @@ interface WrappedFunction {
   (...args: any[]): Promise<any> | any;
 }
 
-const ah = (fn: WrappedFunction): WrappedFunction => {
+const handler = (fn: WrappedFunction): WrappedFunction => {
   return async (...args: any[]) => {
     const fnReturn = fn(...args);
     const next: ErrorHandler | undefined =
@@ -30,4 +30,4 @@ const ah = (fn: WrappedFunction): WrappedFunction => {
   };
 };
 
-export default ah;
+export default handler;

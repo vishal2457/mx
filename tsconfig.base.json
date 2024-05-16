@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@maximus/helpers": ["libs/helpers/src/index.ts"],
       "@maximus/mx-schema": ["libs/mx-schema/src/index.ts"]
     }
   },

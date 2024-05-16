@@ -2,7 +2,7 @@ import { pgTable, text, serial, integer } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { TB_customer } from './customer.schema';
 
-export const TB_customerFcm = pgTable('customer', {
+export const TB_customerFcm = pgTable('customerFcm', {
   id: serial('id').primaryKey(),
   customerID: integer('customerID')
     .references(() => TB_customer.id)

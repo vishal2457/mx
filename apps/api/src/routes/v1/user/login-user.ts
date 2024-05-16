@@ -12,7 +12,7 @@ import { generateToken } from '../../../shared/jwt/token-utils';
 import { TB_user, Z_user } from '../../../../../../libs/mx-schema/src';
 
 export default Router().post(
-  '/login-admin',
+  '/login',
   validate({ body: Z_user.pick({ email: true, password: true }) }),
   ah(async (req, res) => {
     const user = await db.query.TB_user.findFirst({
@@ -26,8 +26,8 @@ export default Router().post(
     if (!checkPassword(req.body.password, user.password)) {
       return unauthorized(res, 'Incorrect credentials');
     }
-
+    const menu = await db.query.TB_menu.findMany();
     const token = generateToken({ email: user.email, id: user.id });
-    success(res, { token }, 'login success');
+    success(res, { token, menu }, 'login success');
   })
 );

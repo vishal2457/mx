@@ -1,0 +1,250 @@
+<div class="w-full overflow-auto border h-[75vh] no-scrollbar">
+  <table
+    cdk-table
+    recycleRows
+    [dataSource]="gridData.data$"
+    class="w-full caption-bottom text-sm border-collapse"
+  >
+    <ng-container *ngIf="columnService.columns$ | async as columns">
+      <ng-container
+        *ngFor="let column of columns; let columnIndex = index"
+        [cdkColumnDef]="column.field"
+        [stickyEnd]="column.field === isAction"
+      >
+        <!-- HEADER -->
+        <ng-container
+          *ngIf="
+            column.field !== isAction && column.field !== isSelectable;
+            else internalHeader
+          "
+        >
+          <th
+            cdk-header-cell
+            *cdkHeaderCellDef
+            [ngClass]="{
+            'text-left': column.alignment === 'left',
+            'text-center': column.alignment === 'center',
+            'text-right': column.alignment === 'right',
+          }"
+            class="h-10 text-sm font-medium bg-background"
+          >
+            <ng-container *ngIf="!column.head; else columnHeadOutlet">
+              <mx-dropdown spacing="compact">
+                <mx-button
+                  trigger
+                  variant="ghost"
+                  size="sm"
+                  class="items-center"
+                >
+                  <span
+                    class="flex items-center gap-1 capitalize tracking-normal"
+                  >
+                    {{ column.title || column.field }}
+                    <mx-icon
+                      [icon]="
+                        (columnService.sortIcon$(column.field) | async) ||
+                        ''
+                      "
+                      size="sm"
+                      class="mt-1"
+                    />
+                  </span>
+                </mx-button>
+                <mx-dropdown-item
+                  text="ASC"
+                  icon="arrow_upward"
+                  (handleClick)="columnService.sortAsc(column.field)"
+                />
+                <mx-dropdown-item
+                  text="DESC"
+                  icon="arrow_downward"
+                  (handleClick)="columnService.sortDesc(column.field)"
+                />
+                <mx-dropdown-item
+                  text="Unsort"
+                  icon="unfold_more"
+                  (handleClick)="columnService.unsort()"
+                />
+                <mx-dropdown-item [seperator]="true" />
+                <mx-dropdown-item
+                  text="Move right"
+                  icon="chevron_right"
+                  (handleClick)="
+                    columnService.moveRight(columnIndex, columns)
+                  "
+                />
+                <mx-dropdown-item
+                  (handleClick)="
+                    columnService.moveLeft(columnIndex, columns)
+                  "
+                  text="Move left"
+                  icon="chevron_left"
+                />
+              </mx-dropdown>
+            </ng-container>
+            <ng-template #columnHeadOutlet>
+              <ng-container *ngIf="column.head">
+                <ng-container
+                  *ngTemplateOutlet="
+                    column.head;
+                    context: { $implicit: column }
+                  "
+                ></ng-container>
+              </ng-container>
+            </ng-template>
+          </th>
+        </ng-container>
+        <!-- HEADER -->
+
+        <!-- DATA CELL -->
+        <ng-container
+          *ngIf="
+            column.field !== isAction && column.field !== isSelectable;
+            else internalActions
+          "
+        >
+          <td
+            cdk-cell
+            *cdkCellDef="let element"
+            [ngClass]="{
+            'text-left': column.alignment === 'left',
+            'text-center': column.alignment === 'center',
+            'text-right': column.alignment === 'right',
+          }"
+            class="p-4"
+          >
+            <ng-container *ngIf="!column.cell; else cellOutlet">
+              {{ element[column.field] }}
+            </ng-container>
+
+            <ng-template #cellOutlet>
+              <ng-container *ngIf="column.cell">
+                <ng-container
+                  *ngTemplateOutlet="
+                    column.cell;
+                    context: { $implicit: element, column }
+                  "
+                ></ng-container>
+              </ng-container>
+            </ng-template>
+          </td>
+        </ng-container>
+        <!-- DATA CELL -->
+
+        <!-- ACTIONS -->
+        <ng-template #internalHeader>
+          <ng-container *ngIf="column.field === isAction">
+            <th cdk-header-cell *cdkHeaderCellDef class="bg-800">&nbsp;</th>
+          </ng-container>
+          <ng-container *ngIf="column.field === isSelectable">
+            <th cdk-header-cell *cdkHeaderCellDef class="bg-800">
+              <mx-dropdown spacing="compact">
+                <button
+                  trigger
+                  type="button"
+                  role="checkbox"
+                  class="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                >
+                  <mx-icon
+                    icon="check_box"
+                    *ngIf="(gridData.headerChecked$ | async); else uncheck"
+                  />
+                  <ng-template #uncheck>
+                    <ng-container
+                      *ngIf="(gridData.pageDataSelected$ | async) === false"
+                    >
+                      <mx-icon icon="check_box_outline_blank" />
+                    </ng-container>
+                  </ng-template>
+                  <mx-icon
+                    icon="article"
+                    *ngIf="gridData.pageDataSelected$ | async"
+                  />
+                </button>
+                <mx-dropdown-item
+                  (handleClick)="gridData.selectCurrentPage()"
+                  text="Current Page"
+                  icon="article"
+                />
+                <mx-dropdown-item
+                  [text]="(gridData.allSelected$ |async) ? 'Deselect All' : 'Select All'"
+                  [icon]="(gridData.allSelected$ |async) ? 'check_box_outline_blank': 'check_box'"
+                  (handleClick)="gridData.selectAll()"
+                />
+              </mx-dropdown>
+            </th>
+          </ng-container>
+        </ng-template>
+        <ng-template #internalActions>
+          <ng-container *ngIf="column.field === isAction">
+            <td cdk-cell *cdkCellDef="let element">
+              <mx-action
+                *ngFor="let action of actionService.actions$ | async"
+                [icon]="action.icon"
+                [tooltip]="action.tooltip"
+                [cellData]="element"
+                [column]="column"
+                (handleClick)="action.handleClick.emit($event)"
+                [action]="action.action"
+              />
+            </td>
+          </ng-container>
+          <ng-container *ngIf="column.field === isSelectable">
+            <td
+              cdk-cell
+              *cdkCellDef="let element"
+              [ngClass]="{
+            'text-left': column.alignment === 'left',
+            'text-center': column.alignment === 'center',
+            'text-right': column.alignment === 'right',
+          }"
+            >
+              <button (click)="gridData.selectOne(element.id)">
+                <mx-icon
+                  icon="check_box"
+                  *ngIf="(gridData.dataChecked(element.id) | async); else uncheckData"
+                />
+                <ng-template #uncheckData>
+                  <mx-icon icon="check_box_outline_blank" />
+                </ng-template>
+              </button>
+            </td>
+          </ng-container>
+        </ng-template>
+        <!-- ACTIONS -->
+      </ng-container>
+    </ng-container>
+
+    <tr
+      class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+      cdk-header-row
+      *cdkHeaderRowDef="columnService.fields$ | async; sticky: true"
+    ></tr>
+    <tr
+      cdk-row
+      class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+      *cdkRowDef="let row; columns: columnService.fields$ | async"
+    ></tr>
+
+    <!-- NO DATA -->
+    <tr *cdkNoDataRow>
+      <td
+        class="text-center py-5 h-[60vh]"
+        [colSpan]="columnService.totalColumns$ | async"
+      >
+        <span
+          *ngIf="loader.loading$ | async; else nodata"
+          class="flex justify-center items-center"
+        >
+          <div
+            class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-500"
+          ></div>
+        </span>
+        <ng-template #nodata>
+          <span>No data</span>
+        </ng-template>
+      </td>
+    </tr>
+    <!-- NO DATA -->
+  </table>
+</div>

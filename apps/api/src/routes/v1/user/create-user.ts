@@ -8,7 +8,7 @@ import { hashPassword } from '../../../shared/password-hash';
 
 export default Router().post(
   '/create',
-  validate({ body: Z_user_insert.omit({ active: true }) }),
+  validate({ body: Z_user_insert.omit({ active: true, id: true }) }),
   ah(async (req, res) => {
     const result = await db
       .insert(TB_user)

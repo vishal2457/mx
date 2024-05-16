@@ -1,0 +1,4 @@
+<toolbar *ngIf="!hideFeatures.includes('toolbar')" />
+<ng-content select="[toolbarFooter]"></ng-content>
+<base-data-table />
+<table-footer *ngIf="!hideFeatures.includes('footer')" />
