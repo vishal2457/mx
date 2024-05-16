@@ -1,3 +1,5 @@
+# [3.0.0](https://github.com/vishal2457/mx/compare/v2.2.0...v3.0.0) (2024-05-16)
+
 # [2.2.0](https://github.com/vishal2457/mx/compare/v2.1.0...v2.2.0) (2024-05-08)
 
 
