@@ -114,7 +114,9 @@
             class="p-4"
           >
             <ng-container *ngIf="!column.cell; else cellOutlet">
-              {{ element[column.field] }}
+              @if (column?.innerHtml) {
+              <span [innerHTML]="element[column.field]"></span>
+              } @else{ {{ element[column.field] }} }
             </ng-container>
 
             <ng-template #cellOutlet>
@@ -180,6 +182,7 @@
             <td cdk-cell *cdkCellDef="let element">
               <mx-action
                 *ngFor="let action of actionService.actions$ | async"
+                class="mx-1"
                 [icon]="action.icon"
                 [tooltip]="action.tooltip"
                 [cellData]="element"

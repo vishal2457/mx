@@ -18,7 +18,6 @@ import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
     <mx-column field="gameSlug" title="Game" alignment="left" />
     <mx-column field="teamOne" />
     <mx-column field="teamTwo" />
-    <mx-column field="h2hTeam" />
     <mx-column field="league" />
     <mx-column field="format" />
     <mx-column field="venue" />

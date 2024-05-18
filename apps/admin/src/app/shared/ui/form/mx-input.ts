@@ -1,12 +1,12 @@
-import { Component, Input } from "@angular/core";
-import { FormBaseComponent } from "./base-form";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { FormControlPipe } from "../../pipe/form-control";
-import { NgClass } from "@angular/common";
-import { MxHintComponent } from "../hint";
+import { Component, Input } from '@angular/core';
+import { FormBaseComponent } from './base-form';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControlPipe } from '../../pipe/form-control';
+import { NgClass } from '@angular/common';
+import { MxHintComponent } from '../hint';
 
 @Component({
-  selector: "mx-input",
+  selector: 'mx-input',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -50,6 +50,6 @@ import { MxHintComponent } from "../hint";
 export class MxInputComponent extends FormBaseComponent {
   @Input() maxlength = 524288;
   @Input() minlength = 0;
-  @Input() type = "text";
-  @Input() inputClass = "";
+  @Input() type = 'text';
+  @Input() inputClass = '';
 }

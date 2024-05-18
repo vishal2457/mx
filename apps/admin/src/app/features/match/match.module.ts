@@ -18,6 +18,7 @@ import { MxFileUploadComponent } from '../../shared/ui/form/mx-file-upload';
 import { MxTextareaComponent } from '../../shared/ui/form/textarea';
 import { MxImageComponent } from '../../shared/ui/display-image';
 import { UpdateMatchComponent } from './modify-match/update-match.component';
+import { MxEditorComponent } from '../../shared/ui/form/editor';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { UpdateMatchComponent } from './modify-match/update-match.component';
     MxFileUploadComponent,
     MxTextareaComponent,
     MxImageComponent,
+    MxEditorComponent,
   ],
 })
 export class MatchModule {}
