@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
-import { TMatch } from '../../../../../../../../libs/mx-schema/src';
+import { TMatch, Z_match } from '../../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'match-form',
@@ -13,6 +13,7 @@ export class MatchFormComponent {
   showErrors = false;
   GAMES = Array.from([]);
   previousFilenames: any = {};
+  zMatch = Z_match;
 
   matchForm = this.fb.nonNullable.group<
     ControlsOf<Omit<TMatch, 'id' | 'teamTwoSlug' | 'teamOneSlug'>>

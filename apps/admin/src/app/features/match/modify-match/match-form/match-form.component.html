@@ -1,16 +1,13 @@
-<mx-form [form]="matchForm">
-  <div class="grid grid-cols-3 gap-4">
-    <div class="flex gap-2">
-      <mx-select
-        label="Game Slug"
-        [control]="matchFormControls.gameSlug"
-        [showErrors]="showErrors"
-        class="flex-grow"
-        [items]="GAMES"
-        #menuSelect
-      >
-      </mx-select>
-    </div>
+<mx-form [form]="matchForm" [zodSchema]="zMatch">
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+    <mx-select
+      label="Game Slug"
+      [control]="matchFormControls.gameSlug"
+      [showErrors]="showErrors"
+      [items]="GAMES"
+      #menuSelect
+    >
+    </mx-select>
     <mx-input
       label="Team One"
       [control]="matchFormControls.teamOne"
@@ -51,25 +48,23 @@
     ></mx-input>
   </div>
 
-  <div class="grid grid-cols gap-4 my-4">
-    <div class="flex gap-2">
-      <mx-file-upload
-        (handleFileChange)="handleTeamOneLogo($event)"
-        label="Team One Logo"
-      />
-      <mx-file-upload
-        (handleFileChange)="handleTeamTwoLogo($event)"
-        label="Team Two Logo"
-      />
-      <mx-file-upload
-        (handleFileChange)="handleH2hTeamImage($event)"
-        label="H2H Team Image"
-      />
-      <mx-file-upload
-        (handleFileChange)="handlePremiumTeamImage($event)"
-        label="Premium Team Image"
-      />
-    </div>
+  <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
+    <mx-file-upload
+      (handleFileChange)="handleTeamOneLogo($event)"
+      label="Team One Logo"
+    />
+    <mx-file-upload
+      (handleFileChange)="handleTeamTwoLogo($event)"
+      label="Team Two Logo"
+    />
+    <mx-file-upload
+      (handleFileChange)="handleH2hTeamImage($event)"
+      label="H2H Team Image"
+    />
+    <mx-file-upload
+      (handleFileChange)="handlePremiumTeamImage($event)"
+      label="Premium Team Image"
+    />
   </div>
   <mx-textarea
     label="Description"
@@ -83,7 +78,7 @@
   />
 </mx-form>
 
-<div class="mt-4 flex gap-2">
+<div class="mt-4 flex flex-col gap-2">
   <div>
     <p>Team One Logo</p>
 

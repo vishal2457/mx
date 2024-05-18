@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { success } from '../../../shared/api-response/response-handler';
 import { ImageUpload } from '../../../shared/middlewares/multer.middleware';
-import { transformMatchBody } from './match.utils';
+import { transformMatchBody } from './match.utils.api';
 import { db } from '../../../db/db';
 import { TB_match } from '../../../../../../libs/mx-schema/src';
 

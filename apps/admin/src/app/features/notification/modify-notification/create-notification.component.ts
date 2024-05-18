@@ -1,28 +1,29 @@
 import {
   AfterViewInit,
   Component,
+  inject,
   OnDestroy,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
-import { MatchFormComponent } from './match-form/match-form.component';
+import { NotificationFormComponent } from './notification-form/notification-form.component';
 
 @Component({
-  selector: 'add-items',
+  selector: 'create-notification',
   template: `<page-header
       header="Add Match"
       (save)="handleSubmit()"
       [loading]="false"
     />
-    <match-form />`,
+    <notification-form />`,
 })
-export class CreateMatchComponent implements AfterViewInit, OnDestroy {
-  @ViewChild(MatchFormComponent) MatchFormComponent!: MatchFormComponent;
+export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
+  @ViewChild(NotificationFormComponent)
+  NotificationFormComponent!: NotificationFormComponent;
 
   api = inject(ApiService);
   notif = inject(MxNotification);
@@ -37,12 +38,12 @@ export class CreateMatchComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.matchForm = this.MatchFormComponent.matchForm;
+    this.matchForm = this.NotificationFormComponent.notificationForm;
   }
 
   handleSubmit() {
     if (this.matchForm.invalid) {
-      this.MatchFormComponent.showErrors = true;
+      this.NotificationFormComponent.showErrors = true;
       return;
     }
     this.addRequests.unsubscribe();

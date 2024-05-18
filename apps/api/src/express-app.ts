@@ -8,7 +8,7 @@ import { logHttpRequests } from './shared/logger/morgan-logger';
 const app = express();
 
 app
-  .use('/static', express.static(path.join(__dirname, '../src/public')))
+  .use('/static', express.static(path.join(__dirname, '../src/assets')))
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .use(compression())

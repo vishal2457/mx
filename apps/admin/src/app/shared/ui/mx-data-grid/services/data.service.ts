@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, combineLatest, map, shareReplay, skip } from "rxjs";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, combineLatest, map, shareReplay, skip } from 'rxjs';
 
 @Injectable()
 export class GridDataService {

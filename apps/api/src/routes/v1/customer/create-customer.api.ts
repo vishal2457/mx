@@ -24,7 +24,7 @@ export default Router().post(
   ah(async (req, res) => {
     const newCustomer = await db.transaction(async (tx) => {
       //add new customer
-      const result = await tx
+      const [customer] = await tx
         .insert(TB_customer)
         .values({ deviceID: req.body.deviceID, device: req.body.device })
         .returning();
@@ -32,8 +32,8 @@ export default Router().post(
       // add fcm token
       await tx
         .insert(TB_customerFcm)
-        .values({ token: req.body.token, customerID: result[0].id });
-      return result;
+        .values({ token: req.body.token, customerID: customer.id });
+      return customer;
     });
     success(res, newCustomer, 'success');
   })

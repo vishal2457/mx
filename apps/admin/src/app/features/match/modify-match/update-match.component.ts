@@ -9,8 +9,7 @@ import {
 import { MatchFormComponent } from './match-form/match-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from 'express';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { SubSink } from '../../../shared/utils/sub-sink';
 import { TMatch } from '../../../../../../../libs/mx-schema/src';
@@ -93,7 +92,7 @@ export class UpdateMatchComponent implements OnInit, AfterViewInit, OnDestroy {
             id: 'update-match',
             type: 'success',
           });
-          this.router.navigate(['/']);
+          this.router.navigate(['/match/list']);
         },
       });
   }

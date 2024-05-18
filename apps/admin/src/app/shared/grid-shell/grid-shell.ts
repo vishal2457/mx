@@ -1,6 +1,7 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
@@ -34,7 +35,7 @@ import { SubSink } from '../utils/sub-sink';
     MxGridToolbarComponent,
     MxFilterPillsComponent,
   ],
-  template: ` <mx-data-grid
+  template: `<mx-data-grid
     [data]="data"
     [loading]="loading"
     [collectionSize]="collectionSize"
@@ -100,7 +101,6 @@ import { SubSink } from '../utils/sub-sink';
       }
     </mx-column>
     }
-
     <!-- Columns -->
 
     <mx-filter-pills toolbarFooter />
@@ -168,7 +168,6 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
       return;
     }
     this.filterService.updateFilters(this.filters);
-
     this.filterService.openFilterPanel();
   }
 
@@ -176,8 +175,8 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
     if (!this.apiURL) {
       return console.error('Please provide a api url');
     }
-    this.loading = true;
     this.requests.unsubscribe();
+    this.loading = true;
     this.requests.sink = this.api
       .getList<any>(this.apiURL, this.buildFilters())
       .subscribe({
@@ -185,6 +184,9 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
           this.loading = false;
           this.collectionSize = data.count;
           this.data = data.rows;
+        },
+        error: () => {
+          this.loading = false;
         },
       });
   }

@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  ViewChild,
-} from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { ApiService } from '../../../shared/services/api.service';
@@ -23,7 +18,6 @@ import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
     <mx-column field="format" />
     <mx-column field="venue" />
     <mx-column field="startTime" />
-
     <!-- columns -->
 
     <!-- Filters -->
@@ -35,9 +29,8 @@ import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
     <mx-action icon="delete" tooltip="Edit" />
     <!-- Action -->
   </mx-grid-shell>`,
-  styleUrl: './match-list.component.scss',
 })
-export class MatchListComponent {
+export class NotificationListComponent {
   @ViewChild(MxGridShellComponent) gridShell!: MxGridShellComponent;
 
   private router = inject(Router);

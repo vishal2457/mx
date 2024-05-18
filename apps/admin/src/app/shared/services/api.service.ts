@@ -31,7 +31,7 @@ export class ApiService {
   constructor(private _http: HttpClient) {}
 
   private makeURL(endpoint: string) {
-    return `${environment.api}${endpoint}`;
+    return `${environment.api}/api/v1${endpoint}`;
   }
 
   get<T>(

@@ -3,7 +3,7 @@ import { ImageUpload } from '../../../../shared/middlewares/multer.middleware';
 import { db } from '../../../../db/db';
 import { success } from '../../../../shared/api-response/response-handler';
 import { safeParse } from '../../../../../../../libs/helpers/src';
-import { transformMatchBody } from '../match.utils';
+import { transformMatchBody } from '../match.utils.api';
 import { TB_match, v_param_id } from '../../../../../../../libs/mx-schema/src';
 import { eq } from 'drizzle-orm';
 import { validate } from '../../../../shared/middlewares/validation.middleware';

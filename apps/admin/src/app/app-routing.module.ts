@@ -17,7 +17,13 @@ const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: '',
+        path: 'match',
+        // canActivate: [authGuard],
+        loadChildren: () =>
+          import('./features/match/match.module').then((m) => m.MatchModule),
+      },
+      {
+        path: 'notification',
         // canActivate: [authGuard],
         loadChildren: () =>
           import('./features/match/match.module').then((m) => m.MatchModule),
