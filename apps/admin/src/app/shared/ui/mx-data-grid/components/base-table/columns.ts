@@ -1,16 +1,17 @@
-import { Component, ContentChild, Input, TemplateRef } from "@angular/core";
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 
 @Component({
-  selector: "mx-column",
+  selector: 'mx-column',
   standalone: true,
-  template: "",
+  template: '',
 })
 export class GridColumnsComponent {
-  @Input() title = "";
-  @Input() field = "";
+  @Input() title = '';
+  @Input() field = '';
   @Input() sortable?: boolean = false;
   @Input() visible?: boolean = true;
-  @Input() alignment?: "center" | "right" | "left" = "center";
-  @ContentChild("head") head?: TemplateRef<any>;
-  @ContentChild("cell") cell?: TemplateRef<any>;
+  @Input() innerHtml?: boolean = false;
+  @Input() alignment?: 'center' | 'right' | 'left' = 'center';
+  @ContentChild('head') head?: TemplateRef<any>;
+  @ContentChild('cell') cell?: TemplateRef<any>;
 }

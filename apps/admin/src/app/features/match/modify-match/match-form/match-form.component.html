@@ -52,29 +52,34 @@
     <mx-file-upload
       (handleFileChange)="handleTeamOneLogo($event)"
       label="Team One Logo"
+      accept="image/png, image/jpeg"
     />
     <mx-file-upload
       (handleFileChange)="handleTeamTwoLogo($event)"
       label="Team Two Logo"
+      accept="image/png, image/jpeg"
     />
     <mx-file-upload
       (handleFileChange)="handleH2hTeamImage($event)"
+      accept="image/png, image/jpeg"
       label="H2H Team Image"
     />
     <mx-file-upload
       (handleFileChange)="handlePremiumTeamImage($event)"
+      accept="image/png, image/jpeg"
       label="Premium Team Image"
     />
   </div>
-  <mx-textarea
+
+  <mx-editor
     label="Description"
     [control]="matchFormControls.description"
     [showErrors]="showErrors"
   />
-  <mx-textarea
-    label="H2H Team"
+  <mx-editor
     [control]="matchFormControls.h2hTeam"
     [showErrors]="showErrors"
+    label="H2H Team"
   />
 </mx-form>
 

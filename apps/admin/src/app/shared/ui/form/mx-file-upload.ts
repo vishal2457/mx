@@ -17,6 +17,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         type="file"
         [multiple]="multiple"
         (change)="internalFileHandler($event)"
+        [accept]="accept"
       />
     </div>
   `,
@@ -27,6 +28,7 @@ export class MxFileUploadComponent {
   @Input() showFileSize = true;
   @Input() multiple = false;
   @Input() label = '';
+  @Input() accept = '*';
 
   internalFileHandler(e: any) {
     if (this.multiple) {

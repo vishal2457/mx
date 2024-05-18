@@ -78,6 +78,7 @@ import { SubSink } from '../utils/sub-sink';
       [sortable]="column.sortable"
       [visible]="column.visible"
       [alignment]="column.alignment"
+      [innerHtml]="column.innerHtml"
     >
       @if (column.head) {
       <ng-container>
