@@ -1,0 +1,20 @@
+<gb-form [form]='roleForm' [zodSchema]='Z_role'>
+  <div class='grid grid-cols-3 gap-4'>
+          <gb-input
+            label='Id'
+            [control]='formControls.id'
+            [showErrors]='showErrors'
+            type='number'
+          />
+          <gb-input
+            label='Name'
+            [control]='formControls.name'
+            [showErrors]='showErrors'
+          />
+          <gb-input
+            label='CreatedAt'
+            [control]='formControls.createdAt'
+            [showErrors]='showErrors'
+          />
+  </div>
+</gb-form>

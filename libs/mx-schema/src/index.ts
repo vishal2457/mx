@@ -2,6 +2,7 @@
 export * from './lib/customer/customer.schema';
 export * from './lib/customer/customer-fcm.schema';
 export * from './lib/user.schema';
+export * from './lib/role.schema';
 export * from './lib/menu.schema';
 export * from './lib/match/match.schema';
 export * from './lib/match/match.schema';

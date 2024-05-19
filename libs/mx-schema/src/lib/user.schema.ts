@@ -1,13 +1,14 @@
 import {
-  pgTable,
-  text,
-  integer,
-  uniqueIndex,
   boolean,
+  pgTable,
   serial,
+  text,
+  timestamp,
+  uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { TMenu } from './menu.schema';
+import { sql } from 'drizzle-orm';
 
 export const TB_user = pgTable(
   'user',
@@ -17,6 +18,8 @@ export const TB_user = pgTable(
     email: text('email').notNull(),
     password: text('password').notNull(),
     active: boolean('active').default(false),
+    createdAt: timestamp('createdAt').notNull().defaultNow(),
+    udpatedAt: timestamp('updatedAt').$onUpdate(() => sql`CURRENT_TIMESTAMP`),
   },
   (adminUser) => ({
     rmailIdx: uniqueIndex('rmailIdx').on(adminUser.email),

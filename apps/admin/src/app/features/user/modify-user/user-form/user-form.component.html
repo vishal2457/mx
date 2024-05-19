@@ -1,0 +1,25 @@
+<gb-form [form]='userForm' [zodSchema]='Z_user'>
+  <div class='grid grid-cols-3 gap-4'>
+          <gb-input
+            label='Id'
+            [control]='formControls.id'
+            [showErrors]='showErrors'
+            type='number'
+          />
+          <gb-input
+            label='Email'
+            [control]='formControls.email'
+            [showErrors]='showErrors'
+          />
+          <gb-input
+            label='Password'
+            [control]='formControls.password'
+            [showErrors]='showErrors'
+          />
+          <gb-input
+            label='CreatedAt'
+            [control]='formControls.createdAt'
+            [showErrors]='showErrors'
+          />
+  </div>
+</gb-form>

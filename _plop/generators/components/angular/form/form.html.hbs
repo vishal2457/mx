@@ -1,0 +1,48 @@
+<gb-form [form]='{{name}}Form' [zodSchema]='{{zodSchema}}'>
+  <div class='grid grid-cols-3 gap-4'>
+    {{#each schemaValue.properties}}
+      {{#unless this.skipForm}}
+        {{#eq this.type 'string'}}
+          <gb-input
+            label='{{properCase @key}}'
+            [control]='formControls.{{@key}}'
+            [showErrors]='showErrors'
+          />
+        {{/eq}}
+        {{#eq this.type 'number'}}
+          <gb-input
+            label='{{properCase @key}}'
+            [control]='formControls.{{@key}}'
+            [showErrors]='showErrors'
+            type='number'
+          />
+        {{/eq}}
+        {{#eq this.type 'date'}}
+          <gb-input
+            label='{{properCase @key}}'
+            [control]='formControls.{{@key}}'
+            [showErrors]='showErrors'
+            type='date'
+          />
+        {{/eq}}
+        {{#eq this.type 'time'}}
+          <gb-input
+            label='{{properCase @key}}'
+            [control]='formControls.{{@key}}'
+            [showErrors]='showErrors'
+            type='time'
+          />
+        {{/eq}}
+      {{/unless}}
+    {{/each}}
+  </div>
+  {{#each schemaValue.properties}}
+    {{#eq this.formType 'textarea'}}
+      <gb-textarea
+        label='{{properCase @key}}'
+        [control]='formControls.{{@key}}'
+        [showErrors]='showErrors'
+      />
+    {{/eq}}
+  {{/each}}
+</gb-form>

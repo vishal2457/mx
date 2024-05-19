@@ -12,6 +12,13 @@ import getAllNotif from './notification/get-all-notif.api';
 import createNotif from './notification/create-notif.api';
 import createCustomer from './customer/create-customer.api';
 import createMenu from './menu/create-menu.api';
+import getRoleList from './role/get-all-roles.api';
+import createRole from './role/create-role.api';
+import deleteRole from './role/id/delete-role.api';
+import updateRole from './role/id/update-role.api';
+import getRole from './role/id/get-role.api';
+
+// IMPORT GENERATED FILES
 
 const routerv1 = Router();
 
@@ -20,6 +27,8 @@ routerv1
   .use('/match', [getAllMatch, getMatch, createMatch, deleteMatch, updateMatch])
   .use('/notification', [getAllNotif, createNotif])
   .use('/customer', [createCustomer])
-  .use('/menu', [createMenu]);
+  .use('/menu', [createMenu])
+  .use('/role', [getRole, getRoleList, createRole, deleteRole, updateRole]);
+// APPEND API ROUTES
 
 export default routerv1;

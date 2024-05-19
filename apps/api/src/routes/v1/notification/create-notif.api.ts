@@ -14,6 +14,9 @@ export default Router().post(
   validate({ body: Z_notification_insert }),
   async (req, res) => {
     const customerTokens = await db.select().from(TB_customerFcm);
+    if (!customerTokens) {
+      return;
+    }
     const tokens = customerTokens.map((c) => c.token);
 
     await sendFirebaseNotification(tokens, { ...req.body });

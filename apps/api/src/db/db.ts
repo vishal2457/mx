@@ -6,6 +6,7 @@ import {
   TB_match,
   TB_menu,
   TB_notification,
+  TB_role,
   TB_user,
 } from '../../../../libs/mx-schema/src';
 import { APP_SETTINGS } from '../shared/app-settings';
@@ -42,5 +43,6 @@ export const db = drizzle(pool, {
     TB_menu,
     TB_match,
     TB_notification,
+    TB_role,
   },
 });

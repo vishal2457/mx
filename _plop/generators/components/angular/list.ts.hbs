@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-{{name}}-list',
+  template: `<mx-grid-shell gridTitle="Customers" apiURL="/{{name}}/list">
+
+      <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
+
+    <!-- columns -->
+      {{#each schemaValue.properties}}
+      <mx-column field="{{@key}}" alignment="left" />
+      {{/each}}
+    <!-- columns -->
+
+    <!-- filters -->
+    {{#each schemaValue.properties}}
+      <mx-grid-filter label="{{properCase @key}}" field="{{@key}}"  />
+    {{/each}}
+    <!-- filters -->
+
+    <!-- actions -->
+      <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
+    <!-- actions -->
+  </mx-grid-shell>`,
+})
+export class {{properCase name}}ListComponent {
+
+  add() {
+    this.router.navigate(['/{{name}}/create']);
+  }
+
+  edit(e: any) {
+    this.router.navigate(['/{{name}}/update/' + e.cellData.id]);
+  }
+}

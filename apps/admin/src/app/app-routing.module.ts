@@ -18,19 +18,37 @@ const routes: Routes = [
     children: [
       {
         path: 'match',
-        // canActivate: [authGuard],
+        canActivate: [authGuard],
         loadChildren: () =>
           import('./features/match/match.module').then((m) => m.MatchModule),
       },
       {
         path: 'notification',
-        // canActivate: [authGuard],
+        canActivate: [authGuard],
         loadChildren: () =>
           import('./features/notification/notification.module').then(
             (m) => m.NotificationModule
           ),
       },
-      // APPEND ANGULAR ROUTES
+            {
+        path: "role",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/role/role.module").then(
+            (m) => m.RoleModule
+          ),
+      },
+      {
+        path: "user",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/user/user.module").then(
+            (m) => m.UserModule
+          ),
+      },
+// APPEND ANGULAR ROUTES
+
+
     ],
   },
 ];

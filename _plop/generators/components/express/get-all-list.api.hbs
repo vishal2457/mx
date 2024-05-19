@@ -5,10 +5,11 @@ import { db } from '../../../db/db';
 import { validate } from '../../../shared/middlewares/validation.middleware';
 import {
   c_pagination,
-  TB_user,
   v_pagination,
+  {{dbSchema}}
 } from '../../../../../../libs/mx-schema/src';
 import { getTotalCount } from '../../../db/utils-db/count-rows';
+
 
 export default Router().get(
   '/list',
@@ -18,8 +19,10 @@ export default Router().get(
       limit: req.query.limit,
       page: req.query.page,
     });
-    const count = await getTotalCount(TB_user);
-    const users = await db.query.TB_user.findMany({ limit, offset });
-    success(res, { rows: users, count }, 'success');
+
+    const count = await getTotalCount({{dbSchema}});
+
+    const rows = await db.query.{{dbSchema}}.findMany({ limit, offset });
+    success(res, {rows, count}, 'success');
   })
 );

@@ -1,0 +1,66 @@
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  ViewChild,
+  inject,
+} from '@angular/core';
+import { {{properCase name}}FormComponent } from './{{name}}-form/{{name}}-form.component';
+import { ApiService } from '../../../shared/services/api.service';
+import { MxNotification } from '../../../shared/ui/notification/notification.service';
+import { FormGroup } from '@angular/forms';
+import { SubSink } from '../../../shared/utils/sub-sink';
+
+@Component({
+  selector: 'add-{{name}}',
+  template: `<page-header
+      header="Add {{properCase name}}"
+      (save)="handleSubmit()"
+      [loading]="false"
+    />
+    <{{name}}-form />`,
+})
+export class Create{{properCase name}}Component implements AfterViewInit, OnDestroy {
+  @ViewChild({{properCase name}}FormComponent) {{properCase name}}FormComponent!: {{properCase name}}FormComponent;
+
+  api = inject(ApiService);
+  notif = inject(MxNotification);
+
+  {{name}}Form!: FormGroup;
+  private addRequests = new SubSink();
+
+  ngOnDestroy(): void {
+    this.addRequests.unsubscribe();
+    this.notif.closeAll();
+  }
+
+  ngAfterViewInit(): void {
+    this.{{name}}Form = this.{{properCase name}}FormComponent.{{name}}Form;
+  }
+
+  handleSubmit() {
+    if (this.{{name}}Form.invalid) {
+      this.{{properCase name}}FormComponent.showErrors = true;
+      return;
+    }
+    this.addRequests.unsubscribe();
+    this.notif.show({
+      text: 'Adding {{properCase name}}',
+      id: 'add-{{name}}',
+      type: 'loading',
+    });
+
+    this.addRequests.sink = this.api
+      .post('/{{name}}', this.{{name}}Form.value)
+      .subscribe({
+        next: () => {
+          this.{{name}}Form.reset();
+          this.notif.updateToast({
+            text: '{{properCase name}} added',
+            id: 'add-{{name}}',
+            type: 'success',
+          });
+        },
+      });
+  }
+}
