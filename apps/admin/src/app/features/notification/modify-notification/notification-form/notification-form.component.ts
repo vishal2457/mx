@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'notification-form',
@@ -8,10 +8,17 @@ import { FormBuilder } from '@angular/forms';
 export class NotificationFormComponent {
   private fb = inject(FormBuilder);
 
-  notificationForm = this.fb.nonNullable.group({});
+  notificationForm = this.fb.nonNullable.group({
+    title: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    body: new FormControl('', {
+      validators: [Validators.required],
+    }),
+  });
   showErrors = false;
 
-  get matchFormControls() {
+  get notificationFormControls() {
     return this.notificationForm.controls;
   }
 }

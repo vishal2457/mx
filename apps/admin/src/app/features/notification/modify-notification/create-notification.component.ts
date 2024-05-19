@@ -15,7 +15,7 @@ import { NotificationFormComponent } from './notification-form/notification-form
 @Component({
   selector: 'create-notification',
   template: `<page-header
-      header="Add Match"
+      header="Add Notification"
       (save)="handleSubmit()"
       [loading]="false"
     />
@@ -29,7 +29,7 @@ export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
   notif = inject(MxNotification);
   router = inject(Router);
 
-  matchForm!: FormGroup;
+  notificationForm!: FormGroup;
   private addRequests = new SubSink();
 
   ngOnDestroy(): void {
@@ -38,11 +38,11 @@ export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.matchForm = this.NotificationFormComponent.notificationForm;
+    this.notificationForm = this.NotificationFormComponent.notificationForm;
   }
 
   handleSubmit() {
-    if (this.matchForm.invalid) {
+    if (this.notificationForm.invalid) {
       this.NotificationFormComponent.showErrors = true;
       return;
     }
@@ -54,13 +54,13 @@ export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
     });
 
     const formData = new FormData();
-    for (const key in this.matchForm.controls) {
-      formData.append(key, this.matchForm.value[key]);
+    for (const key in this.notificationForm.controls) {
+      formData.append(key, this.notificationForm.value[key]);
     }
 
     this.addRequests.sink = this.api.post('/match/create', formData).subscribe({
       next: () => {
-        this.matchForm.reset();
+        this.notificationForm.reset();
         this.router.navigate(['/match/list']);
         this.notif.updateToast({
           text: 'Match added',

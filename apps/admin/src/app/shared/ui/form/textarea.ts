@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormControlPipe } from '../../pipe/form-control';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { MxHintComponent } from '../hint';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'mx-textarea',
@@ -16,6 +17,7 @@ import { MxHintComponent } from '../hint';
     NgIf,
     MxHintComponent,
     NgFor,
+    TextFieldModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -29,6 +31,9 @@ import { MxHintComponent } from '../hint';
         <span class="text-red-600" *ngIf="required">*</span>
       </label>
       <textarea
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="10"
         [formControl]="control | formControl"
         [placeholder]="placeholder"
         class="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"

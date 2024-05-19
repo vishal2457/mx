@@ -26,7 +26,9 @@ const routes: Routes = [
         path: 'notification',
         // canActivate: [authGuard],
         loadChildren: () =>
-          import('./features/match/match.module').then((m) => m.MatchModule),
+          import('./features/notification/notification.module').then(
+            (m) => m.NotificationModule
+          ),
       },
       // APPEND ANGULAR ROUTES
     ],
