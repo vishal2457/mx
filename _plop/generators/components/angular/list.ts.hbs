@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-{{name}}-list',
-  template: `<mx-grid-shell gridTitle="Customers" apiURL="/{{name}}/list">
+  template: `<mx-grid-shell gridTitle="{{properCase name}}s" apiURL="/{{name}}/list">
 
       <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
 

@@ -6,9 +6,9 @@ export const TB_menu = pgTable('menu', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   icon: text('icon').notNull(),
+  link: text('link').notNull(),
   active: boolean('active').default(true),
   parent: integer('parent'),
-  link: text('link').notNull(),
 });
 
 export const Z_menu_insert = createInsertSchema(TB_menu);
