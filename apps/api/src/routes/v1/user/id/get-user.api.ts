@@ -10,10 +10,9 @@ export default Router().get(
   '/:id',
   validate({ params: v_param_id }),
   ah(async (req, res) => {
-    const result = await db
-      .select()
-      .from(TB_user)
-      .where(eq(TB_user.id, req.params.id));
+    const result = await db.query.TB_user.findFirst({
+      where: eq(TB_user.id, req.params.id),
+    });
     success(res, result, 'Deleted successfully');
   })
 );

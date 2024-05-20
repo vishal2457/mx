@@ -8,7 +8,7 @@ const stream = {
   write: (message: string) => {
     const [method, url, status, _, responseTimeInMs] = message.split(' ');
     const msg = `${method} ${url} ${status} - ${responseTimeInMs} ms`;
-    if (parseInt(responseTimeInMs) > 0.1) {
+    if (parseInt(responseTimeInMs) > 100) {
       logger.http(`${msg}`, { critical: true });
     }
     logger.http(msg);

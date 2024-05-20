@@ -6,10 +6,14 @@ import {
   TB_match,
   TB_menu,
   TB_notification,
+  TB_role,
+  TB_test,
   TB_user,
 } from '../../../../libs/mx-schema/src';
 import { APP_SETTINGS } from '../shared/app-settings';
 import { logger } from '../shared/logger/logger';
+import { seedMenu } from './seed/menu';
+import { hashPassword } from '../shared/password-hash';
 
 // or
 const pool = new Pool({
@@ -42,5 +46,17 @@ export const db = drizzle(pool, {
     TB_menu,
     TB_match,
     TB_notification,
+    TB_role,
+    TB_test,
   },
 });
+
+async function seed() {
+  await db.delete(TB_menu);
+  await db.insert(TB_menu).values(seedMenu);
+  await db.delete(TB_user);
+  await db
+    .insert(TB_user)
+    .values([{ email: 'test@test.com', password: hashPassword('123') }]);
+}
+// seed();

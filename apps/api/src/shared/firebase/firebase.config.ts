@@ -1,16 +1,16 @@
 export const FirebaseConfig = {
   type: 'service_account',
-  project_id: 'tashannapp-df7c3',
-  private_key_id: 'aa7ed8acecd24fb403856f738c5f6b951352b999',
+  project_id: 'funfantasy-2ae24',
+  private_key_id: '6cc9f40ad731eeb58f954f32c8d082923b30eaf2',
   private_key:
-    '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/iUmlL/UalYhw\n8NklLQOBN/KhNC3/Y0xgFCdKpN9FyN8PvPZWpFomtTWArO0dwUFLlMKx2FB8QvIZ\nXtxTWgcKqJpA8X4jxpirn35DPlqIWgsQRBjKCl9aNzCnaOjjpKQZ0c2qCmoGE1NX\ney5j2VlJRwCBlccPPu+nHpZPwNXwvTCpHZHm1jZ18MKkjaRQ0OwsVUqW0UkDQ14I\n2TjiYnKA+6ca8J1YI8qw8t+KOCQd6BMGVraGZuSLwcL31aVn4F8kfQzWSJ8T9Qzu\nEEmR+5Je28jBeSkrGB0ZP2eCQe5vaKe8t7cTA9Oy6wYZh4mXQEsqFJx+Rt7J3BKm\nMgYSCEeDAgMBAAECggEAGNGFRW5NaEBwCZJr0LFgfuHtAo5sV2dagiiaXsW2WKiK\nntNxaBCrzdA1OpMttmlQOKbyA3FwHGngTQFJs1M7DlqCgl/IZIJbTgHArp3pxTlF\nrbnlLGjjqiD0oPyrELRIvz+8Uog+7MKcTf2cKTwEocYdfq0VuhgBnboM6BCoqCTi\nKXGxghQEKR2B2Doh21faQ3dHTcl+m8M5kIGos6akc8tbgfG/PwkB4ykiH8/uMB8k\n6JZmgc98aWILXRAXMC9JScg6bpUfPbEn/mdhPg6NQwE14OnHcZLeUDd84k0w+855\nhOqLJdu9u4jkO9rpFUt11bo+B8V1v4jRd0dGGn1TwQKBgQDqvpS7+1IGuu9ulM1m\nW5biWQOYcaioSBVZlJm7bhk1KjALZ6AVAdTNTVgCPxI0gYrMBPQ8agHKDYu7oKTp\nS7dZEQwI/z0FnxxIPD2oHO24s7xooHwbW+pnXwjuhYGMn1CWqBedaPkhW37RcwFj\n/PGE5tzWFSPDXn34vmJz/9146wKBgQDQ4SIhK9y/jZ2EH06WyK396H7U11uffMhT\nNB7lW7TrBvlzgbd5uQ8sSo2Pur9CNZYpeGwHynVQuspx9r1UCaLjzEBK5l94kp55\ntF+5h98VjUOGK155oYcvyTtDRgEJZQgcEnP27IRg2TZuoQDAqu6TGV90WlIWzqbI\ngiLaP2dFyQKBgQDOLsT+87jRVoIVE7fxjsLRXrPswvALlvzBqOb6nLKhYsO+UK9n\npCsghC2oE3PPEHUzy6omIkoeCZXRIEGY9Ds/jNyQTndvp5g0zkyti3M1hxEWqNc5\nRJt3Xh6/Oh5WwFwNZ+kOBnTD2tRh7WysQTB1tj0EAJ9f63Aj+j0JfBQwLwKBgF4z\naiTzlxZ8U3FmfRbbYjyEQc7TYOrIZ7++XcCqXykveAhzk789im47ISSU3/SIHjSN\nrorE76t80hgbYr8nqWJ6lvQweRXzaa0Rf6o4cI9TqgQ0QuMvybvvUN7CD22hNssS\nN2JAwGK9EyNJUQGTFQ0aAEaFBUhr4iPDLNyog3ahAoGBAMCIPrMBoUX809g5j4pb\n7i48Q0MdAa8lmeGyfzFnyX58alkgEoKQEhgHHi+5SorNWv8Sa1SFKp1pCk/gTcXg\nojxaDwLCkdoMLELsmvRKu+2s9Xmx8Qa/RW1VoJ7Liie5Ucs72qavV7doDD4b06rL\n+U/FhOaI9oqIVauRh1tFI3MT\n-----END PRIVATE KEY-----\n',
+    '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCi9eGx5ce+hf5V\norI4/k0Fl/3AnUyenWQH1rQaX+sKLA6rTfTUzqdZG4OjkjZAJB/HxcQqlxWV1ND8\ncgv2+KkF2ffkVjpqfjBzcSVZ8jM1dHsjZpcXoWesPO6XlHXAVLCyzmXgqwTVe4Ph\n7rEJvOFukZkaJVLYjJLtaY2JRE904RkkJFa5JfMkIgpXhcLYXk9hQbQ0tF3Z3G1w\n5Qr/qbgLIxg79G174LMr4X0tI/Y6IPxoEtj+6hfTFNNwKN0Ce5XsD9vSw1QTFw4u\n2thkX1Xo63Ww9qim2xAHdcDBnysmKnfthT/cZM9LXmXHq/IzUxoaga5/229fsdg1\nQ6H6lj85AgMBAAECggEAF2u1S0cWBRjm69HdQXmzAinNC4DQAT/nn4TJD71XX3fj\nh9VFacxlmtXsfnbGG0PV2XVf8ysRrB4RBycw9wbX7AJesU9/R8zpE75gOuQnXfhm\ntjjJYFkPOF7tf5WTste5KYmmdLq/kBsXYkJW6WpfD/AXC/3vQTY666ou8FqD/O0e\nNNYeEpY3A/GOKMQdAtTSzL1PnojUFuL03M3/Rw3Ssj4eKw+RekTZa5Ns52QGbgyN\nDaipcJ/ltUNUpfxd8z4YxXsEmamy4+9ZIb9Sp5QZudOTp3UROsqlZ3tHvC0N2XxA\nItLlDz1iRpCNG7FoFeSXbQh06C4bfuyJ8CTkb67NcQKBgQDdRQnuwxhv9KiM5i0O\nLO1HV6F1YgMaT1i7AHi/0AbOFty7DxOyJjNfXfhSzrern3bK0I6WE/X8ZLWBFeNI\nfRya+vB3e7ikshSqXRORB/oiWJkioVHlHcgpDSkJA8P2Fp1Mflbv4w0i3bzZegVw\nxGOC/6x8nhmS8GXO9rRQPqT13QKBgQC8ieNKEnlsn1r+BLRHOI9Ym7zh5t/U9QA9\nDyAprD/2J+Sd4kdDj49GlW/TLup2MorMj7lW6fBR+aoKGhn8kr3qnmUolPKW35Nx\naAoS9lgsopPlAxE3iioUqY8jOPu9bkuK263XBff9NLkDNIzTzhlGOuFRgEPy9yMi\no2YgjTAfDQKBgHqYYNt4HtcQ8D443efHvqPTirK13lA6fEgIB98GzG5tPlkqDlib\nT8VcFFUVEbC2RqQyj33Zi2YPCn19+hLUtv+rX4Zj9zbRMCAAN/IYQF+9RQNp7C0M\npjUQhJbpDi8P8pFKQrLg0wtpXdQFBnSnaxdOv2vAUR0XsuDL0bXQL6fFAoGBAKWe\ncv0EkYmryqDNvRe7RaDO3fOLfiByQA1jFhvFZkJz9M4Ekhl1KKUWbK8UzX2bFHZx\n4pvI0QURzh8loqJOvWo2TiKCBUAnkjvS6taRdA9xmX1ZXmxtgF26PTTxv6I+GzoV\nk/YJFjllcQixxuvgZi9dVcTkacwq8MBizTnXDOiZAoGAUTr5YiGQ3RhxLswZcqzP\npZMv/qctHRa1UhSgkNln/REJjvyg/nZdQXsnxLJI0nMWfbd9X78+qBy5HYwrP672\nSJ/sL/AJkpjOgL6BUfdelpt5E+TKXJCF6Y8XEvS40AXVe5Aqf1mzE6In2gEtZhuF\nbkkXXmThiqgH79Aj/KILiNg=\n-----END PRIVATE KEY-----\n',
   client_email:
-    'firebase-adminsdk-1xyui@tashannapp-df7c3.iam.gserviceaccount.com',
-  client_id: '111644485012921271855',
+    'firebase-adminsdk-anbt6@funfantasy-2ae24.iam.gserviceaccount.com',
+  client_id: '106908946891718430367',
   auth_uri: 'https://accounts.google.com/o/oauth2/auth',
   token_uri: 'https://oauth2.googleapis.com/token',
   auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
   client_x509_cert_url:
-    'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-1xyui%40tashannapp-df7c3.iam.gserviceaccount.com',
+    'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-anbt6%40funfantasy-2ae24.iam.gserviceaccount.com',
   universe_domain: 'googleapis.com',
 };

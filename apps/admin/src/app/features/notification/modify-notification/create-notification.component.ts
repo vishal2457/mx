@@ -48,26 +48,23 @@ export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
     }
     this.addRequests.unsubscribe();
     this.notif.show({
-      text: 'Adding Match',
-      id: 'add-match',
+      text: 'Adding notification',
+      id: 'add-notification',
       type: 'loading',
     });
 
-    const formData = new FormData();
-    for (const key in this.notificationForm.controls) {
-      formData.append(key, this.notificationForm.value[key]);
-    }
-
-    this.addRequests.sink = this.api.post('/match/create', formData).subscribe({
-      next: () => {
-        this.notificationForm.reset();
-        this.router.navigate(['/match/list']);
-        this.notif.updateToast({
-          text: 'Match added',
-          id: 'add-match',
-          type: 'success',
-        });
-      },
-    });
+    this.addRequests.sink = this.api
+      .post('/notification/create', this.notificationForm.value)
+      .subscribe({
+        next: () => {
+          this.notificationForm.reset();
+          this.router.navigate(['/notification/list']);
+          this.notif.updateToast({
+            text: 'notification added',
+            id: 'add-notification',
+            type: 'success',
+          });
+        },
+      });
   }
 }
