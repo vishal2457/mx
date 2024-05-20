@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { UserFormComponent } from './user-form/user-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
@@ -16,20 +23,21 @@ import { TUser } from '../../../../../../../libs/mx-schema/src';
     />
     <user-form />`,
 })
-export class UpdateUserComponent implements OnInit, AfterViewInit {
+export class UpdateUserComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(UserFormComponent) userFormComponent!: UserFormComponent;
 
   private api = inject(ApiService);
   private notif = inject(MxNotification);
   private route = inject(ActivatedRoute);
-  private router = inject(Router)
+  private router = inject(Router);
 
   userID!: string;
   userForm!: FormGroup;
+  private requests = new SubSink();
 
   ngOnInit(): void {
     this.userID = this.route.snapshot.params['id'];
-    this.fetchUserDetails( this.userID)
+    this.fetchUserDetails(this.userID);
   }
 
   ngAfterViewInit(): void {
@@ -42,11 +50,11 @@ export class UpdateUserComponent implements OnInit, AfterViewInit {
 
   private fetchUserDetails(id: string) {
     this.api.get<TUser>(`/user/${id}`).subscribe(({ data }) => {
-       this.userForm.patchValue(data);
+      this.userForm.patchValue(data);
     });
   }
 
-    handleSubmit() {
+  handleSubmit() {
     if (this.userForm.invalid) {
       this.userFormComponent.showErrors = true;
       return;
@@ -71,5 +79,4 @@ export class UpdateUserComponent implements OnInit, AfterViewInit {
         },
       });
   }
-
 }

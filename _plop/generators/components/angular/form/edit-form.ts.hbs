@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { {{properCase name}}FormComponent } from './{{name}}-form/{{name}}-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
@@ -16,7 +23,7 @@ import { T{{properCase name}} } from '../../../../../../../libs/mx-schema/src';
     />
     <{{name}}-form />`,
 })
-export class Update{{properCase name}}Component implements OnInit, AfterViewInit {
+export class Update{{properCase name}}Component implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild({{properCase name}}FormComponent) {{name}}FormComponent!: {{properCase name}}FormComponent;
 
   private api = inject(ApiService);
@@ -26,6 +33,7 @@ export class Update{{properCase name}}Component implements OnInit, AfterViewInit
 
   {{name}}ID!: string;
   {{name}}Form!: FormGroup;
+  private requests = new SubSink()
 
   ngOnInit(): void {
     this.{{name}}ID = this.route.snapshot.params['id'];

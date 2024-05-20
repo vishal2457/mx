@@ -17,6 +17,7 @@ import { MxFormComponent } from '../../shared/ui/form/mx-form';
 import { MxGridFilterComponent } from '../../shared/grid-shell/filters/components/grid-filter';
 import { CreateUserComponent } from './modify-user/create-user.component';
 import { UpdateUserComponent } from './modify-user/update-user.component';
+import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { UpdateUserComponent } from './modify-user/update-user.component';
     MxActionComponent,
     MxFormComponent,
     MxGridFilterComponent,
+    UserRoutingModule,
   ],
 })
 export class UserModule {}

@@ -5,22 +5,22 @@ import { db } from '../../../../db/db';
 import { eq } from 'drizzle-orm';
 import { validate } from '../../../../shared/middlewares/validation.middleware';
 import {
-  {{dbSchema}},
+  TB_test,
   v_param_id,
-  {{zodSchema}}_insert,
+  Z_test_insert,
 } from '../../../../../../../libs/mx-schema/src';
 
 export default Router().post(
   '/update/:id',
   validate({
-    body: {{zodSchema}}_insert,
+    body: Z_test_insert,
     params: v_param_id,
   }),
   ah(async (req, res) => {
     const result = await db
-      .update({{dbSchema}})
+      .update(TB_test)
       .set(req.body)
-      .where(eq({{dbSchema}}.id, req.params.id))
+      .where(eq(TB_test.id, req.params.id))
       .returning();
 
     success(res, result, 'updated');

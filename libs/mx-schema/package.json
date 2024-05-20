@@ -5,7 +5,7 @@
     "drizzle-orm": "^0.30.10",
     "drizzle-zod": "^0.5.1",
     "zod": "^3.23.6",
-    "drizzle-kit": "^0.20.17"
+    "drizzle-kit": "^0.21.2"
   },
   "type": "commonjs",
   "main": "./index.cjs",

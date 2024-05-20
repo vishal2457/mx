@@ -1,16 +1,16 @@
-<gb-form [form]='{{name}}Form' [zodSchema]='{{zodSchema}}'>
+<mx-form [form]='{{name}}Form' [zodSchema]='{{zodSchema}}'>
   <div class='grid grid-cols-3 gap-4'>
     {{#each schemaValue.properties}}
       {{#unless this.skipForm}}
         {{#eq this.type 'string'}}
-          <gb-input
+          <mx-input
             label='{{properCase @key}}'
             [control]='formControls.{{@key}}'
             [showErrors]='showErrors'
           />
         {{/eq}}
         {{#eq this.type 'number'}}
-          <gb-input
+          <mx-input
             label='{{properCase @key}}'
             [control]='formControls.{{@key}}'
             [showErrors]='showErrors'
@@ -18,7 +18,7 @@
           />
         {{/eq}}
         {{#eq this.type 'date'}}
-          <gb-input
+          <mx-input
             label='{{properCase @key}}'
             [control]='formControls.{{@key}}'
             [showErrors]='showErrors'
@@ -26,7 +26,7 @@
           />
         {{/eq}}
         {{#eq this.type 'time'}}
-          <gb-input
+          <mx-input
             label='{{properCase @key}}'
             [control]='formControls.{{@key}}'
             [showErrors]='showErrors'
@@ -38,11 +38,11 @@
   </div>
   {{#each schemaValue.properties}}
     {{#eq this.formType 'textarea'}}
-      <gb-textarea
+      <mx-textarea
         label='{{properCase @key}}'
         [control]='formControls.{{@key}}'
         [showErrors]='showErrors'
       />
     {{/eq}}
   {{/each}}
-</gb-form>
+</mx-form>

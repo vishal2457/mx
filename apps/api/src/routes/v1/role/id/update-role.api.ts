@@ -13,7 +13,7 @@ import {
 export default Router().post(
   '/update/:id',
   validate({
-    body: Z_role_insert.omit({ password: true, id: true }),
+    body: Z_role_insert,
     params: v_param_id,
   }),
   ah(async (req, res) => {

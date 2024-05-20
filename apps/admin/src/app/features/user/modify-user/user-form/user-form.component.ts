@@ -1,7 +1,9 @@
-import { Component, ViewChild, inject } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Z_user } from '../../../../../../../../libs/mx-schema/src';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { TUser, Z_user } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
+
+type UserForm = Omit<TUser, 'id' | 'createdAt' | 'updatedAt'>;
 
 @Component({
   selector: 'user-form',
@@ -13,11 +15,7 @@ export class UserFormComponent {
 
   private fb = inject(FormBuilder);
 
-  userForm = this.fb.nonNullable.group<ControlsOf<any>>({
-    id: new FormControl(null, {
-      validators: [],
-      nonNullable: true,
-    }),
+  userForm = this.fb.nonNullable.group<ControlsOf<UserForm>>({
     name: new FormControl(null, {
       validators: [],
       nonNullable: true,
@@ -31,14 +29,6 @@ export class UserFormComponent {
       nonNullable: true,
     }),
     active: new FormControl(null, {
-      validators: [],
-      nonNullable: true,
-    }),
-    createdAt: new FormControl(null, {
-      validators: [],
-      nonNullable: true,
-    }),
-    udpatedAt: new FormControl(null, {
       validators: [],
       nonNullable: true,
     }),

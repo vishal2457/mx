@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { RoleFormComponent } from './role-form/role-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
@@ -16,20 +23,21 @@ import { TRole } from '../../../../../../../libs/mx-schema/src';
     />
     <role-form />`,
 })
-export class UpdateRoleComponent implements OnInit, AfterViewInit {
+export class UpdateRoleComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(RoleFormComponent) roleFormComponent!: RoleFormComponent;
 
   private api = inject(ApiService);
   private notif = inject(MxNotification);
   private route = inject(ActivatedRoute);
-  private router = inject(Router)
+  private router = inject(Router);
 
   roleID!: string;
   roleForm!: FormGroup;
+  private requests = new SubSink();
 
   ngOnInit(): void {
     this.roleID = this.route.snapshot.params['id'];
-    this.fetchRoleDetails( this.roleID)
+    this.fetchRoleDetails(this.roleID);
   }
 
   ngAfterViewInit(): void {
@@ -42,11 +50,11 @@ export class UpdateRoleComponent implements OnInit, AfterViewInit {
 
   private fetchRoleDetails(id: string) {
     this.api.get<TRole>(`/role/${id}`).subscribe(({ data }) => {
-       this.roleForm.patchValue(data);
+      this.roleForm.patchValue(data);
     });
   }
 
-    handleSubmit() {
+  handleSubmit() {
     if (this.roleForm.invalid) {
       this.roleFormComponent.showErrors = true;
       return;
@@ -71,5 +79,4 @@ export class UpdateRoleComponent implements OnInit, AfterViewInit {
         },
       });
   }
-
 }

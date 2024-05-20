@@ -16,6 +16,7 @@ import { GridColumnsComponent } from '../../shared/ui/mx-data-grid/components/ba
 import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
 import { MxFormComponent } from '../../shared/ui/form/mx-form';
 import { MxGridFilterComponent } from '../../shared/grid-shell/filters/components/grid-filter';
+import { RoleRoutingModule } from './role-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { MxGridFilterComponent } from '../../shared/grid-shell/filters/component
     UpdateRoleComponent,
   ],
   imports: [
+    RoleRoutingModule,
     CommonModule,
     ReactiveFormsModule,
     PageHeaderComponent,

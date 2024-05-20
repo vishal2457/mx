@@ -1,37 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
   template: `<mx-grid-shell gridTitle="Customers" apiURL="/user/list">
-
-      <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
+    <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
 
     <!-- columns -->
-      <mx-column field="id" alignment="left" />
-      <mx-column field="name" alignment="left" />
-      <mx-column field="email" alignment="left" />
-      <mx-column field="password" alignment="left" />
-      <mx-column field="active" alignment="left" />
-      <mx-column field="createdAt" alignment="left" />
-      <mx-column field="udpatedAt" alignment="left" />
+    <mx-column field="id" alignment="left" />
+    <mx-column field="name" alignment="left" />
+    <mx-column field="email" alignment="left" />
+    <mx-column field="active" alignment="left" />
     <!-- columns -->
 
     <!-- filters -->
-      <mx-grid-filter label="Id" field="id"  />
-      <mx-grid-filter label="Name" field="name"  />
-      <mx-grid-filter label="Email" field="email"  />
-      <mx-grid-filter label="Password" field="password"  />
-      <mx-grid-filter label="Active" field="active"  />
-      <mx-grid-filter label="CreatedAt" field="createdAt"  />
-      <mx-grid-filter label="UdpatedAt" field="udpatedAt"  />
+    <mx-grid-filter label="Id" field="id" />
+    <mx-grid-filter label="Name" field="name" />
+    <mx-grid-filter label="Email" field="email" />
     <!-- filters -->
 
     <!-- actions -->
-      <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
+    <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
     <!-- actions -->
   </mx-grid-shell>`,
 })
 export class UserListComponent {
+  private router = inject(Router);
 
   add() {
     this.router.navigate(['/user/create']);

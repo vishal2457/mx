@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-{{name}}-list',
@@ -24,6 +25,7 @@ import { Component } from '@angular/core';
   </mx-grid-shell>`,
 })
 export class {{properCase name}}ListComponent {
+  private router = inject(Router);
 
   add() {
     this.router.navigate(['/{{name}}/create']);

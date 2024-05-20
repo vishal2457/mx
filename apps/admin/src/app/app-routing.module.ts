@@ -30,23 +30,62 @@ const routes: Routes = [
             (m) => m.NotificationModule
           ),
       },
-            {
-        path: "role",
+      {
+        path: 'role',
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/role/role.module").then(
-            (m) => m.RoleModule
+          import('./features/role/role.module').then((m) => m.RoleModule),
+      },
+      {
+        path: 'user',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('./features/user/user.module').then((m) => m.UserModule),
+      },
+            {
+        path: "test",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/test/test.module").then(
+            (m) => m.TestModule
           ),
       },
       {
-        path: "user",
+        path: "test",
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/user/user.module").then(
-            (m) => m.UserModule
+          import("./features/test/test.module").then(
+            (m) => m.TestModule
+          ),
+      },
+      {
+        path: "test",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/test/test.module").then(
+            (m) => m.TestModule
+          ),
+      },
+      {
+        path: "test",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/test/test.module").then(
+            (m) => m.TestModule
+          ),
+      },
+      {
+        path: "test",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/test/test.module").then(
+            (m) => m.TestModule
           ),
       },
 // APPEND ANGULAR ROUTES
+
+
+
 
 
     ],

@@ -17,18 +17,27 @@ import createRole from './role/create-role.api';
 import deleteRole from './role/id/delete-role.api';
 import updateRole from './role/id/update-role.api';
 import getRole from './role/id/get-role.api';
+import getUserApi from './user/id/get-user.api';
+
+import getTestList from './test/get-all-tests.api';
+import createTest from './test/create-test.api';
+import deleteTest from './test/id/delete-test.api';
+import updateTest from './test/id/update-test.api';
+import getTest from './test/id/get-test.api';
 
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
 
 routerv1
-  .use('/user', [getUserList, createuser, deleteuser, loginuser])
+  .use('/user', [getUserList, createuser, deleteuser, loginuser, getUserApi])
   .use('/match', [getAllMatch, getMatch, createMatch, deleteMatch, updateMatch])
   .use('/notification', [getAllNotif, createNotif])
   .use('/customer', [createCustomer])
   .use('/menu', [createMenu])
-  .use('/role', [getRole, getRoleList, createRole, deleteRole, updateRole]);
+  .use('/role', [getRoleList, getRole, createRole, deleteRole, updateRole])
+  .use('/test', [getTest, getTestList, createTest, deleteTest, updateTest]);
+
 // APPEND API ROUTES
 
 export default routerv1;
