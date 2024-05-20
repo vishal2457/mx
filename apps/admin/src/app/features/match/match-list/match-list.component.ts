@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
+import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'mx-match-list',
@@ -26,7 +27,12 @@ import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
     <!-- columns -->
 
     <!-- Filters -->
-    <mx-grid-filter field="gameSlug" label="Game Slug" type="select" />
+    <mx-grid-filter
+      field="gameSlug"
+      label="Game Slug"
+      type="select"
+      [items]="games"
+    />
     <!-- Filters -->
 
     <!-- Action -->
@@ -42,6 +48,9 @@ export class MatchListComponent {
   private router = inject(Router);
   private api = inject(ApiService);
   private notif = inject(MxNotification);
+
+  games = Array.from(GAME_SLUG);
+
   create() {
     this.router.navigate(['/match/add']);
   }

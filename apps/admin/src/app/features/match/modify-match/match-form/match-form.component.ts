@@ -1,7 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
-import { TMatch, Z_match } from '../../../../../../../../libs/mx-schema/src';
+import {
+  GAME_SLUG,
+  TMatch,
+  Z_match,
+} from '../../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'match-form',
@@ -11,7 +15,7 @@ export class MatchFormComponent {
   private fb = inject(FormBuilder);
 
   showErrors = false;
-  GAMES = Array.from([]);
+  GAMES = Array.from(GAME_SLUG);
   previousFilenames: any = {};
   zMatch = Z_match;
 

@@ -2,6 +2,9 @@ import { pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
+export const GAME_SLUG = ['cricket', 'football'] as const;
+export const gameSlugEnum = pgEnum('gameSlug', GAME_SLUG);
+
 export const MATCH_STATUS = [
   'completed',
   'in-progress',
@@ -12,7 +15,7 @@ export const statusEnum = pgEnum('status', MATCH_STATUS);
 
 export const TB_match = pgTable('match', {
   id: serial('id').primaryKey(),
-  gameSlug: text('gameSlug').notNull(),
+  gameSlug: gameSlugEnum('gameSlug').default('cricket'),
   teamOne: text('teamOne').notNull(),
   teamOneLogo: text('teamOneLogo').notNull(),
   teamTwo: text('teamTwo').notNull(),
