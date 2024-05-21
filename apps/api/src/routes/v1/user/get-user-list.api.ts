@@ -8,7 +8,7 @@ import {
   TB_user,
   v_pagination,
 } from '../../../../../../libs/mx-schema/src';
-import { getTotalCount } from '../../../db/utils-db/count-rows';
+import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 
 export default Router().get(
   '/list',

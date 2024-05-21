@@ -10,7 +10,8 @@ const _thresold = 999 as const;
 
 admin.initializeApp({
   credential: admin.credential.cert(FirebaseConfig as ServiceAccount),
-  databaseURL: '',
+  databaseURL:
+    'https://funfantasy-2ae24-default-rtdb.asia-southeast1.firebasedatabase.app',
 });
 
 function _sendNotification(message: MulticastMessage): Promise<BatchResponse> {

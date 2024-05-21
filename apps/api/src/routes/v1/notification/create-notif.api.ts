@@ -19,8 +19,7 @@ export default Router().post(
     }
     const tokens = customerTokens.map((c) => c.token);
 
-    await sendFirebaseNotification(tokens, { ...req.body });
-
+    const n = await sendFirebaseNotification(tokens, { ...req.body });
     const results = await db
       .insert(TB_notification)
       .values({ title: req.body.title, body: req.body.body })

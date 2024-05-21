@@ -5,7 +5,7 @@ import { other } from '../api-response/response-handler';
 type RequestValidation<TParams, TQuery, TBody, TFiles, TFile> = {
   params?: ZodSchema<TParams>;
   query?: ZodSchema<TQuery>;
-  body?: ZodSchema<TBody>;
+  body?: ZodSchema<any>;
   files?: ZodSchema<TFiles>;
   file?: ZodSchema<TFile>;
 };

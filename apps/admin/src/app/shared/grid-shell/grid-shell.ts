@@ -22,7 +22,6 @@ import { FilterService } from './filters/filter.service';
 import { FilterData } from './filters/types';
 import { safeStringify } from '../utils/safe-json';
 import { SubSink } from '../utils/sub-sink';
-import queryString from 'query-string';
 
 @Component({
   selector: 'mx-grid-shell',

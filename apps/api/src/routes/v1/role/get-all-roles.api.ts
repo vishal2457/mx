@@ -6,10 +6,9 @@ import { validate } from '../../../shared/middlewares/validation.middleware';
 import {
   c_pagination,
   v_pagination,
-  TB_role
+  TB_role,
 } from '../../../../../../libs/mx-schema/src';
-import { getTotalCount } from '../../../db/utils-db/count-rows';
-
+import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 
 export default Router().get(
   '/list',
@@ -23,6 +22,6 @@ export default Router().get(
     const count = await getTotalCount(TB_role);
 
     const rows = await db.query.TB_role.findMany({ limit, offset });
-    success(res, {rows, count}, 'success');
+    success(res, { rows, count }, 'success');
   })
 );
