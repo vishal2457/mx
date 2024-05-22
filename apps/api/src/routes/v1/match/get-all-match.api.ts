@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { TB_match, v_pagination } from '../../../../../../libs/mx-schema/src';
-import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters';
+import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 import { success } from '../../../shared/api-response/response-handler';
 import { validate } from '../../../shared/middlewares/validation.middleware';
 import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
@@ -11,7 +11,9 @@ export default Router().get(
   validate({ query: v_pagination }),
   handler(async (req, res) => {
     const count = getTotalCount(TB_match);
+
     const query = getListQueryWithFilters(TB_match, req.query);
+
     const matches = await query.execute();
     success(res, { rows: matches, count: count }, 'success');
   })

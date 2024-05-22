@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
-import { db } from '../../db';
-import { safeParse } from '../../../../../../libs/helpers/src';
+import { db } from '../../../db';
+import { safeParse } from '../../../../../../../libs/helpers/src';
 
 export const getListQueryWithFilters = (schema, options) => {
   const { filters: incomingFilters, limit, offset } = options;
