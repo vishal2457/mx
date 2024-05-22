@@ -18,6 +18,7 @@ import deleteRole from './role/id/delete-role.api';
 import updateRole from './role/id/update-role.api';
 import getRole from './role/id/get-role.api';
 import getUserApi from './user/id/get-user.api';
+import createPaymentApi from './payment/create-payment.api';
 
 // IMPORT GENERATED FILES
 
@@ -29,7 +30,8 @@ routerv1
   .use('/notification', [getAllNotif, createNotif])
   .use('/customer', [createCustomer])
   .use('/menu', [createMenu])
-  .use('/role', [getRoleList, getRole, createRole, deleteRole, updateRole]);
+  .use('/role', [getRoleList, getRole, createRole, deleteRole, updateRole])
+  .use('/payment', [createPaymentApi]);
 
 // APPEND API ROUTES
 
