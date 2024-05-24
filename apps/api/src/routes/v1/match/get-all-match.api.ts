@@ -14,9 +14,7 @@ export default Router().get(
   handler(async (req, res) => {
     const count = getTotalCount(TB_match);
 
-    const query = req.sqlQuery.execute();
-
-    const matches = await query.execute();
+    const matches = await req.sqlQuery.execute();
     success(res, { rows: matches, count: count }, 'success');
   })
 );

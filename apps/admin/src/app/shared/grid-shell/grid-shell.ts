@@ -198,6 +198,7 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
       limit,
       sort: safeStringify(sort || {}),
       filters: safeStringify(this.filterValues),
+      fields: '',
     };
   }
 }
