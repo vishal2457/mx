@@ -13,3 +13,4 @@ export * from './lib/test.schema';
 export * from './lib/_zod-utils/v-pagination';
 export * from './lib/_zod-utils/id-params';
 export * from './lib/_zod-utils/response-types';
+export * from './lib/_zod-utils/v-list-filters';

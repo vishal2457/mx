@@ -1,15 +1,23 @@
-import { eq } from 'drizzle-orm';
+import { eq, getTableColumns } from 'drizzle-orm';
 import { db } from '../../../db';
-import { safeParse } from '../../../../../../../libs/helpers/src';
+import { ListFilters } from '../../../../../../../libs/mx-schema/src';
 
-export const getListQueryWithFilters = (schema, options) => {
-  const { filters: incomingFilters, limit, offset } = options;
-  const filters = safeParse(incomingFilters);
+type Options = Omit<ListFilters, 'page'> & { offset: number };
+
+export const getListQueryWithFilters = (schema, options: Options) => {
+  const { filters, limit, offset, fields } = options;
+
+  // let selectedFields: any = {};
+  if (fields.length) {
+    // const columns = getTableColumns(schema);
+    // selectedFields = fields.reduce((acc, ) => {
+    // }, {})
+  }
 
   const query = db.select().from(schema).$dynamic();
 
   // add where conditions
-  if (Array.isArray(filters) && filters?.length) {
+  if (filters?.length) {
     for (const filter of filters) {
       query.where(eq(schema[filter.field], filter.value));
     }
@@ -19,6 +27,5 @@ export const getListQueryWithFilters = (schema, options) => {
   if (limit && offset) {
     query.limit(limit).offset(offset);
   }
-
   return query;
 };
