@@ -32,4 +32,21 @@ export class {{properCase name}}FormComponent {
     return this.{{name}}Form.controls;
   }
 
+  isInValid() {
+    return this.{{name}}Form.invalid;
+  }
+
+  setShowErrors(value = true) {
+    this.showErrors = value;
+  }
+
+  reset() {
+    this.{{name}}Form.reset();
+  }
+
+  patchValue(value) {
+    this.{{name}}Form.patchValue(value);
+  }
+
+
 }

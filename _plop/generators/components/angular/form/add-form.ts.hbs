@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   OnDestroy,
   ViewChild,
@@ -20,13 +19,12 @@ import { SubSink } from '../../../shared/utils/sub-sink';
     />
     <{{name}}-form />`,
 })
-export class Create{{properCase name}}Component implements AfterViewInit, OnDestroy {
+export class Create{{properCase name}}Component implements OnDestroy {
   @ViewChild({{properCase name}}FormComponent) {{properCase name}}FormComponent!: {{properCase name}}FormComponent;
 
   api = inject(ApiService);
   notif = inject(MxNotification);
 
-  {{name}}Form!: FormGroup;
   private addRequests = new SubSink();
 
   ngOnDestroy(): void {
@@ -34,13 +32,9 @@ export class Create{{properCase name}}Component implements AfterViewInit, OnDest
     this.notif.closeAll();
   }
 
-  ngAfterViewInit(): void {
-    this.{{name}}Form = this.{{properCase name}}FormComponent.{{name}}Form;
-  }
-
   handleSubmit() {
-    if (this.{{name}}Form.invalid) {
-      this.{{properCase name}}FormComponent.showErrors = true;
+    if (this.{{properCase name}}FormComponent.isInValid()) {
+      this.{{properCase name}}FormComponent.setShowErrors();
       return;
     }
     this.addRequests.unsubscribe();
@@ -51,10 +45,10 @@ export class Create{{properCase name}}Component implements AfterViewInit, OnDest
     });
 
     this.addRequests.sink = this.api
-      .post('/{{name}}', this.{{name}}Form.value)
+      .post('/{{name}}', this.{{properCase name}}FormComponent.getFormValue())
       .subscribe({
         next: () => {
-          this.{{name}}Form.reset();
+          this.{{properCase name}}FormComponent.reset();
           this.notif.updateToast({
             text: '{{properCase name}} added',
             id: 'add-{{name}}',

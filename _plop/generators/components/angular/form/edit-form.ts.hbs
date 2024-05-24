@@ -23,8 +23,8 @@ import { T{{properCase name}} } from '../../../../../../../libs/mx-schema/src';
     />
     <{{name}}-form />`,
 })
-export class Update{{properCase name}}Component implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild({{properCase name}}FormComponent) {{name}}FormComponent!: {{properCase name}}FormComponent;
+export class Update{{properCase name}}Component implements OnInit, OnDestroy {
+  @ViewChild({{properCase name}}FormComponent) {{name}}FormComponentComponent!: {{properCase name}}FormComponent;
 
   private api = inject(ApiService);
   private notif = inject(MxNotification);
@@ -32,16 +32,11 @@ export class Update{{properCase name}}Component implements OnInit, AfterViewInit
   private router = inject(Router)
 
   {{name}}ID!: string;
-  {{name}}Form!: FormGroup;
   private requests = new SubSink()
 
   ngOnInit(): void {
     this.{{name}}ID = this.route.snapshot.params['id'];
     this.fetch{{properCase name}}Details( this.{{name}}ID)
-  }
-
-  ngAfterViewInit(): void {
-    this.{{name}}Form = this.{{name}}FormComponent.{{name}}Form;
   }
 
   ngOnDestroy(): void {
@@ -50,13 +45,13 @@ export class Update{{properCase name}}Component implements OnInit, AfterViewInit
 
   private fetch{{properCase name}}Details(id: string) {
     this.api.get<T{{properCase name}}>(`/{{name}}/${id}`).subscribe(({ data }) => {
-       this.{{name}}Form.patchValue(data);
+       this.{{name}}FormComponent.patchValue(data);
     });
   }
 
     handleSubmit() {
-    if (this.{{name}}Form.invalid) {
-      this.{{name}}FormComponent.showErrors = true;
+    if (this.{{name}}FormComponent.invalid) {
+      this.{{name}}FormComponentComponent.showErrors = true;
       return;
     }
     this.requests.unsubscribe();
@@ -67,7 +62,7 @@ export class Update{{properCase name}}Component implements OnInit, AfterViewInit
     });
 
     this.requests.sink = this.api
-      .put(`/{{name}}/${this.{{name}}ID}`, this.{{name}}Form.value)
+      .put(`/{{name}}/${this.{{name}}ID}`, this.{{name}}FormComponent.getFormValue())
       .subscribe({
         next: () => {
           this.notif.updateToast({
