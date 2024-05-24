@@ -48,40 +48,53 @@
     ></mx-input>
   </div>
 
-  <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
-    <mx-file-upload
-      (handleFileChange)="handleTeamOneLogo($event)"
-      label="Team One Logo"
-      accept="image/png, image/jpeg"
-    />
-    <mx-file-upload
-      (handleFileChange)="handleTeamTwoLogo($event)"
-      label="Team Two Logo"
-      accept="image/png, image/jpeg"
-    />
-    <mx-file-upload
-      (handleFileChange)="handleH2hTeamImage($event)"
-      accept="image/png, image/jpeg"
-      label="H2H Team Image"
-    />
-    <mx-file-upload
-      (handleFileChange)="handlePremiumTeamImage($event)"
-      accept="image/png, image/jpeg"
-      label="Premium Team Image"
-    />
-  </div>
+  <mx-textarea
+  label="Team One"
+  [control]="matchFormControls.teamOnePlayers"
+  [showErrors]="showErrors"
+  [hints]="['Add players comma seperated']"
+  ></mx-textarea>
+  <mx-textarea
+  label="Team two"
+  [control]="matchFormControls.teamTwoPlayers"
+  [showErrors]="showErrors"
+  [hints]="['Add players comma seperated']"
+  ></mx-textarea>
 
   <mx-editor
-    label="Description"
-    [control]="matchFormControls.description"
-    [showErrors]="showErrors"
-  />
-  <mx-editor
-    [control]="matchFormControls.h2hTeam"
-    [showErrors]="showErrors"
-    label="H2H Team"
-  />
+  label="Description"
+  [control]="matchFormControls.description"
+  [showErrors]="showErrors"
+/>
+<mx-editor
+  [control]="matchFormControls.h2hTeam"
+  [showErrors]="showErrors"
+  label="H2H Team"
+/>
 </mx-form>
+
+<div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
+  <mx-file-upload
+    (handleFileChange)="handleTeamOneLogo($event)"
+    label="Team One Logo"
+    accept="image/png, image/jpeg"
+  />
+  <mx-file-upload
+    (handleFileChange)="handleTeamTwoLogo($event)"
+    label="Team Two Logo"
+    accept="image/png, image/jpeg"
+  />
+  <mx-file-upload
+    (handleFileChange)="handleH2hTeamImage($event)"
+    accept="image/png, image/jpeg"
+    label="H2H Team Image"
+  />
+  <mx-file-upload
+    (handleFileChange)="handlePremiumTeamImage($event)"
+    accept="image/png, image/jpeg"
+    label="Premium Team Image"
+  />
+</div>
 
 <div class="mt-4 flex flex-col gap-2">
   <div>

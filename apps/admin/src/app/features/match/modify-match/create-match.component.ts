@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnDestroy, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
@@ -21,14 +14,13 @@ import { MatchFormComponent } from './match-form/match-form.component';
     />
     <match-form />`,
 })
-export class CreateMatchComponent implements AfterViewInit, OnDestroy {
+export class CreateMatchComponent implements OnDestroy {
   @ViewChild(MatchFormComponent) MatchFormComponent!: MatchFormComponent;
 
   api = inject(ApiService);
   notif = inject(MxNotification);
   router = inject(Router);
 
-  matchForm!: FormGroup;
   private addRequests = new SubSink();
 
   ngOnDestroy(): void {
@@ -36,13 +28,9 @@ export class CreateMatchComponent implements AfterViewInit, OnDestroy {
     this.notif.closeAll();
   }
 
-  ngAfterViewInit(): void {
-    this.matchForm = this.MatchFormComponent.matchForm;
-  }
-
   handleSubmit() {
-    if (this.matchForm.invalid) {
-      this.MatchFormComponent.showErrors = true;
+    if (this.MatchFormComponent.isInValid()) {
+      this.MatchFormComponent.setShowErrors();
       return;
     }
     this.addRequests.unsubscribe();
@@ -53,13 +41,15 @@ export class CreateMatchComponent implements AfterViewInit, OnDestroy {
     });
 
     const formData = new FormData();
-    for (const key in this.matchForm.controls) {
-      formData.append(key, this.matchForm.value[key]);
+    const formValue = this.MatchFormComponent.getFormValue();
+
+    for (const key in formValue) {
+      formData.append(key, formValue[key]);
     }
 
     this.addRequests.sink = this.api.post('/match/create', formData).subscribe({
       next: () => {
-        this.matchForm.reset();
+        this.MatchFormComponent.reset();
         this.router.navigate(['/match/list']);
         this.notif.updateToast({
           text: 'Match added',

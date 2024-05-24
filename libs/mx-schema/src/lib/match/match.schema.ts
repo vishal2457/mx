@@ -3,7 +3,6 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
 export const GAME_SLUG = ['cricket', 'football'] as const;
-export const gameSlugEnum = pgEnum('gameSlug', GAME_SLUG);
 
 export const MATCH_STATUS = [
   'completed',
@@ -11,17 +10,21 @@ export const MATCH_STATUS = [
   'waiting',
   'done',
 ] as const;
+
 export const statusEnum = pgEnum('status', MATCH_STATUS);
+export const gameSlugEnum = pgEnum('gameSlug', GAME_SLUG);
 
 export const TB_match = pgTable('match', {
   id: serial('id').primaryKey(),
-  gameSlug: gameSlugEnum('gameSlug').default('cricket'),
+  gameSlug: text('gameSlug').default('cricket'),
   teamOne: text('teamOne').notNull(),
   teamOneLogo: text('teamOneLogo').notNull(),
   teamTwo: text('teamTwo').notNull(),
   teamTwoLogo: text('teamTwoLogo').notNull(),
   teamTwoSlug: text('teamTwoSlug').notNull(),
   teamOneSlug: text('teamOneSlug').notNull(),
+  teamOnePlayers: text('teamOnePlayers').notNull(),
+  teamTwoPlayers: text('teamTwoPlayers').notNull(),
   venue: text('venue').notNull(),
   league: text('league').notNull(),
   h2hTeam: text('h2hTeam').notNull(),

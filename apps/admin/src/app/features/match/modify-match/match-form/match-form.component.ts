@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 import {
@@ -14,12 +14,12 @@ import {
 export class MatchFormComponent {
   private fb = inject(FormBuilder);
 
-  showErrors = false;
   GAMES = Array.from(GAME_SLUG);
   previousFilenames: any = {};
   zMatch = Z_match;
 
-  matchForm = this.fb.nonNullable.group<
+  protected showErrors = false;
+  protected matchForm = this.fb.nonNullable.group<
     ControlsOf<Omit<TMatch, 'id' | 'teamTwoSlug' | 'teamOneSlug'>>
   >({
     gameSlug: new FormControl('cricket', {
@@ -82,6 +82,14 @@ export class MatchFormComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    teamOnePlayers: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    teamTwoPlayers: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
   });
   get matchFormControls() {
     return this.matchForm.controls;
@@ -101,5 +109,38 @@ export class MatchFormComponent {
 
   handlePremiumTeamImage(file: any) {
     this.matchForm.patchValue({ premiumTeamImage: file });
+  }
+
+  getFormValue() {
+    const { teamOnePlayers, teamTwoPlayers, ...rest } =
+      this.matchForm.getRawValue();
+    return {
+      teamOnePlayers: this.formatPlayers(teamOnePlayers || ''),
+      teamTwoPlayers: this.formatPlayers(teamTwoPlayers || ''),
+      ...rest,
+    };
+  }
+
+  isInValid() {
+    return this.matchForm.invalid;
+  }
+
+  setShowErrors(value = true) {
+    this.showErrors = value;
+  }
+
+  reset() {
+    this.matchForm.reset();
+  }
+
+  patchValue(value) {
+    this.matchForm.patchValue(value);
+  }
+
+  private formatPlayers(value: string) {
+    return value
+      .split(',')
+      .map((s) => s.trim())
+      .join(',');
   }
 }

@@ -1,19 +1,11 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { MatchFormComponent } from './match-form/match-form.component';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TMatch } from '../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-import { SubSink } from '../../../shared/utils/sub-sink';
-import { TMatch } from '../../../../../../../libs/mx-schema/src';
 import { safeStringify } from '../../../shared/utils/safe-json';
+import { SubSink } from '../../../shared/utils/sub-sink';
+import { MatchFormComponent } from './match-form/match-form.component';
 
 @Component({
   selector: 'edit-items',
@@ -24,7 +16,7 @@ import { safeStringify } from '../../../shared/utils/safe-json';
     />
     <match-form />`,
 })
-export class UpdateMatchComponent implements OnInit, AfterViewInit, OnDestroy {
+export class UpdateMatchComponent implements OnInit, OnDestroy {
   @ViewChild(MatchFormComponent) formComponent!: MatchFormComponent;
 
   api = inject(ApiService);
@@ -33,16 +25,11 @@ export class UpdateMatchComponent implements OnInit, AfterViewInit, OnDestroy {
   router = inject(Router);
 
   matchID!: string;
-  matchForm!: FormGroup;
   private requests = new SubSink();
 
   ngOnInit(): void {
     this.matchID = this.route.snapshot.params['id'];
     this.fetchMatchDetails(this.matchID);
-  }
-
-  ngAfterViewInit(): void {
-    this.matchForm = this.formComponent.matchForm;
   }
 
   ngOnDestroy(): void {
@@ -57,13 +44,13 @@ export class UpdateMatchComponent implements OnInit, AfterViewInit, OnDestroy {
         h2hTeamImage: data.h2hTeamImage,
         premiumTeamImage: data.premiumTeamImage,
       };
-      this.formComponent.matchForm.patchValue(data);
+      this.formComponent.patchValue(data);
     });
   }
 
   handleSubmit() {
-    if (this.formComponent.matchForm.invalid) {
-      this.formComponent.showErrors = true;
+    if (this.formComponent.isInValid()) {
+      this.formComponent.setShowErrors();
       return;
     }
     this.requests.unsubscribe();
@@ -74,8 +61,9 @@ export class UpdateMatchComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     const formData = new FormData();
-    for (const key in this.formComponent.matchForm.controls) {
-      formData.append(key, this.matchForm.value[key]);
+    const formValues = this.formComponent.getFormValue();
+    for (const key in formValues) {
+      formData.append(key, formValues[key]);
     }
 
     formData.append(
