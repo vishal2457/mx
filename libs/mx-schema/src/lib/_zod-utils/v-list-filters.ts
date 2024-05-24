@@ -17,7 +17,7 @@ export const v_list_filters = z.object({
   page: z.coerce.number(),
   limit: z.coerce.number(),
   fields: z.string().transform((str = ''): string[] => {
-    return str.split(',');
+    return str?.length ? str.split(',').map((s) => s.trim()) : [];
   }),
   sort: z
     .string()

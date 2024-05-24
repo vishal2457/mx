@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  ViewChild,
-} from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { ApiService } from '../../../shared/services/api.service';
@@ -12,7 +7,11 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'mx-match-list',
-  template: `<mx-grid-shell gridTitle="Matches" apiURL="/match/list">
+  template: `<mx-grid-shell
+    gridTitle="Matches"
+    apiURL="/match/list"
+    fields="id,gameSlug,teamOne,teamTwo,league,format,venue,startTime"
+  >
     <mx-toolbar icon="add" name="Add" (handleClick)="create()" />
     <!-- columns -->
     <mx-column field="id" alignment="left" />

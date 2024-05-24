@@ -1,4 +1,4 @@
-import { eq, getTableColumns } from 'drizzle-orm';
+import { between, eq, getTableColumns, gt, like, lt, ne } from 'drizzle-orm';
 import { db } from '../../../db';
 import { ListFilters } from '../../../../../../../libs/mx-schema/src';
 
@@ -7,19 +7,41 @@ type Options = Omit<ListFilters, 'page'> & { offset: number };
 export const getListQueryWithFilters = (schema, options: Options) => {
   const { filters, limit, offset, fields } = options;
 
-  // let selectedFields: any = {};
+  const _columns: any = getTableColumns(schema);
+  let columns = _columns;
+
   if (fields.length) {
-    // const columns = getTableColumns(schema);
-    // selectedFields = fields.reduce((acc, ) => {
-    // }, {})
+    columns = fields.reduce((acc, curr) => {
+      if (_columns[curr]) acc[curr] = _columns[curr];
+      return acc;
+    }, {});
   }
 
-  const query = db.select().from(schema).$dynamic();
+  const query = db.select(columns).from(schema).$dynamic();
 
   // add where conditions
   if (filters?.length) {
     for (const filter of filters) {
-      query.where(eq(schema[filter.field], filter.value));
+      const column = schema[filter.field];
+      if (filter.condition === 'equals') {
+        query.where(eq(column, filter.value));
+      } else if (filter.condition === 'greater than') {
+        query.where(gt(column, filter.value));
+      } else if (filter.condition === 'less than') {
+        query.where(lt(column, filter.value));
+      } else if (filter.condition === 'not equal') {
+        query.where(ne(column, filter.value));
+      } else if (filter.condition === 'contains') {
+        query.where(like(column, `%${filter.value}%`));
+      } else if (filter.condition === 'between') {
+        const stringValue = filter.value.toString();
+        const [value1, value2] = stringValue.includes('-')
+          ? stringValue.split('-')
+          : [];
+        if (value1 && value2) {
+          query.where(between(column, value1, value2));
+        }
+      }
     }
   }
 

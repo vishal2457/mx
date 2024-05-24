@@ -3,7 +3,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector, inject } from '@angular/core';
 import { BehaviorSubject, Subject, shareReplay } from 'rxjs';
 import { FilterData, FilterType } from './types';
-import { GbFilterPanelComponent } from './filters';
+import { GbFilterPanelComponent } from './filters.component';
 
 @Injectable({
   providedIn: 'root',

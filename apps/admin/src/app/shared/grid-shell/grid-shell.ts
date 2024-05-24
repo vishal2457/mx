@@ -114,6 +114,7 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
   @Input() apiURL = '';
   @Input() gridTitle = '';
   @Input() loadOnMount = true;
+  @Input() fields = '';
 
   @Output() protected actionEvents = new EventEmitter<any>();
 
@@ -198,7 +199,7 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
       limit,
       sort: safeStringify(sort || {}),
       filters: safeStringify(this.filterValues),
-      fields: '',
+      fields: this.fields,
     };
   }
 }
