@@ -14,15 +14,10 @@ import { getTotalCount } from '../../../db/utils-db/count-rows';
 export default Router().get(
   '/list',
   validate({ query: v_pagination }),
+  listFiltersToQuery({{dbSchema}}),
   ah(async (req, res) => {
-    const { limit, offset } = c_pagination({
-      limit: req.query.limit,
-      page: req.query.page,
-    });
-
     const count = await getTotalCount({{dbSchema}});
-
-    const rows = await db.query.{{dbSchema}}.findMany({ limit, offset });
+    const rows =  await req.sqlQuery.execute();
     success(res, {rows, count}, 'success');
   })
 );

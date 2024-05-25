@@ -24,7 +24,7 @@ import { T{{properCase name}} } from '../../../../../../../libs/mx-schema/src';
     <{{name}}-form />`,
 })
 export class Update{{properCase name}}Component implements OnInit, OnDestroy {
-  @ViewChild({{properCase name}}FormComponent) {{name}}FormComponentComponent!: {{properCase name}}FormComponent;
+  @ViewChild({{properCase name}}FormComponent) {{name}}FormComponent!: {{properCase name}}FormComponent;
 
   private api = inject(ApiService);
   private notif = inject(MxNotification);
@@ -50,8 +50,8 @@ export class Update{{properCase name}}Component implements OnInit, OnDestroy {
   }
 
     handleSubmit() {
-    if (this.{{name}}FormComponent.invalid) {
-      this.{{name}}FormComponentComponent.showErrors = true;
+    if (this.{{name}}FormComponent.isInValid()) {
+      this.{{name}}FormComponent.setShowErrors();
       return;
     }
     this.requests.unsubscribe();
@@ -62,7 +62,7 @@ export class Update{{properCase name}}Component implements OnInit, OnDestroy {
     });
 
     this.requests.sink = this.api
-      .put(`/{{name}}/${this.{{name}}ID}`, this.{{name}}FormComponent.getFormValue())
+      .put(`/{{name}}/update/${this.{{name}}ID}`, this.{{name}}FormComponent.getFormValue())
       .subscribe({
         next: () => {
           this.notif.updateToast({

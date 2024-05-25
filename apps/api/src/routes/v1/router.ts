@@ -20,6 +20,11 @@ import getRole from './role/id/get-role.api';
 import getUserApi from './user/id/get-user.api';
 import createPaymentApi from './payment/create-payment.api';
 
+import getOfferList from './offer/get-all-offers.api';
+import createOffer from './offer/create-offer.api';
+import deleteOffer from './offer/id/delete-offer.api';
+import updateOffer from './offer/id/update-offer.api';
+import getOffer from './offer/id/get-offer.api';
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -31,8 +36,14 @@ routerv1
   .use('/customer', [createCustomer])
   .use('/menu', [createMenu])
   .use('/role', [getRoleList, getRole, createRole, deleteRole, updateRole])
-  .use('/payment', [createPaymentApi]);
-
+  .use('/payment', [createPaymentApi])
+  .use('/offer', [
+    getOfferList,
+    getOffer,
+    createOffer,
+    deleteOffer,
+    updateOffer,
+  ]);
 // APPEND API ROUTES
 
 export default routerv1;

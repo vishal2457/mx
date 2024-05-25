@@ -45,7 +45,7 @@ export class Create{{properCase name}}Component implements OnDestroy {
     });
 
     this.addRequests.sink = this.api
-      .post('/{{name}}', this.{{properCase name}}FormComponent.getFormValue())
+      .post('/{{name}}/create', this.{{properCase name}}FormComponent.getFormValue())
       .subscribe({
         next: () => {
           this.{{properCase name}}FormComponent.reset();

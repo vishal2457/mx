@@ -1,8 +1,7 @@
 import { Component, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { T{{properCase name}}, Z_{{name}} } from '../../../../../../../../libs/mx-schema/src';
+import { T{{properCase name}}, {{zodSchema}} } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
-import { {{zodSchema}} } from '../../../../../../../../libs/mx-schema/src';
 
 
 @Component({
@@ -38,6 +37,10 @@ export class {{properCase name}}FormComponent {
 
   setShowErrors(value = true) {
     this.showErrors = value;
+  }
+
+  getFormValue() {
+    return this.{{name}}Form.value;
   }
 
   reset() {
