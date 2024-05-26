@@ -1,10 +1,13 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { serverError } from '../api-response/response-handler';
 
 // eslint-disable-next-line max-params
-const errorHandler = (_: Request, res: Response) => {
-  // eslint-disable-next-line no-console
-  // serverError(res, err);
+const errorHandler = (err, _: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+  console.error(err);
+  serverError(res, err);
 };
 
 export default errorHandler;
