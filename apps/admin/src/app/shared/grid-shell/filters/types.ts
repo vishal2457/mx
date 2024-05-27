@@ -9,16 +9,3 @@ export type AllowedFilterTypes = 'text' | 'number' | 'select' | 'date';
 // value: formValue,
 // field: filter.field,
 // condition: this.conditionForm.value[filter.field],
-
-export type FilterData = {
-  type: AllowedFilterTypes;
-  value: number | string;
-  field: string;
-  condition:
-    | 'Equals'
-    | 'Between'
-    | 'Not equals'
-    | 'Greater than'
-    | 'Less than'
-    | 'Contains';
-};

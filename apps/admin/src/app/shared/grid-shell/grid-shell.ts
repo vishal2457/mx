@@ -19,9 +19,12 @@ import { MxDataGridModule } from '../ui/mx-data-grid/data-grid.module';
 import { MxFilterPillsComponent } from './filters/components/filter-pills';
 import { MxGridFilterComponent } from './filters/components/grid-filter';
 import { FilterService } from './filters/filter.service';
-import { FilterData } from './filters/types';
 import { safeStringify } from '../utils/safe-json';
 import { SubSink } from '../utils/sub-sink';
+import { ActivatedRoute, Router } from '@angular/router';
+import { truncateFilters } from '../../../../../../libs/helpers/src';
+import qs from 'qs';
+import { FilterData } from '../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'mx-grid-shell',
@@ -110,6 +113,8 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
   overlay = inject(Overlay);
   filterService = inject(FilterService);
   api = inject(ApiService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   @Input() apiURL = '';
   @Input() gridTitle = '';
@@ -129,7 +134,7 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
   @ContentChildren(MxGridFilterComponent)
   filters?: QueryList<MxGridFilterComponent>;
 
-  filterValues: FilterData[] = [];
+  filterValues: Record<string, string> = {};
 
   protected loading = false;
   protected collectionSize!: number;
@@ -146,9 +151,12 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.subs.sink = this.filterService.filterData$.subscribe((filterData) => {
-      this.filterValues = filterData;
+      const shortFilters = truncateFilters(filterData);
+      this.filterValues = shortFilters;
+      this.setFilterInRoute(shortFilters);
       this._getData();
     });
+    this.getFilterFromRoute();
     this._getData();
   }
 
@@ -201,5 +209,16 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
       filters: safeStringify(this.filterValues),
       fields: this.fields,
     };
+  }
+
+  private setFilterInRoute(filterData) {
+    this.router.navigate([], {
+      queryParams: filterData,
+      replaceUrl: true,
+    });
+  }
+
+  private getFilterFromRoute() {
+    console.log(this.route.snapshot.queryParams);
   }
 }

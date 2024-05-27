@@ -6,8 +6,9 @@ import { MxButtonComponent } from '../../ui/button';
 import { MxSelectComponent } from '../../ui/form/mx-select';
 import { MxInputComponent } from '../../ui/form/mx-input';
 import { FilterService } from './filter.service';
-import { FilterData, FilterType } from './types';
+import { FilterType } from './types';
 import { SubSink } from '../../utils/sub-sink';
+import { FilterData } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   standalone: true,

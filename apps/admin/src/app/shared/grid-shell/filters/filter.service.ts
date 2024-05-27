@@ -2,8 +2,9 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector, inject } from '@angular/core';
 import { BehaviorSubject, Subject, shareReplay } from 'rxjs';
-import { FilterData, FilterType } from './types';
+import { FilterType } from './types';
 import { GbFilterPanelComponent } from './filters.component';
+import { FilterData } from '../../../../../../../libs/mx-schema/src';
 
 @Injectable({
   providedIn: 'root',
