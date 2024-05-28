@@ -49,7 +49,7 @@ const razorpay = new Razorpay({
 export default Router().post(
   '/create',
   handler(async (req, res) => {
-    const { amount, currency, receipt } = req.body;
+    const { amount, currency, receipt, offerID } = req.body;
 
     const order = await razorpay.orders.create({ amount, currency, receipt });
 

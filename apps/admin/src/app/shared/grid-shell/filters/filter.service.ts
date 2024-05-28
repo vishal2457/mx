@@ -13,7 +13,7 @@ export class FilterService {
   overlay = inject(Overlay);
 
   private filters = new BehaviorSubject<FilterType | []>([]);
-  private filterData = new Subject<FilterData[]>();
+  private filterData = new BehaviorSubject<FilterData[]>([]);
 
   filters$ = this.filters.asObservable().pipe(shareReplay());
   filterData$ = this.filterData.asObservable();

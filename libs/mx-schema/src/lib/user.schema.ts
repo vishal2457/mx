@@ -18,7 +18,7 @@ export const TB_user = pgTable(
     name: text('name'),
     email: text('email').notNull(),
     password: text('password').notNull(),
-    active: boolean('active').default(false),
+    active: boolean('active').default(true),
     createdAt: timestamp('createdAt').notNull().defaultNow(),
     updatedAt: timestamp('updatedAt').$onUpdate(() => sql`CURRENT_TIMESTAMP`),
   },

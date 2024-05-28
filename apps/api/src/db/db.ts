@@ -2,6 +2,7 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import {
   TB_customer,
+  TB_customer_offer,
   TB_customerFcm,
   TB_match,
   TB_menu,
@@ -48,6 +49,7 @@ export const db = drizzle(pool, {
     TB_notification,
     TB_role,
     TB_offer,
+    TB_customer_offer,
   },
 });
 

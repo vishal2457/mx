@@ -17,7 +17,7 @@ export const v_list_filters = z.object({
   page: z.coerce.number(),
   limit: z.coerce.number(),
   fields: z.string().transform((str = ''): string[] => {
-    return str?.length ? str.split(',').map((s) => s.trim()) : [];
+    return str?.length ? str.split(',').filter((s) => !!s) : [];
   }),
   sort: z
     .string()
@@ -29,7 +29,7 @@ export const v_list_filters = z.object({
         return z.NEVER;
       }
     }),
-  filters: z.string().transform((str, ctx): FilterData[] => {
+  filters: z.string().transform((str, ctx): Record<string, string> => {
     try {
       return JSON.parse(str);
     } catch (e) {

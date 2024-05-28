@@ -22,7 +22,10 @@ import { FilterService } from './filters/filter.service';
 import { safeStringify } from '../utils/safe-json';
 import { SubSink } from '../utils/sub-sink';
 import { ActivatedRoute, Router } from '@angular/router';
-import { truncateFilters } from '../../../../../../libs/helpers/src';
+import {
+  expandFilters,
+  truncateFilters,
+} from '../../../../../../libs/helpers/src';
 import qs from 'qs';
 import { FilterData } from '../../../../../../libs/mx-schema/src';
 
@@ -157,7 +160,6 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
       this._getData();
     });
     this.getFilterFromRoute();
-    this._getData();
   }
 
   captureGridEvents(events: { key: string; value: any }) {
@@ -219,6 +221,8 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
   }
 
   private getFilterFromRoute() {
-    console.log(this.route.snapshot.queryParams);
+    this.filterService.updateFilterData(
+      expandFilters(this.route.snapshot.queryParams)
+    );
   }
 }

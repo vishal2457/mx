@@ -25,6 +25,7 @@ import createOffer from './offer/create-offer.api';
 import deleteOffer from './offer/id/delete-offer.api';
 import updateOffer from './offer/id/update-offer.api';
 import getOffer from './offer/id/get-offer.api';
+import subToPrimeTeam from './payment/sub-to-prime-team';
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -36,7 +37,7 @@ routerv1
   .use('/customer', [createCustomer])
   .use('/menu', [createMenu])
   .use('/role', [getRoleList, getRole, createRole, deleteRole, updateRole])
-  .use('/payment', [createPaymentApi])
+  .use('/payment', [createPaymentApi, subToPrimeTeam])
   .use('/offer', [
     getOfferList,
     getOffer,

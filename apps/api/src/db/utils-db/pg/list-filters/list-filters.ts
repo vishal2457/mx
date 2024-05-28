@@ -1,6 +1,10 @@
 import { between, eq, getTableColumns, gt, like, lt, ne } from 'drizzle-orm';
 import { db } from '../../../db';
-import { ListFilters } from '../../../../../../../libs/mx-schema/src';
+import {
+  FilterData,
+  ListFilters,
+} from '../../../../../../../libs/mx-schema/src';
+import { expandFilters } from '../../../../../../../libs/helpers/src';
 
 type Options = Omit<ListFilters, 'page'> & { offset: number };
 
@@ -18,10 +22,10 @@ export const getListQueryWithFilters = (schema, options: Options) => {
   }
 
   const query = db.select(columns).from(schema).$dynamic();
-
+  const expandedFilters: FilterData[] = expandFilters(filters);
   // add where conditions
-  if (filters?.length) {
-    for (const filter of filters) {
+  if (expandedFilters?.length) {
+    for (const filter of expandedFilters) {
       const column = schema[filter.field];
       if (filter.condition === 'equals') {
         query.where(eq(column, filter.value));

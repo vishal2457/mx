@@ -8,7 +8,7 @@ function getKeyByValue(object: any, value: string) {
   return Object.keys(object).find((key) => object[key] === value);
 }
 
-export const expandValues = (filters: Record<string, string>): any[] => {
+export const expandFilters = (filters: Record<string, string>): any[] => {
   return Object.keys(filters).map((f) => {
     const [condition, value, type] = filters[f].split(FILTER_SEPERATOR);
     return {
