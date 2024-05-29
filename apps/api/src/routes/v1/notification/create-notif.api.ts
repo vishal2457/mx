@@ -6,8 +6,8 @@ import {
   TB_notification,
   Z_notification_insert,
 } from '../../../../../../libs/mx-schema/src';
-import { sendFirebaseNotification } from '../../../shared/firebase/notification.fire';
 import { validate } from '../../../shared/middlewares/validation.middleware';
+import { FirebaseNotificationQueue } from '../../../shared/queue/firebase-notification/firebase-notification.queue';
 
 export default Router().post(
   '/create',
@@ -18,8 +18,11 @@ export default Router().post(
       return;
     }
     const tokens = customerTokens.map((c) => c.token);
-
-    const n = await sendFirebaseNotification(tokens, { ...req.body });
+    const processNotification = new FirebaseNotificationQueue();
+    await processNotification.sendNotification(
+      'firebase-notification-from-admin',
+      { tokens: tokens, payload: req.body }
+    );
     const results = await db
       .insert(TB_notification)
       .values({ title: req.body.title, body: req.body.body })
