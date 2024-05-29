@@ -13,7 +13,6 @@ import {
 } from '../../../../../../libs/mx-schema/src';
 import { success } from '../../../shared/api-response/response-handler';
 import { getCustomerWithOffers } from '../../../db/prepared-statements/customer/customer-offers';
-import { ProcessEmailQueue } from '../../../shared/queue/process-email/process-email.queue';
 
 const requestBodyValidation = union([
   Z_customer_insert.pick({ device: true, deviceID: true }),
@@ -41,13 +40,6 @@ export default Router().post(
     body: requestBodyValidation,
   }),
   ah(async (req, res) => {
-    const emailProcessor = new ProcessEmailQueue();
-    await emailProcessor.sendEmail('test', {
-      to: 'vishalacharya814@gmail.com',
-      subject: 'Test',
-      html: '<p>test</p>',
-    });
-
     const rows = await getCustomerWithOffers.execute({
       deviceID: req.body.deviceID,
     });
