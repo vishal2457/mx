@@ -1,4 +1,3 @@
-import './process-email.worker';
 import { BaseQueue } from '../base-queue';
 import { GLOBAL_CONSTANTS } from '../../global-constants';
 import { firebaseNotificationWorker } from './firebase-notification.worker';
@@ -8,7 +7,7 @@ import { Z_notification_insert } from '../../../../../../libs/mx-schema/src';
 export class FirebaseNotificationQueue extends BaseQueue {
   constructor() {
     super(
-      GLOBAL_CONSTANTS.QUEUE_NAMES.processEmail,
+      GLOBAL_CONSTANTS.QUEUE_NAMES.firebaseNotification,
       firebaseNotificationWorker
     );
   }

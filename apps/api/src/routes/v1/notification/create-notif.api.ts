@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { success } from '../../../shared/api-response/response-handler';
+import { other, success } from '../../../shared/api-response/response-handler';
 import { db } from '../../../db/db';
 import {
   TB_customerFcm,
@@ -14,8 +14,8 @@ export default Router().post(
   validate({ body: Z_notification_insert }),
   async (req, res) => {
     const customerTokens = await db.select().from(TB_customerFcm);
-    if (!customerTokens) {
-      return;
+    if (!customerTokens.length) {
+      return other(res, 'No Customer tokens found');
     }
     const tokens = customerTokens.map((c) => c.token);
     const processNotification = new FirebaseNotificationQueue();
