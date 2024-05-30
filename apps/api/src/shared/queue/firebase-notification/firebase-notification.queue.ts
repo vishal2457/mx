@@ -4,7 +4,7 @@ import { firebaseNotificationWorker } from './firebase-notification.worker';
 import { z } from 'zod';
 import { Z_notification_insert } from '../../../../../../libs/mx-schema/src';
 
-export class FirebaseNotificationQueue extends BaseQueue {
+class FirebaseNotificationQueue extends BaseQueue {
   constructor() {
     super(
       GLOBAL_CONSTANTS.QUEUE_NAMES.firebaseNotification,
@@ -19,3 +19,5 @@ export class FirebaseNotificationQueue extends BaseQueue {
     return this.add(name, data);
   }
 }
+
+export const firebaseNotificationQueue = new FirebaseNotificationQueue();

@@ -3,7 +3,7 @@ import { BaseQueue } from '../base-queue';
 import { emailWorker } from './process-email.worker';
 import { GLOBAL_CONSTANTS } from '../../global-constants';
 
-export class ProcessEmailQueue extends BaseQueue {
+class ProcessEmailQueue extends BaseQueue {
   constructor() {
     super(GLOBAL_CONSTANTS.QUEUE_NAMES.processEmail, emailWorker);
   }
@@ -36,3 +36,5 @@ export class ProcessEmailQueue extends BaseQueue {
     await this.sendEmail(name, { to, subject, html: '' });
   }
 }
+
+export const processEmailQueue = new ProcessEmailQueue();

@@ -7,7 +7,7 @@ import {
   Z_notification_insert,
 } from '../../../../../../libs/mx-schema/src';
 import { validate } from '../../../shared/middlewares/validation.middleware';
-import { FirebaseNotificationQueue } from '../../../shared/queue/firebase-notification/firebase-notification.queue';
+import { firebaseNotificationQueue } from '../../../shared/queue/firebase-notification/firebase-notification.queue';
 
 export default Router().post(
   '/create',
@@ -18,8 +18,7 @@ export default Router().post(
       return other(res, 'No Customer tokens found');
     }
     const tokens = customerTokens.map((c) => c.token);
-    const processNotification = new FirebaseNotificationQueue();
-    await processNotification.sendNotification(
+    await firebaseNotificationQueue.sendNotification(
       'firebase-notification-from-admin',
       { tokens: tokens, payload: req.body }
     );
