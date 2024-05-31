@@ -1,6 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { TOffer, Z_offer } from '../../../../../../../../libs/mx-schema/src';
+import {
+  OFFER_PERIOD,
+  TOffer,
+  Z_offer,
+} from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 
 @Component({
@@ -10,10 +14,13 @@ import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 export class OfferFormComponent {
   showErrors = false;
   Z_offer = Z_offer;
+  protected period = Array.from(OFFER_PERIOD);
 
   private fb = inject(FormBuilder);
 
-  offerForm = this.fb.nonNullable.group<ControlsOf<Omit<TOffer, 'id'>>>({
+  offerForm = this.fb.nonNullable.group<
+    ControlsOf<Omit<TOffer, 'id' | 'createdAt'>>
+  >({
     name: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,

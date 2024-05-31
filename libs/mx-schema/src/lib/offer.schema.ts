@@ -1,14 +1,26 @@
-import { integer, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+import {
+  boolean,
+  integer,
+  pgEnum,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+} from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-export const periodEnum = pgEnum('period', ['month', 'year']);
+export const OFFER_PERIOD = ['1', '15', '30'] as const;
+
+export const periodEnum = pgEnum('period', OFFER_PERIOD);
 
 export const TB_offer = pgTable('offer', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   amount: integer('amount').notNull(),
-  period: periodEnum('period').default('month'),
+  period: periodEnum('period').default('1'),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
 });
 
 export const Z_offer = createSelectSchema(TB_offer);

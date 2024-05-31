@@ -24,4 +24,9 @@ export const seedMenu = [
     icon: 'manage_accounts',
     link: '/role/list',
   },
+  {
+    name: 'Offer',
+    icon: 'manage_accounts',
+    link: '/offer/list',
+  },
 ];

@@ -28,9 +28,7 @@ const formatRows = (
 ) => {
   return {
     ...rows[0].customer,
-    offers: rows
-      .map((row) => ({ ...row.customerOffer, offer: { ...row.offer } }))
-      .filter((o) => !!o),
+    offer: rows[0].offer,
   };
 };
 

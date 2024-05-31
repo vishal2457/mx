@@ -56,6 +56,7 @@ export const db = drizzle(pool, {
 async function seed() {
   await db.delete(TB_menu);
   await db.insert(TB_menu).values(seedMenu);
+
   await db.delete(TB_user);
   await db
     .insert(TB_user)
