@@ -10,7 +10,7 @@ import { serverAdapter } from './shared/queue/queue-board';
 const app = express();
 
 app
-  .use('/static', express.static(path.join(__dirname, '../src/assets')))
+  .use('/static', express.static(path.join(process.cwd() + '/../mx-images/')))
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .use(compression())

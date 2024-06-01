@@ -10,7 +10,7 @@ import {
   {{zodSchema}}_insert,
 } from '../../../../../../../libs/mx-schema/src';
 
-export default Router().post(
+export default Router().put(
   '/update/:id',
   validate({
     body: {{zodSchema}}_insert,

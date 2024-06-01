@@ -11,23 +11,21 @@ import {
   QueryList,
   inject,
 } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { MxActionComponent } from '../ui/mx-data-grid/components/base-table/action';
-import { GridColumnsComponent } from '../ui/mx-data-grid/components/base-table/columns';
-import { MxGridToolbarComponent } from '../ui/mx-data-grid/components/toolbar/mx-toolbar';
-import { MxDataGridModule } from '../ui/mx-data-grid/data-grid.module';
-import { MxFilterPillsComponent } from './filters/components/filter-pills';
-import { MxGridFilterComponent } from './filters/components/grid-filter';
-import { FilterService } from './filters/filter.service';
-import { safeStringify } from '../utils/safe-json';
-import { SubSink } from '../utils/sub-sink';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   expandFilters,
   truncateFilters,
 } from '../../../../../../libs/helpers/src';
-import qs from 'qs';
-import { FilterData } from '../../../../../../libs/mx-schema/src';
+import { ApiService } from '../services/api.service';
+import { MxActionComponent } from '../ui/mx-data-grid/components/base-table/action';
+import { GridColumnsComponent } from '../ui/mx-data-grid/components/base-table/columns';
+import { MxGridToolbarComponent } from '../ui/mx-data-grid/components/toolbar/mx-toolbar';
+import { MxDataGridModule } from '../ui/mx-data-grid/data-grid.module';
+import { safeStringify } from '../utils/safe-json';
+import { SubSink } from '../utils/sub-sink';
+import { MxFilterPillsComponent } from './filters/components/filter-pills';
+import { MxGridFilterComponent } from './filters/components/grid-filter';
+import { FilterService } from './filters/filter.service';
 
 @Component({
   selector: 'mx-grid-shell',

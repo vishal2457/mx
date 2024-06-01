@@ -1,10 +1,8 @@
 import { Router } from 'express';
 import { success } from '../../../shared/api-response/response-handler';
-import { db } from '../../../db/db';
 import handler from '../../../shared/async-handler.util';
 // import Stripe from 'stripe';
-import Razorpay from 'razorpay';
-import { APP_SETTINGS } from '../../../shared/app-settings';
+import { razorpay } from './utils/razorpay-instance';
 
 // const stripe = new Stripe(APP_SETTINGS.PAYMENT_API);
 
@@ -40,11 +38,6 @@ import { APP_SETTINGS } from '../../../shared/app-settings';
 //     );
 //   })
 // );
-
-const razorpay = new Razorpay({
-  key_id: APP_SETTINGS.RAZORPAY_KEY,
-  key_secret: APP_SETTINGS.RAZORPAY_SECRET,
-});
 
 export default Router().post(
   '/create',

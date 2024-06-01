@@ -8,6 +8,7 @@
   },
   "scripts": {
     "prepare": "husky install",
+    "start:sh": "sh scripts/start.sh",
     "lint:affected": "nx affected -t lint",
     "all": "nx run-many --target=serve --host=0.0.0.0",
     "build:all": "nx run-many --target=build",
@@ -49,6 +50,7 @@
     "express": "~4.18.1",
     "express-async-handler": "^1.2.0",
     "firebase-admin": "^12.1.0",
+    "handlebars": "^4.7.8",
     "ioredis": "^5.4.1",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",

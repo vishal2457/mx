@@ -2,7 +2,7 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
-const uploadDirectory = path.join(__dirname + '../../../assets/');
+const uploadDirectory = path.join(process.cwd() + '/../mx-images/');
 
 // Check if the directory exists, if not create it
 if (!fs.existsSync(uploadDirectory)) {

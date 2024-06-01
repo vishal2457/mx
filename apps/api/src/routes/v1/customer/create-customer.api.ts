@@ -29,6 +29,7 @@ const formatRows = (
   return {
     ...rows[0].customer,
     offer: rows[0].offer,
+    offerDetails: rows[0].customerOffer,
   };
 };
 
