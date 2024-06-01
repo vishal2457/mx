@@ -6,10 +6,14 @@ import { APP_SETTINGS } from './shared/app-settings';
 import chalk from 'chalk';
 import { logger } from './shared/logger/logger';
 import { checkDbConnection } from './db/db';
+import { initializeSocket } from './socket';
 
 async function main() {
   const server = http.createServer(app);
-  checkDbConnection();
+
+  initializeSocket(server);
+
+  await checkDbConnection();
 
   server.listen(APP_SETTINGS.PORT, () => {
     const { IS_DEVELOPMENT, NODE_ENV, PORT } = APP_SETTINGS;
@@ -17,4 +21,5 @@ async function main() {
     logger.log(IS_DEVELOPMENT ? chalk.cyanBright(msg) : chalk.redBright(msg));
   });
 }
+
 main();
