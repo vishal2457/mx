@@ -19,7 +19,9 @@ export class SubscriptionQueue extends BaseQueue {
   }
 
   cancelUserSubscription(name: string, data: CancelSubscriptionData) {
-    const newDate = add(data.subscriptionStartDate, { hours: 24 });
+    const newDate = add(data.subscriptionStartDate, {
+      hours: parseInt(data.period) * 24,
+    });
     const delay = newDate.getTime() - Date.now();
     return this.add(name, data, { delay });
   }

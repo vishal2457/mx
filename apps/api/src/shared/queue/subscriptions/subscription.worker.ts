@@ -17,5 +17,9 @@ export const subscriptionWorker = new Worker(
       throw new Error(error);
     }
   },
-  { connection: queueConnection }
+  {
+    connection: queueConnection,
+    concurrency: 5,
+    removeOnComplete: { count: 800 },
+  }
 );
