@@ -4,6 +4,7 @@ import { APP_SETTINGS } from '../../../shared/app-settings';
 import ah from '../../../shared/async-handler.util';
 import { db } from '../../../db/db';
 import { TB_customer_offer } from '../../../../../../libs/mx-schema/src';
+import { subscriptionQueue } from '../../../shared/queue/subscriptions/subscription.queue';
 
 export default Router().post(
   '/verify-payment',
@@ -37,6 +38,12 @@ export default Router().post(
         paymentID: razorpay_payment_id,
       })
       .returning();
+
+    await subscriptionQueue.cancelUserSubscription('cancel-user-sub', {
+      customerOfferId: activatedOffer[0].id,
+      subscriptionStartDate: activatedOffer[0].createdAt,
+      period: offer.period,
+    });
 
     success(res, { ...activatedOffer, offer }, 'Payment Verified');
   })

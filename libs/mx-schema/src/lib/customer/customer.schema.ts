@@ -3,7 +3,7 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 export const TB_customer = pgTable('customer', {
   id: serial('id').primaryKey(),
-  deviceID: text('deviceID').notNull(),
+  deviceID: text('deviceID').notNull().unique(),
   device: text('device').default('ios'),
 });
 
