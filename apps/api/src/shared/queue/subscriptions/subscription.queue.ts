@@ -4,11 +4,18 @@ import { BaseQueue } from '../base-queue';
 import { subscriptionWorker } from './subscription.worker';
 import { add } from 'date-fns';
 
-export type CancelSubscriptionData = {
-  customerOfferId: number;
+interface Subscription {
   subscriptionStartDate: Date;
   period: (typeof OFFER_PERIOD)[number];
-};
+}
+
+export interface CancelSubscriptionData extends Subscription {
+  customerOfferId: number;
+}
+
+export interface RemoveAdsSubData extends Subscription {
+  customerID: number;
+}
 
 export class SubscriptionQueue extends BaseQueue {
   constructor() {
@@ -18,12 +25,23 @@ export class SubscriptionQueue extends BaseQueue {
     );
   }
 
-  cancelUserSubscription(name: string, data: CancelSubscriptionData) {
-    const newDate = add(data.subscriptionStartDate, {
-      hours: parseInt(data.period) * 24,
+  private addDelay(date: Date, period: Subscription['period']) {
+    const newDate = add(date, {
+      hours: parseInt(period) * 24,
     });
-    const delay = newDate.getTime() - Date.now();
-    return this.add(name, data, { delay });
+    return newDate.getTime() - Date.now();
+  }
+
+  cancelUserSubscription(data: CancelSubscriptionData) {
+    return this.add(GLOBAL_CONSTANTS.JOB_NAME.CANCEL_SUBSCRIPTION, data, {
+      delay: this.addDelay(data.subscriptionStartDate, data.period),
+    });
+  }
+
+  removeAds(data: RemoveAdsSubData) {
+    return this.add(GLOBAL_CONSTANTS.JOB_NAME.REMOVE_ADS, data, {
+      delay: this.addDelay(data.subscriptionStartDate, data.period),
+    });
   }
 }
 
