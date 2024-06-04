@@ -1,15 +1,14 @@
+import { eq } from 'drizzle-orm';
 import { Router } from 'express';
-import { other, success } from '../../../shared/api-response/response-handler';
-import { APP_SETTINGS } from '../../../shared/app-settings';
-import ah from '../../../shared/async-handler.util';
-import { db } from '../../../db/db';
 import {
   TB_customer,
   TB_customer_offer,
 } from '../../../../../../libs/mx-schema/src';
+import { db } from '../../../db/db';
+import { other, success } from '../../../shared/api-response/response-handler';
+import { APP_SETTINGS } from '../../../shared/app-settings';
+import ah from '../../../shared/async-handler.util';
 import { subscriptionQueue } from '../../../shared/queue/subscriptions/subscription.queue';
-import { GLOBAL_CONSTANTS } from '../../../shared/global-constants';
-import { eq } from 'drizzle-orm';
 
 export default Router().post(
   '/verify-payment',

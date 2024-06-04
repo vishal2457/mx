@@ -6,15 +6,22 @@ import routerv1 from './routes/v1/router';
 import { logHttpRequests } from './shared/logger/morgan-logger';
 import errorHandler from './shared/middlewares/error-handler.middleware';
 import { serverAdapter } from './shared/queue/queue-board';
+import helmet from 'helmet';
 
 const app = express();
 
 app
-  .use('/static', express.static(path.join(process.cwd() + '/../mx-images/')))
+  .use(cors())
+  .use(helmet())
+  .use(compression())
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
-  .use(compression())
-  .use(cors())
+  .use(
+    helmet.frameguard({
+      action: 'deny',
+    })
+  )
+  .use('/static', express.static(path.join(process.cwd() + '/../mx-images/')))
   .use(logHttpRequests);
 
 //init all the modules
