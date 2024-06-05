@@ -19,6 +19,7 @@ export const TB_offer = pgTable('offer', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   amount: integer('amount').notNull(),
+  fakeAmount: integer('fakeAmount').notNull(),
   period: periodEnum('period').default('1'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
 });

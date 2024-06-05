@@ -29,6 +29,10 @@ export class OfferFormComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    fakeAmount: new FormControl(null, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
     period: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,
@@ -51,6 +55,9 @@ export class OfferFormComponent {
     const values = this.offerForm.value;
     if (typeof values.amount === 'string') {
       values.amount = parseFloat(values.amount);
+    }
+    if (typeof values.fakeAmount === 'string') {
+      values.fakeAmount = parseFloat(values.fakeAmount);
     }
     return { ...values };
   }
