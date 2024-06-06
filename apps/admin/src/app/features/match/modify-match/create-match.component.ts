@@ -12,7 +12,7 @@ import { MatchFormComponent } from './match-form/match-form.component';
       (save)="handleSubmit()"
       [loading]="false"
     />
-    <match-form />`,
+    <match-form formType="add" />`,
 })
 export class CreateMatchComponent implements OnDestroy {
   @ViewChild(MatchFormComponent) MatchFormComponent!: MatchFormComponent;

@@ -51,7 +51,7 @@ export class MxDataGridComponent
   @Input() collectionSize = 0;
   @Input() gridTitle = '';
   @Input() hideFeatures: HideFeatures = [];
-  @Input() selectable = true;
+  @Input() selectable = false;
 
   @Output() emitEvents = new EventEmitter<any>();
   @Output() sortChange = new EventEmitter();

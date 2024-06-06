@@ -1,6 +1,4 @@
-import { sql } from 'drizzle-orm';
 import {
-  boolean,
   integer,
   pgEnum,
   pgTable,
@@ -24,6 +22,11 @@ export const TB_offer = pgTable('offer', {
   createdAt: timestamp('createdAt').notNull().defaultNow(),
 });
 
-export const Z_offer = createSelectSchema(TB_offer);
-export const Z_offer_insert = createInsertSchema(TB_offer);
+const modifiers = {
+  fakeAmount: z.coerce.number(),
+  amount: z.coerce.number(),
+};
+
+export const Z_offer = createSelectSchema(TB_offer, modifiers);
+export const Z_offer_insert = createInsertSchema(TB_offer, modifiers);
 export type TOffer = z.infer<typeof Z_offer>;

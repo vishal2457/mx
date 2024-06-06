@@ -53,12 +53,6 @@ export class OfferFormComponent {
 
   getFormValue() {
     const values = this.offerForm.value;
-    if (typeof values.amount === 'string') {
-      values.amount = parseFloat(values.amount);
-    }
-    if (typeof values.fakeAmount === 'string') {
-      values.fakeAmount = parseFloat(values.fakeAmount);
-    }
     return { ...values };
   }
 

@@ -3,22 +3,28 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ZodSchema } from 'zod';
 import { environment } from '../../../../environments/environment.development';
+import { MxCardModule } from '../card/card.module';
 
 @Component({
   selector: 'mx-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, MxCardModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    @if (environment.production) {
     <a
       (click)="patchRandomValues()"
-      *ngIf="!environment.production"
-      class="cursor-pointer"
+      class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
       >Fill random values</a
     >
-    <form [formGroup]="form">
-      <ng-content></ng-content>
-    </form>
+    }
+    <div mxCard>
+      <div mxCardContent class="py-7 px-5">
+        <form [formGroup]="form">
+          <ng-content></ng-content>
+        </form>
+      </div>
+    </div>
   `,
 })
 export class MxFormComponent {

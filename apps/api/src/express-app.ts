@@ -12,7 +12,11 @@ const app = express();
 
 app
   .use(cors())
-  .use(helmet())
+  .use(
+    helmet({
+      crossOriginResourcePolicy: false,
+    })
+  )
   .use(compression())
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
@@ -21,7 +25,7 @@ app
       action: 'deny',
     })
   )
-  .use('/static', express.static(path.join(process.cwd() + '/../mx-images/')))
+  .use('/static', express.static(path.join(process.cwd() + '/mx-images/')))
   .use(logHttpRequests);
 
 //init all the modules

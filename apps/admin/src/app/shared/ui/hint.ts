@@ -1,8 +1,8 @@
-import { NgIf } from "@angular/common";
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: "mx-hint",
+  selector: 'mx-hint',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIf],
@@ -16,17 +16,17 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 })
 export class MxHintComponent {
   readonly hintStyle = {
-    message: "text-slate-500",
+    message: 'text-slate-500',
   } as const;
 
   readonly errorStyle = {
-    message: "text-slate-500",
+    message: 'text-red-500',
   } as const;
 
-  @Input() message = "";
-  @Input() type: "error" | "hint" = "hint";
+  @Input() message = '';
+  @Input() type: 'error' | 'hint' = 'hint';
   get styles() {
-    if (this.type === "error") {
+    if (this.type === 'error') {
       return this.errorStyle;
     }
     return this.hintStyle;

@@ -9,7 +9,7 @@ import { eq } from 'drizzle-orm';
 import { validate } from '../../../shared/middlewares/validation.middleware';
 import { checkPassword } from '../../../shared/password-hash';
 import { generateToken } from '../../../shared/jwt/token-utils';
-import { TB_user, Z_user } from '../../../../../../libs/mx-schema/src';
+import { TB_menu, TB_user, Z_user } from '../../../../../../libs/mx-schema/src';
 
 export default Router().post(
   '/login',
@@ -26,7 +26,9 @@ export default Router().post(
     if (!checkPassword(req.body.password, user.password)) {
       return unauthorized(res, 'Incorrect credentials');
     }
-    const menu = await db.query.TB_menu.findMany();
+    const menu = await db.query.TB_menu.findMany({
+      where: eq(TB_menu.active, true),
+    });
     const token = generateToken({ email: user.email, id: user.id });
     success(res, { token, menu }, 'login success');
   })

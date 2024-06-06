@@ -14,7 +14,7 @@ import { MatchFormComponent } from './match-form/match-form.component';
       (save)="handleSubmit()"
       [loading]="false"
     />
-    <match-form />`,
+    <match-form formType="update" />`,
 })
 export class UpdateMatchComponent implements OnInit, OnDestroy {
   @ViewChild(MatchFormComponent) formComponent!: MatchFormComponent;
