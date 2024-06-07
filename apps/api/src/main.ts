@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: `${process.cwd()}/.env` });
 import http from 'http';
 import app from './express-app';
 import { APP_SETTINGS } from './shared/app-settings';

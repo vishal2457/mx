@@ -3,9 +3,9 @@ const {
   NODE_ENV = 'development',
   PORT = 3000,
   ENCRYPT = false,
-  DB_NAME = 'maximus',
-  DB_HOST = 'localhost',
-  DB_PORT = '5432',
+  DB_NAME,
+  DB_HOST,
+  DB_PORT,
   DB_USERNAME = 'root',
   DB_PASSWORD = 'root',
   DB_SYNC = false,
@@ -19,7 +19,6 @@ const {
   SENDER_EMAIL_PORT,
   SENDER_EMAIL_ID = '',
   SENDER_EMAIL_PASSWORD = '',
-  ROOT_DIR = 'apps/api',
   ENCRYPTION = false,
   JWT_SECRET,
   PAYMENT_API,
@@ -31,6 +30,8 @@ const {
   FIREBASE_CLIENT_CERT_URL,
   RAZORPAY_KEY,
   RAZORPAY_SECRET,
+  REDIS_HOST,
+  REDIS_PORT,
 } = process.env;
 
 export const APP_SETTINGS = {
@@ -52,7 +53,6 @@ export const APP_SETTINGS = {
   AWS_SECRET_KEY,
   AWS_REGION,
   AWS_BUCKET_NAME,
-  ROOT_DIR,
   APP_NAME,
   DEFAULT_IMAGE_QUALITY_REDUCTION: parseInt(
     DEFAULT_IMAGE_QUALITY_REDUCTION || '80'
@@ -69,4 +69,6 @@ export const APP_SETTINGS = {
   FIREBASE_CLIENT_CERT_URL,
   RAZORPAY_KEY,
   RAZORPAY_SECRET,
+  REDIS_HOST,
+  REDIS_PORT,
 };
