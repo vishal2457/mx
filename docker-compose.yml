@@ -8,9 +8,9 @@ services:
     restart: always
     # Environment variables
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: maximus
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     # Ports used, format: <host_port>:<container_port>
     ports:
       - 5432:5432
@@ -37,7 +37,6 @@ services:
   #     - .env
   #   ports:
   #     - 3000:3000
-  #     - 8000:8000
   #   depends_on:
   #     - db
   #     - redis
