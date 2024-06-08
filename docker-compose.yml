@@ -8,9 +8,9 @@ services:
     restart: always
     # Environment variables
     environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: maximus
     # Ports used, format: <host_port>:<container_port>
     ports:
       - 5432:5432
