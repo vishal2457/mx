@@ -5,17 +5,21 @@ ENV HOST=0.0.0.0
 ENV PORT=3000
 
 WORKDIR /app
+# Install build tools
+RUN apk add --no-cache make gcc g++ python3
 
 RUN addgroup --system api && \
-          adduser --system -G api api
+  adduser --system -G api api
 
 COPY dist/apps/api api
-COPY dist/apps/admin api/admin
 RUN chown -R api:api .
+
+# Switch to the api user
+USER api
 
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
-RUN npm --prefix api --omit=dev -f install
+RUN npm --prefix api install
 EXPOSE 3000
 
 CMD [ "node", "api" ]

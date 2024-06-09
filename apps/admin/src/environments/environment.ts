@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  api: 'https://afraid-melons-peel.loca.lt',
+  api: 'host.internal.docker:3000',
   get assetsURL() {
     return `${this.api}/static`;
   },

@@ -15,16 +15,6 @@ export const seedMenu = [
     link: '/user/list',
   },
   {
-    name: 'Customers',
-    icon: 'group',
-    link: '/customer/list',
-  },
-  {
-    name: 'Role',
-    icon: 'manage_accounts',
-    link: '/role/list',
-  },
-  {
     name: 'Offer',
     icon: 'manage_accounts',
     link: '/offer/list',
