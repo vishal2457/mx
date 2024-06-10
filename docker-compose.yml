@@ -27,7 +27,7 @@ services:
     command: ['redis-server', '--bind', 'redis', '--port', '6379']
 
   admin:
-    image: vishalacharya221997335/mx-admin
+    image: vishal2457/mx-admin
     build:
       context: ./
       dockerfile: ./deploy/Dockerfile.admin
@@ -35,7 +35,7 @@ services:
       - 80:80
 
   api:
-    image: vishalacharya221997335/mx-api
+    image: vishal2457/mx-api
     build:
       context: ./
       dockerfile: ./deploy/Dockerfile.api

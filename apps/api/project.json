@@ -16,9 +16,7 @@
         "bundle": false,
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.app.json",
-        "assets": [
-          "apps/api/src/assets"
-      ],
+        "assets": ["apps/api/src/assets"],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
@@ -57,7 +55,7 @@
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f Dockerfile.api . -t vishalacharya221997335/maximus-api:nodeapi"
+      "command": "docker build -f Dockerfile.api . -t vishal2457/mx-api"
     }
   }
 }
