@@ -7,9 +7,9 @@ services:
     # Environment variables
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: maximus
-    # Ports used, format: <host_port>:<container_port>
+
     ports:
       - 5432:5432
     # Volume to persist the data even after the container is stopped
@@ -30,17 +30,21 @@ services:
     image: vishalacharya221997335/mx-admin
     build:
       context: ./
-      dockerfile: Dockerfile.admin
+      dockerfile: ./deploy/Dockerfile.admin
     ports:
       - 80:80
 
   api:
     image: vishalacharya221997335/mx-api
     build:
-      context: './'
-      dockerfile: Dockerfile.api
-    env_file:
-      - .env
+      context: ./
+      dockerfile: ./deploy/Dockerfile.api
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - FIREBASE_PRIVATE_KEY_ID=${FIREBASE_PRIVATE_KEY_ID}
+      - JWT_SECRET=${JWT_SECRET}
+      - RAZORPAY_KEY=${RAZORPAY_KEY}
+      - RAZORPAY_SECRET=${RAZORPAY_SECRET}
     restart: on-failure:10
     ports:
       - 3000:3000

@@ -9,23 +9,9 @@ import { APP_SETTINGS } from '../app-settings';
 
 const _thresold = 999 as const;
 
-const {
-  FIREBASE_CLIENT_CERT_URL,
-  FIREBASE_CLIENT_EMAIL,
-  FIREBASE_CLIENT_ID,
-  FIREBASE_PRIVATE_KEY,
-  FIREBASE_PRIVATE_KEY_ID,
-  FIREBASE_PROJECT_ID,
-} = APP_SETTINGS;
+const { FIREBASE_PRIVATE_KEY_ID } = APP_SETTINGS;
 
-if (
-  FIREBASE_CLIENT_CERT_URL &&
-  FIREBASE_CLIENT_EMAIL &&
-  FIREBASE_CLIENT_ID &&
-  FIREBASE_PRIVATE_KEY &&
-  FIREBASE_PRIVATE_KEY_ID &&
-  FIREBASE_PROJECT_ID
-) {
+if (FIREBASE_PRIVATE_KEY_ID) {
   admin.initializeApp({
     credential: admin.credential.cert(FirebaseConfig as ServiceAccount),
     databaseURL:

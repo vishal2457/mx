@@ -8,9 +8,8 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "start:sh": "git pull origin main && npm run db:push && sh scripts/start.sh",
     "lint:affected": "nx affected -t lint",
-    "all": "docker compose up -d && nx run-many --target=serve --host=0.0.0.0",
+    "all": "nx run-many --target=serve --host=0.0.0.0",
     "build:all": "nx run-many --target=build --configuration=production",
     "migration:generate": "drizzle-kit generate:pg --config=./libs/mx-schema/drizzle.config.ts",
     "db:push": "drizzle-kit push --config=./libs/mx-schema/drizzle.config.ts",
