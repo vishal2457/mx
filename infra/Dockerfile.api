@@ -12,10 +12,10 @@ RUN addgroup --system api && \
   adduser --system -G api api
 
 COPY dist/apps/api api
-RUN chown -R api:api .
+# RUN chown -R api:api .
 
 # Switch to the api user
-USER api
+# USER api
 
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
