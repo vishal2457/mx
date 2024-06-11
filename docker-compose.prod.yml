@@ -14,7 +14,7 @@ services:
       - 5432:5432
     # Volume to persist the data even after the container is stopped
     volumes:
-      - ./app-data/data/postgres:/var/lib/postgresql/data
+      - ./database/data/postgres:/var/lib/postgresql/data
     # Healthcheck command because other containers depend on this one
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
@@ -26,32 +26,37 @@ services:
     image: redis:latest
     command: ['redis-server', '--bind', 'redis', '--port', '6379']
     volumes:
-      - ./app-data/redis_data:/data
+      - redis_data:/data
 
-  api:
+  admin:
+    image: vishal2457/mx-admin
     build:
       context: ./
-      dockerfile: ./infra/Dockerfile.api
-    env_file:
-      - ./.env
+      dockerfile: ./deploy/Dockerfile.admin
+    ports:
+      - 80:80
+
+  api:
+    image: vishal2457/mx-api
+    build:
+      context: ./
+      dockerfile: ./deploy/Dockerfile.api
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - FIREBASE_PRIVATE_KEY_ID=${FIREBASE_PRIVATE_KEY_ID}
+      - JWT_SECRET=${JWT_SECRET}
+      - RAZORPAY_KEY=${RAZORPAY_KEY}
+      - RAZORPAY_SECRET=${RAZORPAY_SECRET}
     restart: on-failure
-    expose:
-      - 3000
     deploy:
-      replicas: 3
+      # replicas: 3
       restart_policy:
         condition: on-failure
         delay: 10s
+        max_attempts: 3
+        window: 120s
+    ports:
+      - 3000:3000
     depends_on:
       - db
       - redis
-
-  nginx:
-    build:
-      context: ./
-      dockerfile: ./infra/Dockerfile.nginx
-    ports:
-      - 3000:3000
-      - 80:80
-    depends_on:
-      - api
