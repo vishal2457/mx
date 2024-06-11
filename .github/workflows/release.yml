@@ -44,13 +44,12 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker images
-        run: docker compose build
+        run: docker compose -f docker-compose.ci.yml build
 
       - name: Push Docker image
         run: docker compose push
 
       - name: Release
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release

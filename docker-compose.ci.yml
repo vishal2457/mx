@@ -29,12 +29,19 @@ services:
       - ./app-data/redis_data:/data
 
   api:
+    image: vishal2457/mx-api
     build:
       context: ./
       dockerfile: ./infra/Dockerfile.api
-    env_file:
-      - ./.env
-    restart: on-failure
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - FIREBASE_PRIVATE_KEY_ID=${FIREBASE_PRIVATE_KEY_ID}
+      - JWT_SECRET=${JWT_SECRET}
+      - RAZORPAY_KEY=${RAZORPAY_KEY}
+      - RAZORPAY_SECRET=${RAZORPAY_SECRET}
+    volumes:
+      - ./app-data/api/images:/app/mx-images
+      - ./app-data/api/logs:/app/logs
     expose:
       - 3000
     deploy:
@@ -47,6 +54,7 @@ services:
       - redis
 
   nginx:
+    image: vishal2457/mx-nginx
     build:
       context: ./
       dockerfile: ./infra/Dockerfile.nginx

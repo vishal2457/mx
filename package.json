@@ -11,11 +11,13 @@
     "lint:affected": "nx affected -t lint",
     "all": "nx run-many --target=serve --host=0.0.0.0",
     "build:all": "nx run-many --target=build --configuration=production",
-    "migration:generate": "drizzle-kit generate:pg --config=./libs/mx-schema/drizzle.config.ts",
+    "migration:generate": "drizzle-kit generate --config=./libs/mx-schema/drizzle.config.ts",
+    "migrate": "drizzle-kit migrate --config=./libs/mx-schema/drizzle.config.ts",
     "db:push": "drizzle-kit push --config=./libs/mx-schema/drizzle.config.ts",
     "db:drop:migration": "drizzle-kit drop --config=./libs/mx-schema/drizzle.config.ts",
     "drizzle-kit:studio": "drizzle-kit studio --config=./libs/mx-schema/drizzle.config.ts --port 4001",
-    "generate:code": "plop --plopfile _plop/generators/index.js"
+    "generate:code": "plop --plopfile _plop/generators/index.js",
+    "dc:dev":"docker compose  -f docker-compose.dev.yml up -d"
   },
   "private": true,
   "dependencies": {

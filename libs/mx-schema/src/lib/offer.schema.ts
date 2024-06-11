@@ -18,7 +18,7 @@ export const TB_offer = pgTable('offer', {
   name: text('name').notNull(),
   amount: integer('amount').notNull(),
   fakeAmount: integer('fakeAmount').notNull(),
-  period: periodEnum('period').default('1'),
+  period: periodEnum('period').default(OFFER_PERIOD[0]),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
 });
 

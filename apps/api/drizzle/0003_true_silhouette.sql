@@ -1,0 +1,1 @@
+ALTER TABLE "offer" ALTER COLUMN "period" SET DEFAULT '1';
