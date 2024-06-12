@@ -69,6 +69,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           source: './docker-compose.yml'
           target: '/root/funfantasy'
+          rm: true
 
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.0.3
