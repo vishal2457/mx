@@ -1,1 +1,0 @@
-ALTER TABLE "offer" ALTER COLUMN "period" DROP DEFAULT;

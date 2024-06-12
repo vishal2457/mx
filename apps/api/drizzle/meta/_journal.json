@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1716739617484,
-      "tag": "0000_long_vivisector",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1718129157906,
-      "tag": "0001_classy_sleeper",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1718129578432,
-      "tag": "0002_yellow_smasher",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1718130759741,
-      "tag": "0003_true_silhouette",
+      "when": 1718191635950,
+      "tag": "0000_parallel_black_widow",
       "breakpoints": true
     }
   ]
