@@ -89,7 +89,6 @@ jobs:
             export JWT_SECRET=${{ secrets.JWT_SECRET}}
             export RAZORPAY_KEY=${{ secrets.RAZORPAY_KEY}}
             export RAZORPAY_SECRET=${{ secrets.RAZORPAY_SECRET}}
-            # Add other environment variable exports as needed
             docker-compose down
             docker-compose pull
             docker-compose up -d
