@@ -62,4 +62,4 @@ async function seed() {
     .insert(TB_user)
     .values([{ email: 'test@test.com', password: hashPassword('123') }]);
 }
-seed();
+// seed();
