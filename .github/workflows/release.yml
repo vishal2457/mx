@@ -26,6 +26,9 @@ jobs:
       - name: Set env variables
         run: |
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> $GITHUB_ENV
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> $GITHUB_ENV
+          echo "NODE_HOST=${{ secrets.NODE_HOST }}" >> $GITHUB_ENV
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
           echo "RAZORPAY_KEY=${{ secrets.RAZORPAY_KEY }}" >> $GITHUB_ENV
           echo "RAZORPAY_SECRET=${{ secrets.RAZORPAY_SECRET }}" >> $GITHUB_ENV

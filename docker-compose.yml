@@ -40,7 +40,10 @@ services:
       context: ./
       dockerfile: ./infra/Dockerfile.api
     environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PORT=${DB_PORT}
       - DB_PASSWORD=${DB_PASSWORD}
+      - NODE_HOST=${NODE_HOST}
       - FIREBASE_PRIVATE_KEY_ID=${FIREBASE_PRIVATE_KEY_ID}
       - JWT_SECRET=${JWT_SECRET}
       - RAZORPAY_KEY=${RAZORPAY_KEY}
