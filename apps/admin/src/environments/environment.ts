@@ -4,4 +4,5 @@ export const environment = {
   get assetsURL() {
     return `${this.api}/static`;
   },
+  latestBuildTime: '',
 };

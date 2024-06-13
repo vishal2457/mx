@@ -69,6 +69,8 @@
               icon="logout"
               (handleClick)="logout()"
             />
+            <mx-dropdown-item [seperator]="true" />
+            <mx-dropdown-item [text]="'Last Build: ' + lastBuild" />
           </mx-dropdown>
         </div>
       </div>

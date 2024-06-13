@@ -4,6 +4,7 @@ import { ThemeService } from '../../../shared/services/theme.service';
 import { SidebarService } from '../../../shared/services/sidebar.service';
 import { APP_CONFIG } from '../../../../config';
 import { SubSink } from '../../../shared/utils/sub-sink';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'gb-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   sidebarOpen = true;
   PANEL_CONFIG = APP_CONFIG.panelConfig;
-
+  lastBuild = environment.latestBuildTime;
   private subs = new SubSink();
 
   ngOnInit(): void {
