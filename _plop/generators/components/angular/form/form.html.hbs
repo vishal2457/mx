@@ -1,5 +1,5 @@
 <mx-form [form]='{{name}}Form' [zodSchema]='{{zodSchema}}'>
-  <div class='grid grid-cols-3 gap-4'>
+  <div class='grid md:grid-cols-3 sm:grid-cols-1 gap-4'>
     {{#each schemaValue.properties}}
       {{#unless this.skipForm}}
         {{#eq this.type 'string'}}

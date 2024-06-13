@@ -10,7 +10,7 @@
     "prepare": "husky install",
     "lint:affected": "nx affected -t lint",
     "all": "nx run-many --target=serve --host=0.0.0.0",
-    "build:all": "nx run-many --target=build --configuration=production",
+    "build:all": "node ./scripts/set-env.js && nx run-many --target=build --configuration=production",
     "migration:g": "drizzle-kit generate --config=./libs/mx-schema/drizzle.config.ts",
     "migrate": "drizzle-kit migrate --config=./libs/mx-schema/drizzle.config.ts",
     "db:push": "drizzle-kit push --config=./libs/mx-schema/drizzle.config.ts",

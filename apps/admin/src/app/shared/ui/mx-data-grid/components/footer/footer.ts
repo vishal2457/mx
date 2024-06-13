@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { PaginationService } from "../../services/pagination.service";
+import { Component } from '@angular/core';
+import { PaginationService } from '../../services/pagination.service';
 
 @Component({
-  selector: "table-footer",
+  selector: 'table-footer',
   template: `<div class="rounded-0 py-3 flex justify-between">
     <ng-container>
-      <div class="flex">
+      <!-- <div class="flex">
         <mx-grid-limit />
         <div class="flex items-center pl-4">
           Rows:
@@ -13,7 +13,7 @@ import { PaginationService } from "../../services/pagination.service";
             (pagination.collectionSize$ | async) || 0
           }}</span>
         </div>
-      </div>
+      </div> -->
 
       <gb-pagination
         [collectionSize]="(pagination.collectionSize$ | async) || 0"

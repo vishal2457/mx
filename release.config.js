@@ -15,6 +15,7 @@ function getDryRunConfig() {
           releaseRules: [
             { type: 'docs', scope: 'README', release: 'patch' },
             { type: 'refactor', release: 'patch' },
+            { type: 'feat', release: 'patch' },
             { type: 'style', release: 'patch' },
           ],
           parserOpts: {
