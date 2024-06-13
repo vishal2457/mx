@@ -1,6 +1,7 @@
 import { Server as HttpServer } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
 import { GLOBAL_CONSTANTS } from '../global-constants';
+import { events } from './event-config';
 
 interface ClientMap {
   [userId: string]: string;
@@ -14,11 +15,10 @@ interface EventConfig {
 }
 
 class SocketManager {
-  private static instance: SocketManager;
   private io: SocketIOServer;
   public clients: ClientMap = {};
 
-  private constructor(server: HttpServer, events: EventConfig[]) {
+  initialize(server: HttpServer) {
     this.io = new SocketIOServer(server, {
       cors: {
         origin: '*', // Allow all origins (for development purposes)
@@ -27,27 +27,17 @@ class SocketManager {
     });
 
     this.io.on(GLOBAL_CONSTANTS.SOCKET_EVENTS.CONNECTION, (socket) =>
-      this.handleConnection(socket, events)
+      this.handleConnection(socket)
     );
   }
 
-  public static initialize(
-    server: HttpServer,
-    events: EventConfig[]
-  ): SocketManager {
-    if (!SocketManager.instance) {
-      SocketManager.instance = new SocketManager(server, events);
-    }
-    return SocketManager.instance;
-  }
-
-  private handleConnection(socket: Socket, events: EventConfig[]): void {
+  private handleConnection(socket: Socket): void {
     const userId = socket.handshake.query.userId as string;
     if (userId) {
       this.clients[userId] = socket.id;
     }
-
-    events.forEach(({ event, handler }) => {
+    const _events: EventConfig[] = events;
+    _events.forEach(({ event, handler }) => {
       socket.on(event, (...args: any[]) => handler(socket, ...args));
     });
 
@@ -63,14 +53,15 @@ class SocketManager {
     });
   }
 
-  public sendNotification(userId: string, message: string): void {
+  sendNotification(userId: string, message: string): void {
     const socketId = this.clients[userId];
-    if (socketId) {
-      this.io
-        .to(socketId)
-        .emit(GLOBAL_CONSTANTS.SOCKET_EVENTS.NOTIFICATION, message);
+    if (!socketId) {
+      return;
     }
+    this.io
+      .to(socketId)
+      .emit(GLOBAL_CONSTANTS.SOCKET_EVENTS.NOTIFICATION, message);
   }
 }
 
-export default SocketManager;
+export const socketManager = new SocketManager();

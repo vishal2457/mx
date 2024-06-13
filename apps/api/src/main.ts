@@ -6,14 +6,12 @@ import { APP_SETTINGS } from './shared/app-settings';
 import chalk from 'chalk';
 import { logger } from './shared/logger/logger';
 import { checkDbConnection } from './db/db';
-import SocketManager from './shared/socket';
-import events from './shared/socket/event-config'
+import { socketManager } from './shared/socket';
 
 async function main() {
   const server = http.createServer(app);
   checkDbConnection();
-
-  const socketManager = SocketManager.initialize(server, events);
+  socketManager.initialize(server);
 
   server.listen(APP_SETTINGS.PORT, () => {
     const { IS_DEVELOPMENT, NODE_ENV, PORT } = APP_SETTINGS;

@@ -13,6 +13,6 @@ export const GLOBAL_CONSTANTS = {
     DISCONNECT: 'disconnect',
     REGISTER: 'register',
     MESSAGE: 'message',
-    NOTIFICATION: 'notification',
+    NOTIFICATION: 'general-notification',
   },
 };
