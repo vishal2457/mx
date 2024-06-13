@@ -6,7 +6,19 @@ const targetPath = resolve(
   '../apps/admin/src/environments/environment.prod.ts'
 );
 
-const d = new Date();
+const options = {
+  timeZone: 'Asia/Kolkata',
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
+};
+
+const formatter = new Intl.DateTimeFormat([], options);
+const indianTime = formatter.format(new Date());
+console.log(indianTime);
 
 // Define environment variables to inject
 const envConfigFile = `
@@ -16,7 +28,7 @@ export const environment = {
   get assetsURL() {
     return 'this.api'+'/static';
   },
-  latestBuildTime: '${d.toDateString()}, ${d.getHours()}:${d.getMinutes()}'
+   latestBuildTime: '${indianTime}'
 };
 `;
 
