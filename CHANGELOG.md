@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/vishal2457/mx/compare/v3.1.0...v3.2.0) (2024-06-13)
+
+
+### Features
+
+* socket integration refactor ([e3f4e89](https://github.com/vishal2457/mx/commit/e3f4e897c4c2aae57b6d9a78e514cc914043207c)), closes [#20](https://github.com/vishal2457/mx/issues/20)
+
 # [3.1.0](https://github.com/vishal2457/mx/compare/v3.0.0...v3.1.0) (2024-05-20)
 
 
