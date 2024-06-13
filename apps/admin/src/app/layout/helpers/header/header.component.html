@@ -1,6 +1,6 @@
 <ng-container *ngIf="theme$ | async as theme">
   <nav
-    class="bg-background align-middle fixed left-0 right-0 top-0 z-50"
+    class="bg-background align-middle left-0 right-0 top-0 z-[102] relative"
     [ngClass]="{
       'border-b': theme === 'dark' || (theme === 'light' && !sidebarOpen),
     }"
