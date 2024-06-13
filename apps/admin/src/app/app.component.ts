@@ -8,6 +8,8 @@ import { SocketService } from './shared/services/socket.service';
 })
 export class AppComponent {
   title = 'Maximus';
-  
-  constructor(private socketService: SocketService) {}
+
+  constructor(private socketService: SocketService) {
+    socketService.init();
+  }
 }
