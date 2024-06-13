@@ -8,4 +8,11 @@ export const GLOBAL_CONSTANTS = {
     CANCEL_SUBSCRIPTION: 'cancel-user-sub',
     REMOVE_ADS: 'remove-ads',
   },
+  SOCKET_EVENTS: {
+    CONNECTION: 'connection',
+    DISCONNECT: 'disconnect',
+    REGISTER: 'register',
+    MESSAGE: 'message',
+    NOTIFICATION: 'general-notification',
+  },
 };
