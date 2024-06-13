@@ -10,7 +10,7 @@ import {
   Z_offer_insert,
 } from '../../../../../../../libs/mx-schema/src';
 
-export default Router().post(
+export default Router().put(
   '/update/:id',
   validate({
     body: Z_offer_insert,

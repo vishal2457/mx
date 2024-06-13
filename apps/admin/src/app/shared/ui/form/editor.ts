@@ -5,6 +5,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormBaseComponent } from './base-form';
 import { FormControlPipe } from '../../pipe/form-control';
 import { MxLabelComponent } from './mx-label';
+import { MxHintComponent } from '../hint';
 
 @Component({
   selector: 'mx-editor',
@@ -15,6 +16,7 @@ import { MxLabelComponent } from './mx-label';
     FormsModule,
     FormControlPipe,
     MxLabelComponent,
+    MxHintComponent,
   ],
   template: `
     <mx-label [label]="label" />
@@ -23,6 +25,13 @@ import { MxLabelComponent } from './mx-label';
       [config]="config"
       [formControl]="control | formControl"
     ></ckeditor>
+    @if(showErrors && errors?.['required']) {
+    <mx-hint message="This is a required field" type="error" heading="ERROR" />
+    }
+    <!-- comment to restrict prettier -->
+    @for(hint of hints; track hint) {
+    <mx-hint [message]="hint" />
+    }
   `,
 })
 export class MxEditorComponent extends FormBaseComponent {

@@ -2,6 +2,9 @@ import './process-email.worker';
 import { BaseQueue } from '../base-queue';
 import { emailWorker } from './process-email.worker';
 import { GLOBAL_CONSTANTS } from '../../global-constants';
+import { readFileSync } from 'fs';
+import handleBars from 'handlebars';
+import path from 'path';
 
 class ProcessEmailQueue extends BaseQueue {
   constructor() {
@@ -23,17 +26,23 @@ class ProcessEmailQueue extends BaseQueue {
     {
       to,
       subject,
-      template,
-      meta,
+      templateFile,
+      replacements,
     }: {
       to: string;
       subject: string;
-      template: string;
-      meta: Record<string, any> | any[];
+      templateFile: string;
+      replacements: Record<string, any> | any[];
     }
   ) {
-    // TODO: handle get email template with handle bar
-    await this.sendEmail(name, { to, subject, html: '' });
+    // TODO: find a way to get templated file in build automatically
+    const html = readFileSync(
+      path.join(__dirname, `../../../templates/${templateFile}`),
+      { encoding: 'utf8' }
+    );
+    const template = handleBars.compile(html);
+    const htmlToSend = template(replacements);
+    await this.sendEmail(name, { to, subject, html: htmlToSend });
   }
 }
 

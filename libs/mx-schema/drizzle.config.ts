@@ -4,6 +4,6 @@ export default {
   out: './apps/api/drizzle',
   dialect: 'postgresql',
   dbCredentials: {
-    url: `postgresql://root:root@localhost:5432/maximus`,
+    url: `postgresql://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.NODE_HOST}:${process.env.DB_PORT}/maximus`,
   },
 } satisfies Config;

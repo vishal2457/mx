@@ -41,6 +41,8 @@ Thumbs.db
 .nx/cache
 database/sql
 database/data
+app-data
 logs
 .env
 .angular
+mx-images

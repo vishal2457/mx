@@ -1,4 +1,4 @@
-import { Queue, QueueEvents, Worker } from 'bullmq';
+import { JobsOptions, Queue, QueueEvents, Worker } from 'bullmq';
 import Redis from 'ioredis';
 import { queueConnection } from './queue-connection';
 import { logger } from '../logger/logger';
@@ -32,8 +32,8 @@ export class BaseQueue {
     });
   }
 
-  async add(name, data) {
-    const job = await this.queue.add(name, data);
+  async add(name, data, options: JobsOptions = {}) {
+    const job = await this.queue.add(name, data, options);
     return { job, queueEvents: this.queueEvents };
   }
 }

@@ -34,7 +34,17 @@
               "maximumError": "10kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "optimization": true,
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/admin/src/environments/environment.ts",
+              "with": "apps/admin/src/environments/environment.prod.ts"
+            }
+          ]
         },
         "development": {
           "optimization": false,
@@ -46,7 +56,9 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
-      "options": { "port": 4300 },
+      "options": {
+        "port": 4300
+      },
       "configurations": {
         "production": {
           "buildTarget": "admin:build:production"
@@ -72,6 +84,10 @@
       "options": {
         "jestConfig": "apps/admin/jest.config.ts"
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f Dockerfile.admin . -t vishal2457/mx-admin"
     }
   }
 }

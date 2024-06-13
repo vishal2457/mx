@@ -1,11 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 import {
   GAME_SLUG,
   TMatch,
   Z_match,
 } from '../../../../../../../../libs/mx-schema/src';
+import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 
 @Component({
   selector: 'match-form',
@@ -13,6 +13,8 @@ import {
 })
 export class MatchFormComponent {
   private fb = inject(FormBuilder);
+
+  @Input() formType: 'add' | 'update' = 'add';
 
   GAMES = Array.from(GAME_SLUG);
   previousFilenames: any = {};

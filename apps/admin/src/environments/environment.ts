@@ -1,7 +1,6 @@
 export const environment = {
   production: true,
-  api: 'https://afraid-melons-peel.loca.lt',
-  socketUrl: 'https://afraid-melons-peel.loca.lt',
+  api: 'https://localhost:3000',
   get assetsURL() {
     return `${this.api}/static`;
   },

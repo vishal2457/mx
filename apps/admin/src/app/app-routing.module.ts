@@ -17,6 +17,11 @@ const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+        path: '',
+        redirectTo: '/match/list',
+        pathMatch: 'full',
+      },
+      {
         path: 'match',
         canActivate: [authGuard],
         loadChildren: () =>
@@ -42,16 +47,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./features/user/user.module').then((m) => m.UserModule),
       },
-            {
-        path: "offer",
+      {
+        path: 'offer',
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/offer/offer.module").then(
-            (m) => m.OfferModule
-          ),
+          import('./features/offer/offer.module').then((m) => m.OfferModule),
       },
-// APPEND ANGULAR ROUTES
-
+      // APPEND ANGULAR ROUTES
     ],
   },
 ];

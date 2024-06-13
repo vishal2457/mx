@@ -23,7 +23,7 @@ export const TB_user = pgTable(
     updatedAt: timestamp('updatedAt').$onUpdate(() => sql`CURRENT_TIMESTAMP`),
   },
   (adminUser) => ({
-    rmailIdx: uniqueIndex('rmailIdx').on(adminUser.email),
+    emailIdx: uniqueIndex('emailIdx').on(adminUser.email),
   })
 );
 

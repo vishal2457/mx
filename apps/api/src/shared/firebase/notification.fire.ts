@@ -5,14 +5,19 @@ import {
   Notification,
 } from 'firebase-admin/lib/messaging/messaging-api';
 import { FirebaseConfig } from './firebase.config';
+import { APP_SETTINGS } from '../app-settings';
 
 const _thresold = 999 as const;
 
-admin.initializeApp({
-  credential: admin.credential.cert(FirebaseConfig as ServiceAccount),
-  databaseURL:
-    'https://funfantasy-2ae24-default-rtdb.asia-southeast1.firebasedatabase.app',
-});
+const { FIREBASE_PRIVATE_KEY_ID } = APP_SETTINGS;
+
+if (FIREBASE_PRIVATE_KEY_ID) {
+  admin.initializeApp({
+    credential: admin.credential.cert(FirebaseConfig as ServiceAccount),
+    databaseURL:
+      'https://funfantasy-2ae24-default-rtdb.asia-southeast1.firebasedatabase.app',
+  });
+}
 
 function _sendNotification(message: MulticastMessage): Promise<BatchResponse> {
   return admin.messaging().sendEachForMulticast(message);

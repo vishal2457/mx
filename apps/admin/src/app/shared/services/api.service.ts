@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { MxNotification } from '../ui/notification/notification.service';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import {
   MxListResponse,
   MxResponse,

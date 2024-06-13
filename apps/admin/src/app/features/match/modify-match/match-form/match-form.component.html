@@ -49,28 +49,28 @@
   </div>
 
   <mx-textarea
-  label="Team One"
-  [control]="matchFormControls.teamOnePlayers"
-  [showErrors]="showErrors"
-  [hints]="['Add players comma seperated']"
+    label="Team One Players"
+    [control]="matchFormControls.teamOnePlayers"
+    [showErrors]="showErrors"
+    [hints]="['Add players comma seperated']"
   ></mx-textarea>
   <mx-textarea
-  label="Team two"
-  [control]="matchFormControls.teamTwoPlayers"
-  [showErrors]="showErrors"
-  [hints]="['Add players comma seperated']"
+    label="Team two Players"
+    [control]="matchFormControls.teamTwoPlayers"
+    [showErrors]="showErrors"
+    [hints]="['Add players comma seperated']"
   ></mx-textarea>
 
   <mx-editor
-  label="Description"
-  [control]="matchFormControls.description"
-  [showErrors]="showErrors"
-/>
-<mx-editor
-  [control]="matchFormControls.h2hTeam"
-  [showErrors]="showErrors"
-  label="H2H Team"
-/>
+    label="Description"
+    [control]="matchFormControls.description"
+    [showErrors]="showErrors"
+  />
+  <mx-editor
+    [control]="matchFormControls.h2hTeam"
+    [showErrors]="showErrors"
+    label="H2H Team"
+  />
 </mx-form>
 
 <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
@@ -96,10 +96,9 @@
   />
 </div>
 
-<div class="mt-4 flex flex-col gap-2">
+<div class="mt-4 flex flex-col gap-2" *ngIf="formType === 'update'">
   <div>
     <p>Team One Logo</p>
-
     <mx-image [filename]="previousFilenames.teamOneLogo" />
   </div>
   <div>

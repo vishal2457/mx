@@ -1,5 +1,5 @@
 {
-  "id": "25881194-d408-411c-8d07-5fb898b48c6a",
+  "id": "4d2207b0-df74-4276-9de3-db361f097894",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -46,6 +46,87 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "public.customerOffer": {
+      "name": "customerOffer",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "customerID": {
+          "name": "customerID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "offerID": {
+          "name": "offerID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "orderID": {
+          "name": "orderID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "paymentID": {
+          "name": "paymentID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "customerOffer_customerID_customer_id_fk": {
+          "name": "customerOffer_customerID_customer_id_fk",
+          "tableFrom": "customerOffer",
+          "tableTo": "customer",
+          "columnsFrom": [
+            "customerID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "customerOffer_offerID_offer_id_fk": {
+          "name": "customerOffer_offerID_offer_id_fk",
+          "tableFrom": "customerOffer",
+          "tableTo": "offer",
+          "columnsFrom": [
+            "offerID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.customer": {
       "name": "customer",
       "schema": "",
@@ -68,12 +149,27 @@
           "primaryKey": false,
           "notNull": false,
           "default": "'ios'"
+        },
+        "removeAds": {
+          "name": "removeAds",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "customer_deviceID_unique": {
+          "name": "customer_deviceID_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "deviceID"
+          ]
+        }
+      }
     },
     "public.match": {
       "name": "match",
@@ -203,7 +299,15 @@
           "default": "'waiting'"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "gameSlugIdx": {
+          "name": "gameSlugIdx",
+          "columns": [
+            "gameSlug"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
@@ -318,16 +422,100 @@
           "primaryKey": false,
           "notNull": true
         },
+        "fakeAmount": {
+          "name": "fakeAmount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
         "period": {
           "name": "period",
           "type": "period",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
-          "default": "'month'"
+          "default": "'1'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.permission": {
+      "name": "permission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.rolePermission": {
+      "name": "rolePermission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "menuID": {
+          "name": "menuID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permissionID": {
+          "name": "permissionID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "roleID": {
+          "name": "roleID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "roleIdx": {
+          "name": "roleIdx",
+          "columns": [
+            "roleID"
+          ],
+          "isUnique": false
+        },
+        "permissionIdx": {
+          "name": "permissionIdx",
+          "columns": [
+            "permissionID"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
@@ -360,6 +548,34 @@
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.userRole": {
+      "name": "userRole",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "roleID": {
+          "name": "roleID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userID": {
+          "name": "userID",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
@@ -400,7 +616,7 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "default": false
+          "default": true
         },
         "createdAt": {
           "name": "createdAt",
@@ -417,8 +633,8 @@
         }
       },
       "indexes": {
-        "rmailIdx": {
-          "name": "rmailIdx",
+        "emailIdx": {
+          "name": "emailIdx",
           "columns": [
             "email"
           ],
@@ -453,8 +669,9 @@
       "name": "period",
       "schema": "public",
       "values": [
-        "month",
-        "year"
+        "1",
+        "15",
+        "30"
       ]
     }
   },

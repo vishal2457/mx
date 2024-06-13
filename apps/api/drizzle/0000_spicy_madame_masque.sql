@@ -11,7 +11,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- CREATE TYPE "public"."period" AS ENUM('month', 'year');
+ CREATE TYPE "public"."period" AS ENUM('1', '15', '30');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -22,10 +22,22 @@ CREATE TABLE IF NOT EXISTS "customerFcm" (
 	"token" text NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "customerOffer" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"customerID" integer NOT NULL,
+	"offerID" integer NOT NULL,
+	"orderID" text NOT NULL,
+	"paymentID" text NOT NULL,
+	"active" boolean DEFAULT true,
+	"createdAt" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "customer" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"deviceID" text NOT NULL,
-	"device" text DEFAULT 'ios'
+	"device" text DEFAULT 'ios',
+	"removeAds" boolean DEFAULT false,
+	CONSTRAINT "customer_deviceID_unique" UNIQUE("deviceID")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "match" (
@@ -72,7 +84,21 @@ CREATE TABLE IF NOT EXISTS "offer" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
 	"amount" integer NOT NULL,
-	"period" "period" DEFAULT 'month'
+	"fakeAmount" integer NOT NULL,
+	"period" "period" DEFAULT '1',
+	"createdAt" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "permission" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "rolePermission" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"menuID" integer NOT NULL,
+	"permissionID" integer NOT NULL,
+	"roleID" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "role" (
@@ -82,12 +108,18 @@ CREATE TABLE IF NOT EXISTS "role" (
 	"updatedAt" timestamp
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "userRole" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"roleID" integer NOT NULL,
+	"userID" integer NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text,
 	"email" text NOT NULL,
 	"password" text NOT NULL,
-	"active" boolean DEFAULT false,
+	"active" boolean DEFAULT true,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp
 );
@@ -98,4 +130,19 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
-CREATE UNIQUE INDEX IF NOT EXISTS "rmailIdx" ON "user" ("email");
+DO $$ BEGIN
+ ALTER TABLE "customerOffer" ADD CONSTRAINT "customerOffer_customerID_customer_id_fk" FOREIGN KEY ("customerID") REFERENCES "public"."customer"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "customerOffer" ADD CONSTRAINT "customerOffer_offerID_offer_id_fk" FOREIGN KEY ("offerID") REFERENCES "public"."offer"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "gameSlugIdx" ON "match" ("gameSlug");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "roleIdx" ON "rolePermission" ("roleID");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "permissionIdx" ON "rolePermission" ("permissionID");--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "emailIdx" ON "user" ("email");
