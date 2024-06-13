@@ -1,4 +1,4 @@
-const { writeFile } = require('fs');
+const { writeFile, readFile, readFileSync } = require('fs');
 const { resolve } = require('path');
 
 const targetPath = resolve(
@@ -18,24 +18,32 @@ const options = {
 
 const formatter = new Intl.DateTimeFormat([], options);
 const indianTime = formatter.format(new Date());
-console.log(indianTime);
 
-// Define environment variables to inject
-const envConfigFile = `
-export const environment = {
-  production: true,
-  api: 'http://${process.env.NODE_HOST}:3000',
-  get assetsURL() {
-    return 'this.api'+'/static';
-  },
-   latestBuildTime: '${indianTime}'
+const envs = {
+  api: `http://${process.env.NODE_HOST}:3000`,
+  latestBuildTime: indianTime,
 };
-`;
 
-writeFile(targetPath, envConfigFile, function (err) {
+const replaceEnv = (char, replacement, result) => {
+  const regex = new RegExp(char, 'g');
+  result = result.replace(regex, replacement);
+  return result;
+};
+
+readFile(targetPath, 'utf-8', (err, data) => {
   if (err) {
-    console.log(err);
-  } else {
-    console.log(`Environment variables written to ${targetPath}`);
+    console.error(`Error reading file: ${err}`);
+    return;
   }
+  let result = data;
+  result = replaceEnv('@API_URL@', envs.api, result);
+  result = replaceEnv('@LAST_BUILD_TIME@', envs.latestBuildTime, result);
+
+  writeFile(targetPath, result, 'utf-8', (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`Environment variables written to ${targetPath}`);
+    }
+  });
 });
