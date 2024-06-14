@@ -51,7 +51,7 @@ export class CreateUserComponent implements AfterViewInit, OnDestroy {
     });
 
     this.addRequests.sink = this.api
-      .post('/user', this.userForm.value)
+      .post('/user/create', this.userForm.value)
       .subscribe({
         next: () => {
           this.userForm.reset();

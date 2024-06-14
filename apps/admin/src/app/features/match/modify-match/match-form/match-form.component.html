@@ -13,7 +13,6 @@
       [control]="matchFormControls.teamOne"
       [showErrors]="showErrors"
     />
-
     <mx-input
       label="Team Two"
       [control]="matchFormControls.teamTwo"
@@ -80,6 +79,7 @@
     (handleFileChange)="handleTeamOneLogo($event)"
     label="Team One Logo"
     accept="image/png, image/jpeg"
+    [maxFileSizeMB]="0.1"
   />
   <mx-file-upload
     (handleFileChange)="handleTeamTwoLogo($event)"

@@ -1,12 +1,19 @@
-import { NgIf } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'mx-image',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgOptimizedImage],
   template: `
+    @if (fileURL || filename) {
+    <img
+      class="h-auto max-w-xs rounded-md"
+      [ngSrc]="fileURL || assetsURL + '/' + filename"
+      [alt]="alt"
+    />
+    } @else {
     <ng-template #fallback>
       <div
         class="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700"
@@ -24,13 +31,7 @@ import { environment } from '../../../environments/environment';
         </svg>
       </div>
     </ng-template>
-
-    <img
-      *ngIf="fileURL || filename; else fallback"
-      class="h-auto max-w-xs rounded-md"
-      [src]="fileURL || assetsURL + '/' + filename"
-      alt="image description"
-    />
+    }
   `,
 })
 export class MxImageComponent {

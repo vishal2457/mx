@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
 import { Location } from '@angular/common';
-import { MxButtonComponent } from '../ui/button';
-import { MxIconComponent } from '../ui/icon';
+import { MxButtonComponent } from '../../ui/button';
+import { MxIconComponent } from '../../ui/icon';
 
 @Component({
   selector: 'page-header',

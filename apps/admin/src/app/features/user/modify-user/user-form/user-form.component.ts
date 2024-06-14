@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { Component, inject, Input } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TUser, Z_user } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 
@@ -21,7 +21,7 @@ export class UserFormComponent {
       nonNullable: true,
     }),
     email: new FormControl(null, {
-      validators: [],
+      validators: [Validators.required],
       nonNullable: true,
     }),
     password: new FormControl(null, {

@@ -11,7 +11,7 @@ import { OfferListComponent } from './offer-list/offer-list.component';
 import { OfferFormComponent } from './modify-offer/offer-form/offer-form.component';
 import { CreateOfferComponent } from './modify-offer/create-offer.component';
 import { UpdateOfferComponent } from './modify-offer/update-offer.component';
-import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
+import { PageHeaderComponent } from '../../shared/misc/page-header/page-header.component';
 import { GridColumnsComponent } from '../../shared/ui/mx-data-grid/components/base-table/columns';
 import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
 import { MxFormComponent } from '../../shared/ui/form/mx-form';
