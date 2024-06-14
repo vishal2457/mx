@@ -15,6 +15,9 @@
           <span class="opacity-70"> Main menu </span>
         </p>
       </div> -->
+      <div class="mb-2">
+        <mx-input placeholder="Search Menu"  />
+      </div>
       <ul class="space-y-1">
         <li *ngFor="let m of sidebarService.mainMenu$ | async">
           <a

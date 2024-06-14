@@ -18,6 +18,7 @@ import { TokenInterceptor } from './shared/services/token-interceptor.service';
 import { MxDropdownModule } from './shared/ui/dropdown/dropdown.module';
 import { MxIconComponent } from './shared/ui/icon';
 import { MxButtonComponent } from './shared/ui/button';
+import { MxInputComponent } from './shared/ui/form/mx-input';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MxButtonComponent } from './shared/ui/button';
     MxButtonComponent,
     MxIconComponent,
     MxDropdownModule,
+    MxInputComponent,
     GbNotificationModule.forRoot(),
   ],
   providers: [

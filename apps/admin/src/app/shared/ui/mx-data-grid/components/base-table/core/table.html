@@ -179,17 +179,17 @@
         </ng-template>
         <ng-template #internalActions>
           <ng-container *ngIf="column.field === isAction">
-            <td cdk-cell *cdkCellDef="let element">
-              <mx-action
-                *ngFor="let action of actionService.actions$ | async"
-                class="mx-1"
-                [icon]="action.icon"
-                [tooltip]="action.tooltip"
-                [cellData]="element"
-                [column]="column"
-                (handleClick)="action.handleClick.emit($event)"
-                [action]="action.action"
-              />
+            <td cdk-cell *cdkCellDef="let element" class="text-center background-blur bg-background/90">
+                <mx-action
+                  *ngFor="let action of actionService.actions$ | async"
+                  class="mx-1"
+                  [icon]="action.icon"
+                  [tooltip]="action.tooltip"
+                  [cellData]="element"
+                  [column]="column"
+                  (handleClick)="action.handleClick.emit($event)"
+                  [action]="action.action"
+                />
             </td>
           </ng-container>
           <ng-container *ngIf="column.field === isSelectable">

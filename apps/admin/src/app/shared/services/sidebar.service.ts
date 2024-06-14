@@ -13,12 +13,14 @@ export class SidebarService {
     this.ls.get('archiveMenu') || []
   );
   private sidebarOpen = new BehaviorSubject(true);
+  private searchMenu = new BehaviorSubject('');
 
   mainMenu$ = combineLatest([
     this.menu.asObservable(),
     this.archive.asObservable(),
+    this.searchMenu.asObservable(),
   ]).pipe(
-    map(([menu, archived]) => {
+    map(([menu, archived, searchTerm]) => {
       return menu.filter((m) => !archived.includes(m.id));
     })
   );

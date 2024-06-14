@@ -10,7 +10,7 @@ import { MxCardModule } from '../card/card.module';
   imports: [ReactiveFormsModule, MxCardModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (environment.production) {
+    @if (!environment.production) {
     <a
       (click)="patchRandomValues()"
       class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
