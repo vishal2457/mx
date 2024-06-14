@@ -1,3 +1,10 @@
+# [3.4.0](https://github.com/vishal2457/mx/compare/v3.3.0...v3.4.0) (2024-06-14)
+
+
+### Features
+
+* confirmation modal added ([4d5d22a](https://github.com/vishal2457/mx/commit/4d5d22aea345f9eba7c70e9dda8dbbdcaa5c5fc1)), closes [#30](https://github.com/vishal2457/mx/issues/30)
+
 # [3.3.0](https://github.com/vishal2457/mx/compare/v3.2.0...v3.3.0) (2024-06-14)
 
 
