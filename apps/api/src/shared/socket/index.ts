@@ -2,6 +2,7 @@ import { Server as HttpServer } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
 import { GLOBAL_CONSTANTS } from '../global-constants';
 import { events } from './event-config';
+import { decodeToken } from '../jwt/token-utils';
 
 interface ClientMap {
   [userId: string]: string;
@@ -26,16 +27,21 @@ class SocketManager {
       },
     });
 
+    this.io.use(async (socket, next) => {
+      const token = socket.handshake.query.auth as string;
+      const user = decodeToken(token);
+      if (!user) {
+        return next(new Error('authentication error'));
+      }
+      this.clients[user.id] = socket.id;
+    });
+
     this.io.on(GLOBAL_CONSTANTS.SOCKET_EVENTS.CONNECTION, (socket) =>
       this.handleConnection(socket)
     );
   }
 
   private handleConnection(socket: Socket): void {
-    const userId = socket.handshake.query.userId as string;
-    if (userId) {
-      this.clients[userId] = socket.id;
-    }
     const _events: EventConfig[] = events;
     _events.forEach(({ event, handler }) => {
       socket.on(event, (...args: any[]) => handler(socket, ...args));

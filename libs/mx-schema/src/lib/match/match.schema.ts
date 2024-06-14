@@ -1,8 +1,20 @@
-import { index, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  index,
+  pgEnum,
+  pgTable,
+  serial,
+  text,
+} from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-export const GAME_SLUG = ['cricket', 'football'] as const;
+export const GAME_SLUG = [
+  'cricket',
+  'football',
+  'basketball',
+  'kabaddi',
+] as const;
 
 export const MATCH_STATUS = [
   'completed',
@@ -37,6 +49,7 @@ export const TB_match = pgTable(
     description: text('description').notNull(),
     format: text('format').notNull(),
     status: statusEnum('status').default('waiting'),
+    active: boolean('active').default(true),
   },
   (match) => ({
     gameSlugIdx: index('gameSlugIdx').on(match.gameSlug),
@@ -46,3 +59,7 @@ export const TB_match = pgTable(
 export const Z_match_insert = createInsertSchema(TB_match);
 export const Z_match = createSelectSchema(TB_match);
 export type TMatch = z.infer<typeof Z_match>;
+export type FormType = Omit<
+  TMatch,
+  'id' | 'teamTwoSlug' | 'teamOneSlug' | 'active'
+>;

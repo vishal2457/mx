@@ -35,12 +35,14 @@
       [showErrors]="showErrors"
     />
     <mx-input
+      *ngIf="formType === 'add'"
       label="Start Date"
       type="date"
       [control]="matchFormControls.startDate"
       [showErrors]="showErrors"
     ></mx-input>
     <mx-input
+      *ngIf="formType === 'add'"
       label="Start Time"
       type="time"
       [control]="matchFormControls.startTime"
