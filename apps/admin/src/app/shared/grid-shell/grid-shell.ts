@@ -180,6 +180,10 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
     this.filterService.openFilterPanel();
   }
 
+  refresh() {
+    this._getData();
+  }
+
   private _getData() {
     if (!this.apiURL) {
       return console.error('Please provide a api url');

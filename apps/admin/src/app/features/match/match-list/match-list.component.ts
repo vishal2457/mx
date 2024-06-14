@@ -10,7 +10,7 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
   template: `<mx-grid-shell
     gridTitle="Matches"
     apiURL="/match/list"
-    fields="id,gameSlug,teamOne,teamTwo,league,format,venue,startTime"
+    fields="id,gameSlug,teamOne,teamTwo,league,format,venue,startTime,startDate,active"
   >
     <mx-toolbar icon="add" name="Add" (handleClick)="create()" />
     <!-- columns -->
@@ -21,7 +21,9 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
     <mx-column field="league" />
     <mx-column field="format" />
     <mx-column field="venue" />
+    <mx-column field="startDate" />
     <mx-column field="startTime" />
+    <mx-column field="active" />
 
     <!-- columns -->
 

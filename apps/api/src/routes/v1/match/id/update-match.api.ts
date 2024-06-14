@@ -1,19 +1,11 @@
 import { Router } from 'express';
-import { ImageUpload } from '../../../../shared/middlewares/multer.middleware';
 import { db } from '../../../../db/db';
 import { success } from '../../../../shared/api-response/response-handler';
 import { safeParse } from '../../../../../../../libs/helpers/src';
-import { transformMatchBody } from '../match.utils.api';
+import { MatchImageUpload, transformMatchBody } from '../match.utils.api';
 import { TB_match, v_param_id } from '../../../../../../../libs/mx-schema/src';
 import { eq } from 'drizzle-orm';
 import { validate } from '../../../../shared/middlewares/validation.middleware';
-
-const MatchImageUpload = ImageUpload.fields([
-  { name: 'h2hTeamImage', maxCount: 1 },
-  { name: 'premiumTeamImage', maxCount: 1 },
-  { name: 'teamOneLogo', maxCount: 1 },
-  { name: 'teamTwoLogo', maxCount: 1 },
-]);
 
 export default Router().put(
   '/:id',

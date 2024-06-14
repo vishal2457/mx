@@ -8,7 +8,7 @@ import { MxGridToolbarComponent } from '../../shared/ui/mx-data-grid/components/
 import { GridColumnsComponent } from '../../shared/ui/mx-data-grid/components/base-table/columns';
 import { MxGridFilterComponent } from '../../shared/grid-shell/filters/components/grid-filter';
 import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
-import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
+import { PageHeaderComponent } from '../../shared/misc/page-header/page-header.component';
 import { CreateMatchComponent } from './modify-match/create-match.component';
 import { MatchFormComponent } from './modify-match/match-form/match-form.component';
 import { MxFormComponent } from '../../shared/ui/form/mx-form';

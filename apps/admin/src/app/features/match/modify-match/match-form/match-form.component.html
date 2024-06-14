@@ -13,7 +13,6 @@
       [control]="matchFormControls.teamOne"
       [showErrors]="showErrors"
     />
-
     <mx-input
       label="Team Two"
       [control]="matchFormControls.teamTwo"
@@ -35,12 +34,14 @@
       [showErrors]="showErrors"
     />
     <mx-input
+      *ngIf="formType === 'add'"
       label="Start Date"
       type="date"
       [control]="matchFormControls.startDate"
       [showErrors]="showErrors"
     ></mx-input>
     <mx-input
+      *ngIf="formType === 'add'"
       label="Start Time"
       type="time"
       [control]="matchFormControls.startTime"
@@ -78,6 +79,7 @@
     (handleFileChange)="handleTeamOneLogo($event)"
     label="Team One Logo"
     accept="image/png, image/jpeg"
+    [maxFileSizeMB]="0.1"
   />
   <mx-file-upload
     (handleFileChange)="handleTeamTwoLogo($event)"

@@ -9,6 +9,7 @@ import {
   v_param_id,
   Z_user_insert,
 } from '../../../../../../../libs/mx-schema/src';
+import { hashPassword } from '../../../../shared/password-hash';
 
 export default Router().post(
   '/update/:id',

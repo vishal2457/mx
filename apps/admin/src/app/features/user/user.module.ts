@@ -10,7 +10,7 @@ import { MxIconComponent } from '../../shared/ui/icon';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './modify-user/user-form/user-form.component';
 
-import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
+import { PageHeaderComponent } from '../../shared/misc/page-header/page-header.component';
 import { GridColumnsComponent } from '../../shared/ui/mx-data-grid/components/base-table/columns';
 import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
 import { MxFormComponent } from '../../shared/ui/form/mx-form';

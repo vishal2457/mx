@@ -1,8 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import {
+  FormType,
   GAME_SLUG,
-  TMatch,
   Z_match,
 } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
@@ -21,9 +21,7 @@ export class MatchFormComponent {
   zMatch = Z_match;
 
   protected showErrors = false;
-  protected matchForm = this.fb.nonNullable.group<
-    ControlsOf<Omit<TMatch, 'id' | 'teamTwoSlug' | 'teamOneSlug'>>
-  >({
+  protected matchForm = this.fb.nonNullable.group<ControlsOf<FormType>>({
     gameSlug: new FormControl('cricket', {
       validators: [Validators.required],
       nonNullable: true,

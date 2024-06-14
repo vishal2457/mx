@@ -7,7 +7,7 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'gb-header',
+  selector: 'mx-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })

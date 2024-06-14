@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { MxGridFilterComponent } from '../../shared/grid-shell/filters/components/grid-filter';
 import { MxGridShellComponent } from '../../shared/grid-shell/grid-shell';
-import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
+import { PageHeaderComponent } from '../../shared/misc/page-header/page-header.component';
 import { MxFormComponent } from '../../shared/ui/form/mx-form';
 import { MxInputComponent } from '../../shared/ui/form/mx-input';
 import { MxTextareaComponent } from '../../shared/ui/form/textarea';

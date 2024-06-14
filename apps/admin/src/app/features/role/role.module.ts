@@ -11,7 +11,7 @@ import { RoleListComponent } from './role-list/role-list.component';
 import { RoleFormComponent } from './modify-role/role-form/role-form.component';
 import { CreateRoleComponent } from './modify-role/create-role.component';
 import { UpdateRoleComponent } from './modify-role/update-role.component';
-import { PageHeaderComponent } from '../../shared/page-header/page-header.component';
+import { PageHeaderComponent } from '../../shared/misc/page-header/page-header.component';
 import { GridColumnsComponent } from '../../shared/ui/mx-data-grid/components/base-table/columns';
 import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
 import { MxFormComponent } from '../../shared/ui/form/mx-form';
