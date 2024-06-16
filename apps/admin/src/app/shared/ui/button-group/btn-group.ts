@@ -11,7 +11,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
-      [title]="text"
+      [mxTooltip]="text"
       (click)="handleClick.emit($event)"
       type="button"
       class="border-e px-2 py-1 text-sm font-medium focus:relative bg-background transition-colors"
@@ -20,10 +20,11 @@ import {
         'hover:bg-muted/100': !active
       }"
     >
-      <mx-icon [icon]="icon" *ngIf="icon" />
-      <ng-container *ngIf="text && !icon">
-        {{ text }}
-      </ng-container>
+      @if (icon) {
+      <mx-icon [icon]="icon" />
+      } @else if (text && !icon) {
+      {{ text }}
+      }
     </button>
   `,
 })

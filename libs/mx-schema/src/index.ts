@@ -9,6 +9,7 @@ export * from './lib/match/match.schema';
 export * from './lib/match/match.schema';
 export * from './lib/notification.schema';
 export * from './lib/offer.schema';
+export * from './lib/config.schema';
 
 // zod utils
 export * from './lib/_zod-utils/v-pagination';

@@ -1,11 +1,11 @@
-import { Component, ContentChild, TemplateRef } from "@angular/core";
-import { ToolbarService } from "../../services/toolbar.service";
-import { MetaDataService } from "../../services/meta-data.service";
-import { combineLatest, map, of } from "rxjs";
+import { Component, ContentChild, TemplateRef } from '@angular/core';
+import { ToolbarService } from '../../services/toolbar.service';
+import { MetaDataService } from '../../services/meta-data.service';
+import { combineLatest, map, of } from 'rxjs';
 
 @Component({
-  selector: "toolbar",
-  styleUrls: ["./toolbar.scss"],
+  selector: 'toolbar',
+  styleUrls: ['./toolbar.scss'],
   template: `
     <div
       *ngIf="renderToolbar$ | async"
@@ -15,12 +15,13 @@ import { combineLatest, map, of } from "rxjs";
     >
       <p class="font-bold text-3xl pb-4">{{ meta.gridTitle$ | async }}</p>
       <mx-btn-group-container>
+        @for (tool of toolbarService.options$ | async; track tool.name) {
         <mx-btn-group
-          *ngFor="let tool of toolbarService.options$ | async"
           (handleClick)="tool.handleClick.emit(tool)"
           [icon]="tool.icon"
           [text]="tool.name || ''"
         />
+        }
       </mx-btn-group-container>
     </div>
   `,
@@ -36,7 +37,7 @@ export class GridToolbarComponent {
     ]).pipe(map(([title, options]) => !!title || !!options?.length));
   }
 
-  @ContentChild("toolbarFooter") toolbarFooter!: TemplateRef<any>;
+  @ContentChild('toolbarFooter') toolbarFooter!: TemplateRef<any>;
 
   renderToolbar$ = of(false);
 }

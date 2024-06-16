@@ -19,4 +19,9 @@ export const seedMenu = [
     icon: 'manage_accounts',
     link: '/offer/list',
   },
+  {
+    name: 'Config',
+    icon: 'settings',
+    link: '/config/list',
+  },
 ];

@@ -1,8 +1,8 @@
-import { Component, Input } from "@angular/core";
-import { AbstractControl, FormControl } from "@angular/forms";
+import { Component, Input } from '@angular/core';
+import { AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
-  template: "",
+  template: '',
 })
 export class FormBaseComponent {
   /**
@@ -13,7 +13,7 @@ export class FormBaseComponent {
   /**
    * FormControl or Abstract Control for the component
    */
-  @Input() control!: FormControl | AbstractControl;
+  @Input({ required: true }) control!: FormControl | AbstractControl;
 
   /**
    * Array of hints to display beneath form element, *not errors*
@@ -23,17 +23,17 @@ export class FormBaseComponent {
   /**
    * Key used for further uniqueness. Useful for large dynamic forms
    */
-  @Input() key = "";
+  @Input() key = '';
 
   /**
    * Label for the form element
    */
-  @Input() label = "";
+  @Input() label = '';
 
   /**
    * Placeholder text for the element
    */
-  @Input() placeholder = "";
+  @Input() placeholder = '';
 
   @Input() showErrors = false;
 
@@ -46,8 +46,8 @@ export class FormBaseComponent {
   get required() {
     if (this.control?.validator) {
       const validator = this.control.validator({} as AbstractControl);
-      if (validator?.["required"]) {
-        return validator["required"];
+      if (validator?.['required']) {
+        return validator['required'];
       }
       return this.control.validator({} as AbstractControl);
     }

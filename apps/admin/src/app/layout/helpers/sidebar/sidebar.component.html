@@ -7,19 +7,20 @@
     class="overflow-y-auto pt-16 py-5 px-3 h-full bg-sidebar-bg flex flex-col justify-between"
   >
     <div>
-      <!-- <div class="inline-flex items-center justify-center w-full">
-        <hr class="w-full h-px my-4 border-0 bg-accent" />
-        <p
-          class="absolute px-3 font-medium -translate-x-1/2 left-1/2 bg-accent rounded-sm text-sm"
-        >
-          <span class="opacity-70"> Main menu </span>
-        </p>
-      </div> -->
+
       <div class="mb-2">
-        <mx-input placeholder="Search Menu"  />
+        <mx-input
+          [control]="searchMenu"
+          placeholder="Search Menu"
+          inputClass="bg-sidebar-bg border-gray-700 text-white"
+          [clearable]="true"
+          iconClass="text-gray-300"
+          leftIcon="search"
+        />
       </div>
       <ul class="space-y-1">
-        <li *ngFor="let m of sidebarService.mainMenu$ | async">
+        @for (m of sidebarService.mainMenu$ |async; track m.name) {
+        <li>
           <a
             [routerLink]="m.link"
             routerLinkActive="bg-gray-800"
@@ -30,18 +31,19 @@
               <mx-icon [icon]="m.icon" class="mt-1" />
               <span class="ml-3 tracking-wider">{{ m.name }}</span>
             </span>
-            <mx-dropdown class="opacity-0 group-hover:opacity-100">
-              <mx-button variant="ghost" size="small-icon" trigger>
-                <mx-icon icon="more_vert" />
-              </mx-button>
-              <mx-dropdown-item
-                text="Archive"
-                icon="archive"
-                (handleClick)="sidebarService.archiveMenu(m.id)"
-              />
-            </mx-dropdown>
+            <!-- <mx-dropdown class="opacity-0 group-hover:opacity-100">
+                <mx-button variant="ghost" size="small-icon" trigger>
+                  <mx-icon icon="more_vert" />
+                </mx-button>
+                <mx-dropdown-item
+                  text="Archive"
+                  icon="archive"
+                  (handleClick)="sidebarService.archiveMenu(m.id)"
+                />
+              </mx-dropdown> -->
           </a>
         </li>
+        }
       </ul>
     </div>
 

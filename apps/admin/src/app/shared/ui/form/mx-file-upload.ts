@@ -9,29 +9,34 @@ import {
   signal,
 } from '@angular/core';
 import { MxHintComponent } from '../hint';
+import { MxCardModule } from '../card/card.module';
 
 @Component({
   selector: 'mx-file-upload',
   standalone: true,
-  imports: [MxHintComponent],
+  imports: [MxHintComponent, MxCardModule],
   template: `
-    <div class="flex flex-col">
+    <div class="flex flex-col p-4" mxCard>
       @if(label()) {
       <label
-        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-1 mb-2 capitalize"
+        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
       >
         {{ label() }}
       </label>
+      } @for (hint of internalHints(); track hint) {
+      <mx-hint [message]="hint" />
       }
+      <span class="py-1"> </span>
+
       <input
         type="file"
         [multiple]="multiple"
         (change)="internalFileHandler($event)"
         [accept]="accept()"
       />
-      @for (hint of internalHints(); track hint) {
-      <mx-hint [message]="hint" />
-      } @for (error of errors(); track error) {
+      <span class="py-1"> </span>
+
+      @for (error of errors(); track error) {
       <mx-hint [message]="error" type="error" />
       }
     </div>
@@ -71,16 +76,20 @@ export class MxFileUploadComponent {
   }
 
   private validate(file: File): boolean {
-    const currentFileSize = this.fileSizeMB(file);
-    if (file.size > currentFileSize) {
-      this.errors.update((value) => {
-        value.push(
-          `File size should be less then ${this.maxFileSizeMB()} MB, it is ${currentFileSize} MB`
-        );
-        return value;
-      });
-      return false;
+    const maxFileSizeMB = this.maxFileSizeMB();
+    if (maxFileSizeMB) {
+      const currentFileSize = this.fileSizeMB(file);
+      if (file.size > maxFileSizeMB) {
+        this.errors.update((value) => {
+          value.push(
+            `File size should be less then ${maxFileSizeMB} MB, it is ${currentFileSize} MB`
+          );
+          return value;
+        });
+        return false;
+      }
     }
+
     return true;
   }
 

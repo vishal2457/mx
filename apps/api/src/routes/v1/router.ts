@@ -26,6 +26,12 @@ import deleteOffer from './offer/id/delete-offer.api';
 import updateOffer from './offer/id/update-offer.api';
 import getOffer from './offer/id/get-offer.api';
 import verifyPaymentApi from './payment/verify-payment.api';
+
+import getConfigList from './config/get-all-configs.api';
+import createConfig from './config/create-config.api';
+import deleteConfig from './config/id/delete-config.api';
+import updateConfig from './config/id/update-config.api';
+import getConfig from './config/id/get-config.api';
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -44,6 +50,13 @@ routerv1
     getOffer,
     createOffer,
     deleteOffer,
+  ])
+  .use('/config', [
+    getConfigList,
+    getConfig,
+    createConfig,
+    deleteConfig,
+    updateConfig,
   ]);
 // APPEND API ROUTES
 

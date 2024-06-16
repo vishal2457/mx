@@ -1,4 +1,3 @@
-import { Overlay } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -111,7 +110,6 @@ import { FilterService } from './filters/filter.service';
   </mx-data-grid>`,
 })
 export class MxGridShellComponent implements OnDestroy, OnInit {
-  overlay = inject(Overlay);
   filterService = inject(FilterService);
   api = inject(ApiService);
   private router = inject(Router);

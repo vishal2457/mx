@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, shareReplay, combineLatest, map } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { TMenu } from '../../../../../../libs/mx-schema/src';
+import { matchSorter } from 'match-sorter';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,11 @@ export class SidebarService {
     this.searchMenu.asObservable(),
   ]).pipe(
     map(([menu, archived, searchTerm]) => {
-      return menu.filter((m) => !archived.includes(m.id));
+      const finalMenu = menu.filter((m) => !archived.includes(m.id));
+      if (searchTerm) {
+        return matchSorter(finalMenu, searchTerm, { keys: ['name'] });
+      }
+      return finalMenu;
     })
   );
 
@@ -61,5 +66,9 @@ export class SidebarService {
     );
     this.archive.next(archive);
     this.ls.set('archiveMenu', archive);
+  }
+
+  updateSearchTerm(term: string) {
+    this.searchMenu.next(term);
   }
 }

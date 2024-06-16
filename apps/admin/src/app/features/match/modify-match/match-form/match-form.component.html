@@ -49,7 +49,8 @@
     ></mx-input>
   </div>
 
-  <mx-textarea
+  <div class="grid grid-cols-1 gap-4 mt-2">
+    <mx-textarea
     label="Team One Players"
     [control]="matchFormControls.teamOnePlayers"
     [showErrors]="showErrors"
@@ -72,6 +73,9 @@
     [showErrors]="showErrors"
     label="H2H Team"
   />
+  </div>
+
+
 </mx-form>
 
 <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4 my-4">

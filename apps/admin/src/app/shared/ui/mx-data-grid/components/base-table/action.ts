@@ -1,36 +1,33 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   ContentChild,
-  TemplateRef,
-  Output,
   EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
 } from '@angular/core';
-import { GridColumnsComponent } from './columns';
-import { NgIf } from '@angular/common';
 import { MxIconComponent } from '../../../icon';
+import { GridColumnsComponent } from './columns';
+import { MxTooltipDirective } from '../../../tooltip/tooltip.directive';
 
 @Component({
   selector: 'mx-action',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, MxIconComponent],
-  template: ` <ng-container *ngIf="action">
-      <ng-container
-        *ngTemplateOutlet="
-          action;
-          context: { $implicit: icon, column, cellData }
-        "
-      ></ng-container>
-    </ng-container>
+  imports: [MxIconComponent, MxTooltipDirective],
+  template: ` @if(action) {
+    <ng-container
+      *ngTemplateOutlet="action; context: { $implicit: icon, column, cellData }"
+    ></ng-container>
+    } @else {
     <mx-icon
-      *ngIf="!action"
       (click)="handleClick.emit({cellData, column})"
       [icon]="icon"
-      [title]="tooltip"
+      [mxTooltip]="tooltip"
       class="cursor-pointer"
-    />`,
+    />
+    }`,
 })
 export class MxActionComponent {
   @Input() icon!: string;

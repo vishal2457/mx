@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   imports: [NgIf],
   template: `<div class="flex items-center">
     <div class="flex flex-col">
-      <small class="italic" [class]="styles.message">
+      <small class="italic text-sm" [class]="styles.message">
         {{ message }}
       </small>
     </div>

@@ -67,9 +67,6 @@ export class GridColumnService {
   }
 
   unsort() {
-    // if (!this.sort.value) {
-    //   return;
-    // }
     this.sort.next(null);
   }
 

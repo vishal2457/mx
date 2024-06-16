@@ -15,7 +15,7 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
     <mx-toolbar icon="add" name="Add" (handleClick)="create()" />
     <!-- columns -->
     <mx-column field="id" alignment="left" />
-    <mx-column field="gameSlug" title="Game" alignment="left" />
+    <mx-column field="gameSlug" title="Game" />
     <mx-column field="teamOne" />
     <mx-column field="teamTwo" />
     <mx-column field="league" />
