@@ -16,7 +16,7 @@ export interface ToolbarOptions {
 }
 
 export const STATIC_ACTION_HEADER = {
-  title: 'A',
+  title: '__A',
   field: 'action',
   alignment: 'center',
 } as const;

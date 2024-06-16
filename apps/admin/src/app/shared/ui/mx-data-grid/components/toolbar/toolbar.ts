@@ -1,7 +1,8 @@
-import { Component, ContentChild, TemplateRef } from '@angular/core';
+import { Component, ContentChild, inject, TemplateRef } from '@angular/core';
 import { ToolbarService } from '../../services/toolbar.service';
 import { MetaDataService } from '../../services/meta-data.service';
 import { combineLatest, map, of } from 'rxjs';
+import { GridColumnService } from '../../services/columns.service';
 
 @Component({
   selector: 'toolbar',
@@ -14,15 +15,36 @@ import { combineLatest, map, of } from 'rxjs';
       aria-label="Toolbar with button groups"
     >
       <p class="font-bold text-3xl pb-4">{{ meta.gridTitle$ | async }}</p>
-      <mx-btn-group-container>
-        @for (tool of toolbarService.options$ | async; track tool.name) {
-        <mx-btn-group
-          (handleClick)="tool.handleClick.emit(tool)"
-          [icon]="tool.icon"
-          [text]="tool.name || ''"
-        />
-        }
-      </mx-btn-group-container>
+      <div class="flex">
+        <mx-btn-group-container>
+          @for (tool of toolbarService.options$ | async; track tool.name) {
+          <mx-btn-group
+            (handleClick)="tool.handleClick.emit(tool)"
+            [icon]="tool.icon"
+            [text]="tool.name || ''"
+          />
+          }
+        </mx-btn-group-container>
+        <mx-dropdown
+          [closeOnSelect]="false"
+          spacing="compact"
+          dropdownTitle="Show Columns"
+        >
+          <mx-btn-group
+            trigger
+            icon="view_column"
+            text="Configure columns"
+            btnClass="border-y"
+          />
+          @for (column of columnService.columns$ |async; track column.field ) {
+          <mx-dropdown-item
+            [checkbox]="true"
+            [text]="column.title || column.field"
+            [checkboxValue]="true"
+          />
+          }
+        </mx-dropdown>
+      </div>
     </div>
   `,
 })
@@ -36,6 +58,8 @@ export class GridToolbarComponent {
       this.toolbarService.options$,
     ]).pipe(map(([title, options]) => !!title || !!options?.length));
   }
+
+  protected columnService = inject(GridColumnService);
 
   @ContentChild('toolbarFooter') toolbarFooter!: TemplateRef<any>;
 

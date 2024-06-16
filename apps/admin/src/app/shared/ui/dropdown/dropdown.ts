@@ -8,42 +8,71 @@ import {
   QueryList,
   ContentChild,
   TemplateRef,
-} from "@angular/core";
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy,
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { SubSink } from '../../utils/sub-sink';
 
 // This is single dropdown item
 @Component({
-  selector: "mx-dropdown-item",
+  selector: 'mx-dropdown-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    @if (!item){ @if(checkbox) {
+    <mx-checkbox [control]="control" [label]="text" />
+    } @else {
     <button
-      *ngIf="!item; else itemOutlet"
       (click)="handleClick.emit($event)"
       class="w-full cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
     >
       <mx-icon [icon]="icon" size="sm" class="mr-2" />
       <p>{{ text }}</p>
     </button>
-
-    <ng-template #itemOutlet>
-      <ng-container *ngIf="item">
-        <ng-container *ngTemplateOutlet="item"></ng-container>
-      </ng-container>
-    </ng-template>
+    } } @else if(item) {
+    <ng-container *ngTemplateOutlet="item"></ng-container>
+    }
   `,
 })
-export class MxDropdownItemComponent {
-  @Input() icon = "";
-  @Input() text = "";
+export class MxDropdownItemComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() icon = '';
+  @Input() text = '';
   @Input() seperator = false;
+  @Input() checkbox = false;
+  @Input() checkboxValue = true;
 
-  @ContentChild("item") item?: TemplateRef<any>;
+  @ContentChild('item') item?: TemplateRef<any>;
 
   @Output() handleClick = new EventEmitter();
+
+  control!: FormControl;
+  private subs = new SubSink();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['checkboxValue']?.currentValue && this.control) {
+      this.control.setValue(changes['checkboxValue'].currentValue);
+    }
+  }
+
+  ngOnInit(): void {
+    if (this.checkbox) {
+      this.control = new FormControl(this.checkboxValue);
+      this.subs.sink = this.control.valueChanges.subscribe((value) => {
+        this.handleClick.emit();
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 }
 
 // This is main dropdown wrapper
 @Component({
-  selector: "mx-dropdown",
+  selector: 'mx-dropdown',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<span [cdkMenuTriggerFor]="dropdownPanel">
       <ng-content select="[trigger]"></ng-content>
@@ -55,28 +84,28 @@ export class MxDropdownItemComponent {
         [ngClass]="spacingClass"
         cdkMenu
       >
-        <ng-container *ngFor="let dropdownItem of dropdownItems">
-          <div
-            class=" my-1 h-px border w-full"
-            *ngIf="dropdownItem.seperator"
-          ></div>
-          <mx-dropdown-item
-            *ngIf="!dropdownItem.seperator"
-            cdkMenuItem
-            [text]="dropdownItem.text"
-            [icon]="dropdownItem.icon"
-            (handleClick)="dropdownItem.handleClick.emit($event)"
-            class="w-full"
-          >
-            <ng-container *ngIf="dropdownItem.item">
-              <ng-template #item>
-                <ng-container
-                  *ngTemplateOutlet="dropdownItem.item"
-                ></ng-container>
-              </ng-template>
-            </ng-container>
-          </mx-dropdown-item>
-        </ng-container>
+        @if(dropdownTitle) {
+        <p class="text-sm">{{ dropdownTitle }}</p>
+        <div class=" my-1 h-px border w-full"></div>
+        } @for (dropdownItem of dropdownItems; track dropdownItem.text) { @if
+        (dropdownItem.seperator) {
+        <div class=" my-1 h-px border w-full"></div>
+        } @if(!dropdownItem.seperator) {
+        <mx-dropdown-item
+          cdkMenuItem
+          [text]="dropdownItem.text"
+          [icon]="dropdownItem.icon"
+          [checkbox]="dropdownItem.checkbox"
+          (handleClick)="handleItemClick($event, dropdownItem)"
+          class="w-full"
+        >
+          @if(dropdownItem.item) {
+          <ng-template #item>
+            <ng-container *ngTemplateOutlet="dropdownItem.item"></ng-container>
+          </ng-template>
+          }
+        </mx-dropdown-item>
+        } }
       </div>
     </ng-template>`,
 })
@@ -84,13 +113,28 @@ export class MxDropdownComponent {
   @ContentChildren(MxDropdownItemComponent)
   dropdownItems!: QueryList<MxDropdownItemComponent>;
 
-  @Input() spacing: "compact" | "default" | "wide" = "default";
+  @Input() closeOnSelect = true;
+  @Input() dropdownTitle = '';
+  @Input() spacing: 'compact' | 'default' | 'wide' = 'default';
   get spacingClass() {
     const gap = {
-      compact: "gap-0",
-      default: "gap-2",
-      wide: "gap-3",
+      compact: 'gap-0',
+      default: 'gap-2',
+      wide: 'gap-3',
     };
     return gap[this.spacing];
+  }
+
+  protected handleItemClick(
+    event: Event,
+    dropdownItem: MxDropdownItemComponent
+  ) {
+    if (!this.closeOnSelect) {
+      event?.stopPropagation();
+    }
+    dropdownItem.handleClick.emit({
+      event,
+      checkboxValue: dropdownItem.control?.value,
+    });
   }
 }

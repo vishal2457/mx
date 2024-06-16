@@ -19,6 +19,7 @@ import {
         'bg-muted/95': active,
         'hover:bg-muted/100': !active
       }"
+      [ngClass]="btnClass"
     >
       @if (icon) {
       <mx-icon [icon]="icon" />
@@ -32,6 +33,7 @@ export class MxBtnGroupComponent {
   @Input() text = '';
   @Input() icon = '';
   @Input() active = false;
+  @Input() btnClass = '';
 
   @Output() handleClick = new EventEmitter();
 }
