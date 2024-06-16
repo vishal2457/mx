@@ -1,3 +1,15 @@
+# [3.5.0](https://github.com/vishal2457/mx/compare/v3.4.0...v3.5.0) (2024-06-16)
+
+
+### Bug Fixes
+
+* ui fixes ([25cb8fc](https://github.com/vishal2457/mx/commit/25cb8fc622fc4c64148bbfcb50706424bb701f57))
+
+
+### Features
+
+* ui changes, new feat added ([194d9cf](https://github.com/vishal2457/mx/commit/194d9cf23989d9892e27277dfdb653f75328bb39))
+
 # [3.4.0](https://github.com/vishal2457/mx/compare/v3.3.0...v3.4.0) (2024-06-14)
 
 
