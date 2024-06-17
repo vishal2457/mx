@@ -1,4 +1,4 @@
-import { pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { boolean, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
@@ -9,9 +9,10 @@ export const TB_config = pgTable('config', {
   privacyPolicy: text('privacyPolicy').notNull(),
   telegramLink: text('telegramLink').notNull(),
   aboutUs: text('aboutUs').notNull(),
+  ads: boolean('ads').default(true).notNull(),
 });
 
 export const Z_config = createSelectSchema(TB_config);
 export const Z_config_insert = createInsertSchema(TB_config);
 export type TConfig = z.infer<typeof Z_config>;
-export type TConfigForm = z.infer<typeof Z_config_insert>;
+export type TConfigForm = Omit<TConfig, 'id'>;

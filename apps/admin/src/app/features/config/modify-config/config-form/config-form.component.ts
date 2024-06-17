@@ -37,6 +37,7 @@ export class ConfigFormComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    ads: new FormControl(false),
   });
 
   get formControls() {
