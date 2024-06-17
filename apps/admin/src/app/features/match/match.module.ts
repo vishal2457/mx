@@ -19,6 +19,7 @@ import { MxTextareaComponent } from '../../shared/ui/form/textarea';
 import { MxImageComponent } from '../../shared/ui/display-image';
 import { UpdateMatchComponent } from './modify-match/update-match.component';
 import { MxEditorComponent } from '../../shared/ui/form/editor';
+import { MxBadgeComponent } from '../../shared/ui/badge';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MxEditorComponent } from '../../shared/ui/form/editor';
     MxTextareaComponent,
     MxImageComponent,
     MxEditorComponent,
+    MxBadgeComponent,
   ],
 })
 export class MatchModule {}

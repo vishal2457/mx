@@ -1,18 +1,17 @@
 <aside
-  class="fixed top-0 left-0 w-72 h-screen transition-transform border-r md:translate-x-0 bg-sidebar-bg border-gray-700 z-[101]"
+  class="fixed top-0 left-0 w-72 h-screen transition-transform border-r md:translate-x-0 bg-neutral-800 border-gray-700 z-[101]"
   aria-label="Sidenav"
   id="drawer-navigation"
 >
   <div
-    class="overflow-y-auto pt-16 py-5 px-3 h-full bg-sidebar-bg flex flex-col justify-between"
+    class="overflow-y-auto pt-16 py-5 px-3 h-full bg-neutral-800 flex flex-col justify-between"
   >
     <div>
-
       <div class="mb-2">
         <mx-input
           [control]="searchMenu"
           placeholder="Search Menu"
-          inputClass="bg-sidebar-bg border-gray-700 text-white"
+          inputClass="bg-neutral-800 border-gray-700 text-white"
           [clearable]="true"
           iconClass="text-gray-300"
           leftIcon="search"
@@ -23,9 +22,9 @@
         <li>
           <a
             [routerLink]="m.link"
-            routerLinkActive="bg-gray-800"
+            routerLinkActive="bg-neutral-700"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="flex items-center px-2 py-1 text-base font-medium rounded-lg text-white hover:bg-gray-800 group justify-between"
+            class="flex items-center px-2 py-1 text-base font-medium rounded-lg text-white hover:bg-neutral-700 group justify-between"
           >
             <span class="flex items-center">
               <mx-icon [icon]="m.icon" class="mt-1" />

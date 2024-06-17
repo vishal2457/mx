@@ -23,7 +23,15 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
     <mx-column field="venue" />
     <mx-column field="startDate" />
     <mx-column field="startTime" />
-    <mx-column field="active" />
+    <mx-column field="active">
+      <ng-template #cell let-item>
+        @if(item.active) {
+        <mx-badge [text]="item.active" variant="success" class="capitalize" />
+        } @else {
+        <mx-badge [text]="item.active" variant="error" class="capitalize" />
+        }
+      </ng-template>
+    </mx-column>
 
     <!-- columns -->
 

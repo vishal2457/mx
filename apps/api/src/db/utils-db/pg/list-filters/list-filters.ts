@@ -1,4 +1,14 @@
-import { between, eq, getTableColumns, gt, like, lt, ne } from 'drizzle-orm';
+import {
+  asc,
+  between,
+  desc,
+  eq,
+  getTableColumns,
+  gt,
+  like,
+  lt,
+  ne,
+} from 'drizzle-orm';
 import { db } from '../../../db';
 import {
   FilterData,
@@ -9,7 +19,7 @@ import { expandFilters } from '../../../../../../../libs/helpers/src';
 type Options = Omit<ListFilters, 'page'> & { offset: number };
 
 export const getListQueryWithFilters = (schema, options: Options) => {
-  const { filters, limit, offset, fields } = options;
+  const { filters, limit, offset, fields, sort } = options;
 
   const _columns: any = getTableColumns(schema);
   let columns = _columns;
@@ -47,6 +57,13 @@ export const getListQueryWithFilters = (schema, options: Options) => {
         }
       }
     }
+  }
+
+  // add sort condition
+  if (sort?.Asc) {
+    query.orderBy(asc(columns[sort.Asc]));
+  } else if (sort.Desc) {
+    query.orderBy(desc(columns[sort.Desc]));
   }
 
   // add pagination

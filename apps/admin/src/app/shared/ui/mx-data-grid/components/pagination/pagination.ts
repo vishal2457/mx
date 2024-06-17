@@ -10,7 +10,7 @@ import {
   ChangeDetectionStrategy,
   SimpleChanges,
   TemplateRef,
-} from "@angular/core";
+} from '@angular/core';
 
 function isNumber(value: any): value is number {
   return !isNaN(toInteger(value));
@@ -78,7 +78,7 @@ export interface NgbPaginationPagesContext {
  *
  * @since 4.1.0
  */
-@Directive({ selector: "ng-template[ngbPaginationEllipsis]" })
+@Directive({ selector: 'ng-template[ngbPaginationEllipsis]' })
 export class NgbPaginationEllipsis {
   constructor(public templateRef: TemplateRef<NgbPaginationLinkContext>) {}
 }
@@ -88,7 +88,7 @@ export class NgbPaginationEllipsis {
  *
  * @since 4.1.0
  */
-@Directive({ selector: "ng-template[ngbPaginationFirst]" })
+@Directive({ selector: 'ng-template[ngbPaginationFirst]' })
 export class NgbPaginationFirst {
   constructor(public templateRef: TemplateRef<NgbPaginationLinkContext>) {}
 }
@@ -98,7 +98,7 @@ export class NgbPaginationFirst {
  *
  * @since 4.1.0
  */
-@Directive({ selector: "ng-template[ngbPaginationLast]" })
+@Directive({ selector: 'ng-template[ngbPaginationLast]' })
 export class NgbPaginationLast {
   constructor(public templateRef: TemplateRef<NgbPaginationLinkContext>) {}
 }
@@ -108,7 +108,7 @@ export class NgbPaginationLast {
  *
  * @since 4.1.0
  */
-@Directive({ selector: "ng-template[ngbPaginationNext]" })
+@Directive({ selector: 'ng-template[ngbPaginationNext]' })
 export class NgbPaginationNext {
   constructor(public templateRef: TemplateRef<NgbPaginationLinkContext>) {}
 }
@@ -118,7 +118,7 @@ export class NgbPaginationNext {
  *
  * @since 4.1.0
  */
-@Directive({ selector: "ng-template[ngbPaginationNumber]" })
+@Directive({ selector: 'ng-template[ngbPaginationNumber]' })
 export class NgbPaginationNumber {
   constructor(public templateRef: TemplateRef<NgbPaginationNumberContext>) {}
 }
@@ -128,7 +128,7 @@ export class NgbPaginationNumber {
  *
  * @since 4.1.0
  */
-@Directive({ selector: "ng-template[ngbPaginationPrevious]" })
+@Directive({ selector: 'ng-template[ngbPaginationPrevious]' })
 export class NgbPaginationPrevious {
   constructor(public templateRef: TemplateRef<NgbPaginationLinkContext>) {}
 }
@@ -138,7 +138,7 @@ export class NgbPaginationPrevious {
  *
  * @since 9.1.0
  */
-@Directive({ selector: "ng-template[ngbPaginationPages]" })
+@Directive({ selector: 'ng-template[ngbPaginationPages]' })
 export class NgbPaginationPages {
   constructor(public templateRef: TemplateRef<NgbPaginationPagesContext>) {}
 }
@@ -147,9 +147,9 @@ export class NgbPaginationPages {
  * A component that displays page numbers and allows to customize them in several ways.
  */
 @Component({
-  selector: "gb-pagination",
+  selector: 'gb-pagination',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { role: "navigation" },
+  host: { role: 'navigation' },
   template: `
     <ng-template #first
       ><span aria-hidden="true">&laquo;&laquo;</span></ng-template
@@ -393,7 +393,7 @@ export class PaginationComponent implements OnChanges {
    *
    * If the passed value is a string (ex. 'custom'), it will just add the `pagination-custom` css class
    */
-  @Input() size: "sm" | "lg" | string | null = "sm";
+  @Input() size: 'sm' | 'lg' | string | null = 'sm';
 
   constructor() {
     let config = {

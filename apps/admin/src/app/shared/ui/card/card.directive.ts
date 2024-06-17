@@ -28,7 +28,9 @@ class BaseCardClass {
 })
 export class MxCardDirective extends BaseCardClass implements OnInit {
   ngOnInit(): void {
-    this.initClass('rounded-lg border bg-card text-card-foreground shadow-sm');
+    this.initClass(
+      'rounded-lg border bg-background text-card-foreground shadow-sm'
+    );
   }
 }
 

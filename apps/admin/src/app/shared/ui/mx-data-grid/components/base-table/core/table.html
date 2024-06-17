@@ -1,4 +1,6 @@
-<div class="w-full overflow-auto border shadow rounded h-[75vh] no-scrollbar">
+<div
+  class="w-full overflow-auto border shadow rounded h-[75vh] no-scrollbar bg-background p-3"
+>
   <table
     cdk-table
     recycleRows
@@ -21,25 +23,21 @@
           'text-center': column.alignment === 'center',
           'text-right': column.alignment === 'right',
         }"
-        class="h-10 text-sm font-medium bg-background"
+        class="h-10 text-sm font-medium"
       >
         @if (!column.head) {
         <mx-dropdown spacing="compact">
           <mx-button trigger variant="ghost" size="sm" class="items-center">
             <span class="flex items-center gap-1 capitalize tracking-normal">
-              {{ column.title || column.field }}
-              @if (columnService.sort$ |async; as sort) {
-                <mx-icon
+              {{ column.title || column.field }} @if (columnService.sort$
+              |async; as sort) {
+              <mx-icon
                 [icon]="sort?.Asc === column.field ? 'arrow_upward' : sort?.Desc === column.field ? 'arrow_downward'  : 'unfold_more'"
                 size="sm"
                 class="mt-1"
               />
               } @else {
-                <mx-icon
-                icon="unfold_more"
-                size="sm"
-                class="mt-1"
-              />
+              <mx-icon icon="unfold_more" size="sm" class="mt-1" />
               }
             </span>
           </mx-button>
@@ -150,7 +148,7 @@
       <td
         cdk-cell
         *cdkCellDef="let element"
-        class="text-center background-blur bg-background/90"
+        class="text-center background-blur dar:bg-neutral-800/90"
       >
         @for (action of actionService.actions$ |async; track action.icon) {
         <mx-action
