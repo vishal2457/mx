@@ -18,6 +18,7 @@ import { MxFormComponent } from '../../shared/ui/form/mx-form';
 import { MxGridFilterComponent } from '../../shared/grid-shell/filters/components/grid-filter';
 import { ConfigRoutingModule } from './config-routing.module';
 import { MxEditorComponent } from '../../shared/ui/form/editor';
+import { MxCheckboxComponent } from '../../shared/ui/form/mx-checkbox';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MxEditorComponent } from '../../shared/ui/form/editor';
     MxGridFilterComponent,
     ConfigRoutingModule,
     MxEditorComponent,
+    MxCheckboxComponent,
   ],
 })
 export class ConfigModule {}
