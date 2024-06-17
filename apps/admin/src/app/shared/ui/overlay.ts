@@ -3,15 +3,15 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'mx-dropdown',
+  selector: 'mx-overlay',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CdkMenuModule, NgClass],
-  template: `<span [cdkMenuTriggerFor]="dropdownPanel">
+  template: `<span [cdkMenuTriggerFor]="overlayPanel">
       <ng-content select="[trigger]"></ng-content>
     </span>
 
-    <ng-template #dropdownPanel>
+    <ng-template #overlayPanel>
       <div
         class="flex flex-col items-start z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
         [ngClass]="spacingClass"
@@ -21,6 +21,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
       </div>
     </ng-template>`,
 })
-export class MxDropdownComponent {
+export class MxOverlayComponent {
   @Input() spacingClass = '';
 }

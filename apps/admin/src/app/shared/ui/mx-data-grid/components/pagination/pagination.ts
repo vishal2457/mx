@@ -192,7 +192,7 @@ export class NgbPaginationPages {
         <a
           *ngIf="!isEllipsis(pageNumber)"
           class="px-3 py-2 leading-tight border text-sm font-medium bg-background hover:bg-muted/100"
-          [ngClass]="{ 'bg-muted/95': page === pageNumber }"
+          [ngClass]="{ 'bg-muted/15': page === pageNumber }"
           href
           (click)="selectPage(pageNumber); $event.preventDefault()"
           [attr.tabindex]="disabled ? '-1' : null"

@@ -3,6 +3,7 @@ import { ToolbarService } from '../../services/toolbar.service';
 import { MetaDataService } from '../../services/meta-data.service';
 import { combineLatest, map, of } from 'rxjs';
 import { GridColumnService } from '../../services/columns.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'toolbar',
@@ -25,7 +26,7 @@ import { GridColumnService } from '../../services/columns.service';
           />
           }
         </mx-btn-group-container>
-        <mx-dropdown
+        <!-- <mx-dropdown
           [closeOnSelect]="false"
           spacing="compact"
           dropdownTitle="Show Columns"
@@ -42,8 +43,21 @@ import { GridColumnService } from '../../services/columns.service';
             [text]="column.title || column.field"
             [checkboxValue]="true"
           />
+          } -->
+        <mx-overlay>
+          <mx-btn-group
+            trigger
+            icon="view_column"
+            text="Configure columns"
+            btnClass="border-y"
+          />
+          @for (column of columnService.columns$ |async; track column.field ) {
+          <mx-checkbox
+            [control]="control"
+            [label]="column.title || column.field"
+          />
           }
-        </mx-dropdown>
+        </mx-overlay>
       </div>
     </div>
   `,
@@ -64,4 +78,6 @@ export class GridToolbarComponent {
   @ContentChild('toolbarFooter') toolbarFooter!: TemplateRef<any>;
 
   renderToolbar$ = of(false);
+
+  control = new FormControl(true);
 }

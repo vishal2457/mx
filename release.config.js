@@ -43,6 +43,7 @@ function getCIConfig() {
           releaseRules: [
             { type: 'docs', scope: 'README', release: 'patch' },
             { type: 'refactor', release: 'patch' },
+            { type: 'feat-sm', release: 'patch' },
             { type: 'style', release: 'patch' },
             { type: 'feat', release: 'minor' },
             { type: 'bug', release: 'patch' },
