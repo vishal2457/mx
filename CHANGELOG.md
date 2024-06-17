@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/vishal2457/mx/compare/v3.5.0...v3.6.0) (2024-06-17)
+
+
+### Features
+
+* ads flag added in config ([14b7f32](https://github.com/vishal2457/mx/commit/14b7f3247545811cc7264a3363e4c7a25eaad408))
+
 # [3.5.0](https://github.com/vishal2457/mx/compare/v3.4.0...v3.5.0) (2024-06-16)
 
 
