@@ -14,7 +14,7 @@ import { ToolbarService } from '../../services/toolbar.service';
       role="toolbar"
       aria-label="Toolbar with button groups"
     >
-      <p class="font-bold text-2xl pb-4">{{ meta.gridTitle$ | async }}</p>
+      <p class="font-semibold text-2xl pb-4">{{ meta.gridTitle$ | async }}</p>
       <div class="flex">
         <mx-btn-group-container>
           @for (tool of toolbarService.options$ | async; track tool.name) {
@@ -25,33 +25,20 @@ import { ToolbarService } from '../../services/toolbar.service';
           />
           }
         </mx-btn-group-container>
-        <!-- <mx-dropdown
-          [closeOnSelect]="false"
-          spacing="compact"
-          dropdownTitle="Show Columns"
-        >
-          <mx-btn-group
-            trigger
-            icon="view_column"
-            text="Configure columns"
-            btnClass="border-y"
-          />
-          @for (column of columnService.columns$ |async; track column.field ) {
-          <mx-dropdown-item
-            [checkbox]="true"
-            [text]="column.title || column.field"
-            [checkboxValue]="true"
-          />
-          } -->
         <mx-overlay class="ml-2">
-          <mx-button trigger size="sm">Columns</mx-button>
+          <mx-button trigger size="sm" variant="outline">
+            <span class="flex items-center">
+              <mx-icon icon="view_column" class="mr-2" />
+              <p>Columns</p>
+            </span>
+          </mx-button>
 
           <p class="text-sm">Show Columns</p>
           <div class=" my-1 h-px border w-full"></div>
           @for (column of columnService.columns$ |async; track column.field; let
           index = $index ) {
-          <span
-            class="flex gap-2 cursor-pointer items-center"
+          <div
+            class="w-full flex gap-2 cursor-pointer items-center hover:bg-accent py-0.5"
             (click)="columnService.handleColumnVisibility(index)"
           >
             @if(column.visible) {
@@ -64,7 +51,7 @@ import { ToolbarService } from '../../services/toolbar.service';
             ></span>
             }
             {{ column.title || column.field }}
-          </span>
+          </div>
           }
         </mx-overlay>
       </div>

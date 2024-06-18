@@ -1,29 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ContentChild,
   ContentChildren,
   EventEmitter,
   Input,
   Output,
   QueryList,
-  ContentChild,
   TemplateRef,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-  OnDestroy,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { SubSink } from '../../utils/sub-sink';
 
 // This is single dropdown item
 @Component({
   selector: 'mx-dropdown-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (!item){ @if(checkbox) {
-    <mx-checkbox [control]="control" [label]="text" />
-    } @else {
+    @if (!item){
     <button
       (click)="handleClick.emit($event)"
       class="w-full cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
@@ -31,43 +23,19 @@ import { SubSink } from '../../utils/sub-sink';
       <mx-icon [icon]="icon" size="sm" class="mr-2" />
       <p>{{ text }}</p>
     </button>
-    } } @else if(item) {
+    } @else if(item) {
     <ng-container *ngTemplateOutlet="item"></ng-container>
     }
   `,
 })
-export class MxDropdownItemComponent implements OnInit, OnChanges, OnDestroy {
+export class MxDropdownItemComponent {
   @Input() icon = '';
   @Input() text = '';
   @Input() seperator = false;
-  @Input() checkbox = false;
-  @Input() checkboxValue = true;
 
   @ContentChild('item') item?: TemplateRef<any>;
 
   @Output() handleClick = new EventEmitter();
-
-  control!: FormControl;
-  private subs = new SubSink();
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['checkboxValue']?.currentValue && this.control) {
-      this.control.setValue(changes['checkboxValue'].currentValue);
-    }
-  }
-
-  ngOnInit(): void {
-    if (this.checkbox) {
-      this.control = new FormControl(this.checkboxValue);
-      this.subs.sink = this.control.valueChanges.subscribe((value) => {
-        this.handleClick.emit();
-      });
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
 }
 
 // This is main dropdown wrapper
@@ -95,7 +63,6 @@ export class MxDropdownItemComponent implements OnInit, OnChanges, OnDestroy {
           cdkMenuItem
           [text]="dropdownItem.text"
           [icon]="dropdownItem.icon"
-          [checkbox]="dropdownItem.checkbox"
           (handleClick)="handleItemClick($event, dropdownItem)"
           class="w-full"
         >
@@ -132,9 +99,6 @@ export class MxDropdownComponent {
     if (!this.closeOnSelect) {
       event?.stopPropagation();
     }
-    dropdownItem.handleClick.emit({
-      event,
-      checkboxValue: dropdownItem.control?.value,
-    });
+    dropdownItem.handleClick.emit(event);
   }
 }
