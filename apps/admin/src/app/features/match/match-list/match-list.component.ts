@@ -8,13 +8,13 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
 @Component({
   selector: 'mx-match-list',
   template: `<mx-grid-shell
-    gridTitle="Matches"
+    gridTitle="Match List"
     apiURL="/match/list"
     fields="id,gameSlug,teamOne,teamTwo,league,format,venue,startTime,startDate,active"
   >
     <mx-toolbar icon="add" name="Add" (handleClick)="create()" />
     <!-- columns -->
-    <mx-column field="id" alignment="left" />
+    <mx-column field="id" alignment="left" [visible]="false" />
     <mx-column field="gameSlug" title="Game" />
     <mx-column field="teamOne" />
     <mx-column field="teamTwo" />

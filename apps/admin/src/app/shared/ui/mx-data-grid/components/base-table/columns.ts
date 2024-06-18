@@ -7,7 +7,7 @@ import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 })
 export class GridColumnsComponent {
   @Input() title = '';
-  @Input() field = '';
+  @Input({ required: true }) field = '';
   @Input() sortable?: boolean = false;
   @Input() visible?: boolean = true;
   @Input() innerHtml?: boolean = false;

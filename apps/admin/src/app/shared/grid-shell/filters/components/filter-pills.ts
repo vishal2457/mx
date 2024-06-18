@@ -12,24 +12,26 @@ import { MxBadgeComponent } from '../../../ui/badge';
     <div class="flex gap-2 mb-2">
       @for (filter of filterData; track filter.field) {
       <div
-        class="flex border-dashed border-[1.3px] p-1 rounded-sm items-center justify-center gap-1"
+        class="flex border-dashed border-[1.3px] p-1 rounded-md items-center justify-center"
       >
         <mx-badge
-          [text]="filter.field"
-          class="rounded-sm capitalize"
-          variant="secondary"
+          [text]="
+            filter.field +
+            ' ' +
+            filter.condition +
+            ' ' +
+            filter.value.toString()
+          "
+          class="rounded-md capitalize"
+          variant="info"
         />
-        <div
+        <!-- <div
           data-orientation="vertical"
           role="none"
           class="shrink-0 bg-border w-[1px] mx-2 h-4"
         ></div>
 
-        <mx-badge
-          [text]="filter.condition"
-          class="rounded-sm"
-          variant="secondary"
-        />
+        <mx-badge [text]="filter.condition" class="rounded-md" variant="info" />
         <div
           data-orientation="vertical"
           role="none"
@@ -37,9 +39,9 @@ import { MxBadgeComponent } from '../../../ui/badge';
         ></div>
         <mx-badge
           [text]="filter.value.toString()"
-          class="rounded-sm"
-          variant="secondary"
-        />
+          class="rounded-md"
+          variant="info"
+        /> -->
       </div>
       }
     </div>

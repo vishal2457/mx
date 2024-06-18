@@ -19,12 +19,14 @@ export const STATIC_ACTION_HEADER = {
   title: '__A',
   field: 'action',
   alignment: 'center',
+  visible: true,
 } as const;
 
 export const STATIC_SELECTABLE_HEADER = {
-  title: 'A',
+  title: '__S',
   field: 'selectable',
   alignment: 'center',
+  visible: true,
 } as const;
 
 export interface Emitter {
