@@ -7,15 +7,18 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'mx-match-list',
-  template: `<div>
-      <p class="font-bold  pb-6 text-3xl">Match Management</p>
-    </div>
+  template: `<page-header header="Match" [showCancel]="false">
+      <mx-button (handleClick)="create()">
+        <span class="flex items-center">
+          <p>Add Match</p>
+        </span>
+      </mx-button>
+    </page-header>
     <mx-grid-shell
       gridTitle="Match List"
       apiURL="/match/list"
       fields="id,gameSlug,teamOne,teamTwo,league,format,venue,startTime,startDate,active"
     >
-      <mx-toolbar icon="add" name="Add" (handleClick)="create()" />
       <!-- columns -->
       <mx-column field="id" alignment="left" [visible]="false" />
       <mx-column field="gameSlug" title="Game" />
@@ -49,7 +52,11 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
 
       <!-- Action -->
       <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
-      <mx-action icon="delete" tooltip="Edit" />
+      <mx-action
+        icon="delete"
+        tooltip="Delete"
+        (handleClick)="deleteItem($event)"
+      />
       <!-- Action -->
     </mx-grid-shell>`,
   styleUrl: './match-list.component.scss',
@@ -73,7 +80,7 @@ export class MatchListComponent {
 
   deleteItem(e: any) {
     this.api.delete(`/match/${e.cellData.id}`).subscribe(() => {
-      // this.gridShell.refresh();
+      this.gridShell.refresh();
       this.notif.show({
         text: 'Match Deleted',
         type: 'success',

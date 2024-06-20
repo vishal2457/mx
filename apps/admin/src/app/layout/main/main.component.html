@@ -11,7 +11,7 @@
   </ng-container>
 
   <main
-    class="p-4 md:ml-72 pt-8 h-auto bg-main-background text-card-foreground min-h-screen"
+    class="p-4 md:ml-72 h-auto bg-main-background text-card-foreground min-h-screen"
     [ngClass]="{ 'md:ml-72': sidebarService.sidebarOpen$ | async }"
   >
     <router-outlet></router-outlet>

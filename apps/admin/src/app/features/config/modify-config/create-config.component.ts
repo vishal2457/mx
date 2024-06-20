@@ -6,11 +6,13 @@ import { ConfigFormComponent } from './config-form/config-form.component';
 
 @Component({
   selector: 'add-config',
-  template: `<page-header
-      header="Add Config"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: `<page-header header="Add Config">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button>
+    </page-header>
     <config-form />`,
 })
 export class CreateConfigComponent implements OnDestroy {

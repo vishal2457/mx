@@ -13,11 +13,13 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 
 @Component({
   selector: 'add-user',
-  template: `<page-header
-      header="Add User"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: `<page-header header="Add User">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button>
+    </page-header>
     <user-form />`,
 })
 export class CreateUserComponent implements AfterViewInit, OnDestroy {

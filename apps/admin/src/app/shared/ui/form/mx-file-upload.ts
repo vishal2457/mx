@@ -79,7 +79,7 @@ export class MxFileUploadComponent {
     const maxFileSizeMB = this.maxFileSizeMB();
     if (maxFileSizeMB) {
       const currentFileSize = this.fileSizeMB(file);
-      if (file.size > maxFileSizeMB) {
+      if (currentFileSize > maxFileSizeMB) {
         this.errors.update((value) => {
           value.push(
             `File size should be less then ${maxFileSizeMB} MB, it is ${currentFileSize} MB`

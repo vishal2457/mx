@@ -68,7 +68,7 @@
               (click)="navigateTo(m.link)"
               class="w-full cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
             >
-              <mx-icon [icon]="m.icon" size="sm" class="mr-2" />
+              <mx-icon [icon]="m.icon" class="mr-2" />
               <p>{{ m.name }}</p>
             </button>
             <button
@@ -76,7 +76,7 @@
               (click)="sidebarService.unarchiveMenu(m.id)"
               class="cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
             >
-              <mx-icon icon="unarchive" size="sm" />
+              <mx-icon icon="unarchive" />
             </button>
           </div>
         </ng-template>

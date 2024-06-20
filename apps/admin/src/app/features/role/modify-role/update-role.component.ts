@@ -16,11 +16,13 @@ import { TRole } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'edit-role',
-  template: ` <page-header
-      header="Edit Role"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: ` <page-header header="Edit Role">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button>
+    </page-header>
     <role-form />`,
 })
 export class UpdateRoleComponent implements OnInit, AfterViewInit, OnDestroy {

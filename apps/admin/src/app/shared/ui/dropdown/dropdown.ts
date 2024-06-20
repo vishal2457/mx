@@ -20,7 +20,7 @@ import {
       (click)="handleClick.emit($event)"
       class="w-full cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
     >
-      <mx-icon [icon]="icon" size="sm" class="mr-2" />
+      <mx-icon [icon]="icon" class="mr-2" />
       <p>{{ text }}</p>
     </button>
     } @else if(item) {

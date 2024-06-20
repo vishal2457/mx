@@ -6,11 +6,13 @@ import { OfferFormComponent } from './offer-form/offer-form.component';
 
 @Component({
   selector: 'add-offer',
-  template: `<page-header
-      header="Add Offer"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: `<page-header header="Add Offer">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button></page-header
+    >
     <offer-form />`,
 })
 export class CreateOfferComponent implements OnDestroy {

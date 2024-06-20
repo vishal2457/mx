@@ -24,17 +24,16 @@
     >
       @if (!column.head) {
       <mx-dropdown spacing="compact">
-        <mx-button trigger variant="ghost" size="sm" class="items-center">
+        <mx-button trigger variant="ghost" class="items-center">
           <span class="flex items-center gap-1 capitalize tracking-normal">
             {{ column.title || column.field }} @if (columnService.sort$ |async;
             as sort) {
             <mx-icon
               [icon]="sort?.Asc === column.field ? 'arrow_upward' : sort?.Desc === column.field ? 'arrow_downward'  : 'unfold_more'"
-              size="sm"
               class="mt-1"
             />
             } @else {
-            <mx-icon icon="unfold_more" size="sm" class="mt-1" />
+            <mx-icon icon="unfold_more" class="mt-1" />
             }
           </span>
         </mx-button>
@@ -145,7 +144,7 @@
     <td
       cdk-cell
       *cdkCellDef="let element"
-      class="text-center background-blur dar:bg-neutral-800/90"
+      class="text-center background-blur dark:bg-background/90"
     >
       @for (action of actionService.actions$ |async; track action.icon) {
       <mx-action

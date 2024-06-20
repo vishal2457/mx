@@ -3,10 +3,15 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-{{name}}-list',
-  template: `<mx-grid-shell gridTitle="{{properCase name}}s" apiURL="/{{name}}/list">
-
-      <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
-
+  template: `
+  <page-header header="{{properCase name}}" [showCancel]="false">
+      <mx-button  (handleClick)="create()">
+        <span class="flex items-center">
+          <p>Add {{properCase name}}</p>
+        </span>
+      </mx-button>
+    </page-header>
+  <mx-grid-shell gridTitle="{{properCase name}}s" apiURL="/{{name}}/list">
     <!-- columns -->
       {{#each schemaValue.properties}}
       <mx-column field="{{@key}}" alignment="left" />
@@ -27,7 +32,7 @@ import { Router } from '@angular/router';
 export class {{properCase name}}ListComponent {
   private router = inject(Router);
 
-  add() {
+  create() {
     this.router.navigate(['/{{name}}/create']);
   }
 

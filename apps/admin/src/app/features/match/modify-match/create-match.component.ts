@@ -7,11 +7,13 @@ import { MatchFormComponent } from './match-form/match-form.component';
 
 @Component({
   selector: 'add-items',
-  template: `<page-header
-      header="Add Match"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: `<page-header header="Add Match" [showBreadcrumb]="false">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button>
+    </page-header>
     <match-form formType="add" />`,
 })
 export class CreateMatchComponent implements OnDestroy {

@@ -26,7 +26,7 @@ import { ToolbarService } from '../../services/toolbar.service';
           }
         </mx-btn-group-container>
         <mx-overlay class="ml-2">
-          <mx-button trigger size="sm" variant="outline">
+          <mx-button trigger variant="outline">
             <span class="flex items-center">
               <mx-icon icon="view_column" class="mr-2" />
               <p>Columns</p>
