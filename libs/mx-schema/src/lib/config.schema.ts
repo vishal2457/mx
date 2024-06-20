@@ -10,9 +10,9 @@ export const TB_config = pgTable('config', {
   aboutUs: text('aboutUs').notNull(),
   ads: boolean('ads').default(true).notNull(),
   telegramLink: text('telegramLink').notNull(),
-  whatsappLink: text('whatsappLink').notNull(),
-  youtubeLink: text('youtubeLink').notNull(),
-  facebookLink: text('facebookLink').notNull(),
+  whatsappLink: text('whatsappLink').notNull().default(''),
+  youtubeLink: text('youtubeLink').notNull().default(''),
+  facebookLink: text('facebookLink').notNull().default(''),
 });
 
 export const Z_config = createSelectSchema(TB_config);
