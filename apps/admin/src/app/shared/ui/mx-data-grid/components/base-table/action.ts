@@ -26,6 +26,7 @@ import { MxTooltipDirective } from '../../../tooltip/tooltip.directive';
       [icon]="icon"
       [mxTooltip]="tooltip"
       class="cursor-pointer"
+      size="lg"
     />
     }`,
 })

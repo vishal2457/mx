@@ -7,40 +7,58 @@ import { GAME_SLUG } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'mx-match-list',
-  template: `<mx-grid-shell
-    gridTitle="Matches"
-    apiURL="/match/list"
-    fields="id,gameSlug,teamOne,teamTwo,league,format,venue,startTime,startDate,active"
-  >
-    <mx-toolbar icon="add" name="Add" (handleClick)="create()" />
-    <!-- columns -->
-    <mx-column field="id" alignment="left" />
-    <mx-column field="gameSlug" title="Game" />
-    <mx-column field="teamOne" />
-    <mx-column field="teamTwo" />
-    <mx-column field="league" />
-    <mx-column field="format" />
-    <mx-column field="venue" />
-    <mx-column field="startDate" />
-    <mx-column field="startTime" />
-    <mx-column field="active" />
+  template: `<page-header header="Match" [showCancel]="false">
+      <mx-button (handleClick)="create()">
+        <span class="flex items-center">
+          <p>Add Match</p>
+        </span>
+      </mx-button>
+    </page-header>
+    <mx-grid-shell
+      gridTitle="Match List"
+      apiURL="/match/list"
+      fields="id,gameSlug,teamOne,teamTwo,league,format,venue,startTime,startDate,active"
+    >
+      <!-- columns -->
+      <mx-column field="id" alignment="left" [visible]="false" />
+      <mx-column field="gameSlug" title="Game" />
+      <mx-column field="teamOne" />
+      <mx-column field="teamTwo" />
+      <mx-column field="league" />
+      <mx-column field="format" />
+      <mx-column field="venue" />
+      <mx-column field="startDate" />
+      <mx-column field="startTime" />
+      <mx-column field="active">
+        <ng-template #cell let-item>
+          @if(item.active) {
+          <mx-badge [text]="item.active" variant="success" class="capitalize" />
+          } @else {
+          <mx-badge [text]="item.active" variant="error" class="capitalize" />
+          }
+        </ng-template>
+      </mx-column>
 
-    <!-- columns -->
+      <!-- columns -->
 
-    <!-- Filters -->
-    <mx-grid-filter
-      field="gameSlug"
-      label="Game Slug"
-      type="select"
-      [items]="games"
-    />
-    <!-- Filters -->
+      <!-- Filters -->
+      <mx-grid-filter
+        field="gameSlug"
+        label="Game Slug"
+        type="select"
+        [items]="games"
+      />
+      <!-- Filters -->
 
-    <!-- Action -->
-    <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
-    <mx-action icon="delete" tooltip="Edit" />
-    <!-- Action -->
-  </mx-grid-shell>`,
+      <!-- Action -->
+      <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
+      <mx-action
+        icon="delete"
+        tooltip="Delete"
+        (handleClick)="deleteItem($event)"
+      />
+      <!-- Action -->
+    </mx-grid-shell>`,
   styleUrl: './match-list.component.scss',
 })
 export class MatchListComponent {
@@ -62,7 +80,7 @@ export class MatchListComponent {
 
   deleteItem(e: any) {
     this.api.delete(`/match/${e.cellData.id}`).subscribe(() => {
-      // this.gridShell.refresh();
+      this.gridShell.refresh();
       this.notif.show({
         text: 'Match Deleted',
         type: 'success',

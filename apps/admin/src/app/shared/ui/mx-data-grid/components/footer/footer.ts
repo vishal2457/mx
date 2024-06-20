@@ -3,17 +3,17 @@ import { PaginationService } from '../../services/pagination.service';
 
 @Component({
   selector: 'table-footer',
-  template: `<div class="rounded-0 py-3 flex justify-between">
+  template: `<div class="rounded-0 flex py-2 justify-between">
     <ng-container>
-      <!-- <div class="flex">
-        <mx-grid-limit />
+      <div class="flex">
+        <!-- <mx-grid-limit /> -->
         <div class="flex items-center pl-4">
           Rows:
           <span class="font-bold pl-2">{{
             (pagination.collectionSize$ | async) || 0
           }}</span>
         </div>
-      </div> -->
+      </div>
 
       <gb-pagination
         [collectionSize]="(pagination.collectionSize$ | async) || 0"

@@ -4,27 +4,27 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-} from "@angular/core";
-import { cva, VariantProps } from "class-variance-authority";
+} from '@angular/core';
+import { cva, VariantProps } from 'class-variance-authority';
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border p-4 [&>svg]:absolute [&>svg]:text-foreground [&>svg]:left-4 [&>svg]:top-4 [&>svg+div]:translate-y-[-3px] [&:has(svg)]:pl-11",
+  'relative w-full rounded-lg border p-4 [&>svg]:absolute [&>svg]:text-foreground [&>svg]:left-4 [&>svg]:top-4 [&>svg+div]:translate-y-[-3px] [&:has(svg)]:pl-11',
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
+        default: 'bg-background text-foreground',
         destructive:
-          "text-destructive border-destructive/50 dark:border-destructive [&>svg]:text-destructive text-destructive",
+          'text-destructive border-destructive/50 dark:border-destructive [&>svg]:text-destructive text-destructive',
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: 'default',
     },
   }
 );
 
 @Component({
-  selector: "mx-alert-banner",
+  selector: 'mx-alert-banner',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<div [class]="styles">
@@ -39,16 +39,16 @@ const alertVariants = cva(
   </div>`,
 })
 export class MxAlertBannerComponent implements OnChanges {
-  @Input() header = "";
-  @Input() description = "";
-  @Input() variant: VariantProps<typeof alertVariants>["variant"] = "default";
+  @Input() header = '';
+  @Input() description = '';
+  @Input() variant: VariantProps<typeof alertVariants>['variant'] = 'default';
 
   protected styles = alertVariants({ variant: this.variant });
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["variant"]?.currentValue) {
+    if (changes['variant']?.currentValue) {
       this.styles = alertVariants({
-        variant: changes["variant"].currentValue,
+        variant: changes['variant'].currentValue,
       });
     }
   }

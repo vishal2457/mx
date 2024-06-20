@@ -14,11 +14,13 @@ import { NotificationFormComponent } from './notification-form/notification-form
 
 @Component({
   selector: 'create-notification',
-  template: `<page-header
-      header="Add Notification"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: `<page-header header="Add Notification">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button></page-header
+    >
     <notification-form />`,
 })
 export class CreateNotificationComponent implements AfterViewInit, OnDestroy {

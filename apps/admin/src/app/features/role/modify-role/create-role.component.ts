@@ -13,11 +13,13 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 
 @Component({
   selector: 'add-role',
-  template: `<page-header
-      header="Add Role"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: `<page-header header="Add Role">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button>
+    </page-header>
     <role-form />`,
 })
 export class CreateRoleComponent implements AfterViewInit, OnDestroy {

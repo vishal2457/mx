@@ -14,6 +14,7 @@ import { CreateNotificationComponent } from './modify-notification/create-notifi
 import { NotificationFormComponent } from './modify-notification/notification-form/notification-form.component';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { NotificationRoutingModule } from './notification-routing.module';
+import { MxButtonComponent } from '../../shared/ui/button';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { NotificationRoutingModule } from './notification-routing.module';
     MxFormComponent,
     MxInputComponent,
     MxTextareaComponent,
+    MxButtonComponent,
   ],
 })
 export class NotificationModule {}

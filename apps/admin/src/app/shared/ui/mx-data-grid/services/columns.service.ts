@@ -4,26 +4,30 @@ import { GridColumnsComponent } from '../components/base-table/columns';
 
 @Injectable()
 export class GridColumnService {
-  private _columns =
-    new BehaviorSubject<QueryList<GridColumnsComponent> | null>(null);
+  private _columns = new BehaviorSubject<GridColumnsComponent[]>([]);
   private sort = new Subject<Partial<{
     Asc: string;
     Desc: string;
   }> | null>();
 
   columns$ = this._columns.asObservable().pipe(shareReplay());
-  fields$ = this.columns$.pipe(
-    map((columns) => columns?.map((item) => item.field))
-  );
   totalColumns$ = this.columns$.pipe(map((columns) => columns?.length));
   sort$ = this.sort.asObservable();
+  columnsToRender$ = this.columns$.pipe(
+    map((columns) => {
+      return columns.filter((column) => column.visible);
+    })
+  );
+  fields$ = this.columnsToRender$.pipe(
+    map((columns) => columns?.map((item) => item.field))
+  );
 
   updateColumns(columns: QueryList<GridColumnsComponent>) {
-    this._columns.next(columns);
+    this._columns.next(columns.toArray());
   }
 
-  moveRight(index: number, columns: QueryList<GridColumnsComponent>) {
-    const rawColumns = columns.toArray();
+  moveRight(index: number) {
+    const rawColumns = this.filterVisibleColumns(this._columns.getValue());
 
     if (index === rawColumns.length - 1) {
       return;
@@ -36,12 +40,11 @@ export class GridColumnService {
     if (actions) {
       rawColumns.push(actions);
     }
-    columns.reset(rawColumns);
-    this._columns.next(columns);
+    this._columns.next(rawColumns);
   }
 
-  moveLeft(index: number, columns: QueryList<GridColumnsComponent>) {
-    const rawColumns = columns.toArray();
+  moveLeft(index: number) {
+    const rawColumns = this.filterVisibleColumns(this._columns.getValue());
     if (index === 0) {
       return;
     }
@@ -54,8 +57,7 @@ export class GridColumnService {
     if (actions) {
       rawColumns.push(actions);
     }
-    columns.reset(rawColumns);
-    this._columns.next(columns);
+    this._columns.next(rawColumns);
   }
 
   sortAsc(field: string) {
@@ -82,5 +84,15 @@ export class GridColumnService {
         return 'unfold_more';
       })
     );
+  }
+
+  handleColumnVisibility(index: number) {
+    const columns = this._columns.getValue();
+    columns[index].visible = !columns[index].visible;
+    this._columns.next(columns);
+  }
+
+  private filterVisibleColumns(columns: GridColumnsComponent[]) {
+    return columns.filter((column) => column.visible);
   }
 }

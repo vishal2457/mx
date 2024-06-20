@@ -1,26 +1,20 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { OfferFormComponent } from './offer-form/offer-form.component';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TOffer } from '../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { SubSink } from '../../../shared/utils/sub-sink';
-import { TOffer } from '../../../../../../../libs/mx-schema/src';
+import { OfferFormComponent } from './offer-form/offer-form.component';
 
 @Component({
   selector: 'edit-offer',
-  template: ` <page-header
-      header="Edit Offer"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: ` <page-header header="Edit Offer">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button></page-header
+    >
     <offer-form />`,
 })
 export class UpdateOfferComponent implements OnInit, OnDestroy {

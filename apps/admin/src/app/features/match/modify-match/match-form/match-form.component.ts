@@ -82,6 +82,10 @@ export class MatchFormComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    glImage: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
     teamOnePlayers: new FormControl('', {
       validators: [Validators.required],
       nonNullable: true,
@@ -109,6 +113,10 @@ export class MatchFormComponent {
 
   handlePremiumTeamImage(file: any) {
     this.matchForm.patchValue({ premiumTeamImage: file });
+  }
+
+  handleGlImage(file: any) {
+    this.matchForm.patchValue({ glImage: file });
   }
 
   getFormValue() {

@@ -17,4 +17,5 @@ export const MatchImageUpload = ImageUpload.fields([
   { name: 'premiumTeamImage', maxCount: 1 },
   { name: 'teamOneLogo', maxCount: 1 },
   { name: 'teamTwoLogo', maxCount: 1 },
+  { name: 'glImage', maxCount: 1 },
 ]);

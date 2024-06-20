@@ -73,6 +73,9 @@ async function seed() {
       adBannerID: ' ',
       adRewardID: ' ',
       telegramLink: ' ',
+      whatsappLink: ' ',
+      youtubeLink: ' ',
+      facebookLink: ' ',
     },
   ]);
 }

@@ -14,11 +14,12 @@ import {
       [mxTooltip]="text"
       (click)="handleClick.emit($event)"
       type="button"
-      class="border-e px-2 py-1 text-sm font-medium focus:relative bg-background transition-colors"
+      class="border-e px-2 py-0.5 text-sm font-medium focus:relative bg-background transition-colors"
       [ngClass]="{
         'bg-muted/95': active,
         'hover:bg-muted/100': !active
       }"
+      [ngClass]="btnClass"
     >
       @if (icon) {
       <mx-icon [icon]="icon" />
@@ -32,6 +33,7 @@ export class MxBtnGroupComponent {
   @Input() text = '';
   @Input() icon = '';
   @Input() active = false;
+  @Input() btnClass = '';
 
   @Output() handleClick = new EventEmitter();
 }

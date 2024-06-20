@@ -44,6 +44,7 @@ export const TB_match = pgTable(
     h2hTeam: text('h2hTeam').notNull(),
     h2hTeamImage: text('h2hTeamImage').notNull(),
     premiumTeamImage: text('premiumTeamImage').notNull(),
+    glImage: text('glImage').notNull(),
     startDate: text('startDate').notNull(),
     startTime: text('startTime').notNull(),
     description: text('description').notNull(),

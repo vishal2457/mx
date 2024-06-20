@@ -1,26 +1,20 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { ConfigFormComponent } from './config-form/config-form.component';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TConfig } from '../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { SubSink } from '../../../shared/utils/sub-sink';
-import { TConfig } from '../../../../../../../libs/mx-schema/src';
+import { ConfigFormComponent } from './config-form/config-form.component';
 
 @Component({
   selector: 'edit-config',
-  template: ` <page-header
-      header="Edit Config"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: ` <page-header header="Edit Config">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button>
+    </page-header>
     <config-form />`,
 })
 export class UpdateConfigComponent implements OnInit, OnDestroy {
@@ -29,14 +23,14 @@ export class UpdateConfigComponent implements OnInit, OnDestroy {
   private api = inject(ApiService);
   private notif = inject(MxNotification);
   private route = inject(ActivatedRoute);
-  private router = inject(Router)
+  private router = inject(Router);
 
   configID!: string;
-  private requests = new SubSink()
+  private requests = new SubSink();
 
   ngOnInit(): void {
     this.configID = this.route.snapshot.params['id'];
-    this.fetchConfigDetails( this.configID)
+    this.fetchConfigDetails(this.configID);
   }
 
   ngOnDestroy(): void {
@@ -45,11 +39,11 @@ export class UpdateConfigComponent implements OnInit, OnDestroy {
 
   private fetchConfigDetails(id: string) {
     this.api.get<TConfig>(`/config/${id}`).subscribe(({ data }) => {
-       this.configFormComponent.patchValue(data);
+      this.configFormComponent.patchValue(data);
     });
   }
 
-    handleSubmit() {
+  handleSubmit() {
     if (this.configFormComponent.isInValid()) {
       this.configFormComponent.setShowErrors();
       return;
@@ -62,7 +56,10 @@ export class UpdateConfigComponent implements OnInit, OnDestroy {
     });
 
     this.requests.sink = this.api
-      .put(`/config/update/${this.configID}`, this.configFormComponent.getFormValue())
+      .put(
+        `/config/update/${this.configID}`,
+        this.configFormComponent.getFormValue()
+      )
       .subscribe({
         next: () => {
           this.notif.updateToast({
@@ -74,5 +71,4 @@ export class UpdateConfigComponent implements OnInit, OnDestroy {
         },
       });
   }
-
 }

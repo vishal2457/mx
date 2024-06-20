@@ -22,6 +22,8 @@ import { MxIconComponent } from '../icon';
 import { MxBadgeComponent } from '../badge';
 import { BaseDataTableComponent } from './components/base-table/core/table';
 import { MxTooltipDirective } from '../tooltip/tooltip.directive';
+import { MxOverlayComponent } from '../overlay';
+import { MxCheckboxComponent } from '../form/mx-checkbox';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { MxTooltipDirective } from '../tooltip/tooltip.directive';
     MxIconComponent,
     MxBadgeComponent,
     MxTooltipDirective,
+    MxOverlayComponent,
+    MxCheckboxComponent,
   ],
   providers: [
     GridDataService,

@@ -1,8 +1,10 @@
 <!-- VERSION >17 -->
 <div class="bg-background border-l w-80 flex flex-col h-screen overflow-auto">
-  <div class="p-3 flex z-50 sticky top-0 bg-background justify-between">
+  <div
+    class="p-3 flex z-50 sticky top-0 bg-background justify-between items-center"
+  >
     <p class="font-bold text-xl">Filters</p>
-    <mx-button (handleClick)="clearFilters()" variant="ghost" size="sm"
+    <mx-button (handleClick)="clearFilters()" variant="outline"
       >Clear Filters</mx-button
     >
   </div>
@@ -84,9 +86,7 @@
     [clearable]="false"
     [searchable]="false"
   />
-  <mx-input
-    [control]="controls[component.field]"
-  />
+  <mx-input [control]="controls[component.field]" />
 </ng-template>
 
 <ng-template #selectFilter let-component>

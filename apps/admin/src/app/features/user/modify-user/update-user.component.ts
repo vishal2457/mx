@@ -16,11 +16,13 @@ import { TUser } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'edit-user',
-  template: ` <page-header
-      header="Edit User"
-      (save)="handleSubmit()"
-      [loading]="false"
-    />
+  template: ` <page-header header="Edit User">
+      <mx-button (handleClick)="handleSubmit()">
+        <span class="flex items-center">
+          <p>Save</p>
+        </span>
+      </mx-button>
+    </page-header>
     <user-form />`,
 })
 export class UpdateUserComponent implements OnInit, AfterViewInit, OnDestroy {

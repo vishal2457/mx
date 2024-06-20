@@ -37,7 +37,7 @@ import { FilterService } from './filters/filter.service';
     MxGridToolbarComponent,
     MxFilterPillsComponent,
   ],
-  template: `<mx-data-grid
+  template: ` <mx-data-grid
     [data]="data"
     [loading]="loading"
     [collectionSize]="collectionSize"

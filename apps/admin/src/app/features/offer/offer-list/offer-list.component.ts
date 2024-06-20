@@ -5,28 +5,35 @@ import { MxNotification } from '../../../shared/ui/notification/notification.ser
 
 @Component({
   selector: 'app-offer-list',
-  template: `<mx-grid-shell gridTitle="Offers" apiURL="/offer/list">
-    <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
+  template: `<div>
+      <p class="font-bold  pb-6 text-3xl">Offer Management</p>
+    </div>
+    <mx-grid-shell gridTitle="Offers List" apiURL="/offer/list">
+      <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
 
-    <!-- columns -->
-    <mx-column field="id" alignment="left" />
-    <mx-column field="name" alignment="left" />
-    <mx-column field="amount" alignment="left" />
-    <mx-column field="period" alignment="left" />
-    <!-- columns -->
+      <!-- columns -->
+      <mx-column field="id" alignment="left" />
+      <mx-column field="name" alignment="left" />
+      <mx-column field="amount" alignment="left" />
+      <mx-column field="period" alignment="left" />
+      <!-- columns -->
 
-    <!-- filters -->
-    <mx-grid-filter label="Id" field="id" />
-    <mx-grid-filter label="Name" field="name" />
-    <mx-grid-filter label="Amount" field="amount" />
-    <mx-grid-filter label="Period" field="period" />
-    <!-- filters -->
+      <!-- filters -->
+      <mx-grid-filter label="Id" field="id" />
+      <mx-grid-filter label="Name" field="name" />
+      <mx-grid-filter label="Amount" field="amount" />
+      <mx-grid-filter label="Period" field="period" />
+      <!-- filters -->
 
-    <!-- actions -->
-    <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
-    <mx-action icon="delete" (handleClick)="delete($event)" tooltip="Delete" />
-    <!-- actions -->
-  </mx-grid-shell>`,
+      <!-- actions -->
+      <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
+      <mx-action
+        icon="delete"
+        (handleClick)="delete($event)"
+        tooltip="Delete"
+      />
+      <!-- actions -->
+    </mx-grid-shell>`,
 })
 export class OfferListComponent {
   private router = inject(Router);
