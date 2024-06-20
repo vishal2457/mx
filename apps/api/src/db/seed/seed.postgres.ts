@@ -19,7 +19,7 @@ import { seedMenu } from './menu';
 import { hashPassword } from '../../shared/password-hash';
 
 const pool = new Pool({
-  host: process.env.DB_HOST,
+  host: process.env.NODE_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
