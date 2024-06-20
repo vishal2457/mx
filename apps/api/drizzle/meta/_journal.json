@@ -36,6 +36,13 @@
       "when": 1718903739943,
       "tag": "0004_absurd_norman_osborn",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1718904151830,
+      "tag": "0005_late_vertigo",
+      "breakpoints": true
     }
   ]
 }
