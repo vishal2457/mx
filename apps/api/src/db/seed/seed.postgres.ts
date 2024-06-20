@@ -17,13 +17,14 @@ import {
 } from '../../../../../libs/mx-schema/src';
 import { seedMenu } from './menu';
 import { hashPassword } from '../../shared/password-hash';
+import { eq } from 'drizzle-orm';
 
 const pool = new Pool({
   host: process.env.NODE_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  database: 'maximus',
 });
 
 async function seed() {
@@ -46,7 +47,7 @@ async function seed() {
   await db.delete(TB_menu);
   await db.insert(TB_menu).values(seedMenu);
 
-  await db.delete(TB_user);
+  await db.delete(TB_user).where(eq(TB_user.email, 'test@test.com'));
   await db
     .insert(TB_user)
     .values([{ email: 'test@test.com', password: hashPassword('123') }]);
@@ -64,6 +65,7 @@ async function seed() {
       facebookLink: ' ',
     },
   ]);
+  process.kill(process.pid, 'SIGINT');
 }
 
 seed();

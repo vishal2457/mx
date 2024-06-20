@@ -6,8 +6,8 @@ services:
     restart: always
     # Environment variables
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: maximus
 
     ports:
