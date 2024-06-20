@@ -52,20 +52,7 @@ async function seed() {
     .insert(TB_user)
     .values([{ email: 'test@test.com', password: hashPassword('123') }]);
 
-  await db.delete(TB_config);
-  await db.insert(TB_config).values([
-    {
-      privacyPolicy: ' ',
-      aboutUs: ' ',
-      adBannerID: ' ',
-      adRewardID: ' ',
-      telegramLink: ' ',
-      whatsappLink: ' ',
-      youtubeLink: ' ',
-      facebookLink: ' ',
-    },
-  ]);
-  process.kill(process.pid, 'SIGINT');
+  process.exit(0);
 }
 
 seed();
