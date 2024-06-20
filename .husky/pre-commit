@@ -3,3 +3,5 @@
 
 npm run lint:affected
 npm run migration:g
+
+echo "!!!!!!!!!Please commit your migrations file if any!!!!!!!!!"
