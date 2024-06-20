@@ -17,7 +17,8 @@
     "db:drop:migration": "drizzle-kit drop --config=./libs/mx-schema/drizzle.config.ts",
     "drizzle-kit:studio": "drizzle-kit studio --config=./libs/mx-schema/drizzle.config.ts --port 4001",
     "generate:code": "plop --plopfile _plop/generators/index.js",
-    "dc:dev": "docker compose  -f docker-compose.dev.yml up -d"
+    "dc:dev": "docker compose  -f docker-compose.dev.yml up -d",
+    "drizzle:seed": "tsx ./apps/api/src/db/seed/seed.postgres.ts"
   },
   "private": true,
   "dependencies": {
@@ -125,6 +126,7 @@
     "tailwindcss": "^3.3.2",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
+    "tsx": "^4.15.6",
     "typescript": "~5.4.2",
     "zod-to-json-schema": "^3.23.0"
   }

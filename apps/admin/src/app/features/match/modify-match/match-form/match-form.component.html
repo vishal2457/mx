@@ -101,6 +101,12 @@
     label="Premium Team Image"
     [maxFileSizeMB]="25"
   />
+  <mx-file-upload
+  (handleFileChange)="handleGlImage($event)"
+  accept="image/png, image/jpeg"
+  label="GL Image"
+  [maxFileSizeMB]="25"
+/>
 </div>
 
 <div class="mt-4 flex flex-col gap-2" *ngIf="formType === 'update'">

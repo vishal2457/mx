@@ -33,6 +33,18 @@ export class ConfigFormComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    whatsappLink: new FormControl(null, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    youtubeLink: new FormControl(null, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    facebookLink: new FormControl(null, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
     aboutUs: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,

@@ -89,3 +89,6 @@ jobs:
 
       - name: Run db migrations
         run: npm run migrate
+
+      - name: Run db seed
+        run: npm run drizzle:seed

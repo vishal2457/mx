@@ -14,6 +14,7 @@ export default Router().post('/create', MatchImageUpload, async (req, res) => {
       teamTwoLogo: req.files?.['teamTwoLogo'][0]?.filename || '',
       h2hTeamImage: req.files?.['h2hTeamImage'][0]?.filename || '',
       premiumTeamImage: req.files?.['premiumTeamImage'][0]?.filename || '',
+      glImage: req.files?.['glImage'][0]?.filename,
     })
     .returning();
   await inactiveMatchQueue.deactivateMatch({

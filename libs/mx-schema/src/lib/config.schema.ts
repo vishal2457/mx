@@ -7,9 +7,12 @@ export const TB_config = pgTable('config', {
   adBannerID: text('adBannerID').notNull(),
   adRewardID: text('adRewardID').notNull(),
   privacyPolicy: text('privacyPolicy').notNull(),
-  telegramLink: text('telegramLink').notNull(),
   aboutUs: text('aboutUs').notNull(),
   ads: boolean('ads').default(true).notNull(),
+  telegramLink: text('telegramLink').notNull(),
+  whatsappLink: text('whatsappLink').notNull(),
+  youtubeLink: text('youtubeLink').notNull(),
+  facebookLink: text('facebookLink').notNull(),
 });
 
 export const Z_config = createSelectSchema(TB_config);
