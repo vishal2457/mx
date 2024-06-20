@@ -1,3 +1,14 @@
+# [3.7.0](https://github.com/vishal2457/mx/compare/v3.6.1...v3.7.0) (2024-06-20)
+
+
+### Features
+
+* drizzle seed db added ([e4f53d5](https://github.com/vishal2457/mx/commit/e4f53d50c975360875116b7218962a16cf3277cf))
+* hide show columns added in overlay ([096d0ee](https://github.com/vishal2457/mx/commit/096d0ee33b12495b135f7d9ab9b09717fc8d0ef1))
+* overlay component added ([46683f3](https://github.com/vishal2457/mx/commit/46683f3ea3a3fd5c6d920efade08daaef4bedba8))
+* total rows added ([7a42dd8](https://github.com/vishal2457/mx/commit/7a42dd8718b655b6dc95a2995472b0506c39dac3))
+* ui updates ([0d6b349](https://github.com/vishal2457/mx/commit/0d6b3490fc2b3f0241ff44618ce681521d380856))
+
 ## [3.6.1](https://github.com/vishal2457/mx/compare/v3.6.0...v3.6.1) (2024-06-17)
 
 # [3.6.0](https://github.com/vishal2457/mx/compare/v3.5.0...v3.6.0) (2024-06-17)
