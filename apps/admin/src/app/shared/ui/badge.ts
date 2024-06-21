@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { VariantProps, cva } from 'class-variance-authority';
 import { mergetw } from '../utils/tw-merge';
 
 const badgeVariants = cva(
-  'inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium',
+  'inline-flex items-center gap-x-1.5 py-1 px-2 rounded-full text-xs font-medium',
   {
     variants: {
       variant: {
@@ -26,15 +32,39 @@ const badgeVariants = cva(
   }
 );
 
+const clearButtonVariant = cva(
+  'flex-shrink-0 size-4 inline-flex items-center justify-center rounded-full',
+  {
+    variants: {
+      variant: {
+        default:
+          'hover:bg-neutral-200 focus:outline-none focus:bg-neutral-200 focus:text-neutral-500 dark:hover:bg-neutral-900',
+        secondary:
+          'hover:bg-gray-200 focus:outline-none focus:bg-gray-200 focus:text-gray-500 dark:hover:bg-gray-900',
+        error:
+          'hover:bg-red-200 focus:outline-none focus:bg-red-200 focus:text-red-500 dark:hover:bg-red-900',
+        success:
+          'hover:bg-emerald-200 focus:outline-none focus:bg-emerald-200 focus:text-emerald-500 dark:hover:bg-emerald-900',
+        info: 'hover:bg-blue-200 focus:outline-none focus:bg-blue-200 focus:text-blue-500 dark:hover:bg-blue-900',
+        warning:
+          'hover:bg-blue-200 focus:outline-none focus:bg-blue-200 focus:text-blue-500 dark:hover:bg-blue-900',
+        outline:
+          'hover:bg-blue-200 focus:outline-none focus:bg-blue-200 focus:text-blue-500 dark:hover:bg-blue-900',
+      },
+    },
+  }
+);
+
 @Component({
   selector: 'mx-badge',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<span [class]="finalClass"
     >{{ text }}
-    <!-- <button
+    <button
       type="button"
-      class="flex-shrink-0 size-4 inline-flex items-center justify-center rounded-full hover:bg-blue-200 focus:outline-none focus:bg-blue-200 focus:text-blue-500 dark:hover:bg-blue-900"
+      [class]="clearButtonClass"
+      (click)="handleClear.emit()"
     >
       <span class="sr-only">Remove badge</span>
       <svg
@@ -52,14 +82,21 @@ const badgeVariants = cva(
         <path d="M18 6 6 18"></path>
         <path d="m6 6 12 12"></path>
       </svg>
-    </button> -->
+    </button>
   </span>`,
 })
 export class MxBadgeComponent {
-  @Input() text = '';
+  @Input({ required: true }) text = '';
   @Input() class = '';
+  @Input() clearable = false;
   @Input() variant: VariantProps<typeof badgeVariants>['variant'] = 'default';
   get finalClass() {
     return mergetw(badgeVariants({ variant: this.variant }), this.class);
   }
+
+  get clearButtonClass() {
+    return mergetw(clearButtonVariant({ variant: this.variant }));
+  }
+
+  @Output() handleClear = new EventEmitter();
 }
