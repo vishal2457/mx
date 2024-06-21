@@ -11,9 +11,7 @@ import { MxBadgeComponent } from '../../../ui/badge';
     @if (filterService.filterData$ | async; as filterData) {
     <div class="flex gap-2 mb-2">
       @for (filter of filterData; track filter.field) {
-      <div
-        class="flex border-dashed border-[1.3px] p-1 rounded-md items-center justify-center"
-      >
+      <div class="flex  p-1 rounded-md items-center justify-center">
         <mx-badge
           [text]="
             filter.field +
@@ -22,26 +20,10 @@ import { MxBadgeComponent } from '../../../ui/badge';
             ' ' +
             filter.value.toString()
           "
-          class="rounded-md capitalize"
-          variant="info"
-        />
-        <!-- <div
-          data-orientation="vertical"
-          role="none"
-          class="shrink-0 bg-border w-[1px] mx-2 h-4"
-        ></div>
-
-        <mx-badge [text]="filter.condition" class="rounded-md" variant="info" />
-        <div
-          data-orientation="vertical"
-          role="none"
-          class="shrink-0 bg-border w-[1px] mx-2 h-4"
-        ></div>
-        <mx-badge
-          [text]="filter.value.toString()"
           class="rounded-md"
           variant="info"
-        /> -->
+          (handleClear)="filterService.removeSingleFilter(filter.field)"
+        />
       </div>
       }
     </div>

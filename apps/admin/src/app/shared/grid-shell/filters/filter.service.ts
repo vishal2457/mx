@@ -1,10 +1,10 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector, inject } from '@angular/core';
-import { BehaviorSubject, Subject, shareReplay } from 'rxjs';
-import { FilterType } from './types';
-import { GbFilterPanelComponent } from './filters.component';
+import { BehaviorSubject, shareReplay } from 'rxjs';
 import { FilterData } from '../../../../../../../libs/mx-schema/src';
+import { GbFilterPanelComponent } from './filters.component';
+import { FilterType } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -43,6 +43,14 @@ export class FilterService {
 
   clearFilterData() {
     this.filterData.next([]);
+  }
+
+  removeSingleFilter(field: string) {
+    const filters = this.filterData.getValue();
+    const index = filters.findIndex((i) => i.field === field);
+    filters.splice(index, 1);
+
+    this.filterData.next(filters);
   }
 
   private getFilterInjector(ref: OverlayRef) {
