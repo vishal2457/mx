@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
+import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
 
 @Component({
   selector: 'app-offer-list',
@@ -36,6 +37,8 @@ import { MxNotification } from '../../../shared/ui/notification/notification.ser
     </mx-grid-shell>`,
 })
 export class OfferListComponent {
+  @ViewChild(MxGridShellComponent) gridShell!: MxGridShellComponent;
+
   private router = inject(Router);
   private api = inject(ApiService);
   private notif = inject(MxNotification);
@@ -50,7 +53,7 @@ export class OfferListComponent {
 
   delete(e) {
     this.api.delete(`/offer/delete/${e.cellData.id}`).subscribe(() => {
-      // this.gridShell.refresh();
+      this.gridShell.refresh();
       this.notif.show({
         text: 'Offer Deleted',
         type: 'success',

@@ -32,6 +32,7 @@ import createConfig from './config/create-config.api';
 import deleteConfig from './config/id/delete-config.api';
 import updateConfig from './config/id/update-config.api';
 import getConfig from './config/id/get-config.api';
+import deleteNotif from './notification/id/delete-notif.api';
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -39,7 +40,7 @@ const routerv1 = Router();
 routerv1
   .use('/user', [getUserList, createuser, deleteuser, loginuser, getUserApi])
   .use('/match', [getAllMatch, getMatch, createMatch, deleteMatch, updateMatch])
-  .use('/notification', [getAllNotif, createNotif])
+  .use('/notification', [getAllNotif, createNotif, deleteNotif])
   .use('/customer', [createCustomer])
   .use('/menu', [createMenu])
   .use('/role', [getRoleList, getRole, createRole, deleteRole, updateRole])
