@@ -1,3 +1,12 @@
+# [3.8.0](https://github.com/vishal2457/mx/compare/v3.7.0...v3.8.0) (2024-06-21)
+
+
+### Features
+
+* clear badge functionality added ([3b54dfd](https://github.com/vishal2457/mx/commit/3b54dfdc03e8af2d33fb17631b8eb261a9ac558a)), closes [#34](https://github.com/vishal2457/mx/issues/34)
+* delete functionality added in notification ([26af96a](https://github.com/vishal2457/mx/commit/26af96aac199f7b83cf49664eb244401640031a3))
+* remove single filter from grid ([0149346](https://github.com/vishal2457/mx/commit/0149346ea77a4099dec9a3ae433230f3292284d5))
+
 # [3.7.0](https://github.com/vishal2457/mx/compare/v3.6.1...v3.7.0) (2024-06-20)
 
 
