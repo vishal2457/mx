@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { R_userLogin } from '../../../../../../../libs/mx-schema/src';
+import { APP_CONFIG } from '../../../../config';
 import { ApiService } from '../../../shared/services/api.service';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
-import { APP_CONFIG } from '../../../../config';
-import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { R_userLogin } from '../../../../../../../libs/mx-schema/src';
 import { SidebarService } from '../../../shared/services/sidebar.service';
 
 @Component({
