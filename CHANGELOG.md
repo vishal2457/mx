@@ -1,3 +1,10 @@
+## [3.9.1](https://github.com/vishal2457/mx/compare/v3.9.0...v3.9.1) (2024-06-25)
+
+
+### Bug Fixes
+
+* match update api fixed ([9914d03](https://github.com/vishal2457/mx/commit/9914d03f1de49d181b13a2eff58630f030b74e71))
+
 # [3.9.0](https://github.com/vishal2457/mx/compare/v3.8.0...v3.9.0) (2024-06-25)
 
 
