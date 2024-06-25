@@ -1,3 +1,10 @@
+# [3.9.0](https://github.com/vishal2457/mx/compare/v3.8.0...v3.9.0) (2024-06-25)
+
+
+### Features
+
+* brand logo added ([2d35865](https://github.com/vishal2457/mx/commit/2d35865f8404489d4176e7d973084a62f8ea1a7b))
+
 # [3.8.0](https://github.com/vishal2457/mx/compare/v3.7.0...v3.8.0) (2024-06-21)
 
 
