@@ -27,7 +27,8 @@ export default Router().put(
       premiumTeamImage:
         req.files?.['premiumTeamImage']?.[0]?.filename ||
         previousFileNames.premiumTeamImage,
-      glImage: req.files?.['glImage'][0]?.filename || previousFileNames.glImage,
+      glImage:
+        req.files?.['glImage']?.[0]?.filename || previousFileNames.glImage,
     };
 
     const result = await db
