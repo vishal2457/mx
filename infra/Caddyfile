@@ -1,11 +1,11 @@
 {
     # Global options block
     # Use locally-trusted certificates (for development)
-    # local_certs
+     local_certs
 }
 
 # Define the main server for your IP address (replace 192.168.1.100 with your actual IP)
-194.238.17.220:3000 {
+:3000 {
         tls {
         on_demand
     }
@@ -15,7 +15,7 @@
 }
 
 # Define the main server for HTTP (will redirect to HTTPS)
-194.238.17.220:80, 194.238.17.220:443 {
+:80, :443 {
       tls {
         on_demand
     }
