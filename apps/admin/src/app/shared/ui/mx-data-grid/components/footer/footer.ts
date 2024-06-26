@@ -3,10 +3,10 @@ import { PaginationService } from '../../services/pagination.service';
 
 @Component({
   selector: 'table-footer',
-  template: `<div class="rounded-0 flex py-2 justify-between">
+  template: `<div class="rounded-0 flex p-4 justify-between  border-t-2">
     <ng-container>
       <div class="flex">
-        <!-- <mx-grid-limit /> -->
+        <mx-grid-limit />
         <div class="flex items-center pl-4">
           Rows:
           <span class="font-bold pl-2">{{

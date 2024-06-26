@@ -5,14 +5,17 @@ import { PaginationService } from '../../services/pagination.service';
 @Component({
   selector: 'mx-grid-limit',
   template: `
-    <mx-btn-group-container>
-      <mx-btn-group
-        *ngFor="let limit of limits"
-        [active]="(paginationService.selectedLimit$ | async) === limit"
+    <mx-dropdown>
+      <mx-button variant="secondary" trigger
+        >Limit: {{ paginationService.selectedLimit$ | async }}</mx-button
+      >
+      @for(limit of limits; track limit) {
+      <mx-dropdown-item
         [text]="limit.toString()"
         (handleClick)="paginationService.updateSelectedLimit(limit)"
       />
-    </mx-btn-group-container>
+      }
+    </mx-dropdown>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

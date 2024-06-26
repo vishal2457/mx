@@ -1,6 +1,6 @@
 @if (theme$|async; as theme) {
 <nav
-  class="bg-background align-middle left-0 right-0 top-0 z-[102] relative"
+  class="bg-background align-middle fixed top-0 z-[102] w-full"
   [ngClass]="{
       'border-b': theme === 'dark' || (theme === 'light' && !sidebarOpen),
     }"

@@ -10,7 +10,7 @@ import { ToolbarService } from '../../services/toolbar.service';
   template: `
     <div
       *ngIf="renderToolbar$ | async"
-      class="flex flex-row justify-between"
+      class="flex flex-row justify-between px-3 pt-3"
       role="toolbar"
       aria-label="Toolbar with button groups"
     >

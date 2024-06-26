@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ContentChildren,
+  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
+  ViewChild,
   inject,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +22,7 @@ import { ApiService } from '../services/api.service';
 import { MxActionComponent } from '../ui/mx-data-grid/components/base-table/action';
 import { GridColumnsComponent } from '../ui/mx-data-grid/components/base-table/columns';
 import { MxGridToolbarComponent } from '../ui/mx-data-grid/components/toolbar/mx-toolbar';
+import { MxDataGridComponent } from '../ui/mx-data-grid/data-grid.component';
 import { MxDataGridModule } from '../ui/mx-data-grid/data-grid.module';
 import { safeStringify } from '../utils/safe-json';
 import { SubSink } from '../utils/sub-sink';
@@ -42,7 +46,10 @@ import { FilterService } from './filters/filter.service';
     [loading]="loading"
     [collectionSize]="collectionSize"
     [gridTitle]="gridTitle"
+    [minHeight]="minHeight"
+    [maxHeight]="maxHeight"
     (sortChange)="handleSort($event)"
+    (limitChange)="handleLimitChange($event)"
   >
     @for (tool of toolbar; track tool.name) {
     <mx-toolbar
@@ -109,18 +116,25 @@ import { FilterService } from './filters/filter.service';
     <mx-filter-pills toolbarFooter />
   </mx-data-grid>`,
 })
-export class MxGridShellComponent implements OnDestroy, OnInit {
+export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
   filterService = inject(FilterService);
   api = inject(ApiService);
+
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  @Input() apiURL = '';
+  @Input({ required: true }) apiURL!: string;
   @Input() gridTitle = '';
   @Input() loadOnMount = true;
   @Input() fields = '';
+  @Input() minHeight = '300px';
+  @Input() maxHeight = '';
+  @Input() dynamicHeight = true;
 
   @Output() protected actionEvents = new EventEmitter<any>();
+
+  @ViewChild(MxDataGridComponent, { read: ElementRef })
+  mxDataGrid!: ElementRef;
 
   @ContentChildren(GridColumnsComponent)
   protected columns!: QueryList<GridColumnsComponent>;
@@ -141,7 +155,6 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
   private subs = new SubSink();
   private requests = new SubSink();
   private gridEvents = { limit: 20, sort: null, page: 1 };
-  private allowApiCall = ['limit', 'page', 'sort'];
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -158,15 +171,18 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
     this.getFilterFromRoute();
   }
 
-  captureGridEvents(events: { key: string; value: any }) {
-    this.gridEvents = { ...this.gridEvents, [events.key]: events.value };
-    if (this.allowApiCall.includes(events.key) && events.value) {
-      this._getData();
-    }
+  ngAfterViewInit(): void {
+    this.configureDynamicHeight();
+    this.dynamicTableHeight();
   }
 
-  handleSort(sort: any) {
+  protected handleSort(sort: any) {
     this.gridEvents = { ...this.gridEvents, sort };
+    this._getData();
+  }
+
+  protected handleLimitChange(limit) {
+    this.gridEvents = { ...this.gridEvents, limit };
     this._getData();
   }
 
@@ -224,5 +240,34 @@ export class MxGridShellComponent implements OnDestroy, OnInit {
     this.filterService.updateFilterData(
       expandFilters(this.route.snapshot.queryParams)
     );
+  }
+
+  private dynamicTableHeight() {
+    if (!this.dynamicHeight) {
+      return;
+    }
+    window.onresize = this.configureDynamicHeight.bind(this);
+  }
+
+  private configureDynamicHeight(): void {
+    // Wait for digest cycle to complete
+    // height of the users viewable screen
+    const viewableHeight: number = window.innerHeight;
+
+    // height from table content top to top of page
+    const mxTablePixelsFromTop: number = this.mxDataGrid.nativeElement
+      .querySelector('#mx-table')
+      .getBoundingClientRect().top;
+
+    // 68 = pagination height; 34 = footer height
+    const otherElements: number = 68 + 34;
+
+    // 5% room for error to account for edge cases
+    const marginForError: number = viewableHeight * 0.05;
+
+    this.maxHeight =
+      viewableHeight -
+      (mxTablePixelsFromTop + marginForError + otherElements) +
+      'px';
   }
 }
