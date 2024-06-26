@@ -11,7 +11,7 @@ import { MxBreadcrumbsComponent } from '../../ui/breadcrumbs';
   template: `
     <div class="mb-3 flex justify-between items-center">
       <div class="item-center">
-        <h5 class="font-bold text-3xl pb-4">{{ header }}</h5>
+        <h5 class="font-bold lg:text-3xl md:text-3xl pb-4">{{ header }}</h5>
         @if(showBreadcrumb) {
         <mx-breadcrumbs [data]="[]" />
         }

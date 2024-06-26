@@ -1,4 +1,4 @@
-<div [style]="{maxHeight, minHeight}" class="w-full overflow-x-auto">
+<div  class="w-full overflow-x-auto h-[65vh]">
   <table
     id="mx-table"
     cdk-table
@@ -199,7 +199,7 @@
     <!-- NO DATA -->
     <tr *cdkNoDataRow>
       <td
-        class="text-center py-5 h-[60vh]"
+        class="text-center py-5"
         [colSpan]="columnService.totalColumns$ | async"
       >
         @if (loader.loading$ | async) {

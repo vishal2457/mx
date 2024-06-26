@@ -9,24 +9,33 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 
 @Component({
   selector: 'app-user-list',
-  template: `<mx-grid-shell gridTitle="Users" apiURL="/user/list">
-    <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
+  template: `<page-header header="Manage Users" [showCancel]="false">
+      <mx-button (handleClick)="create()">
+        <span class="flex items-center">
+          <p>Add User</p>
+        </span>
+      </mx-button>
+    </page-header>
+    <mx-grid-shell gridTitle="Users" apiURL="/user/list">
+      <!-- columns -->
+      <mx-column field="id" alignment="left" />
+      <mx-column field="email" alignment="left" />
+      <mx-column field="active" alignment="left" />
+      <!-- columns -->
 
-    <!-- columns -->
-    <mx-column field="id" alignment="left" />
-    <mx-column field="email" alignment="left" />
-    <mx-column field="active" alignment="left" />
-    <!-- columns -->
+      <!-- filters -->
+      <mx-grid-filter label="Id" field="id" />
+      <mx-grid-filter label="Email" field="email" />
+      <!-- filters -->
 
-    <!-- filters -->
-    <mx-grid-filter label="Id" field="id" />
-    <mx-grid-filter label="Email" field="email" />
-    <!-- filters -->
-
-    <!-- actions -->
-    <mx-action icon="delete" (handleClick)="delete($event)" tooltip="Delete" />
-    <!-- actions -->
-  </mx-grid-shell>`,
+      <!-- actions -->
+      <mx-action
+        icon="delete"
+        (handleClick)="delete($event)"
+        tooltip="Delete"
+      />
+      <!-- actions -->
+    </mx-grid-shell>`,
 })
 export class UserListComponent implements OnDestroy {
   private router = inject(Router);
@@ -42,7 +51,7 @@ export class UserListComponent implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  add() {
+  create() {
     this.router.navigate(['/user/create']);
   }
 

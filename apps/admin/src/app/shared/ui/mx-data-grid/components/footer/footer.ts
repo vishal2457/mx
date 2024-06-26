@@ -3,11 +3,13 @@ import { PaginationService } from '../../services/pagination.service';
 
 @Component({
   selector: 'table-footer',
-  template: `<div class="rounded-0 flex p-4 justify-between  border-t-2">
+  template: `<div
+    class="rounded-0 flex flex-wrap p-4 md:p-6 lg:p-8 justify-between  border-t-2"
+  >
     <ng-container>
       <div class="flex">
         <mx-grid-limit />
-        <div class="flex items-center pl-4">
+        <div class=" items-center pl-4 hidden lg:flex">
           Rows:
           <span class="font-bold pl-2">{{
             (pagination.collectionSize$ | async) || 0

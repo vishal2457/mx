@@ -41,6 +41,8 @@ services:
     build:
       context: ./
       dockerfile: ./infra/Dockerfile.api
+    # env_file:
+    #   - ./.env
     environment:
       - DB_USERNAME=${DB_USERNAME}
       - DB_PORT=${DB_PORT}
@@ -74,7 +76,8 @@ services:
       dockerfile: ./infra/Dockerfile.caddy
     ports:
       - 3000:3000
-      - 4200:4200
+      - 80:80
+      - 443:443
     volumes:
       - ./app-data/api/images:/app/mx-images
     depends_on:

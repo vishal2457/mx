@@ -1,6 +1,5 @@
 import { logger } from './logger';
 import morgan from 'morgan';
-import chalk from 'chalk';
 
 const morganFormat = ':method :url :status - :response-time ms'; // Customize format
 const stream = {
