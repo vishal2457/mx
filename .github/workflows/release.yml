@@ -62,7 +62,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
-          source: './docker-compose.yml'
+          source: './docker-compose.prod.yml'
           target: '/root/funfantasy'
           overwrite: true
 
@@ -84,9 +84,9 @@ jobs:
             export JWT_SECRET=${{ secrets.JWT_SECRET}}
             export RAZORPAY_KEY=${{ secrets.RAZORPAY_KEY}}
             export RAZORPAY_SECRET=${{ secrets.RAZORPAY_SECRET}}
-            docker compose --profile prod down
-            docker compose --profile prod pull
-            docker compose --profile prod up -d
+            docker compose  -f docker-compose.prod.yml --profile prod down
+            docker compose  -f docker-compose.prod.yml --profile prod pull
+            docker compose  -f docker-compose.prod.yml --profile prod up -d
 
       - name: Run db migrations
         run: npm run migrate
