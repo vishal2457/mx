@@ -1,4 +1,4 @@
-const { writeFile, readFile, readFileSync } = require('fs');
+const { writeFile, readFile } = require('fs');
 const { resolve } = require('path');
 
 const targetPath = resolve(
@@ -20,7 +20,8 @@ const formatter = new Intl.DateTimeFormat([], options);
 const indianTime = formatter.format(new Date());
 
 const envs = {
-  api: `http://${process.env.NODE_HOST}:3000`,
+  // api: `http://${process.env.NODE_HOST}:3000`,
+  api: `https://localhost:3001`,
   latestBuildTime: indianTime,
 };
 

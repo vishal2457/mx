@@ -23,7 +23,7 @@ services:
       retries: 5
 
   redis:
-    image: redis:latest
+    image: redis:alpine
     command: ['redis-server', '--bind', 'redis', '--port', '6379']
     ports:
       - 6379:6379
@@ -65,14 +65,17 @@ services:
       - db
       - redis
 
-  nginx:
-    image: vishal2457/mx-nginx
+  caddy:
+    image: vishal2457/mx-caddy
+    restart: unless-stopped
     profiles: ['prod']
     build:
-      context: ./
-      dockerfile: ./infra/Dockerfile.nginx
+      context: .
+      dockerfile: ./infra/Dockerfile.caddy
     ports:
       - 3000:3000
-      - 80:80
+      - 4200:4200
+    volumes:
+      - ./app-data/api/images:/app/mx-images
     depends_on:
       - api
