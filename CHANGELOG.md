@@ -1,3 +1,17 @@
+# [3.10.0](https://github.com/vishal2457/mx/compare/v3.9.1...v3.10.0) (2024-06-26)
+
+
+### Bug Fixes
+
+* admin lint fixed ([7231299](https://github.com/vishal2457/mx/commit/72312990d9023a7be63edc55f6f96af98d22f7b8))
+
+
+### Features
+
+* dashboard added ([7c70ee2](https://github.com/vishal2457/mx/commit/7c70ee2eaf9ebc8469d16e82a8685676dad1d168))
+* nginx replaced with caddy ([caa607c](https://github.com/vishal2457/mx/commit/caa607ca297ecd6ad1d4d2e83053739a4c973201))
+* ui changes ([8cda732](https://github.com/vishal2457/mx/commit/8cda732387fdb376dc16283c481e5e0f209e97e5))
+
 ## [3.9.1](https://github.com/vishal2457/mx/compare/v3.9.0...v3.9.1) (2024-06-25)
 
 
