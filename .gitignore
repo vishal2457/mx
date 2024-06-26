@@ -42,6 +42,7 @@ Thumbs.db
 database/sql
 database/data
 app-data
+app-data-dev
 logs
 .env
 .angular

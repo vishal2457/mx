@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   build-and-push:
@@ -45,15 +45,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker images
-        run: docker compose -f docker-compose.prod.yml --profile prod build
+        run: docker compose -f docker-compose.dev.yml --profile dev build
 
       - name: Push Docker image
-        run: docker compose -f docker-compose.prod.yml --profile prod push
-
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: docker compose -f docker-compose.dev.yml --profile dev push
 
       - name: Copy docker-compose.yml to VPS
         uses: appleboy/scp-action@v0.1.3
@@ -63,7 +58,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           source: './docker-compose.yml'
-          target: '/root/funfantasy'
+          target: '/root/funfantasy-dev'
           overwrite: true
 
       - name: Executing remote ssh commands using password
@@ -74,7 +69,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /root/funfantasy
+            cd /root/funfantasy-dev
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export DB_USERNAME=${{ secrets.DB_USERNAME}}
             export DB_PORT=${{ secrets.DB_PORT}}

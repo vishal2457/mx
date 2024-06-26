@@ -67,7 +67,7 @@ export const getListQueryWithFilters = (schema, options: Options) => {
   }
 
   // add pagination
-  if (limit && offset) {
+  if (limit ?? offset) {
     query.limit(limit).offset(offset);
   }
   return query;

@@ -6,12 +6,14 @@ import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
 
 @Component({
   selector: 'app-offer-list',
-  template: `<div>
-      <p class="font-bold  pb-6 text-3xl">Offer Management</p>
-    </div>
+  template: `<page-header header="Manage Offers" [showCancel]="false">
+      <mx-button (handleClick)="create()">
+        <span class="flex items-center">
+          <p>Add Offer</p>
+        </span>
+      </mx-button>
+    </page-header>
     <mx-grid-shell gridTitle="Offers List" apiURL="/offer/list">
-      <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
-
       <!-- columns -->
       <mx-column field="id" alignment="left" />
       <mx-column field="name" alignment="left" />
@@ -43,7 +45,7 @@ export class OfferListComponent {
   private api = inject(ApiService);
   private notif = inject(MxNotification);
 
-  add() {
+  create() {
     this.router.navigate(['/offer/create']);
   }
 

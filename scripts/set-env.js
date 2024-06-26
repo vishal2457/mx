@@ -1,4 +1,4 @@
-const { writeFile, readFile, readFileSync } = require('fs');
+const { writeFile, readFile } = require('fs');
 const { resolve } = require('path');
 
 const targetPath = resolve(

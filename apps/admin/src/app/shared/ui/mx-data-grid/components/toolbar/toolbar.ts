@@ -10,11 +10,13 @@ import { ToolbarService } from '../../services/toolbar.service';
   template: `
     <div
       *ngIf="renderToolbar$ | async"
-      class="flex flex-row justify-between"
+      class="flex flex-row justify-between px-3 pt-3"
       role="toolbar"
       aria-label="Toolbar with button groups"
     >
-      <p class="font-semibold text-2xl pb-4">{{ meta.gridTitle$ | async }}</p>
+      <p class="font-semibold lg:text-2xl md:text-sm pb-4">
+        {{ meta.gridTitle$ | async }}
+      </p>
       <div class="flex">
         <mx-btn-group-container>
           @for (tool of toolbarService.options$ | async; track tool.name) {
