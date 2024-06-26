@@ -269,6 +269,5 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
       viewableHeight -
       (mxTablePixelsFromTop + marginForError + otherElements) +
       'px';
-    console.log(this.maxHeight, 'maxhght grid shell');
   }
 }
