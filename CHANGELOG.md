@@ -1,3 +1,10 @@
+## [3.10.1](https://github.com/vishal2457/mx/compare/v3.10.0...v3.10.1) (2024-06-26)
+
+
+### Bug Fixes
+
+* release yml upgraded to support docker compose prod file ([5b7a336](https://github.com/vishal2457/mx/commit/5b7a3362b8fe2cf180735445a80fc7afd0eeaaf0))
+
 # [3.10.0](https://github.com/vishal2457/mx/compare/v3.9.1...v3.10.0) (2024-06-26)
 
 
