@@ -6,10 +6,11 @@ import {
   map,
   shareReplay,
 } from 'rxjs';
+import { DEFAULT_ROWS } from '../types';
 
 @Injectable()
 export class PaginationService {
-  private _selectedLimit = new BehaviorSubject(10);
+  private _selectedLimit = new BehaviorSubject(DEFAULT_ROWS[0]);
   private _currentPage = new Subject<number>();
   private _collectionSize = new BehaviorSubject(0);
 

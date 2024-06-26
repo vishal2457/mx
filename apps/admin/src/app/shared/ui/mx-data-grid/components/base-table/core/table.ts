@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { GridDataService } from '../../../services/data.service';
 import { GridColumnService } from '../../../services/columns.service';
 import { STATIC_ACTION_HEADER, STATIC_SELECTABLE_HEADER } from '../../../types';
@@ -10,12 +10,13 @@ import { ActionService } from '../../../services/actions.service';
   templateUrl: `./table.html`,
 })
 export class BaseDataTableComponent {
-  constructor(
-    public gridData: GridDataService,
-    public columnService: GridColumnService,
-    public loader: LoadingService,
-    public actionService: ActionService
-  ) {}
+  @Input({ required: true }) minHeight!: string;
+  @Input({ required: true }) maxHeight!: string;
+
+  gridData = inject(GridDataService);
+  columnService = inject(GridColumnService);
+  loader = inject(LoadingService);
+  actionService = inject(ActionService);
 
   isAction = STATIC_ACTION_HEADER['field'];
   isSelectable = STATIC_SELECTABLE_HEADER['field'];

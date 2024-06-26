@@ -18,8 +18,5 @@ async function main() {
     const msg = `${NODE_ENV.toUpperCase()} server started at port ${PORT}`;
     logger.log(IS_DEVELOPMENT ? chalk.cyanBright(msg) : chalk.redBright(msg));
   });
-
-  // Export the socketManager instance to be used in other parts of the app
-  module.exports.socketManager = socketManager;
 }
 main();

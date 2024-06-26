@@ -1,9 +1,7 @@
-<div
-  class="w-full overflow-auto border shadow rounded h-[75vh] no-scrollbar bg-background p-3"
->
+<div class="overflow-auto border shadow rounded no-scrollbar bg-background">
   <toolbar *ngIf="!hideFeatures.includes('toolbar')" />
   <ng-content select="[toolbarFooter]"></ng-content>
-  <base-data-table />
+  <base-data-table [maxHeight]="maxHeight" [minHeight]="minHeight" />
   @if (!hideFeatures.includes('footer')) {
   <table-footer class="sticky top-full pt-2" />
   }

@@ -46,12 +46,14 @@ export class MxDataGridComponent
   private paginationService = inject(PaginationService);
   private metaService = inject(MetaDataService);
 
-  @Input() data: any[] = [];
+  @Input({ required: true }) data: any[] = [];
   @Input() loading = false;
   @Input() collectionSize = 0;
   @Input() gridTitle = '';
   @Input() hideFeatures: HideFeatures = [];
   @Input() selectable = false;
+  @Input({ required: true }) maxHeight!: string;
+  @Input({ required: true }) minHeight!: string;
 
   @Output() emitEvents = new EventEmitter<any>();
   @Output() sortChange = new EventEmitter();

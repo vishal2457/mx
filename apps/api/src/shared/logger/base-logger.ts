@@ -10,7 +10,6 @@ const logFormat = format.printf((info) => `${info.level}  ${info.message}`);
 export const getLogger = (
   folder,
   filename: string,
-  logInConsole = false,
   level: LevelType = 'info'
 ) => {
   const dailyRotateTranspot: DailyRotateFile = new DailyRotateFile({

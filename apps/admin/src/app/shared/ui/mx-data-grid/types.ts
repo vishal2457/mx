@@ -34,7 +34,7 @@ export interface Emitter {
   updateEmitter: (emitter: EventEmitter<any>) => void;
 }
 
-export const DEFAULT_ROWS = [5, 10, 20, 50, 100, 200];
+export const DEFAULT_ROWS = [25, 50, 100];
 export interface MetaData {
   title: string;
 }

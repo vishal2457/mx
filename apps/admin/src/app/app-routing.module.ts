@@ -53,16 +53,21 @@ const routes: Routes = [
         loadChildren: () =>
           import('./features/offer/offer.module').then((m) => m.OfferModule),
       },
-            {
-        path: "config",
+      {
+        path: 'config',
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/config/config.module").then(
-            (m) => m.ConfigModule
+          import('./features/config/config.module').then((m) => m.ConfigModule),
+      },
+      {
+        path: 'analytics',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('./features/analytics/analytics.module').then(
+            (m) => m.AnalyticsModule
           ),
       },
-// APPEND ANGULAR ROUTES
-
+      // APPEND ANGULAR ROUTES
     ],
   },
 ];

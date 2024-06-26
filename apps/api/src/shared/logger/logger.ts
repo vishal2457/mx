@@ -1,10 +1,9 @@
 import { log } from 'console';
-import { APP_SETTINGS } from '../app-settings';
 import { getLogger } from './base-logger';
 
 const _logger = {
-  infoLogger: getLogger('info', 'info', true),
-  errorLogger: getLogger('error', 'error', true, 'error'),
+  infoLogger: getLogger('info', 'info'),
+  errorLogger: getLogger('error', 'error', 'error'),
   emailLogger: getLogger('emails', 'email'),
   httpLogger: getLogger('requests', 'http'),
 };
