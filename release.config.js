@@ -107,6 +107,8 @@ function getCIConfig() {
             noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
           },
         },
+      ],
+      [
         '@semantic-release/release-notes-generator',
         {
           preset: 'conventionalcommits',
