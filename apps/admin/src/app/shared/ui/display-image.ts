@@ -1,6 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { mergetw } from '../utils/tw-merge';
 
 @Component({
   selector: 'mx-image',
@@ -9,7 +10,7 @@ import { environment } from '../../../environments/environment';
   template: `
     @if (fileURL || filename) {
     <img
-      class="h-auto max-w-xs rounded-md"
+      [class]="classNames"
       [src]="fileURL || assetsURL + '/' + filename"
       [alt]="alt"
     />
@@ -36,6 +37,10 @@ export class MxImageComponent {
   @Input() filename = '';
   @Input() fileURL = '';
   @Input() alt = '';
+  @Input() imageClass = '';
+  get classNames() {
+    return mergetw('h-auto max-w-xs rounded-md', this.imageClass);
+  }
 
   assetsURL = environment.assetsURL;
 }

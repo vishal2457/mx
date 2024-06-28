@@ -1,4 +1,6 @@
 const { execSync } = require('child_process');
+const { readFileSync } = require('fs');
+const { join } = require('path');
 
 module.exports = isDryRun() ? getDryRunConfig() : getCIConfig();
 
@@ -6,7 +8,7 @@ function getDryRunConfig() {
   return {
     repositoryUrl: getLocalRepoUrl(),
     branches: getCurrentBranch(),
-    generateNotes: ['@semantic-release/release-notes-generator'],
+    generateNotes: '@semantic-release/release-notes-generator',
     plugins: [
       [
         '@semantic-release/commit-analyzer',
@@ -15,15 +17,67 @@ function getDryRunConfig() {
           releaseRules: [
             { type: 'docs', scope: 'README', release: 'patch' },
             { type: 'refactor', release: 'patch' },
-            { type: 'feat', release: 'patch' },
+            { type: 'feat-sm', release: 'patch' },
             { type: 'style', release: 'patch' },
+            { type: 'feat', release: 'minor' },
+            { type: 'bug', release: 'patch' },
+            { type: 'perf', release: 'patch' },
           ],
           parserOpts: {
             noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
           },
         },
       ],
-      '@semantic-release/release-notes-generator',
+      [
+        '@semantic-release/release-notes-generator',
+        {
+          preset: 'conventionalcommits',
+          presetConfig: {
+            types: [
+              {
+                type: 'feat',
+                section: ':sparkles: Features',
+                hidden: false,
+              },
+              {
+                type: 'fix',
+                section: ':bug: Bug fixes',
+                hidden: false,
+              },
+              {
+                type: 'docs',
+                section: ':memo: Documentation',
+                hidden: false,
+              },
+              {
+                type: 'refactor',
+                section: ':zap: Refactor',
+                hidden: false,
+              },
+              {
+                type: 'perf',
+                section: ':fast_forward: Performance Improvements',
+                hidden: false,
+              },
+              {
+                type: 'test',
+                section: ':white_check_mark: Tests',
+                hidden: false,
+              },
+              {
+                type: 'ci',
+                section: ':repeat: CI',
+                hidden: false,
+              },
+              {
+                type: 'misc',
+                section: ':repeat: Misc',
+                hidden: false,
+              },
+            ],
+          },
+        },
+      ],
       '@semantic-release/changelog',
     ],
   };
@@ -53,8 +107,55 @@ function getCIConfig() {
             noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
           },
         },
+        '@semantic-release/release-notes-generator',
+        {
+          preset: 'conventionalcommits',
+          presetConfig: {
+            types: [
+              {
+                type: 'feat',
+                section: ':sparkles: Features',
+                hidden: false,
+              },
+              {
+                type: 'fix',
+                section: ':bug: Bug fixes',
+                hidden: false,
+              },
+              {
+                type: 'docs',
+                section: ':memo: Documentation',
+                hidden: false,
+              },
+              {
+                type: 'refactor',
+                section: ':zap: Refactor',
+                hidden: false,
+              },
+              {
+                type: 'perf',
+                section: ':fast_forward: Performance Improvements',
+                hidden: false,
+              },
+              {
+                type: 'test',
+                section: ':white_check_mark: Tests',
+                hidden: false,
+              },
+              {
+                type: 'ci',
+                section: ':repeat: CI',
+                hidden: false,
+              },
+              {
+                type: 'misc',
+                section: ':repeat: Misc',
+                hidden: false,
+              },
+            ],
+          },
+        },
       ],
-      '@semantic-release/release-notes-generator',
       '@semantic-release/changelog',
       '@semantic-release/git',
       '@semantic-release/github',

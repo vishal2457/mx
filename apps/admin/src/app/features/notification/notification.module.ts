@@ -15,6 +15,8 @@ import { NotificationFormComponent } from './modify-notification/notification-fo
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { NotificationRoutingModule } from './notification-routing.module';
 import { MxButtonComponent } from '../../shared/ui/button';
+import { MxFileUploadComponent } from '../../shared/ui/form/mx-file-upload';
+import { MxImageComponent } from '../../shared/ui/display-image';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { MxButtonComponent } from '../../shared/ui/button';
     NotificationFormComponent,
   ],
   imports: [
+    MxImageComponent,
     CommonModule,
     NotificationRoutingModule,
     MxGridShellComponent,
@@ -35,6 +38,7 @@ import { MxButtonComponent } from '../../shared/ui/button';
     MxInputComponent,
     MxTextareaComponent,
     MxButtonComponent,
+    MxFileUploadComponent,
   ],
 })
 export class NotificationModule {}

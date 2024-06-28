@@ -7,6 +7,7 @@ export const TB_notification = pgTable('notifications', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
   body: text('body').notNull(),
+  image: text('imageUrl'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   udpatedAt: timestamp('updatedAt').$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });

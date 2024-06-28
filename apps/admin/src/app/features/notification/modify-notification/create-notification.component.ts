@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  inject,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
@@ -23,7 +16,7 @@ import { NotificationFormComponent } from './notification-form/notification-form
     >
     <notification-form />`,
 })
-export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
+export class CreateNotificationComponent implements OnDestroy {
   @ViewChild(NotificationFormComponent)
   NotificationFormComponent!: NotificationFormComponent;
 
@@ -31,7 +24,6 @@ export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
   notif = inject(MxNotification);
   router = inject(Router);
 
-  notificationForm!: FormGroup;
   private addRequests = new SubSink();
 
   ngOnDestroy(): void {
@@ -39,13 +31,9 @@ export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
     this.notif.closeAll();
   }
 
-  ngAfterViewInit(): void {
-    this.notificationForm = this.NotificationFormComponent.notificationForm;
-  }
-
   handleSubmit() {
-    if (this.notificationForm.invalid) {
-      this.NotificationFormComponent.showErrors = true;
+    if (this.NotificationFormComponent.isInvalid()) {
+      this.NotificationFormComponent.setShowErrors();
       return;
     }
     this.addRequests.unsubscribe();
@@ -55,11 +43,18 @@ export class CreateNotificationComponent implements AfterViewInit, OnDestroy {
       type: 'loading',
     });
 
+    const formData = new FormData();
+    const formValue = this.NotificationFormComponent.getFormValue();
+
+    for (const key in formValue) {
+      formData.append(key, formValue[key]);
+    }
+
     this.addRequests.sink = this.api
-      .post('/notification/create', this.notificationForm.value)
+      .post('/notification/create', formData)
       .subscribe({
         next: () => {
-          this.notificationForm.reset();
+          this.NotificationFormComponent.reset();
           this.router.navigate(['/notification/list']);
           this.notif.updateToast({
             text: 'notification added',
