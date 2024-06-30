@@ -15,14 +15,6 @@ export class ActionService {
   );
 
   updateActions(actions: QueryList<MxActionComponent>) {
-    const _actions = actions.toArray();
-    const result: MxActionComponent[] = [];
-    for (const action of _actions) {
-      action.action = action._action || action.action;
-      action._action = null;
-      result.push(action);
-    }
-    actions.reset(result);
     this._actions.next(actions);
   }
 }

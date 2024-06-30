@@ -1,8 +1,8 @@
 export const seedMenu = [
   {
-    name: 'Match',
-    icon: 'sports_basketball',
-    link: '/match/list',
+    name: 'Analytics',
+    icon: 'analytics',
+    link: '/analytics',
   },
   {
     name: 'Notification',
@@ -13,15 +13,5 @@ export const seedMenu = [
     name: 'Users',
     icon: 'group',
     link: '/user/list',
-  },
-  {
-    name: 'Offer',
-    icon: 'manage_accounts',
-    link: '/offer/list',
-  },
-  {
-    name: 'Config',
-    icon: 'settings',
-    link: '/config/list',
   },
 ];

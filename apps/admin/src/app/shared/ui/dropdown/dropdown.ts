@@ -48,7 +48,7 @@ export class MxDropdownItemComponent {
 
     <ng-template #dropdownPanel>
       <div
-        class="flex flex-col items-start z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
+        class="flex flex-col items-start z-50 min-w-[5rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
         [ngClass]="spacingClass"
         cdkMenu
       >

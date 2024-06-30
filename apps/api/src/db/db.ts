@@ -1,14 +1,10 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import {
-  TB_config,
   TB_customer,
-  TB_customer_offer,
   TB_customerFcm,
-  TB_match,
   TB_menu,
   TB_notification,
-  TB_offer,
   TB_role,
   TB_user,
 } from '../../../../libs/mx-schema/src';
@@ -46,37 +42,9 @@ export const db = drizzle(pool, {
     TB_customer,
     TB_customerFcm,
     TB_menu,
-    TB_match,
     TB_notification,
     TB_role,
-    TB_offer,
-    TB_customer_offer,
-    TB_config,
+
     // ADD NEW DB SCHEMA
   },
 });
-
-async function seed() {
-  await db.delete(TB_menu);
-  await db.insert(TB_menu).values(seedMenu);
-
-  await db.delete(TB_user);
-  await db
-    .insert(TB_user)
-    .values([{ email: 'test@test.com', password: hashPassword('123') }]);
-
-  await db.delete(TB_config);
-  await db.insert(TB_config).values([
-    {
-      privacyPolicy: ' ',
-      aboutUs: ' ',
-      adBannerID: ' ',
-      adRewardID: ' ',
-      telegramLink: ' ',
-      whatsappLink: ' ',
-      youtubeLink: ' ',
-      facebookLink: ' ',
-    },
-  ]);
-}
-// seed();

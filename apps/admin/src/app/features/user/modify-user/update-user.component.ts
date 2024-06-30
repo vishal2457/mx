@@ -69,7 +69,7 @@ export class UpdateUserComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.requests.sink = this.api
-      .put(`/user/${this.userID}`, this.userForm.value)
+      .put(`/user/update/${this.userID}`, this.userForm.value)
       .subscribe({
         next: () => {
           this.notif.updateToast({

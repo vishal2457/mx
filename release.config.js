@@ -1,6 +1,4 @@
 const { execSync } = require('child_process');
-const { readFileSync } = require('fs');
-const { join } = require('path');
 
 module.exports = isDryRun() ? getDryRunConfig() : getCIConfig();
 
@@ -108,56 +106,7 @@ function getCIConfig() {
           },
         },
       ],
-      [
-        '@semantic-release/release-notes-generator',
-        {
-          preset: 'conventionalcommits',
-          presetConfig: {
-            types: [
-              {
-                type: 'feat',
-                section: ':sparkles: Features',
-                hidden: false,
-              },
-              {
-                type: 'fix',
-                section: ':bug: Bug fixes',
-                hidden: false,
-              },
-              {
-                type: 'docs',
-                section: ':memo: Documentation',
-                hidden: false,
-              },
-              {
-                type: 'refactor',
-                section: ':zap: Refactor',
-                hidden: false,
-              },
-              {
-                type: 'perf',
-                section: ':fast_forward: Performance Improvements',
-                hidden: false,
-              },
-              {
-                type: 'test',
-                section: ':white_check_mark: Tests',
-                hidden: false,
-              },
-              {
-                type: 'ci',
-                section: ':repeat: CI',
-                hidden: false,
-              },
-              {
-                type: 'misc',
-                section: ':repeat: Misc',
-                hidden: false,
-              },
-            ],
-          },
-        },
-      ],
+      '@semantic-release/release-notes-generator',
       '@semantic-release/changelog',
       '@semantic-release/git',
       '@semantic-release/github',

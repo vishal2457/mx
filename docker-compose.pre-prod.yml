@@ -11,10 +11,10 @@ services:
       POSTGRES_DB: maximus
 
     ports:
-      - 5432:5432
+      - 5433:5432
     # Volume to persist the data even after the container is stopped
     volumes:
-      - ./app-data-dev/data/postgres:/var/lib/postgresql/data
+      - ./app-data-pre-prod/data/postgres:/var/lib/postgresql/data
     # Healthcheck command because other containers depend on this one
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
@@ -26,9 +26,9 @@ services:
     image: redis:alpine
     command: ['redis-server', '--bind', 'redis', '--port', '6379']
     ports:
-      - 6379:6379
+      - 6378:6379
     volumes:
-      - ./app-data-dev/redis_data:/data
+      - ./app-data-pre-prod/redis_data:/data
     healthcheck:
       test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
       interval: 10s
@@ -36,16 +36,23 @@ services:
       retries: 5
 
   api:
-    image: vishal2457/mx-api-dev
-    profiles: ['dev']
+    image: vishal2457/mx-api-pre-prod
+    profiles: ['pre-prod']
     build:
       context: ./
       dockerfile: ./infra/Dockerfile.api
-    env_file:
-      - ./.env
+    environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PORT=${DB_PORT}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - NODE_HOST=${NODE_HOST}
+      - FIREBASE_PRIVATE_KEY_ID=${FIREBASE_PRIVATE_KEY_ID}
+      - JWT_SECRET=${JWT_SECRET}
+      - RAZORPAY_KEY=${RAZORPAY_KEY}
+      - RAZORPAY_SECRET=${RAZORPAY_SECRET}
     volumes:
-      - ./app-data-dev/api/images:/app/mx-images
-      - ./app-data-dev/api/logs:/app/logs
+      - ./app-data-pre-prod/api/images:/app/mx-images
+      - ./app-data-pre-prod/api/logs:/app/logs
     expose:
       - 3001
     deploy:
@@ -59,9 +66,9 @@ services:
       - redis
 
   caddy:
-    image: vishal2457/mx-caddy-dev
+    image: vishal2457/mx-caddy-pre-prod
     restart: unless-stopped
-    profiles: ['dev']
+    profiles: ['pre-prod']
     build:
       context: .
       dockerfile: ./infra/Dockerfile.caddy
@@ -70,33 +77,6 @@ services:
       - 4201:80
       - 4202:443
     volumes:
-      - ./app-data-dev/api/images:/app/mx-images
+      - ./app-data-pre-prod/api/images:/app/mx-images
     depends_on:
       - api
-
-  prometheus:
-    image: prom/prometheus:latest
-    volumes:
-      - ./app-data-dev/prometheus_data:/prometheus
-      - ./infra/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    ports:
-      - '9090:9090'
-
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - '3003:3000'
-    environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: admin
-
-  pg_exporter:
-    image: quay.io/prometheuscommunity/postgres-exporter:latest
-    environment:
-      DATA_SOURCE_NAME: 'postgresql://root:root@db:5432/maximus?sslmode=disable'
-    ports:
-      - '9187:9187'
-    depends_on:
-      - db

@@ -104,7 +104,7 @@ export class ApiService {
     this.notif.show({
       text:
         this.qualifyError(error.error) ||
-        this.qualifyError(error.error?.msg) ||
+        this.qualifyError(error.error?.status) ||
         'Something went wrong !',
       type: 'error',
     });

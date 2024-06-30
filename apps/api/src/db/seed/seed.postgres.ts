@@ -4,14 +4,10 @@ dotenv.config({ path: `${process.cwd()}/.env` });
 
 import { Pool } from 'pg';
 import {
-  TB_config,
   TB_customer,
-  TB_customer_offer,
   TB_customerFcm,
-  TB_match,
   TB_menu,
   TB_notification,
-  TB_offer,
   TB_role,
   TB_user,
 } from '../../../../../libs/mx-schema/src';
@@ -35,12 +31,8 @@ async function seed() {
       TB_customer,
       TB_customerFcm,
       TB_menu,
-      TB_match,
       TB_notification,
       TB_role,
-      TB_offer,
-      TB_customer_offer,
-      TB_config,
     },
   });
 

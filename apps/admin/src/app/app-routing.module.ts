@@ -18,14 +18,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/match/list',
+        redirectTo: '/analytics',
         pathMatch: 'full',
-      },
-      {
-        path: 'match',
-        canActivate: [authGuard],
-        loadChildren: () =>
-          import('./features/match/match.module').then((m) => m.MatchModule),
       },
       {
         path: 'notification',
@@ -46,18 +40,6 @@ const routes: Routes = [
         canActivate: [authGuard],
         loadChildren: () =>
           import('./features/user/user.module').then((m) => m.UserModule),
-      },
-      {
-        path: 'offer',
-        canActivate: [authGuard],
-        loadChildren: () =>
-          import('./features/offer/offer.module').then((m) => m.OfferModule),
-      },
-      {
-        path: 'config',
-        canActivate: [authGuard],
-        loadChildren: () =>
-          import('./features/config/config.module').then((m) => m.ConfigModule),
       },
       {
         path: 'analytics',

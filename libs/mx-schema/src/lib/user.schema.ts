@@ -20,7 +20,7 @@ export const TB_user = pgTable(
     password: text('password').notNull(),
     active: boolean('active').default(true),
     createdAt: timestamp('createdAt').notNull().defaultNow(),
-    updatedAt: timestamp('updatedAt').$onUpdate(() => sql`CURRENT_TIMESTAMP`),
+    updatedAt: timestamp('updatedAt').$onUpdate(() => new Date()),
   },
   (adminUser) => ({
     emailIdx: uniqueIndex('emailIdx').on(adminUser.email),

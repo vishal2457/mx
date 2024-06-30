@@ -72,9 +72,9 @@ import { FilterService } from './filters/filter.service';
     @for (action of actions; track action.icon) {
     <mx-action
       [icon]="action.icon"
-      [tooltip]="action.tooltip"
+      [text]="action.text"
+      [variant]="action.variant"
       (handleClick)="action.handleClick && action.handleClick.emit($event)"
-      [action]="action._action"
     />
     }
     <!-- Action -->

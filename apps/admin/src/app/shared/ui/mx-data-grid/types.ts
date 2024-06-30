@@ -39,4 +39,4 @@ export interface MetaData {
   title: string;
 }
 
-export type HideFeatures = Array<'footer' | 'toolbar'>;
+export type HideFeatures = Array<'footer' | 'toolbar' | 'column-config'>;

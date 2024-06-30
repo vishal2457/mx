@@ -1,4 +1,4 @@
-<div  class="w-full overflow-x-auto h-[65vh]">
+<div class="w-full overflow-x-auto h-[65vh]">
   <table
     id="mx-table"
     cdk-table
@@ -150,17 +150,29 @@
         *cdkCellDef="let element"
         class="text-center background-blur dark:bg-background/90"
       >
-        @for (action of actionService.actions$ |async; track action.icon) {
-        <mx-action
-          class="mx-1"
-          [icon]="action.icon"
-          [tooltip]="action.tooltip"
-          [cellData]="element"
-          [column]="column"
-          (handleClick)="action.handleClick.emit($event)"
-          [action]="action.action"
-        />
-        }
+        <mx-dropdown class="flex justify-center items-center">
+          <mx-svg-icon iconName="verticle-menu" trigger />
+          @for (action of actionService.actions$ |async; track action.icon) {
+          @if (action.variant === 'default') {
+          <mx-dropdown-item
+            [text]="action.text"
+            [icon]="action.icon"
+            (handleClick)="action.handleClick.emit({cellData: element, column})"
+          />
+          } @else {
+          <mx-dropdown-item>
+            <ng-template #item let-item>
+              <button
+                (click)="action.handleClick.emit({cellData: element, column})"
+                class="w-full cursor-pointer relative flex select-none items-center  px-2 py-0.5 text-sm outline-none transition-colors rounded-md dark:text-destructive-foreground  hover:bg-destructive/80 data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+              >
+                <mx-icon [icon]="action.icon" class="mr-2" size="sm" />
+                <p>{{ action.text }}</p>
+              </button>
+            </ng-template>
+          </mx-dropdown-item>
+          } }
+        </mx-dropdown>
       </td>
       } @else if (column.field === isSelectable) {
       <td

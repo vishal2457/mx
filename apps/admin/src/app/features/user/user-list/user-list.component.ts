@@ -29,10 +29,12 @@ import { SubSink } from '../../../shared/utils/sub-sink';
       <!-- filters -->
 
       <!-- actions -->
+      <mx-action icon="edit" (handleClick)="update($event)" text="Edit" />
       <mx-action
         icon="delete"
         (handleClick)="delete($event)"
-        tooltip="Delete"
+        text="Delete"
+        variant="destructive"
       />
       <!-- actions -->
     </mx-grid-shell>`,
@@ -53,6 +55,10 @@ export class UserListComponent implements OnDestroy {
 
   create() {
     this.router.navigate(['/user/create']);
+  }
+
+  update(e) {
+    this.router.navigate(['/user/update/' + e.cellData.id]);
   }
 
   delete(e) {

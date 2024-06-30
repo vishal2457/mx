@@ -11,15 +11,22 @@ import {
 } from 'drizzle-orm';
 import { db } from '../../../db';
 import {
+  c_pagination,
   FilterData,
   ListFilters,
+  v_list_filters,
 } from '../../../../../../../libs/mx-schema/src';
 import { expandFilters } from '../../../../../../../libs/helpers/src';
+import { Request } from 'express';
 
 type Options = Omit<ListFilters, 'page'> & { offset: number };
 
-export const getListQueryWithFilters = (schema, options: Options) => {
-  const { filters, limit, offset, fields, sort } = options;
+export const getListQueryWithFilters = (
+  schema,
+  queryParams: Request['query']
+) => {
+  const { filters, sort, limit, page, fields } =
+    v_list_filters.parse(queryParams);
 
   const _columns: any = getTableColumns(schema);
   let columns = _columns;
@@ -67,8 +74,12 @@ export const getListQueryWithFilters = (schema, options: Options) => {
   }
 
   // add pagination
-  if (limit ?? offset) {
-    query.limit(limit).offset(offset);
+  if (limit ?? page) {
+    const pagination = c_pagination({
+      limit,
+      page,
+    });
+    query.limit(pagination.limit).offset(pagination.offset);
   }
   return query;
 };
