@@ -95,8 +95,13 @@ services:
   pg_exporter:
     image: quay.io/prometheuscommunity/postgres-exporter:latest
     environment:
-      DATA_SOURCE_NAME: 'postgresql://root:root@db:5432/maximus?sslmode=disable'
+      # DATA_SOURCE_NAME: 'postgresql://root:root@db:5432/maximus?sslmode=disable'
+      DATA_SOURCE_NAME: 'postgresql://invoicemanager_app:DEVBinvoicemanager_app!@cp-dev-pgdb-devb.rdsb.aws.tangoe.com:5432/central_expense?sslmode=disable'
     ports:
       - '9187:9187'
+    volumes:
+      - ./infra/queries.yaml:/etc/postgres_exporter/queries.yaml
+    command:
+      - '--extend.query-path=/etc/postgres_exporter/queries.yaml'
     depends_on:
       - db

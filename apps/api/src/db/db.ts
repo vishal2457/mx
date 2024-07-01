@@ -10,8 +10,6 @@ import {
 } from '../../../../libs/mx-schema/src';
 import { APP_SETTINGS } from '../shared/app-settings';
 import { logger } from '../shared/logger/logger';
-import { seedMenu } from './seed/menu';
-import { hashPassword } from '../shared/password-hash';
 
 // or
 const pool = new Pool({
