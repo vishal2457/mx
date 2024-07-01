@@ -98,5 +98,9 @@ services:
       DATA_SOURCE_NAME: 'postgresql://root:root@db:5432/maximus?sslmode=disable'
     ports:
       - '9187:9187'
+    volumes:
+      - ./infra/queries.yaml:/etc/postgres_exporter/queries.yaml
+    command:
+      - '--extend.query-path=/etc/postgres_exporter/queries.yaml'
     depends_on:
       - db

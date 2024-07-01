@@ -4,7 +4,7 @@
     params: { fadeIn: data.animation?.fadeIn, fadeOut: data.animation?.fadeOut }
   }"
   (@fadeAnimation.done)="onFadeFinished($event)"
-  class="max-w-xs bg-background border rounded-md shadow-lg mt-2 border-opacity-50"
+  class="max-w-xs bg-background border-2 rounded-md shadow-lg mt-2 border-opacity-50"
   [ngClass]="{
     'bg-destructive': data.type === 'error',
     'border-blue-500': data.type === 'info' || data.type === 'loading',
@@ -13,7 +13,7 @@
   }"
   role="alert"
 >
-  <div class="flex py-2 px-4 items-center">
+  <div class="flex py-3 px-5 items-center">
     <ng-container
       *ngTemplateOutlet="icon; context: { type: data.type }"
     ></ng-container>
@@ -26,7 +26,7 @@
         {{ data.title }}
       </h4>
       <p
-        class="text-sm text-gray-700 dark:text-gray-400"
+        class="text-md text-gray-700 dark:text-gray-400"
         [ngClass]="{ '!text-white': data.type === 'error' }"
       >
         {{ data.text }}

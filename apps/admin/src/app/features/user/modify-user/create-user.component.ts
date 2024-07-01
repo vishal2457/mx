@@ -46,6 +46,7 @@ export class CreateUserComponent implements AfterViewInit, OnDestroy {
       return;
     }
     this.addRequests.unsubscribe();
+
     this.notif.show({
       text: 'Adding User',
       id: 'add-user',

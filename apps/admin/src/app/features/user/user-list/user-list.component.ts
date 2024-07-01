@@ -18,7 +18,7 @@ import { SubSink } from '../../../shared/utils/sub-sink';
     </page-header>
     <mx-grid-shell gridTitle="Users" apiURL="/user/list">
       <!-- columns -->
-      <mx-column field="id" alignment="left" />
+      <mx-column field="id" alignment="left" [visible]="false" />
       <mx-column field="email" alignment="left" />
       <mx-column field="active" alignment="left" />
       <!-- columns -->

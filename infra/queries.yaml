@@ -1,0 +1,67 @@
+pg_all_queries:
+  query: |
+    SELECT now() - pg_stat_activity.query_start AS duration,
+          usesysid,
+          usename,
+          client_addr,
+          pid,
+          state,
+          datname,
+          query
+    FROM pg_stat_activity
+    order by duration desc;
+  metrics:
+    - usesysid:
+        usage: 'LABEL'
+        description: 'Use sys id'
+    - usename:
+        usage: 'LABEL'
+        description: 'User name'
+    - client_addr:
+        usage: 'LABEL'
+        description: 'Client address'
+    - datname:
+        usage: 'LABEL'
+        description: 'Database name'
+    - pid:
+        usage: 'LABEL'
+        description: 'Process ID'
+    - state:
+        usage: 'LABEL'
+        description: 'Query state'
+    - query:
+        usage: 'LABEL'
+        description: 'Query text'
+    - backend_type:
+        usage: 'LABEL'
+        description: 'Backend Type'
+    - duration:
+        usage: 'LABEL'
+        description: 'Query duration'
+
+pg_long_running_queries:
+  query: |
+    SELECT
+      datname,
+      pid,
+      state,
+      query_start,
+      query
+    FROM pg_stat_activity
+    WHERE state = 'active' AND now() - query_start > interval '1 minutes';
+  metrics:
+    - datname:
+        usage: 'LABEL'
+        description: 'Database name'
+    - pid:
+        usage: 'LABEL'
+        description: 'Process ID'
+    - state:
+        usage: 'LABEL'
+        description: 'Query state'
+    - query_start:
+        usage: 'GAUGE'
+        description: 'Query start time'
+    - query:
+        usage: 'LABEL'
+        description: 'Query text'

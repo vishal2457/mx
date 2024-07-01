@@ -92,4 +92,4 @@ jobs:
         run: npm run migrate
 
       - name: Run db seed
-        run: npm run drizzle:seed
+        run: npm run db:seed
