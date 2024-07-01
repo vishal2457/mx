@@ -221,7 +221,6 @@ export class MxInputPasswordComponent
       throw new Error('Password length must be greater than 10 characters.');
     }
 
-    // Ensure the password has at least one character from each set
     let password = '';
     password +=
       lowerCaseChars[Math.floor(Math.random() * lowerCaseChars.length)];
@@ -236,7 +235,6 @@ export class MxInputPasswordComponent
       password += allChars[Math.floor(Math.random() * allChars.length)];
     }
 
-    // Shuffle the password to ensure randomness
     password = password
       .split('')
       .sort(() => Math.random() - 0.5)

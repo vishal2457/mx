@@ -100,6 +100,7 @@ import { MxTooltipDirective } from '../tooltip/tooltip.directive';
             iconName="close"
             iconClass="cursor-pointer"
             (handleClick)="removeFile(index)"
+            title="remove file"
           />
         </div>
       </div>
