@@ -1,6 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBaseComponent } from './base-form';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+} from '@angular/forms';
 import { FormControlPipe } from '../../pipe/form-control';
 import { NgClass } from '@angular/common';
 import { MxHintComponent } from '../hint';
@@ -188,13 +193,10 @@ export class MxInputPasswordComponent
   protected isPasswordFocused = false;
 
   ngOnInit(): void {
+    this.control.addValidators(this.passwordValidator.bind(this));
+
     this.subs.sink = this.control.valueChanges.subscribe((value) => {
-      this.passwordValidations = {
-        length: value.length >= 10 && value.length <= 100,
-        lowercase: /[a-z]/.test(value),
-        number: /[0-9]/.test(value),
-        special: Boolean(/[^A-Za-z0-9]/.test(value)),
-      };
+      this.validatePassword(value);
     });
   }
 
@@ -241,5 +243,29 @@ export class MxInputPasswordComponent
       .join('');
 
     this.control.setValue(password);
+  }
+
+  private validatePassword(password: string) {
+    this.passwordValidations = {
+      length: password.length >= 10 && password.length <= 100,
+      lowercase: /[a-z]/.test(password),
+      number: /[0-9]/.test(password),
+      special: Boolean(/[^A-Za-z0-9]/.test(password)),
+    };
+  }
+
+  passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) {
+      return null;
+    }
+
+    this.validatePassword(value);
+
+    const allValid = Object.keys(this.passwordValidations).every(
+      (key) => this.passwordValidations[key]
+    );
+
+    return allValid ? null : { passwordStrength: true };
   }
 }

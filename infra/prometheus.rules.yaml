@@ -1,0 +1,21 @@
+groups:
+  - name: custom_rules
+    rules:
+      - alert: RequestCount
+        expr: http_express_req_res_time_count > 1
+        for: 5s
+        labels:
+          severity: page
+        annotations:
+          summary: 'Requests on {{ $labels.instance }} has crossed limit'
+          description: 'Requests on {{ $labels.instance }} of job {{ $labels.job }} has crossed limit within 5 seconds.'
+
+      - alert: service_up
+        expr: up == 1
+        labels:
+          service: Platform
+          severity: normal
+          correlate: service_up,service_down
+        annotations:
+          description: Service {{ $labels.instance }} is available.
+          value: UP ({{ $value }}

@@ -79,6 +79,7 @@ services:
     volumes:
       - ./app-data-dev/prometheus_data:/prometheus
       - ./infra/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./infra/prometheus.rules.yml:/etc/prometheus/prometheus.rules.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
