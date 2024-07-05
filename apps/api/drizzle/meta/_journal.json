@@ -57,6 +57,13 @@
       "when": 1719850672057,
       "tag": "0007_complex_captain_cross",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1720184422474,
+      "tag": "0008_outstanding_rocket_racer",
+      "breakpoints": true
     }
   ]
 }
