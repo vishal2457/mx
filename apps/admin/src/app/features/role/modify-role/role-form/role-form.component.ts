@@ -3,7 +3,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { TRole, Z_role } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 
-type RoleForm = Pick<TRole, 'name'>;
+type RoleForm = Omit<TRole, 'id'>;
 
 @Component({
   selector: 'role-form',
@@ -17,6 +17,10 @@ export class RoleFormComponent {
 
   roleForm = this.fb.nonNullable.group<ControlsOf<RoleForm>>({
     name: new FormControl(null, {
+      validators: [],
+      nonNullable: true,
+    }),
+    description: new FormControl('', {
       validators: [],
       nonNullable: true,
     }),

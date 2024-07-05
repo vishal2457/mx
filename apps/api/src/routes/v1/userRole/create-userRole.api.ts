@@ -1,15 +1,15 @@
 import { Router } from 'express';
 import { success } from '../../../shared/api-response/response-handler';
 import { validate } from '../../../shared/middlewares/validation.middleware';
-import { {{dbSchema}} } from '../../../../../../libs/mx-schema/src';
+import { TB_userRole } from '../../../../../../libs/mx-schema/src';
 import { createInsertSchema } from 'drizzle-zod';
-import { {{name}}Service } from './{{name}}.service';
+import { userRoleService } from './userRole.service';
 
 export default Router().post(
   '/create',
-  validate({ body: createInsertSchema({{dbSchema}}) }),
+  validate({ body: createInsertSchema(TB_userRole) }),
   async (req, res) => {
-    const result = await {{name}}Service.create{{properCase name}}(req.body);
+    const result = await userRoleService.createUserRole(req.body);
     success(res, result, 'success');
   }
 );

@@ -7,8 +7,6 @@ import {
   uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
-import { TMenu } from './menu.schema';
-import { sql } from 'drizzle-orm';
 import { z } from 'zod';
 
 export const TB_user = pgTable(
@@ -29,5 +27,5 @@ export const TB_user = pgTable(
 
 export const Z_user_insert = createInsertSchema(TB_user);
 export const Z_user = createSelectSchema(TB_user);
-export type R_userLogin = { token: string; menu: TMenu[] };
+export type R_userLogin = { token: string };
 export type TUser = z.infer<typeof Z_user>;

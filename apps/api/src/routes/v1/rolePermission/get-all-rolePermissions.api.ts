@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { success } from '../../../shared/api-response/response-handler';
-import { {{name}}Service } from './{{name}}.service';
+import { rolePermissionService } from './rolePermission.service';
 
 
 export default Router().get(
   '/list',
   async (req, res) => {
-    const rows = await {{name}}Service.get{{properCase name}}List(req.query);
-    const count = await {{name}}Service.getTotalCount();
+    const rows = await rolePermissionService.getRolePermissionList(req.query);
+    const count = await rolePermissionService.getTotalCount();
     success(res, {rows, count}, 'success');
   }
 );

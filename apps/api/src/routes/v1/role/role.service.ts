@@ -12,10 +12,6 @@ class RoleService {
     return getListQueryWithFilters(TB_role, query);
   }
 
-  getActiveRoles() {
-    return db.select().from(TB_role).where(eq(TB_role.active, true));
-  }
-
   getAllRoles() {
     return db.select().from(TB_role);
   }

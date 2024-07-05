@@ -1,5 +1,46 @@
-class {{name}}Service {
+import { eq } from 'drizzle-orm';
+import { Request } from 'express';
+import { {{dbSchema}} } from '../../../../../../libs/mx-schema/src';
+import { db } from '../../../db/db';
+import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
+import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
+
+type {{properCase name}} = typeof {{dbSchema}}.$inferSelect;
+
+
+class {{properCase name}}Service {
+  get{{properCase name}}List(query: Request['query']) {
+    return getListQueryWithFilters({{dbSchema}}, query);
+  }
+
+  getAll{{properCase name}}s() {
+    return db.select().from({{dbSchema}});
+  }
+
+  getTotalCount() {
+    return getTotalCount({{dbSchema}});
+  }
+
+  create{{properCase name}}(payload: typeof {{dbSchema}}.$inferInsert) {
+    return db.insert({{dbSchema}}).values(payload).returning();
+  }
+
+  update{{properCase name}}(payload: typeof {{dbSchema}}.$inferInsert, id: {{properCase name}}['id']) {
+    return db
+      .update({{dbSchema}})
+      .set(payload)
+      .where(eq({{dbSchema}}.id, id))
+      .returning();
+  }
+
+  delete{{properCase name}}(id: {{properCase name}}['id']) {
+    return db.delete({{dbSchema}}).where(eq({{dbSchema}}.id, id));
+  }
+
+  getByID(id: {{properCase name}}['id']) {
+    return db.select().from({{dbSchema}}).where(eq({{dbSchema}}.id, id));
+  }
 
 }
 
-export const {{properCase name}}Service = new {{name}}Service();
+export const {{name}}Service = new {{properCase name}}Service();

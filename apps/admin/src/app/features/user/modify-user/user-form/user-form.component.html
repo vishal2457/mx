@@ -13,3 +13,19 @@
     />
   </div>
 </mx-form>
+<div class="my-4"></div>
+<mx-grid-shell apiURL="/userRole/list" gridTitle="User roles">
+  <!-- columns -->
+  <mx-column field="id" alignment="left" [visible]="false" />
+  <mx-column field="name" alignment="left" />
+  <mx-column field="description" alignment="left" />
+  <!-- columns -->
+
+  <!-- filters -->
+  <mx-grid-filter label="name" field="name" />
+  <!-- filters -->
+
+  <!-- actions -->
+  <!-- <mx-action icon="edit" (handleClick)="update($event)" text="Edit" /> -->
+  <!-- actions -->
+</mx-grid-shell>

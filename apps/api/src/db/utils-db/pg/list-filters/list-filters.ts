@@ -9,17 +9,14 @@ import {
   lt,
   ne,
 } from 'drizzle-orm';
-import { db } from '../../../db';
+import { Request } from 'express';
+import { expandFilters } from '../../../../../../../libs/helpers/src';
 import {
   c_pagination,
   FilterData,
-  ListFilters,
   v_list_filters,
 } from '../../../../../../../libs/mx-schema/src';
-import { expandFilters } from '../../../../../../../libs/helpers/src';
-import { Request } from 'express';
-
-type Options = Omit<ListFilters, 'page'> & { offset: number };
+import { db } from '../../../db';
 
 export const getListQueryWithFilters = (
   schema,
@@ -69,7 +66,7 @@ export const getListQueryWithFilters = (
   // add sort condition
   if (sort?.Asc) {
     query.orderBy(asc(columns[sort.Asc]));
-  } else if (sort.Desc) {
+  } else if (sort?.Desc) {
     query.orderBy(desc(columns[sort.Desc]));
   }
 

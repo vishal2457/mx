@@ -42,6 +42,12 @@ const routes: Routes = [
           import('./features/user/user.module').then((m) => m.UserModule),
       },
       {
+        path: 'role',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('./features/role/role.module').then((m) => m.RoleModule),
+      },
+      {
         path: 'analytics',
         canActivate: [authGuard],
         loadChildren: () =>

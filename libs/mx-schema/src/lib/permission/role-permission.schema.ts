@@ -6,7 +6,6 @@ export const TB_rolePermission = pgTable(
   'rolePermission',
   {
     id: serial('id').primaryKey(),
-    menuID: integer('menuID').notNull(),
     permissionID: integer('permissionID').notNull(),
     roleID: integer('roleID').notNull(),
   },
@@ -18,4 +17,4 @@ export const TB_rolePermission = pgTable(
 
 export const Z_rolePermission = createSelectSchema(TB_rolePermission);
 export const Z_rolePermission_insert = createInsertSchema(TB_rolePermission);
-export type TPermission = z.infer<typeof Z_rolePermission>;
+export type TRolePermission = z.infer<typeof Z_rolePermission>;

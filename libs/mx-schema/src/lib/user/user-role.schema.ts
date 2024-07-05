@@ -2,12 +2,12 @@ import { integer, pgTable, serial } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-export const TB_user_role = pgTable('userRole', {
+export const TB_userRole = pgTable('userRole', {
   id: serial('id').primaryKey(),
   roleID: integer('roleID').notNull(),
   userID: integer('userID').notNull(),
 });
 
-export const Z_user_role_insert = createInsertSchema(TB_user_role);
-export const Z_user_role = createSelectSchema(TB_user_role);
-export type TUSerRole = z.infer<typeof Z_user_role>;
+export const Z_userRole_insert = createInsertSchema(TB_userRole);
+export const Z_userRole = createSelectSchema(TB_userRole);
+export type TUSerRole = z.infer<typeof Z_userRole>;

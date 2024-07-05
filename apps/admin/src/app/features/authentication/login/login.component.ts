@@ -38,7 +38,7 @@ export class LoginComponent {
     this.api.post<R_userLogin>('/user/login', this.loginForm.value).subscribe({
       next: (data) => {
         this.ls.set('token', data.data.token);
-        this.sidebarService.setMenu(data.data.menu);
+        this.sidebarService.setMenu([]);
         this.router.navigate(['/']);
       },
     });

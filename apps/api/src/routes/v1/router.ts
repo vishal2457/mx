@@ -16,6 +16,22 @@ import getUserApi from './user/id/get-user.api';
 import deleteNotif from './notification/id/delete-notif.api';
 import { asyncHandler as ah } from '../../shared/async-handler.util';
 import updateUserApi from './user/id/update-user.api';
+
+import getPermissionList from './permission/get-all-permissions.api';
+import createPermission from './permission/create-permission.api';
+import deletePermission from './permission/id/delete-permission.api';
+import updatePermission from './permission/id/update-permission.api';
+import getPermission from './permission/id/get-permission.api';
+import getRolePermissionList from './rolePermission/get-all-rolePermissions.api';
+import createRolePermission from './rolePermission/create-rolePermission.api';
+import deleteRolePermission from './rolePermission/id/delete-rolePermission.api';
+import updateRolePermission from './rolePermission/id/update-rolePermission.api';
+import getRolePermission from './rolePermission/id/get-rolePermission.api';
+import getUserRoleList from './userRole/get-all-userRoles.api';
+import createUserRole from './userRole/create-userRole.api';
+import deleteUserRole from './userRole/id/delete-userRole.api';
+import updateUserRole from './userRole/id/update-userRole.api';
+import getUserRole from './userRole/id/get-userRole.api';
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -34,7 +50,37 @@ routerv1
   )
   .use('/notification', ah([getAllNotif, createNotif, deleteNotif]))
   .use('/menu', ah([createMenu]))
-  .use('/role', ah([getRoleList, getRole, createRole, deleteRole, updateRole]));
+  .use('/role', ah([getRoleList, getRole, createRole, deleteRole, updateRole]))
+  .use(
+    '/permission',
+    ah([
+      getPermissionList,
+      getPermission,
+      createPermission,
+      deletePermission,
+      updatePermission,
+    ])
+  )
+  .use(
+    '/rolePermission',
+    ah([
+      getRolePermissionList,
+      getRolePermission,
+      createRolePermission,
+      deleteRolePermission,
+      updateRolePermission,
+    ])
+  )
+  .use(
+    '/userRole',
+    ah([
+      getUserRoleList,
+      getUserRole,
+      createUserRole,
+      deleteUserRole,
+      updateUserRole,
+    ])
+  );
 // APPEND API ROUTES
 
 export default routerv1;
