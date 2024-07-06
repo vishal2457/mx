@@ -1,18 +1,10 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { UserFormComponent } from './user-form/user-form.component';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TUser } from '../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { SubSink } from '../../../shared/utils/sub-sink';
-import { TUser } from '../../../../../../../libs/mx-schema/src';
+import { UserFormComponent } from './user-form/user-form.component';
 
 @Component({
   selector: 'edit-user',
@@ -25,7 +17,7 @@ import { TUser } from '../../../../../../../libs/mx-schema/src';
     </page-header>
     <user-form />`,
 })
-export class UpdateUserComponent implements OnInit, AfterViewInit, OnDestroy {
+export class UpdateUserComponent implements OnInit, OnDestroy {
   @ViewChild(UserFormComponent) userFormComponent!: UserFormComponent;
 
   private api = inject(ApiService);
@@ -34,16 +26,11 @@ export class UpdateUserComponent implements OnInit, AfterViewInit, OnDestroy {
   private router = inject(Router);
 
   userID!: string;
-  userForm!: FormGroup;
   private requests = new SubSink();
 
   ngOnInit(): void {
     this.userID = this.route.snapshot.params['id'];
     this.fetchUserDetails(this.userID);
-  }
-
-  ngAfterViewInit(): void {
-    this.userForm = this.userFormComponent.userForm;
   }
 
   ngOnDestroy(): void {
@@ -52,13 +39,13 @@ export class UpdateUserComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private fetchUserDetails(id: string) {
     this.api.get<TUser>(`/user/${id}`).subscribe(({ data }) => {
-      this.userForm.patchValue({ email: data.email });
+      this.userFormComponent.patchValue({ email: data.email });
     });
   }
 
   handleSubmit() {
-    if (this.userForm.invalid) {
-      this.userFormComponent.showErrors = true;
+    if (this.userFormComponent.isInvalid()) {
+      this.userFormComponent.validate();
       return;
     }
     this.requests.unsubscribe();
@@ -69,7 +56,7 @@ export class UpdateUserComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.requests.sink = this.api
-      .put(`/user/update/${this.userID}`, this.userForm.value)
+      .put(`/user/update/${this.userID}`, this.userFormComponent.getFormValue())
       .subscribe({
         next: () => {
           this.notif.updateToast({

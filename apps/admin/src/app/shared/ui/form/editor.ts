@@ -23,14 +23,18 @@ import { MxHintComponent } from '../hint';
     <ckeditor
       [editor]="Editor"
       [config]="config"
-      [formControl]="control | formControl"
+      [formControl]="control() | formControl"
     ></ckeditor>
-    @if(showErrors && errors?.['required']) {
-    <mx-hint message="This is a required field" type="error" heading="ERROR" />
+    @if (showErrors && errors?.['required']) {
+      <mx-hint
+        message="This is a required field"
+        type="error"
+        heading="ERROR"
+      />
     }
     <!-- comment to restrict prettier -->
-    @for(hint of hints; track hint) {
-    <mx-hint [message]="hint" />
+    @for (hint of hints; track hint) {
+      <mx-hint [message]="hint" />
     }
   `,
 })

@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  api: '@API_URL@',
+  api: 'https://undefined:3000',
   get assetsURL() {
     return `${this.api}/static`;
   },
-  latestBuildTime: '@LAST_BUILD_TIME@',
+  latestBuildTime: '7/6/2024, 4:10:48 PM',
 };

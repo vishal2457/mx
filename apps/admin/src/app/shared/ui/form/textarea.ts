@@ -5,6 +5,7 @@ import { FormControlPipe } from '../../pipe/form-control';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { MxHintComponent } from '../hint';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { MxFormErrorComponent } from './form-error';
 
 @Component({
   selector: 'mx-textarea',
@@ -18,6 +19,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MxHintComponent,
     NgFor,
     TextFieldModule,
+    MxFormErrorComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -34,17 +36,12 @@ import { TextFieldModule } from '@angular/cdk/text-field';
         cdkTextareaAutosize
         cdkAutosizeMinRows="1"
         cdkAutosizeMaxRows="10"
-        [formControl]="control | formControl"
+        [formControl]="control() | formControl"
         [placeholder]="placeholder"
         class="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
       >
       </textarea>
-      <mx-hint
-        message="This is a required field"
-        type="error"
-        heading="ERROR"
-        *ngIf="showErrors && errors?.['required']"
-      />
+      <mx-form-error [errors]="control().errors" />
       <mx-hint *ngFor="let hint of hints" [message]="hint" />
     </div>
   `,

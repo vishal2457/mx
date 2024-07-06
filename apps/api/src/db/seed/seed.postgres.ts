@@ -44,6 +44,13 @@ async function seed() {
     .insert(TB_user)
     .values([{ email: 'test@test.com', password: hashPassword('123') }]);
 
+  await db.delete(TB_role).where(eq(TB_role.name, 'admin'));
+  await db
+    .insert(TB_role)
+    .values([
+      { name: 'admin', description: 'Admin role with all the permissions' },
+    ]);
+
   process.exit(0);
 }
 

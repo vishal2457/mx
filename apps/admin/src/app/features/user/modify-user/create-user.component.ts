@@ -1,15 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { UserFormComponent } from './user-form/user-form.component';
+import { Component, OnDestroy, ViewChild, inject } from '@angular/core';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { FormGroup } from '@angular/forms';
 import { SubSink } from '../../../shared/utils/sub-sink';
+import { UserFormComponent } from './user-form/user-form.component';
 
 @Component({
   selector: 'add-user',
@@ -22,13 +15,12 @@ import { SubSink } from '../../../shared/utils/sub-sink';
     </page-header>
     <user-form />`,
 })
-export class CreateUserComponent implements AfterViewInit, OnDestroy {
+export class CreateUserComponent implements OnDestroy {
   @ViewChild(UserFormComponent) UserFormComponent!: UserFormComponent;
 
   api = inject(ApiService);
   notif = inject(MxNotification);
 
-  userForm!: FormGroup;
   private addRequests = new SubSink();
 
   ngOnDestroy(): void {
@@ -36,13 +28,9 @@ export class CreateUserComponent implements AfterViewInit, OnDestroy {
     this.notif.closeAll();
   }
 
-  ngAfterViewInit(): void {
-    this.userForm = this.UserFormComponent.userForm;
-  }
-
   handleSubmit() {
-    if (this.userForm.invalid) {
-      this.UserFormComponent.showErrors = true;
+    if (this.UserFormComponent.isInvalid()) {
+      this.UserFormComponent.validate();
       return;
     }
     this.addRequests.unsubscribe();
@@ -54,10 +42,10 @@ export class CreateUserComponent implements AfterViewInit, OnDestroy {
     });
 
     this.addRequests.sink = this.api
-      .post('/user/create', this.userForm.value)
+      .post('/user/create', this.UserFormComponent.getFormValue())
       .subscribe({
         next: () => {
-          this.userForm.reset();
+          this.UserFormComponent.reset();
           this.notif.updateToast({
             text: 'User added',
             id: 'add-user',

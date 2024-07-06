@@ -51,7 +51,7 @@ export class UpdateRoleComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private fetchRoleDetails(id: string) {
-    this.api.get<TRole>(`/role/${id}`).subscribe(({ data }) => {
+    this.api.get<TRole>(`/role/detail/${id}`).subscribe(({ data }) => {
       this.roleForm.patchValue(data);
     });
   }

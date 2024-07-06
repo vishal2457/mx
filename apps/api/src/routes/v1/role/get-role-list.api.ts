@@ -4,9 +4,10 @@ import ah from '../../../shared/async-handler.util';
 import { roleService } from './role.service';
 
 export default Router().get(
-  '/all',
+  '/list',
   ah(async (req, res) => {
-    const roles = await roleService.getAllRoles();
-    success(res, roles, 'success');
+    const rows = await roleService.getRoleList(req.query);
+    const count = await roleService.getTotalCount();
+    success(res, { rows, count }, 'success');
   })
 );

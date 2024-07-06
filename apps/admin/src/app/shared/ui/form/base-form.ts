@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, input, Input, InputSignal } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ export class FormBaseComponent {
   /**
    * FormControl or Abstract Control for the component
    */
-  @Input({ required: true }) control!: FormControl | AbstractControl;
+  control: InputSignal<FormControl | AbstractControl> = input.required();
 
   /**
    * Array of hints to display beneath form element, *not errors*
@@ -37,19 +37,17 @@ export class FormBaseComponent {
 
   @Input() showErrors = false;
 
-  get errors() {
-    return this.control?.errors;
-  }
   /**
    * @Determines if the field is required or not
    */
   get required() {
-    if (this.control?.validator) {
-      const validator = this.control.validator({} as AbstractControl);
+    const control = this.control();
+    if (control.validator) {
+      const validator = control.validator({} as AbstractControl);
       if (validator?.['required']) {
         return validator['required'];
       }
-      return this.control.validator({} as AbstractControl);
+      return control.validator({} as AbstractControl);
     }
     return false;
   }

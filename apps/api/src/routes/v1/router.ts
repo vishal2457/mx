@@ -6,7 +6,7 @@ import loginuser from './user/login-user.api';
 import getAllNotif from './notification/get-all-notif.api';
 import createNotif from './notification/create-notif.api';
 import createMenu from './menu/create-menu.api';
-import getRoleList from './role/get-all-roles.api';
+import getRoleList from './role/get-role-list.api';
 import createRole from './role/create-role.api';
 import deleteRole from './role/id/delete-role.api';
 import updateRole from './role/id/update-role.api';
@@ -32,6 +32,7 @@ import createUserRole from './userRole/create-userRole.api';
 import deleteUserRole from './userRole/id/delete-userRole.api';
 import updateUserRole from './userRole/id/update-userRole.api';
 import getUserRole from './userRole/id/get-userRole.api';
+import getAllRolesApi from './role/get-all-roles.api';
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -50,7 +51,17 @@ routerv1
   )
   .use('/notification', ah([getAllNotif, createNotif, deleteNotif]))
   .use('/menu', ah([createMenu]))
-  .use('/role', ah([getRoleList, getRole, createRole, deleteRole, updateRole]))
+  .use(
+    '/role',
+    ah([
+      getRoleList,
+      getRole,
+      createRole,
+      deleteRole,
+      updateRole,
+      getAllRolesApi,
+    ])
+  )
   .use(
     '/permission',
     ah([
