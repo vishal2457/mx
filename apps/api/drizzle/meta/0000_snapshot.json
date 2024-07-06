@@ -1,7 +1,5 @@
 {
-  "id": "4d2207b0-df74-4276-9de3-db361f097894",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "6",
+  "version": "7",
   "dialect": "postgresql",
   "tables": {
     "public.customerFcm": {
@@ -32,15 +30,15 @@
         "customerFcm_customerID_customer_id_fk": {
           "name": "customerFcm_customerID_customer_id_fk",
           "tableFrom": "customerFcm",
-          "tableTo": "customer",
           "columnsFrom": [
             "customerID"
           ],
+          "tableTo": "customer",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -100,28 +98,28 @@
         "customerOffer_customerID_customer_id_fk": {
           "name": "customerOffer_customerID_customer_id_fk",
           "tableFrom": "customerOffer",
-          "tableTo": "customer",
           "columnsFrom": [
             "customerID"
           ],
+          "tableTo": "customer",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "customerOffer_offerID_offer_id_fk": {
           "name": "customerOffer_offerID_offer_id_fk",
           "tableFrom": "customerOffer",
-          "tableTo": "offer",
           "columnsFrom": [
             "offerID"
           ],
+          "tableTo": "offer",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -164,10 +162,10 @@
       "uniqueConstraints": {
         "customer_deviceID_unique": {
           "name": "customer_deviceID_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "deviceID"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -301,11 +299,19 @@
       },
       "indexes": {
         "gameSlugIdx": {
-          "name": "gameSlugIdx",
           "columns": [
-            "gameSlug"
+            {
+              "expression": "gameSlug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "gameSlugIdx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -502,18 +508,34 @@
       },
       "indexes": {
         "roleIdx": {
-          "name": "roleIdx",
           "columns": [
-            "roleID"
+            {
+              "expression": "roleID",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "roleIdx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "permissionIdx": {
-          "name": "permissionIdx",
           "columns": [
-            "permissionID"
+            {
+              "expression": "permissionID",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "permissionIdx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -634,11 +656,19 @@
       },
       "indexes": {
         "emailIdx": {
-          "name": "emailIdx",
           "columns": [
-            "email"
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": true
+          "with": {},
+          "name": "emailIdx",
+          "isUnique": true,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -677,8 +707,10 @@
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "4d2207b0-df74-4276-9de3-db361f097894",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

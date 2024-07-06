@@ -1,7 +1,5 @@
 {
-  "id": "055bf53b-e9f0-4661-a453-9ed24731b4cf",
-  "prevId": "13a67008-ad0c-482d-a317-fe776420537f",
-  "version": "6",
+  "version": "7",
   "dialect": "postgresql",
   "tables": {
     "public.customerFcm": {
@@ -32,15 +30,15 @@
         "customerFcm_customerID_customer_id_fk": {
           "name": "customerFcm_customerID_customer_id_fk",
           "tableFrom": "customerFcm",
-          "tableTo": "customer",
           "columnsFrom": [
             "customerID"
           ],
+          "tableTo": "customer",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -83,10 +81,10 @@
       "uniqueConstraints": {
         "customer_deviceID_unique": {
           "name": "customer_deviceID_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "deviceID"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -237,18 +235,34 @@
       },
       "indexes": {
         "roleIdx": {
-          "name": "roleIdx",
           "columns": [
-            "roleID"
+            {
+              "expression": "roleID",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "roleIdx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "permissionIdx": {
-          "name": "permissionIdx",
           "columns": [
-            "permissionID"
+            {
+              "expression": "permissionID",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "with": {},
+          "name": "permissionIdx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -376,11 +390,19 @@
       },
       "indexes": {
         "emailIdx": {
-          "name": "emailIdx",
           "columns": [
-            "email"
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": true
+          "with": {},
+          "name": "emailIdx",
+          "isUnique": true,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -391,8 +413,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "055bf53b-e9f0-4661-a453-9ed24731b4cf",
+  "prevId": "13a67008-ad0c-482d-a317-fe776420537f"
 }
