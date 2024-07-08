@@ -25,7 +25,9 @@ class {{properCase name}}Service {
     return db.insert({{dbSchema}}).values(payload).returning();
   }
 
-  update{{properCase name}}(payload: typeof {{dbSchema}}.$inferInsert, id: {{properCase name}}['id']) {
+  update{{properCase name}}(
+    payload: Partial<typeof {{dbSchema}}.$inferInsert>,
+    id: {{properCase name}}['id']) {
     return db
       .update({{dbSchema}})
       .set(payload)

@@ -1,6 +1,5 @@
 {
     # Global options block
-    # Use locally-trusted certificates (for development)
      local_certs
 }
 

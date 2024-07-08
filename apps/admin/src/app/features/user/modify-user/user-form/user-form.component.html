@@ -9,7 +9,7 @@
       label="Password"
       [control]="formControls.password"
       [showErrors]="showErrors"
-      [suggestPassword]="true"
+      [showSuggestPassword]="true"
     />
     <mx-select [control]="formControls.roles" label="Roles" apiURL="/role/all" [multiple]="true" bindValue="id" bindLabel="name" />
   </div>

@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { R_userLogin } from '../../../../../../../libs/mx-schema/src';
-import { APP_CONFIG } from '../../../../config';
 import { ApiService } from '../../../shared/services/api.service';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
 import { SidebarService } from '../../../shared/services/sidebar.service';
@@ -21,7 +20,6 @@ export class LoginComponent {
   ) {}
 
   showErrors = false;
-  PANEL_CONFIG = APP_CONFIG.panelConfig;
 
   loginForm = this.fb.group({
     email: ['', [Validators.email, Validators.required]],

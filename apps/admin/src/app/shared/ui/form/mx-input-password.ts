@@ -15,6 +15,7 @@ import { MxSvgIconComponent } from '../svg-icon';
 import { MxCardModule } from '../card/card.module';
 import { SubSink } from '../../utils/sub-sink';
 import { MxFormErrorComponent } from './form-error';
+import { generatePassword } from '../../../../../../../libs/helpers/src';
 
 @Component({
   selector: 'mx-input-password',
@@ -163,11 +164,11 @@ import { MxFormErrorComponent } from './form-error';
       <mx-hint [message]="hint" />
     }
 
-    @if (suggestPassword) {
+    @if (showSuggestPassword) {
       <mx-hint
         message="suggest password"
         type="link"
-        (click)="generatePassword()"
+        (click)="suggestPassword()"
         position="end"
       />
     }
@@ -178,7 +179,7 @@ export class MxInputPasswordComponent
   implements OnInit, OnDestroy
 {
   @Input() type: 'password' | 'text' = 'password';
-  @Input() suggestPassword = false;
+  @Input() showSuggestPassword = false;
   @Input() inputClass = '';
   protected get _inputClass() {
     if (this.leftIcon) {
@@ -220,37 +221,10 @@ export class MxInputPasswordComponent
     this.isPasswordFocused = false;
   }
 
-  protected generatePassword() {
-    const length = 11;
-    const lowerCaseChars = 'abcdefghijklmnopqrstuvwxyz';
-    const upperCaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
-    const specialChars = '!@#$%&-_.';
+  protected suggestPassword() {
 
-    if (length < 10) {
-      throw new Error('Password length must be greater than 10 characters.');
-    }
 
-    let password = '';
-    password +=
-      lowerCaseChars[Math.floor(Math.random() * lowerCaseChars.length)];
-    password +=
-      upperCaseChars[Math.floor(Math.random() * upperCaseChars.length)];
-    password += numbers[Math.floor(Math.random() * numbers.length)];
-    password += specialChars[Math.floor(Math.random() * specialChars.length)];
-
-    // Fill the rest of the password length with random characters from all sets
-    const allChars = lowerCaseChars + upperCaseChars + numbers + specialChars;
-    for (let i = password.length; i < length; i++) {
-      password += allChars[Math.floor(Math.random() * allChars.length)];
-    }
-
-    password = password
-      .split('')
-      .sort(() => Math.random() - 0.5)
-      .join('');
-
-    this.control().setValue(password);
+    this.control().setValue(generatePassword());
   }
 
   private validatePassword(password: string) {

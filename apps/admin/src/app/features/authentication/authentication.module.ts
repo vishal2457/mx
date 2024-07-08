@@ -8,9 +8,11 @@ import { MxInputComponent } from '../../shared/ui/form/mx-input';
 import { MxIconComponent } from '../../shared/ui/icon';
 import { MxCardModule } from '../../shared/ui/card/card.module';
 import { MxInputPasswordComponent } from '../../shared/ui/form/mx-input-password';
+import { AuthContainerComponent } from './components/auth-container.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, AuthContainerComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

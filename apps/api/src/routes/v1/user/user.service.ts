@@ -36,7 +36,7 @@ class UserService {
   }
 
   updateUserByID(
-    payload: typeof TB_user.$inferInsert,
+    payload: Partial<typeof TB_user.$inferInsert>,
     id: (typeof TB_user.$inferSelect)['id']
   ) {
     return db

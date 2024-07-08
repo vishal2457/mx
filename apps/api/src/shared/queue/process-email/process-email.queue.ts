@@ -11,18 +11,16 @@ class ProcessEmailQueue extends BaseQueue {
     super(GLOBAL_CONSTANTS.QUEUE_NAMES.processEmail, emailWorker);
   }
   async sendEmail(
-    name: string,
     data: {
       to: string;
       subject: string;
       html: string;
     }
   ) {
-    return this.add(name, data);
+    return this.add(GLOBAL_CONSTANTS.QUEUE_NAMES.processEmail, data);
   }
 
   async sendEmailWithTemplate(
-    name: string,
     {
       to,
       subject,
@@ -42,7 +40,7 @@ class ProcessEmailQueue extends BaseQueue {
     );
     const template = handleBars.compile(html);
     const htmlToSend = template(replacements);
-    await this.sendEmail(name, { to, subject, html: htmlToSend });
+    await this.sendEmail({ to, subject, html: htmlToSend });
   }
 }
 
