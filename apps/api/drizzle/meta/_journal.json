@@ -71,6 +71,13 @@
       "when": 1720680850879,
       "tag": "0009_living_mercury",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1720718083796,
+      "tag": "0010_opposite_brood",
+      "breakpoints": true
     }
   ]
 }
