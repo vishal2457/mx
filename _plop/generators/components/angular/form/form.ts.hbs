@@ -6,17 +6,17 @@ import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 
 @Component({
   selector: '{{name}}-form',
-  templateUrl: './{{name}}-form.component.html',
+  templateUrl: './{{dashCase name}}-form.component.html',
 })
 export class {{properCase name}}FormComponent {
 
-  showErrors = false;
   {{zodSchema}} = {{zodSchema}}
 
   private fb = inject(FormBuilder);
 
   {{name}}Form = this.fb.nonNullable.group<ControlsOf<T{{properCase name}}>>({
     {{#each schemaValue.properties}}
+      {{#unless this.skipField}}
     {{@key}}: new FormControl(null, {
       validators: [
       {{#if this.required}}Validators.required,{{/if}}
@@ -24,6 +24,7 @@ export class {{properCase name}}FormComponent {
       ],
       nonNullable: true,
     }),
+    {{/unless}}
     {{/each}}
   });
 
@@ -33,10 +34,6 @@ export class {{properCase name}}FormComponent {
 
   isInValid() {
     return this.{{name}}Form.invalid;
-  }
-
-  setShowErrors(value = true) {
-    this.showErrors = value;
   }
 
   getFormValue() {
@@ -51,5 +48,13 @@ export class {{properCase name}}FormComponent {
     this.{{name}}Form.patchValue(value);
   }
 
+
+  {{#each schemaValue.properties}}
+    {{#eq this.formType 'file'}}
+  handle{{properCase @key}}Change(file: any) {
+    this.{{name}}Form.patchValue({ {{@key}}: file });
+  }
+    {{/eq}}
+  {{/each}}
 
 }

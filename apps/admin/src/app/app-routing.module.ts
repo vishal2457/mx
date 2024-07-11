@@ -8,7 +8,7 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('./features/authentication/authentication.module').then(
-        (m) => m.AuthenticationModule
+        (m) => m.AuthenticationModule,
       ),
   },
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
         canActivate: [authGuard],
         loadChildren: () =>
           import('./features/notification/notification.module').then(
-            (m) => m.NotificationModule
+            (m) => m.NotificationModule,
           ),
       },
       {
@@ -52,10 +52,46 @@ const routes: Routes = [
         canActivate: [authGuard],
         loadChildren: () =>
           import('./features/analytics/analytics.module').then(
-            (m) => m.AnalyticsModule
+            (m) => m.AnalyticsModule,
           ),
       },
-      // APPEND ANGULAR ROUTES
+            {
+        path: "system-config",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/system-config/system-config.module").then(
+            (m) => m.SystemConfigModule
+          ),
+      },
+      {
+        path: "organisation",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/organisation/organisation.module").then(
+            (m) => m.OrganisationModule
+          ),
+      },
+      {
+        path: "plan",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/plan/plan.module").then(
+            (m) => m.PlanModule
+          ),
+      },
+      {
+        path: "member",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/member/member.module").then(
+            (m) => m.MemberModule
+          ),
+      },
+// APPEND ANGULAR ROUTES
+
+
+
+
     ],
   },
 ];

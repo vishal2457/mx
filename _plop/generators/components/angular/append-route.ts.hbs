@@ -1,8 +1,8 @@
       {
-        path: "{{name}}",
+        path: "{{dashCase name}}",
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/{{name}}/{{name}}.module").then(
+          import("./features/{{dashCase name}}/{{dashCase name}}.module").then(
             (m) => m.{{properCase name}}Module
           ),
       },

@@ -11,7 +11,13 @@
       [showErrors]="showErrors"
       [showSuggestPassword]="true"
     />
-    <mx-select [control]="formControls.roles" label="Roles" apiURL="/role/all" [multiple]="true" bindValue="id" bindLabel="name" />
+    <mx-select
+      [control]="formControls.roles"
+      label="Roles"
+      apiURL="/role/all"
+      [multiple]="true"
+      bindValue="id"
+      bindLabel="name"
+    />
   </div>
 </mx-form>
-

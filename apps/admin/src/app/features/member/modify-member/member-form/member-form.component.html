@@ -1,0 +1,22 @@
+<mx-form [form]="memberForm" [zodSchema]="Z_member">
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4 mb-4">
+    <mx-select
+      label="Plan"
+      [control]="formControls.planID"
+      apiURL="/plan/all"
+    />
+    <mx-input label="Name" [control]="formControls.name" />
+    <mx-input label="Dob" [control]="formControls.dob" type="date" />
+    <mx-input label="Mobile" [control]="formControls.mobile" />
+    <mx-input label="Height" [control]="formControls.height" type="number" />
+    <mx-input label="Weight" [control]="formControls.weight" type="number" />
+    <mx-input label="Email" [control]="formControls.email" />
+    <mx-input
+      label="EmergencyContact"
+      [control]="formControls.emergencyContact"
+    />
+    <mx-select label="Assigned User" [control]="formControls.userID" />
+    <mx-input label="Join Date" type="date" [control]="formControls.joinDate" />
+  </div>
+  <mx-textarea [control]="formControls.address" label="Address" />
+</mx-form>

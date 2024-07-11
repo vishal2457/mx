@@ -16,7 +16,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private api: ApiService,
     private router: Router,
-    private ls: LocalStorageService
+    private ls: LocalStorageService,
   ) {}
 
   showErrors = false;
@@ -36,7 +36,8 @@ export class LoginComponent {
     this.api.post<R_userLogin>('/user/login', this.loginForm.value).subscribe({
       next: (data) => {
         this.ls.set('token', data.data.token);
-        this.sidebarService.setMenu([]);
+        this.ls.set('menu', data.data.menu);
+        this.sidebarService.setMenu(data.data.menu);
         this.router.navigate(['/']);
       },
     });

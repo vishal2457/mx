@@ -6,7 +6,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { {{properCase name}}FormComponent } from './{{name}}-form/{{name}}-form.component';
+import { {{properCase name}}FormComponent } from './{{dashCase name}}-form/{{dashCase name}}-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -53,7 +53,6 @@ export class Update{{properCase name}}Component implements OnInit, OnDestroy {
 
     handleSubmit() {
     if (this.{{name}}FormComponent.isInValid()) {
-      this.{{name}}FormComponent.setShowErrors();
       return;
     }
     this.requests.unsubscribe();

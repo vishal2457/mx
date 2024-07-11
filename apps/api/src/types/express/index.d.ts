@@ -1,6 +1,5 @@
 declare namespace Express {
   export interface Request {
-    user: import('../user').UserTokenPayload;
-    sqlQuery: any;
+    user: { email: string; id: number; organisationID: number };
   }
 }

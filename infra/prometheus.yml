@@ -1,11 +1,11 @@
-global:
-  scrape_interval: 15s
-
 scrape_configs:
   - job_name: 'pg_exporter'
+    scrape_interval: 15s
     static_configs:
       - targets: ['pg_exporter:9187']
 
-  - job_name: 'prometheus'
+  - job_name: 'kafka_exporter'
+    scrape_interval: 5m
+    scrape_timeout: 1m
     static_configs:
-      - targets: ['172.25.64.1:3000']
+    - targets: ['kafka_exporter:9308']

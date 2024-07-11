@@ -14,4 +14,9 @@ export const seedMenu = [
     icon: 'group',
     link: '/user/list',
   },
+  {
+    name: 'Roles',
+    icon: 'group',
+    link: '/role/list',
+  },
 ];

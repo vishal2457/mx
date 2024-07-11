@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, input, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBaseComponent } from './base-form';
 import {
   AbstractControl,
@@ -33,7 +33,7 @@ import { generatePassword } from '../../../../../../../libs/helpers/src';
     JsonPipe,
   ],
   template: `<div class="relative">
-    @if (isPasswordFocused) {
+    @if (isPasswordFocused && regsiterMode()) {
       <div mxCard class="my-4 p-4 absolute bottom-14 shadow-lg z-[102]">
         <h2 class="mb-2 text-md font-semibold">Password requirements:</h2>
         <ul class="max-w-md space-y-1">
@@ -191,6 +191,8 @@ export class MxInputPasswordComponent
   @Input() leftIcon = '';
   @Input() iconClass = '';
 
+  regsiterMode = input(true);
+
   private subs = new SubSink();
 
   protected passwordValidations = {
@@ -202,7 +204,9 @@ export class MxInputPasswordComponent
   protected isPasswordFocused = false;
 
   ngOnInit(): void {
-    this.control().addValidators(this.passwordValidator.bind(this));
+    if (this.regsiterMode()) {
+      this.control().addValidators(this.passwordValidator.bind(this));
+    }
 
     this.subs.sink = this.control().valueChanges.subscribe((value) => {
       this.validatePassword(value);
@@ -222,8 +226,6 @@ export class MxInputPasswordComponent
   }
 
   protected suggestPassword() {
-
-
     this.control().setValue(generatePassword());
   }
 

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { success } from '../../../../shared/api-response/response-handler';
 import { validate } from '../../../../shared/middlewares/validation.middleware';
 import { v_param_id } from '../../../../../../../libs/mx-schema/src';
-import { {{name}}Service } from '../{{name}}.service';
+import { {{name}}Service } from '../{{dashCase name}}.service';
 
 export default Router().delete(
   '/delete/:id',

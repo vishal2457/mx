@@ -16,13 +16,14 @@
         label="Password"
         type="password"
         placeholder="Enter your password"
+        [regsiterMode]="false"
       />
       <div>
-        <a class="text-sm text-blue-500 cursor-pointer hover:underline">Forgot Password?</a>
+        <a class="text-sm text-blue-500 cursor-pointer hover:underline"
+          >Forgot Password?</a
+        >
       </div>
     </div>
-    <mx-button type="button" (handleClick)="handleSubmit()"
-      >Login</mx-button
-    >
+    <mx-button type="button" (handleClick)="handleSubmit()">Login</mx-button>
   </div>
 </auth-container>

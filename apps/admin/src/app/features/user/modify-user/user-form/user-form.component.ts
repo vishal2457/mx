@@ -4,7 +4,10 @@ import { TUser, Z_user } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 import { validateForm } from '../../../../shared/utils/validate-form';
 
-type UserForm = Omit<TUser, 'id' | 'createdAt' | 'updatedAt'> & {
+type UserForm = Omit<
+  TUser,
+  'id' | 'createdAt' | 'updatedAt' | 'organisationID'
+> & {
   roles: any[] | null;
 };
 

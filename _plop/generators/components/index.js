@@ -6,7 +6,7 @@
 const { readdirSync, lstatSync } = require('fs');
 const path = require('path');
 const { zodToJsonSchema } = require('zod-to-json-schema');
-const basePrompts = require('../utils/base-prompts');
+const transformSchema = require('./transform-properties');
 // const transformForSequelizeModel = require('../utils/data-transform');
 
 const basePath = path.join(__dirname, '../../../libs/mx-schema/src/lib');
@@ -14,12 +14,29 @@ const basePath = path.join(__dirname, '../../../libs/mx-schema/src/lib');
 module.exports = {
   description: 'Add an unconnected component',
   prompts: [
-    ...basePrompts,
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What should it be called?',
+      default: 'test',
+    },
+    {
+      type: 'input',
+      name: 'dbSchema',
+      message: 'Db Schema Name',
+      default: 'TB_test',
+    },
+    {
+      type: 'input',
+      name: 'zodSchema',
+      message: 'Zod schema name',
+      default: 'Z_test',
+    },
     {
       type: 'list',
       name: 'generator',
       message: 'What do you want to generate',
-      choices: ['crud', 'crud-with-file-upload', 'crud-api-only'],
+      choices: ['crud', 'crud-api-only'],
     },
   ],
   actions: (data) => {
@@ -42,6 +59,10 @@ module.exports = {
       return;
     }
 
+    if (schemaDefinition) {
+      schemaDefinition = transformSchema(schemaDefinition);
+    }
+
     if (data.generator === 'crud-api-only') {
       return getApiActions(schemaDefinition);
     }
@@ -61,7 +82,15 @@ function getApiActions(schemaDefinition) {
     // api service file
     {
       type: 'add',
-      path: '../../apps/api/src/routes/v1/{{name}}/{{name}}.service.ts',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/index.ts',
+      templateFile: './components/express/router-index.hbs',
+      skipIfExists: true,
+      data: { schemaValue: schemaDefinition },
+    },
+    // api service file
+    {
+      type: 'add',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/{{dashCase name}}.service.ts',
       templateFile: './components/express/data.service.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -69,7 +98,7 @@ function getApiActions(schemaDefinition) {
     //get all list api
     {
       type: 'add',
-      path: '../../apps/api/src/routes/v1/{{name}}/get-all-{{name}}s.api.ts',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/get-all-{{dashCase name}}s.api.ts',
       templateFile: './components/express/get-all-list.api.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -77,7 +106,7 @@ function getApiActions(schemaDefinition) {
     // create api
     {
       type: 'add',
-      path: '../../apps/api/src/routes/v1/{{name}}/create-{{name}}.api.ts',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/create-{{dashCase name}}.api.ts',
       templateFile: './components/express/create.api.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -85,7 +114,7 @@ function getApiActions(schemaDefinition) {
     //delete api
     {
       type: 'add',
-      path: '../../apps/api/src/routes/v1/{{name}}/id/delete-{{name}}.api.ts',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/id/delete-{{dashCase name}}.api.ts',
       templateFile: './components/express/id/delete.api.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -93,7 +122,7 @@ function getApiActions(schemaDefinition) {
     //get by id api
     {
       type: 'add',
-      path: '../../apps/api/src/routes/v1/{{name}}/id/get-{{name}}.api.ts',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/id/get-{{dashCase name}}.api.ts',
       templateFile: './components/express/id/get.api.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -102,7 +131,7 @@ function getApiActions(schemaDefinition) {
 
     {
       type: 'add',
-      path: '../../apps/api/src/routes/v1/{{name}}/id/update-{{name}}.api.ts',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/id/update-{{dashCase name}}.api.ts',
       templateFile: './components/express/id/update.api.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -129,7 +158,7 @@ function getAngularActions(schemaDefinition) {
     // angular module file
     {
       type: 'add',
-      path: '../../apps/admin/src/app/features/{{name}}/{{name}}.module.ts',
+      path: '../../apps/admin/src/app/features/{{dashCase name}}/{{dashCase name}}.module.ts',
       templateFile: './components/angular/module.ts.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -137,7 +166,7 @@ function getAngularActions(schemaDefinition) {
     // angular routing file
     {
       type: 'add',
-      path: '../../apps/admin/src/app/features/{{name}}/{{name}}-routing.module.ts',
+      path: '../../apps/admin/src/app/features/{{dashCase name}}/{{dashCase name}}-routing.module.ts',
       templateFile: './components/angular/routing.ts.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -145,7 +174,7 @@ function getAngularActions(schemaDefinition) {
     // List component
     {
       type: 'add',
-      path: '../../apps/admin/src/app/features/{{name}}/{{name}}-list/{{name}}-list.component.ts',
+      path: '../../apps/admin/src/app/features/{{dashCase name}}/{{dashCase name}}-list/{{dashCase name}}-list.component.ts',
       templateFile: './components/angular/list.ts.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -153,7 +182,7 @@ function getAngularActions(schemaDefinition) {
     // Form component HTML
     {
       type: 'add',
-      path: '../../apps/admin/src/app/features/{{name}}/modify-{{name}}/{{name}}-form/{{name}}-form.component.html',
+      path: '../../apps/admin/src/app/features/{{dashCase name}}/modify-{{dashCase name}}/{{dashCase name}}-form/{{dashCase name}}-form.component.html',
       templateFile: './components/angular/form/form.html.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -161,7 +190,7 @@ function getAngularActions(schemaDefinition) {
     // Form component TS
     {
       type: 'add',
-      path: '../../apps/admin/src/app/features/{{name}}/modify-{{name}}/{{name}}-form/{{name}}-form.component.ts',
+      path: '../../apps/admin/src/app/features/{{dashCase name}}/modify-{{dashCase name}}/{{dashCase name}}-form/{{dashCase name}}-form.component.ts',
       templateFile: './components/angular/form/form.ts.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -169,7 +198,7 @@ function getAngularActions(schemaDefinition) {
     // Create form component
     {
       type: 'add',
-      path: '../../apps/admin/src/app/features/{{name}}/modify-{{name}}/create-{{name}}.component.ts',
+      path: '../../apps/admin/src/app/features/{{dashCase name}}/modify-{{dashCase name}}/create-{{dashCase name}}.component.ts',
       templateFile: './components/angular/form/add-form.ts.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
@@ -177,7 +206,7 @@ function getAngularActions(schemaDefinition) {
     // Edit form component
     {
       type: 'add',
-      path: '../../apps/admin/src/app/features/{{name}}/modify-{{name}}/update-{{name}}.component.ts',
+      path: '../../apps/admin/src/app/features/{{dashCase name}}/modify-{{dashCase name}}/update-{{dashCase name}}.component.ts',
       templateFile: './components/angular/form/edit-form.ts.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },

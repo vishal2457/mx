@@ -24,7 +24,11 @@ export default Router().post(
       return unauthorized(res, 'Incorrect credentials');
     }
     const menu = await menuService.getAllActiveMenu();
-    const token = generateToken({ email: user.email, id: user.id });
+    const token = generateToken({
+      email: user.email,
+      id: user.id,
+      organisationID: user.organisationID,
+    });
     success(res, { token, menu }, 'login success');
-  }
+  },
 );

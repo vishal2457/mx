@@ -33,6 +33,16 @@ import deleteUserRole from './userRole/id/delete-userRole.api';
 import updateUserRole from './userRole/id/update-userRole.api';
 import getUserRole from './userRole/id/get-userRole.api';
 import getAllRolesApi from './role/get-all-roles.api';
+import { userBookmark } from './user-bookmark';
+
+import { systemConfig } from './system-config';
+
+import { organisation } from './organisation';
+
+import { plan } from './plan';
+
+import { member } from './member';
+
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -47,7 +57,7 @@ routerv1
       loginuser,
       getUserApi,
       updateUserApi,
-    ])
+    ]),
   )
   .use('/notification', ah([getAllNotif, createNotif, deleteNotif]))
   .use('/menu', ah([createMenu]))
@@ -60,7 +70,7 @@ routerv1
       deleteRole,
       updateRole,
       getAllRolesApi,
-    ])
+    ]),
   )
   .use(
     '/permission',
@@ -70,7 +80,7 @@ routerv1
       createPermission,
       deletePermission,
       updatePermission,
-    ])
+    ]),
   )
   .use(
     '/rolePermission',
@@ -80,7 +90,7 @@ routerv1
       createRolePermission,
       deleteRolePermission,
       updateRolePermission,
-    ])
+    ]),
   )
   .use(
     '/userRole',
@@ -90,8 +100,13 @@ routerv1
       createUserRole,
       deleteUserRole,
       updateUserRole,
-    ])
-  );
+    ]),
+  )
+  .use('/user-bookmark', userBookmark)
+  .use('/system-config', systemConfig)
+  .use('/organisation', organisation)
+  .use('/plan', plan)
+  .use('/member', member);
 // APPEND API ROUTES
 
 export default routerv1;

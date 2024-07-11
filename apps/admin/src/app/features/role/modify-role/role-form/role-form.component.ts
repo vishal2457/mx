@@ -3,7 +3,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { TRole, Z_role } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 
-type RoleForm = Omit<TRole, 'id'>;
+type RoleForm = Omit<TRole, 'id' | 'organisationID'>;
 
 @Component({
   selector: 'role-form',

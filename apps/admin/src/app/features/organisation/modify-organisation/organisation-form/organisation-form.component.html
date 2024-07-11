@@ -1,0 +1,7 @@
+<mx-form [form]="organisationForm" [zodSchema]="Z_organisation">
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+    <mx-input label="Name" [control]="formControls.name" />
+    <mx-input label="Email" [control]="formControls.email" />
+    <mx-input label="Mobile" [control]="formControls.mobile" />
+  </div>
+</mx-form>

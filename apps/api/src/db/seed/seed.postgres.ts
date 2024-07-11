@@ -8,6 +8,7 @@ import {
   TB_customerFcm,
   TB_menu,
   TB_notification,
+  TB_organisation,
   TB_role,
   TB_user,
 } from '../../../../../libs/mx-schema/src';
@@ -38,18 +39,6 @@ async function seed() {
 
   await db.delete(TB_menu);
   await db.insert(TB_menu).values(seedMenu);
-
-  await db.delete(TB_user).where(eq(TB_user.email, 'test@test.com'));
-  await db
-    .insert(TB_user)
-    .values([{ email: 'test@test.com', password: hashPassword('123') }]);
-
-  await db.delete(TB_role).where(eq(TB_role.name, 'admin'));
-  await db
-    .insert(TB_role)
-    .values([
-      { name: 'admin', description: 'Admin role with all the permissions' },
-    ]);
 
   process.exit(0);
 }

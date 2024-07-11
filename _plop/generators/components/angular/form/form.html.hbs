@@ -1,36 +1,38 @@
 <mx-form [form]='{{name}}Form' [zodSchema]='{{zodSchema}}'>
   <div class='grid md:grid-cols-3 sm:grid-cols-1 gap-4'>
     {{#each schemaValue.properties}}
-      {{#unless this.skipForm}}
-        {{#eq this.type 'string'}}
+      {{#unless this.skipField}}
+        {{#eq this.formType 'string'}}
           <mx-input
             label='{{properCase @key}}'
             [control]='formControls.{{@key}}'
-            [showErrors]='showErrors'
           />
         {{/eq}}
-        {{#eq this.type 'number'}}
+        {{#eq this.formType 'number'}}
           <mx-input
             label='{{properCase @key}}'
             [control]='formControls.{{@key}}'
-            [showErrors]='showErrors'
             type='number'
           />
         {{/eq}}
-        {{#eq this.type 'date'}}
+        {{#eq this.formType 'date'}}
           <mx-input
             label='{{properCase @key}}'
             [control]='formControls.{{@key}}'
-            [showErrors]='showErrors'
             type='date'
           />
         {{/eq}}
-        {{#eq this.type 'time'}}
+        {{#eq this.formType 'time'}}
           <mx-input
             label='{{properCase @key}}'
             [control]='formControls.{{@key}}'
-            [showErrors]='showErrors'
             type='time'
+          />
+        {{/eq}}
+              {{#eq this.formType 'checkbox'}}
+          <mx-checkbox
+            label='{{properCase @key}}'
+            [control]='formControls.{{@key}}'
           />
         {{/eq}}
       {{/unless}}
@@ -40,8 +42,23 @@
     {{#eq this.formType 'textarea'}}
       <mx-textarea
         label='{{properCase @key}}'
-        [control]='formControls.{{@key}}'
-        [showErrors]='showErrors'
+        [control]='formControls.{{@key}}
+      />
+    {{/eq}}
+{{/each}}
+
+  {{#each schemaValue.properties}}
+    {{#eq this.formType 'file'}}
+      <mx-file-upload
+        label='{{properCase @key}}'
+        (handleFileChange)=" handle{{properCase @key}}Change($event)"
+      />
+    {{/eq}}
+    {{#eq this.formType 'file-multi'}}
+      <mx-file-upload
+        label='{{properCase @key}}'
+        [multiple]="true"
+        (handleFileChange)=" handle{{properCase @key}}Change($event)"
       />
     {{/eq}}
   {{/each}}

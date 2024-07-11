@@ -8,6 +8,11 @@ export * from './lib/menu.schema';
 export * from './lib/notification.schema';
 export * from './lib/permission/permission.schema';
 export * from './lib/permission/role-permission.schema';
+export * from './lib/user/user-bookmarks.schema';
+export * from './lib/system-config/system-config.schema';
+export * from './lib/organisation/organisation.schema';
+export * from './lib/plan.schema';
+export * from './lib/member/member.schema';
 
 // zod utils
 export * from './lib/_zod-utils/v-pagination';

@@ -1,0 +1,14 @@
+<mx-form [form]="systemConfigForm" [zodSchema]="Z_systemConfig">
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+    <mx-input label="PanelName" [control]="formControls.panelName" />
+    <mx-checkbox label="DarkMode" [control]="formControls.darkMode" />
+  </div>
+
+  <div class="mt-4">
+    <mx-file-upload
+      label="Logo"
+      [previewImages]="true"
+      (handleFileChange)="handleLogoChange($event)"
+    />
+  </div>
+</mx-form>
