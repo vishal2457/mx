@@ -58,7 +58,7 @@ export class UpdateRoleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   handleSubmit() {
     if (this.roleForm.invalid) {
-      this.roleFormComponent.showErrors = true;
+      this.roleForm.markAllAsTouched();
       return;
     }
     this.requests.unsubscribe();

@@ -27,18 +27,21 @@ const pool = new Pool({
 async function seed() {
   const db = drizzle(pool, {
     logger: true,
-    schema: {
-      TB_user,
-      TB_customer,
-      TB_customerFcm,
-      TB_menu,
-      TB_notification,
-      TB_role,
-    },
   });
 
   await db.delete(TB_menu);
   await db.insert(TB_menu).values(seedMenu);
+
+  await db
+    .insert(TB_organisation)
+    .values({ name: 'test', email: 'test@test.com' });
+  await db
+    .insert(TB_user)
+    .values({
+      email: 'test@test.com',
+      password: hashPassword('123'),
+      organisationID: 1,
+    });
 
   process.exit(0);
 }

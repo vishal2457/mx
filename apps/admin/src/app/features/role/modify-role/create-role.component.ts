@@ -42,7 +42,7 @@ export class CreateRoleComponent implements AfterViewInit, OnDestroy {
 
   handleSubmit() {
     if (this.roleForm.invalid) {
-      this.RoleFormComponent.showErrors = true;
+      this.roleForm.markAsTouched();
       return;
     }
     this.addRequests.unsubscribe();
@@ -53,7 +53,7 @@ export class CreateRoleComponent implements AfterViewInit, OnDestroy {
     });
 
     this.addRequests.sink = this.api
-      .post('/role', this.roleForm.value)
+      .post('/role/create', this.roleForm.value)
       .subscribe({
         next: () => {
           this.roleForm.reset();

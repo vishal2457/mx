@@ -37,7 +37,7 @@ class RoleService {
   }
 
   getByID(id: Role['id']) {
-    return db.select().from(TB_role).where(eq(TB_role.id, id));
+    return db.query.TB_role.findFirst({ where: eq(TB_role.id, id) });
   }
 }
 
