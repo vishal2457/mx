@@ -5,6 +5,11 @@ export const seedMenu = [
     link: '/analytics',
   },
   {
+    name: 'Members',
+    icon: 'group',
+    link: '/member/list',
+  },
+  {
     name: 'Notification',
     icon: 'notifications',
     link: '/notification/list',

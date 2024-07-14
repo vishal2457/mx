@@ -1,4 +1,5 @@
-import get{{properCase name}}List from './get-all-{{dashCase name}}s.api';
+import get{{properCase name}}List from './get-{{dashCase name}}-list.api';
+import getAll{{properCase name}} from './get-all-{{dashCase name}}.api';
 import create{{properCase name}} from './create-{{dashCase name}}.api';
 import delete{{properCase name}} from './id/delete-{{dashCase name}}.api';
 import update{{properCase name}} from './id/update-{{dashCase name}}.api';
@@ -6,4 +7,11 @@ import get{{properCase name}} from './id/get-{{dashCase name}}.api';
 import { asyncHandler } from '../../../shared/async-handler.util';
 
 
-export const {{name}} = asyncHandler([get{{properCase name}}List, get{{properCase name}}, create{{properCase name}}, delete{{properCase name}}, update{{properCase name}}])
+export const {{name}} = asyncHandler([
+get{{properCase name}}List,
+get{{properCase name}},
+create{{properCase name}},
+delete{{properCase name}},
+update{{properCase name}},
+getAll{{properCase name}}
+])

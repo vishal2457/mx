@@ -95,11 +95,19 @@ function getApiActions(schemaDefinition) {
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
     },
-    //get all list api
+    //get list api
     {
       type: 'add',
-      path: '../../apps/api/src/routes/v1/{{dashCase name}}/get-all-{{dashCase name}}s.api.ts',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/get-{{dashCase name}}-list.api.ts',
       templateFile: './components/express/get-all-list.api.hbs',
+      skipIfExists: true,
+      data: { schemaValue: schemaDefinition },
+    },
+    //get all entries for dropdowns
+    {
+      type: 'add',
+      path: '../../apps/api/src/routes/v1/{{dashCase name}}/get-all-{{dashCase name}}.api.ts',
+      templateFile: './components/express/get-all.api.hbs',
       skipIfExists: true,
       data: { schemaValue: schemaDefinition },
     },

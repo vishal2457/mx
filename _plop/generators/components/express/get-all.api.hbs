@@ -1,0 +1,8 @@
+import { Router } from 'express';
+import { success } from '../../../shared/api-response/response-handler';
+import { {{name}}Service } from './{{dashCase name}}.service';
+
+export default Router().get('/all', async (req, res) => {
+  const result = await {{name}}Service.getAll{{properCase name}}s();
+  success(res, result, 'success');
+});

@@ -3,9 +3,15 @@ import { Pool } from 'pg';
 import {
   TB_customer,
   TB_customerFcm,
+  TB_member,
+  TB_memberAttendance,
   TB_menu,
   TB_notification,
+  TB_organisation,
+  TB_permission,
+  TB_plan,
   TB_role,
+  TB_rolePermission,
   TB_user,
 } from '../../../../libs/mx-schema/src';
 import { APP_SETTINGS } from '../shared/app-settings';
@@ -24,11 +30,11 @@ export const checkDbConnection = async () => {
   try {
     await pool.query('SELECT NOW()');
     logger.info(
-      `Environment:${APP_SETTINGS.NODE_ENV} DB:${APP_SETTINGS.DB_NAME} connected`
+      `Environment:${APP_SETTINGS.NODE_ENV} DB:${APP_SETTINGS.DB_NAME} connected`,
     );
   } catch (error) {
     logger.error(
-      `Error: connecting ${APP_SETTINGS.DB_NAME} DB, ${error.stack}`
+      `Error: connecting ${APP_SETTINGS.DB_NAME} DB, ${error.stack}`,
     );
   }
 };
@@ -42,7 +48,12 @@ export const db = drizzle(pool, {
     TB_menu,
     TB_notification,
     TB_role,
-
+    TB_memberAttendance,
+    TB_member,
+    TB_organisation,
+    TB_permission,
+    TB_plan,
+    TB_rolePermission,
     // ADD NEW DB SCHEMA
   },
 });

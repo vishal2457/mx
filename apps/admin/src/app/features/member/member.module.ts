@@ -1,27 +1,27 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MxGridShellComponent } from '../../shared/grid-shell/grid-shell';
-import { MxGridToolbarComponent } from '../../shared/ui/mx-data-grid/components/toolbar/mx-toolbar';
-import { MxButtonComponent } from '../../shared/ui/button';
-import { MxIconComponent } from '../../shared/ui/icon';
-import { PageHeaderComponent } from '../../shared/misc/page-header/page-header.component';
-import { GridColumnsComponent } from '../../shared/ui/mx-data-grid/components/base-table/columns';
-import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
-import { MxFormComponent } from '../../shared/ui/form/mx-form';
 import { MxGridFilterComponent } from '../../shared/grid-shell/filters/components/grid-filter';
+import { MxGridShellComponent } from '../../shared/grid-shell/grid-shell';
+import { PageHeaderComponent } from '../../shared/misc/page-header/page-header.component';
+import { MxButtonComponent } from '../../shared/ui/button';
 import { MxFileUploadComponent } from '../../shared/ui/form/mx-file-upload';
-import { MxTextareaComponent } from '../../shared/ui/form/textarea';
-import { MxCheckboxComponent } from '../../shared/ui/form/mx-checkbox';
+import { MxFormComponent } from '../../shared/ui/form/mx-form';
 import { MxInputComponent } from '../../shared/ui/form/mx-input';
+import { MxTextareaComponent } from '../../shared/ui/form/textarea';
+import { MxIconComponent } from '../../shared/ui/icon';
+import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
+import { GridColumnsComponent } from '../../shared/ui/mx-data-grid/components/base-table/columns';
+import { MxGridToolbarComponent } from '../../shared/ui/mx-data-grid/components/toolbar/mx-toolbar';
 
-import { MemberRoutingModule } from './member-routing.module';
-import { MemberListComponent } from './member-list/member-list.component';
-import { MemberFormComponent } from './modify-member/member-form/member-form.component';
-import { CreateMemberComponent } from './modify-member/create-member.component';
-import { UpdateMemberComponent } from './modify-member/update-member.component';
+import { MxDialogModule } from '../../shared/ui/dialog/dialog.module';
 import { MxSelectComponent } from '../../shared/ui/form/mx-select';
+import { MemberListComponent } from './member-list/member-list.component';
+import { MemberRoutingModule } from './member-routing.module';
+import { CreateMemberComponent } from './modify-member/create-member.component';
+import { MemberFormComponent } from './modify-member/member-form/member-form.component';
+import { UpdateMemberComponent } from './modify-member/update-member.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +47,7 @@ import { MxSelectComponent } from '../../shared/ui/form/mx-select';
     MxTextareaComponent,
     MxInputComponent,
     MxSelectComponent,
+    MxDialogModule,
   ],
 })
 export class MemberModule {}

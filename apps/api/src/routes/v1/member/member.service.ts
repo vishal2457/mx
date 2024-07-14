@@ -1,12 +1,11 @@
 import { eq } from 'drizzle-orm';
 import { Request } from 'express';
-import { TB_member } from '../../../../../../libs/mx-schema/src';
+import { TB_member, TB_memberPlan } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
 import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type Member = typeof TB_member.$inferSelect;
-
 
 class MemberService {
   getMemberList(query: Request['query']) {
@@ -27,7 +26,8 @@ class MemberService {
 
   updateMember(
     payload: Partial<typeof TB_member.$inferInsert>,
-    id: Member['id']) {
+    id: Member['id'],
+  ) {
     return db
       .update(TB_member)
       .set(payload)
@@ -43,6 +43,10 @@ class MemberService {
     return db.select().from(TB_member).where(eq(TB_member.id, id));
   }
 
+  // start new subscription
+  addPlan(body: typeof TB_memberPlan.$inferInsert) {
+    return db.insert(TB_memberPlan).values(body);
+  }
 }
 
 export const memberService = new MemberService();

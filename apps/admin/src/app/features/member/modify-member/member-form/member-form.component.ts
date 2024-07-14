@@ -1,6 +1,7 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TMember, Z_member } from '../../../../../../../../libs/mx-schema/src';
+import { ApiService } from '../../../../shared/services/api.service';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 import { patchableDate } from '../../../../shared/utils/patchable-date';
 
@@ -16,6 +17,7 @@ type TMemberForm = Omit<
 export class MemberFormComponent {
   Z_member = Z_member;
 
+  private api = inject(ApiService);
   private fb = inject(FormBuilder);
 
   memberForm = this.fb.nonNullable.group<ControlsOf<TMemberForm>>({

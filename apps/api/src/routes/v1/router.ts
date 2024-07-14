@@ -43,6 +43,8 @@ import { plan } from './plan';
 
 import { member } from './member';
 
+import { memberAttendance } from './member-attendance';
+
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -106,7 +108,8 @@ routerv1
   .use('/system-config', systemConfig)
   .use('/organisation', organisation)
   .use('/plan', plan)
-  .use('/member', member);
+  .use('/member', member)
+  .use('/member-attendance', memberAttendance);
 // APPEND API ROUTES
 
 export default routerv1;

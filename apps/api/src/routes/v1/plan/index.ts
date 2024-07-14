@@ -4,6 +4,7 @@ import deletePlan from './id/delete-plan.api';
 import updatePlan from './id/update-plan.api';
 import getPlan from './id/get-plan.api';
 import { asyncHandler } from '../../../shared/async-handler.util';
+import getAllPlanApi from './get-all-plan.api';
 
 export const plan = asyncHandler([
   getPlanList,
@@ -11,4 +12,5 @@ export const plan = asyncHandler([
   createPlan,
   deletePlan,
   updatePlan,
+  getAllPlanApi,
 ]);
