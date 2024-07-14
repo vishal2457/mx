@@ -17,6 +17,7 @@ import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-
 import { MxFormComponent } from '../../shared/ui/form/mx-form';
 import { MxGridFilterComponent } from '../../shared/grid-shell/filters/components/grid-filter';
 import { RoleRoutingModule } from './role-routing.module';
+import { MxTextareaComponent } from '../../shared/ui/form/textarea';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { RoleRoutingModule } from './role-routing.module';
     MxActionComponent,
     MxFormComponent,
     MxGridFilterComponent,
+    MxTextareaComponent,
   ],
 })
 export class RoleModule {}

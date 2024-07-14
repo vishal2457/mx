@@ -9,19 +9,17 @@ import { Router } from '@angular/router';
     <!-- columns -->
     <mx-column field="id" alignment="left" />
     <mx-column field="name" alignment="left" />
-    <mx-column field="createdAt" alignment="left" />
-    <mx-column field="udpatedAt" alignment="left" />
+    <mx-column field="description" alignment="left" />
+
     <!-- columns -->
 
     <!-- filters -->
     <mx-grid-filter label="Id" field="id" />
     <mx-grid-filter label="Name" field="name" />
-    <mx-grid-filter label="CreatedAt" field="createdAt" />
-    <mx-grid-filter label="UdpatedAt" field="udpatedAt" />
     <!-- filters -->
 
     <!-- actions -->
-    <mx-action icon="edit" (handleClick)="edit($event)" tooltip="Edit" />
+    <mx-action icon="edit" (handleClick)="edit($event)" text="Edit" />
     <!-- actions -->
   </mx-grid-shell>`,
 })
