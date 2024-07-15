@@ -38,7 +38,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   }
 
   private fetchUserDetails(id: string) {
-    this.api.get<TUser>(`/user/${id}`).subscribe(({ data }) => {
+    this.api.get<TUser>(`/user/detail/${id}`).subscribe(({ data }) => {
       this.userFormComponent.patchValue({ email: data.email });
     });
   }

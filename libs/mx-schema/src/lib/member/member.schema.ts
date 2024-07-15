@@ -5,10 +5,12 @@ import {
   serial,
   text,
   timestamp,
+  varchar,
 } from 'drizzle-orm/pg-core';
-import { TB_organisation } from '../organisation/organisation.schema';
 import { createSelectSchema } from 'drizzle-zod';
+import { z } from 'zod';
 import { qs } from '../_zod-utils/parser';
+import { TB_organisation } from '../organisation/organisation.schema';
 import { TB_plan } from '../plan.schema';
 
 export const GENDERS = ['male', 'female'] as const;
@@ -24,16 +26,17 @@ export const TB_member = pgTable('member', {
     .notNull()
     .references(() => TB_plan.id),
   name: text('name').notNull(),
-  dob: text('dob').notNull(),
+  age: integer('age').notNull(),
   address: text('address').notNull(),
   mobile: text('mobile').notNull(),
   email: text('email').notNull(),
-  height: text('height').notNull(),
-  weight: text('weight').notNull(),
+  height: integer('height').notNull(),
+  weight: integer('weight').notNull(),
   emergencyContact: text('emergencyContact').notNull(),
   gender: genderEnum('gender').default('female'),
   userID: integer('userID').notNull(),
-  joinDate: timestamp('joinDate').notNull(),
+  joinDate: varchar('joinDate').notNull(),
+  profilePic: text('profilePic'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').$onUpdate(() => new Date()),
 });
@@ -44,5 +47,6 @@ export const Z_member = createSelectSchema(TB_member, {
   updatedAt: (schema) => schema.updatedAt.describe(qs({ skipField: true })),
   organisationID: (schema) =>
     schema.organisationID.describe(qs({ skipField: true })),
+  joinDate: z.string().date(),
 });
 export type TMember = typeof TB_member.$inferSelect;

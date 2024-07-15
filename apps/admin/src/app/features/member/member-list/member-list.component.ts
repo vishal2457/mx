@@ -12,22 +12,21 @@ import { Router } from '@angular/router';
     </page-header>
     <mx-grid-shell gridTitle="Members" apiURL="/member/list">
       <!-- columns -->
-      <mx-column field="name" alignment="left" />
-      <mx-column field="plan" alignment="left" />
-      <mx-column field="dob" alignment="left" />
-      <mx-column field="address" alignment="left" />
-      <mx-column field="mobile" alignment="left" />
-      <mx-column field="email" alignment="left" />
-      <mx-column field="height" alignment="left" />
-      <mx-column field="weight" alignment="left" />
-      <mx-column field="emergencyContact" alignment="left" />
-      <mx-column field="gender" alignment="left" />
-      <mx-column field="userID" title="Assigned User" alignment="left" />
-      <mx-column field="joinDate" title="Join Date" alignment="left" />
+      <mx-column field="member.name" title="Name" />
+      <mx-column field="plan.name" title="Plan" />
+      <mx-column field="member.age" title="Age" />
+      <mx-column field="member.mobile" title="mobile" />
+      <mx-column field="member.email" title="email" />
+      <mx-column field="member.height" title="height" />
+      <mx-column field="member.weight" title="weight" />
+      <mx-column field="member.emergencyContact" title="Emergency Contact" />
+      <mx-column field="member.gender" title="Gender" />
+      <mx-column field="member.userID" title="Assigned User" />
+      <mx-column field="member.joinDate" title="Join Date" />
       <!-- columns -->
 
       <!-- filters -->
-      <mx-grid-filter label="PlanId" field="planID" />
+      <!-- <mx-grid-filter label="PlanId" field="planID" />
       <mx-grid-filter label="Name" field="name" />
       <mx-grid-filter label="Dob" field="dob" />
       <mx-grid-filter label="Address" field="address" />
@@ -38,7 +37,7 @@ import { Router } from '@angular/router';
       <mx-grid-filter label="Emergency Contact" field="emergencyContact" />
       <mx-grid-filter label="Gender" field="gender" />
       <mx-grid-filter label="Assigned User" field="userID" />
-      <mx-grid-filter label="Join Date" field="joinDate" />
+      <mx-grid-filter label="Join Date" field="joinDate" /> -->
       <!-- filters -->
 
       <!-- actions -->
@@ -54,6 +53,6 @@ export class MemberListComponent {
   }
 
   edit(e: any) {
-    this.router.navigate(['/member/update/' + e.cellData.id]);
+    this.router.navigate(['/member/update/' + e.cellData.member.id]);
   }
 }

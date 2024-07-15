@@ -17,15 +17,16 @@ import {
   v_list_filters,
 } from '../../../../../../../libs/mx-schema/src';
 import { db } from '../../../db';
+import { PgSelect } from 'drizzle-orm/pg-core';
 
 export const getListQueryWithFilters = (
-  schema,
-  queryParams: Request['query']
-) => {
+  table,
+  queryParams: Request['query'],
+): PgSelect => {
   const { filters, sort, limit, page, fields } =
     v_list_filters.parse(queryParams);
 
-  const _columns: any = getTableColumns(schema);
+  const _columns: any = getTableColumns(table);
   let columns = _columns;
 
   if (fields.length) {
@@ -35,12 +36,15 @@ export const getListQueryWithFilters = (
     }, {});
   }
 
-  const query = db.select(columns).from(schema).$dynamic();
+  const query = db
+    .select(fields.length ? columns : null)
+    .from(table)
+    .$dynamic();
   const expandedFilters: FilterData[] = expandFilters(filters);
   // add where conditions
   if (expandedFilters?.length) {
     for (const filter of expandedFilters) {
-      const column = schema[filter.field];
+      const column = table[filter.field];
       if (filter.condition === 'equals') {
         query.where(eq(column, filter.value));
       } else if (filter.condition === 'greater than') {

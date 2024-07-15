@@ -1,6 +1,11 @@
 import { eq } from 'drizzle-orm';
 import { Request } from 'express';
-import { TB_member, TB_memberPlan } from '../../../../../../libs/mx-schema/src';
+import {
+  TB_member,
+  TB_memberPlan,
+  TB_plan,
+  TB_user,
+} from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
 import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
@@ -9,7 +14,9 @@ type Member = typeof TB_member.$inferSelect;
 
 class MemberService {
   getMemberList(query: Request['query']) {
-    return getListQueryWithFilters(TB_member, query);
+    return getListQueryWithFilters(TB_member, query)
+      .leftJoin(TB_user, eq(TB_member.userID, TB_user.id))
+      .leftJoin(TB_plan, eq(TB_member.planID, TB_plan.id));
   }
 
   getAllMembers() {
@@ -40,7 +47,7 @@ class MemberService {
   }
 
   getByID(id: Member['id']) {
-    return db.select().from(TB_member).where(eq(TB_member.id, id));
+    return db.query.TB_member.findFirst({ where: eq(TB_member.id, id) });
   }
 
   // start new subscription

@@ -18,6 +18,10 @@ class UserService {
     return getTotalCount(TB_user);
   }
 
+  getAll() {
+    return db.select().from(TB_user);
+  }
+
   getUserByEmail(email: string) {
     return db.query.TB_user.findFirst({
       where: eq(TB_user.email, email),
@@ -37,7 +41,7 @@ class UserService {
 
   updateUserByID(
     payload: Partial<typeof TB_user.$inferInsert>,
-    id: (typeof TB_user.$inferSelect)['id']
+    id: (typeof TB_user.$inferSelect)['id'],
   ) {
     return db
       .update(TB_user)

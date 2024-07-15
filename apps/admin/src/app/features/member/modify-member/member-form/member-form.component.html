@@ -5,26 +5,77 @@
         class="flex-1"
         label="Plan"
         [control]="formControls.planID"
+        bindLabel="name"
+        bindValue="id"
         apiURL="/plan/all"
+        #planSelect
       />
-      <mx-button variant="outline" class="mt-6"
+      <mx-button
+        variant="outline"
+        class="mt-6"
+        (handleClick)="openPlanForm(addPlan)"
         ><mx-icon icon="add"
       /></mx-button>
     </div>
     <mx-input label="Name" [control]="formControls.name" />
-    <mx-input label="Dob" [control]="formControls.dob" type="date" />
+    <mx-input-number label="age" [control]="formControls.age" />
+    <mx-select
+      label="Gender"
+      [control]="formControls.gender"
+      [items]="GENDER"
+    />
     <mx-input label="Mobile" [control]="formControls.mobile" />
-    <mx-input label="Height" [control]="formControls.height" type="number" />
-    <mx-input label="Weight" [control]="formControls.weight" type="number" />
+    <mx-input-number
+      label="Height"
+      [control]="formControls.height"
+      type="number"
+    />
+    <mx-input-number
+      label="Weight"
+      [control]="formControls.weight"
+      type="number"
+    />
     <mx-input label="Email" [control]="formControls.email" />
     <mx-input
       label="Emergency Contact"
       [control]="formControls.emergencyContact"
     />
-    <mx-select label="Assigned User" [control]="formControls.userID" />
+    <mx-select
+      label="Assigned User"
+      [control]="formControls.userID"
+      apiURL="/user/all"
+      bindLabel="name"
+      bindValue="id"
+    />
     <mx-input label="Join Date" type="date" [control]="formControls.joinDate" />
   </div>
   <mx-textarea [control]="formControls.address" label="Address" />
 </mx-form>
 
-<mx-dialog-container> </mx-dialog-container>
+<ng-template #addPlan>
+  <mx-dialog-content>
+    <mx-dialog-header>
+      <mx-dialog-title>Add new plan</mx-dialog-title>
+      <mx-dialog-description
+        >Quick add new plans while adding members</mx-dialog-description
+      >
+    </mx-dialog-header>
+    <div class="grid grid-cols-1 gap-4">
+      <mx-input [control]="planForm.controls.name" label="Name" />
+      <mx-input-number [control]="planForm.controls.amount" label="Amount" />
+      <mx-input-number
+        [control]="planForm.controls.periodInMonths"
+        label="Period in months"
+        [hints]="periodInMonthHint"
+      />
+    </div>
+    <mx-dialog-footer>
+      <mx-button
+        size="sm"
+        (handleClick)="handlePlanAdd()"
+        [disabled]="planForm.invalid"
+        >Save</mx-button
+      >
+    </mx-dialog-footer>
+  </mx-dialog-content>
+</ng-template>

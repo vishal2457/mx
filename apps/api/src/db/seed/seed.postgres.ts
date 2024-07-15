@@ -1,20 +1,15 @@
-import { drizzle } from 'drizzle-orm/node-postgres';
 import * as dotenv from 'dotenv';
+import { drizzle } from 'drizzle-orm/node-postgres';
 dotenv.config({ path: `${process.cwd()}/.env` });
 
 import { Pool } from 'pg';
 import {
-  TB_customer,
-  TB_customerFcm,
   TB_menu,
-  TB_notification,
   TB_organisation,
-  TB_role,
   TB_user,
 } from '../../../../../libs/mx-schema/src';
-import { seedMenu } from './menu';
 import { hashPassword } from '../../shared/password-hash';
-import { eq } from 'drizzle-orm';
+import { seedMenu } from './menu';
 
 const pool = new Pool({
   host: process.env.NODE_HOST,
@@ -35,13 +30,12 @@ async function seed() {
   await db
     .insert(TB_organisation)
     .values({ name: 'test', email: 'test@test.com' });
-  await db
-    .insert(TB_user)
-    .values({
-      email: 'test@test.com',
-      password: hashPassword('123'),
-      organisationID: 1,
-    });
+  await db.insert(TB_user).values({
+    name: 'Admin',
+    email: 'test@test.com',
+    password: hashPassword('123'),
+    organisationID: 1,
+  });
 
   process.exit(0);
 }

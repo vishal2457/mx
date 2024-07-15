@@ -25,6 +25,7 @@ import { MxTooltipDirective } from '../tooltip/tooltip.directive';
 import { MxOverlayComponent } from '../overlay';
 import { MxCheckboxComponent } from '../form/mx-checkbox';
 import { MxSvgIconComponent } from '../svg-icon';
+import { ExtractValuePipe } from './services/access-object.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MxSvgIconComponent } from '../svg-icon';
     PaginationComponent,
     GridLimitComponent,
     GridToolbarComponent,
+    ExtractValuePipe,
   ],
   imports: [
     CdkTableModule,

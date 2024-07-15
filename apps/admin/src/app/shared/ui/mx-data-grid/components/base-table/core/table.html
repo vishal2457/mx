@@ -22,7 +22,7 @@
           'text-center': column.alignment === 'center',
           'text-right': column.alignment === 'right',
         }"
-        class="h-10 text-sm font-medium bg-background px-2"
+        class="h-10 text-sm font-medium bg-background px-2 whitespace-nowrap"
       >
         @if (!column.head) {
         <mx-dropdown spacing="compact">
@@ -129,8 +129,8 @@
       >
         <ng-container *ngIf="!column.cell; else cellOutlet">
           @if (column?.innerHtml) {
-          <span [innerHTML]="element[column.field]"></span>
-          } @else{ {{ element[column.field] }} }
+          <span [innerHTML]="element|extractValue:column.field"></span>
+          } @else{ {{ element|extractValue:column.field }} }
         </ng-container>
 
         <ng-template #cellOutlet>

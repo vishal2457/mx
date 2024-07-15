@@ -15,7 +15,7 @@ export const TB_user = pgTable(
   'user',
   {
     id: serial('id').primaryKey(),
-    name: text('name'),
+    name: text('name').notNull(),
     email: text('email').notNull(),
     password: text('password').notNull(),
     active: boolean('active').default(true),

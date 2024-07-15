@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  ViewChild,
-  inject,
-} from '@angular/core';
+import { Component, OnDestroy, ViewChild, inject } from '@angular/core';
 import { MemberFormComponent } from './member-form/member-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
@@ -12,7 +7,7 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 @Component({
   selector: 'add-member',
   template: `<page-header header="Add Member">
-      <mx-button  (handleClick)="handleSubmit()">
+      <mx-button (handleClick)="handleSubmit()">
         <span class="flex items-center">
           <p>Save</p>
         </span>
@@ -35,6 +30,7 @@ export class CreateMemberComponent implements OnDestroy {
 
   handleSubmit() {
     if (this.MemberFormComponent.isInValid()) {
+      this.MemberFormComponent.markFormTouched();
       return;
     }
     this.addRequests.unsubscribe();
@@ -43,9 +39,10 @@ export class CreateMemberComponent implements OnDestroy {
       id: 'add-member',
       type: 'loading',
     });
+    const formValue = this.MemberFormComponent.getFormValue();
 
     this.addRequests.sink = this.api
-      .post('/member/create', this.MemberFormComponent.getFormValue())
+      .post('/member/create', formValue)
       .subscribe({
         next: () => {
           this.MemberFormComponent.reset();

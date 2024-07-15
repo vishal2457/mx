@@ -12,7 +12,8 @@ export default Router().post(
   validate({ body: createInsertSchema(TB_organisation) }),
   async (req, res) => {
     const [org] = await organisationService.createOrganisation(req.body);
-    const createUser = userService.createUser({
+    await userService.createUser({
+      name: req.body.name,
       email: org.email,
       password: hashPassword('123'),
       organisationID: org.id,

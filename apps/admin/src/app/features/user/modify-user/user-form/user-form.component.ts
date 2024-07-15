@@ -24,7 +24,7 @@ export class UserFormComponent {
 
   protected userForm = this.fb.nonNullable.group<ControlsOf<UserForm>>({
     name: new FormControl(null, {
-      validators: [],
+      validators: [Validators.required],
       nonNullable: true,
     }),
     email: new FormControl(null, {

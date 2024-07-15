@@ -44,6 +44,7 @@ import { plan } from './plan';
 import { member } from './member';
 
 import { memberAttendance } from './member-attendance';
+import getAllUserApi from './user/get-all-user.api';
 
 // IMPORT GENERATED FILES
 
@@ -59,6 +60,7 @@ routerv1
       loginuser,
       getUserApi,
       updateUserApi,
+      getAllUserApi,
     ]),
   )
   .use('/notification', ah([getAllNotif, createNotif, deleteNotif]))
