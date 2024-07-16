@@ -13,7 +13,7 @@ import { SubSink } from '../../../shared/utils/sub-sink';
         </span>
       </mx-button>
     </page-header>
-    <member-form />`,
+    <member-form formType="create" />`,
 })
 export class CreateMemberComponent implements OnDestroy {
   @ViewChild(MemberFormComponent) MemberFormComponent!: MemberFormComponent;

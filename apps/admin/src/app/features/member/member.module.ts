@@ -23,6 +23,7 @@ import { CreateMemberComponent } from './modify-member/create-member.component';
 import { MemberFormComponent } from './modify-member/member-form/member-form.component';
 import { UpdateMemberComponent } from './modify-member/update-member.component';
 import { MxInputNumberComponent } from '../../shared/ui/form/mx-input-number';
+import { MxDataGridModule } from '../../shared/ui/mx-data-grid/data-grid.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MxInputNumberComponent } from '../../shared/ui/form/mx-input-number';
     MxSelectComponent,
     MxDialogModule,
     MxInputNumberComponent,
+    MxDataGridModule,
   ],
 })
 export class MemberModule {}

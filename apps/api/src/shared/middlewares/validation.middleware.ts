@@ -15,9 +15,9 @@ export const validate: <
   TQuery = any,
   TBody = any,
   TFiles = any,
-  TFile = any
+  TFile = any,
 >(
-  _schemas: RequestValidation<TParams, TQuery, TBody, TFiles, TFile>
+  _schemas: RequestValidation<TParams, TQuery, TBody, TFiles, TFile>,
 ) => RequestHandler<TParams, any, TBody, TQuery, TFiles> =
   ({ params, query, body, files, file }) =>
   (req, res, next) => {

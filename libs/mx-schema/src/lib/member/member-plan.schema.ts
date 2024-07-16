@@ -1,4 +1,10 @@
-import { integer, pgTable, serial, timestamp } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  integer,
+  pgTable,
+  serial,
+  timestamp,
+} from 'drizzle-orm/pg-core';
 import { TB_member } from './member.schema';
 import { TB_plan } from '../plan.schema';
 import { createSelectSchema } from 'drizzle-zod';
@@ -11,7 +17,9 @@ export const TB_memberPlan = pgTable('memberPlan', {
   planID: integer('planID')
     .notNull()
     .references(() => TB_plan.id),
+  startDate: timestamp('startDate').notNull(),
   endDate: timestamp('endDate').notNull(),
+  paid: boolean('paid').default(false),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').$onUpdate(() => new Date()),
 });

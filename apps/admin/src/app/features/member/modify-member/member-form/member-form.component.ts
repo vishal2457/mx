@@ -1,4 +1,12 @@
-import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import {
   GENDERS,
@@ -13,6 +21,7 @@ import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { MxSelectComponent } from '../../../../shared/ui/form/mx-select';
 import { MxNotification } from '../../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../../shared/utils/sub-sink';
+import { AddMembershipDialogComponent } from '../components/add-membership.component';
 
 type TMemberForm = Omit<
   TMember,
@@ -22,21 +31,25 @@ type TMemberForm = Omit<
   | 'joinDate'
   | 'organisationID'
   | 'profilePic'
-> & { joinDate: string };
+> & { joinDate: string; planID?: number };
 
 @Component({
   selector: 'member-form',
   templateUrl: './member-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MemberFormComponent implements OnInit, OnDestroy {
-  @ViewChild('planSelect', { static: true }) planSelect!: MxSelectComponent;
+  @ViewChild('planSelect', { static: false }) planSelect!: MxSelectComponent;
 
   private api = inject(ApiService);
   private fb = inject(FormBuilder);
   private dialog = inject(Dialog);
   private toast = inject(MxNotification);
 
-  formType: 'create' | 'update' = 'create';
+  @Input({ required: true }) formType: 'create' | 'update' = 'create';
+  @Input() memberPlan: any[] = [];
+  @Input() memberData!: TMember;
+
   Z_member = Z_member;
   dialogRef!: DialogRef<any>;
   periodInMonthHint: string[] = [];
@@ -45,10 +58,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
 
   memberForm = this.fb.nonNullable.group<ControlsOf<TMemberForm>>({
-    planID: new FormControl(null, {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
     name: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,
@@ -104,6 +113,16 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
+    if (this.formType === 'create') {
+      this.memberForm.addControl(
+        'planID',
+        new FormControl(null, {
+          validators: [Validators.required],
+          nonNullable: true,
+        }),
+      );
+    }
+
     this.subs.sink =
       this.planForm.controls.periodInMonths.valueChanges.subscribe((value) => {
         if (!value) {
@@ -130,7 +149,16 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   }
 
   getFormValue() {
-    return this.memberForm.value;
+    if (this.formType === 'update') {
+      return this.memberForm.getRawValue();
+    }
+    const periodInMonths = this.planSelect.items.find(
+      (i) => i.id === this.memberForm.value.planID,
+    ).periodInMonths;
+    return {
+      ...this.memberForm.getRawValue(),
+      periodInMonths,
+    };
   }
 
   reset() {
@@ -168,6 +196,15 @@ export class MemberFormComponent implements OnInit, OnDestroy {
         text: 'Plan Added',
         type: 'success',
       });
+    });
+  }
+
+  openAddNewMemberShip() {
+    this.dialog.open(AddMembershipDialogComponent, {
+      data: {
+        memberID: this.memberData.id,
+        email: this.memberData.email,
+      },
     });
   }
 

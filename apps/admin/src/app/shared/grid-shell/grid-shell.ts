@@ -52,64 +52,70 @@ import { FilterService } from './filters/filter.service';
     (limitChange)="handleLimitChange($event)"
   >
     @for (tool of toolbar; track tool.name) {
-    <mx-toolbar
-      [icon]="tool.icon"
-      [name]="tool.name"
-      (handleClick)="tool.handleClick.emit($event)"
-    />
-    } @if (filters?.length) {
-    <mx-toolbar icon="filter_alt" name="Filter" (handleClick)="openFilters()" />
-    <!-- TODO : add a way to reset all grid options. -->
-    <mx-toolbar
-      icon="restart_alt"
-      name="Reset grid"
-      (handleClick)="filterService.clearFilterData()"
-    />
+      <mx-toolbar
+        [icon]="tool.icon"
+        [name]="tool.name"
+        (handleClick)="tool.handleClick.emit($event)"
+      />
+    }
+    @if (filters?.length) {
+      <mx-toolbar
+        icon="filter_alt"
+        name="Filter"
+        (handleClick)="openFilters()"
+      />
+      <!-- TODO : add a way to reset all grid options. -->
+      <mx-toolbar
+        icon="restart_alt"
+        name="Reset grid"
+        (handleClick)="filterService.clearFilterData()"
+      />
     }
     <!-- Toolbar -->
 
     <!-- Action -->
     @for (action of actions; track action.icon) {
-    <mx-action
-      [icon]="action.icon"
-      [text]="action.text"
-      [variant]="action.variant"
-      (handleClick)="action.handleClick && action.handleClick.emit($event)"
-    />
+      <mx-action
+        [icon]="action.icon"
+        [text]="action.text"
+        [variant]="action.variant"
+        (handleClick)="action.handleClick && action.handleClick.emit($event)"
+      />
     }
     <!-- Action -->
 
     <!-- Columns -->
     @for (column of columns; track column.field) {
-    <mx-column
-      [title]="column.title"
-      [field]="column.field"
-      [sortable]="column.sortable"
-      [visible]="column.visible"
-      [alignment]="column.alignment"
-      [innerHtml]="column.innerHtml"
-    >
-      @if (column.head) {
-      <ng-container>
-        <ng-template #head let-item>
-          <ng-container
-            *ngTemplateOutlet="column.head; context: { $implicit: item }"
-          ></ng-container>
-        </ng-template>
-      </ng-container>
-      } @if (column.cell) {
-      <ng-container>
-        <ng-template #cell let-item>
-          <ng-container
-            *ngTemplateOutlet="
-              column.cell;
-              context: { $implicit: item, column }
-            "
-          ></ng-container>
-        </ng-template>
-      </ng-container>
-      }
-    </mx-column>
+      <mx-column
+        [title]="column.title"
+        [field]="column.field"
+        [sortable]="column.sortable"
+        [visible]="column.visible"
+        [alignment]="column.alignment"
+        [innerHtml]="column.innerHtml"
+      >
+        @if (column.head) {
+          <ng-container>
+            <ng-template #head let-item>
+              <ng-container
+                *ngTemplateOutlet="column.head; context: { $implicit: item }"
+              ></ng-container>
+            </ng-template>
+          </ng-container>
+        }
+        @if (column.cell) {
+          <ng-container>
+            <ng-template #cell let-item>
+              <ng-container
+                *ngTemplateOutlet="
+                  column.cell;
+                  context: { $implicit: item, column }
+                "
+              ></ng-container>
+            </ng-template>
+          </ng-container>
+        }
+      </mx-column>
     }
     <!-- Columns -->
 
@@ -127,6 +133,7 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
   @Input() gridTitle = '';
   @Input() loadOnMount = true;
   @Input() fields = '';
+  @Input() defaultSort: any = {};
   @Input() minHeight = '300px';
   @Input() maxHeight = '';
   @Input() dynamicHeight = true;
@@ -223,7 +230,7 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
     return {
       page,
       limit,
-      sort: safeStringify(sort || {}),
+      sort: safeStringify(sort || this.defaultSort),
       filters: safeStringify(this.filterValues),
       fields: this.fields,
     };
@@ -238,7 +245,7 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
 
   private getFilterFromRoute() {
     this.filterService.updateFilterData(
-      expandFilters(this.route.snapshot.queryParams)
+      expandFilters(this.route.snapshot.queryParams),
     );
   }
 

@@ -1,29 +1,25 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { MemberFormComponent } from './member-form/member-form.component';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TMember } from '../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { SubSink } from '../../../shared/utils/sub-sink';
-import { TMember } from '../../../../../../../libs/mx-schema/src';
+import { MemberFormComponent } from './member-form/member-form.component';
 
 @Component({
   selector: 'edit-member',
-  template: ` <page-header header="Edit Member">
+  template: ` <page-header [header]="'Edit Member' + ' #' + memberID">
       <mx-button (handleClick)="handleSubmit()">
         <span class="flex items-center">
           <p>Save</p>
         </span>
       </mx-button>
     </page-header>
-    <member-form />`,
+    <member-form
+      formType="update"
+      [memberPlan]="memberPlan"
+      [memberData]="memberData"
+    />`,
 })
 export class UpdateMemberComponent implements OnInit, OnDestroy {
   @ViewChild(MemberFormComponent) memberFormComponent!: MemberFormComponent;
@@ -34,6 +30,8 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
   private router = inject(Router);
 
   memberID!: string;
+  memberPlan: any[] = [];
+  memberData!: TMember;
   private requests = new SubSink();
 
   ngOnInit(): void {
@@ -46,9 +44,14 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
   }
 
   private fetchMemberDetails(id: string) {
-    this.api.get<TMember>(`/member/${id}`).subscribe(({ data }) => {
-      this.memberFormComponent.patchValue(data);
-    });
+    this.api
+      .get<TMember & { memberPlan: any[] }>(`/member/${id}`)
+      .subscribe(({ data }) => {
+        const { memberPlan, ...rest } = data;
+        this.memberFormComponent.patchValue(rest);
+        this.memberPlan = memberPlan;
+        this.memberData = rest;
+      });
   }
 
   handleSubmit() {

@@ -1,4 +1,5 @@
 import {
+  boolean,
   integer,
   pgEnum,
   pgTable,
@@ -11,9 +12,8 @@ import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 import { qs } from '../_zod-utils/parser';
 import { TB_organisation } from '../organisation/organisation.schema';
-import { TB_plan } from '../plan.schema';
 
-export const GENDERS = ['male', 'female'] as const;
+export const GENDERS = ['Male', 'Female'] as const;
 
 export const genderEnum = pgEnum('gender', GENDERS);
 
@@ -22,9 +22,6 @@ export const TB_member = pgTable('member', {
   organisationID: integer('organisationID')
     .notNull()
     .references(() => TB_organisation.id),
-  planID: integer('planID')
-    .notNull()
-    .references(() => TB_plan.id),
   name: text('name').notNull(),
   age: integer('age').notNull(),
   address: text('address').notNull(),
@@ -33,7 +30,7 @@ export const TB_member = pgTable('member', {
   height: integer('height').notNull(),
   weight: integer('weight').notNull(),
   emergencyContact: text('emergencyContact').notNull(),
-  gender: genderEnum('gender').default('female'),
+  gender: genderEnum('gender').default('Female'),
   userID: integer('userID').notNull(),
   joinDate: varchar('joinDate').notNull(),
   profilePic: text('profilePic'),

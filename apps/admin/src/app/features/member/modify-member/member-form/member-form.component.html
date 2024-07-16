@@ -1,22 +1,24 @@
 <mx-form [form]="memberForm" [zodSchema]="Z_member">
   <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4 mb-4">
-    <div class="flex gap-2 items-center">
-      <mx-select
-        class="flex-1"
-        label="Plan"
-        [control]="formControls.planID"
-        bindLabel="name"
-        bindValue="id"
-        apiURL="/plan/all"
-        #planSelect
-      />
-      <mx-button
-        variant="outline"
-        class="mt-6"
-        (handleClick)="openPlanForm(addPlan)"
-        ><mx-icon icon="add"
-      /></mx-button>
-    </div>
+    @if (formControls.planID) {
+      <div class="flex gap-2 items-center">
+        <mx-select
+          class="flex-1"
+          label="Plan"
+          [control]="formControls.planID"
+          bindLabel="name"
+          bindValue="id"
+          apiURL="/plan/all"
+          #planSelect
+        />
+        <mx-button
+          variant="outline"
+          class="mt-6"
+          (handleClick)="openPlanForm(addPlan)"
+          ><mx-icon icon="add"
+        /></mx-button>
+      </div>
+    }
     <mx-input label="Name" [control]="formControls.name" />
     <mx-input-number label="age" [control]="formControls.age" />
     <mx-select
@@ -79,3 +81,32 @@
     </mx-dialog-footer>
   </mx-dialog-content>
 </ng-template>
+
+@if (formType === 'update') {
+  <div class="mt-4"></div>
+  <mx-data-grid
+    gridTitle="Plan History"
+    [data]="memberPlan"
+    maxHeight="200"
+    minHeight="200"
+  >
+    <mx-toolbar
+      name="Add Membership"
+      icon="add"
+      (handleClick)="openAddNewMemberShip()"
+    />
+
+    <mx-column field="planName" title="Plan" />
+    <mx-column field="amount" />
+    <mx-column field="startDate" title="Start Date">
+      <ng-template #cell let-item>
+        {{ item.startDate | date: 'mediumDate' }}
+      </ng-template>
+    </mx-column>
+    <mx-column field="endDate" title="End Date">
+      <ng-template #cell let-item>
+        {{ item.endDate | date: 'mediumDate' }}
+      </ng-template>
+    </mx-column>
+  </mx-data-grid>
+}
