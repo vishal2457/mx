@@ -49,7 +49,9 @@
       bindLabel="name"
       bindValue="id"
     />
-    <mx-input label="Join Date" type="date" [control]="formControls.joinDate" />
+    @if (formType === 'create') {
+      <mx-input label="Join Date" type="date" [control]="formControls.joinDate" />
+    }
   </div>
   <mx-textarea [control]="formControls.address" label="Address" />
 </mx-form>
