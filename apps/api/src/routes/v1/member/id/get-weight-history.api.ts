@@ -9,6 +9,6 @@ export default Router().get(
   validate({ params: v_param_id }),
   async (req, res) => {
     const result = await memberService.getWeightHistory(req.params.id);
-    success(res, result 'Membership list for single member');
+    success(res, result, 'Membership list for single member');
   },
 );
