@@ -3,6 +3,7 @@ import { Request } from 'express';
 import {
   TB_member,
   TB_memberAttendance,
+  TB_memberWeightHistory,
   TB_memberPlan,
   TB_plan,
   TB_user,
@@ -106,6 +107,17 @@ class MemberService {
   createMemberAttendance(payload: typeof TB_memberAttendance.$inferInsert) {
     return db.insert(TB_memberAttendance).values(payload).returning();
   }
+
+  createMemberWeightHistory(
+    payload: typeof TB_memberWeightHistory.$inferInsert,
+  ) {
+    return db.insert(TB_memberWeightHistory).values(payload).returning();
+  }
+
+  getWeightHistory(memberID: Member['id']) {
+    return db.select().from(TB_memberWeightHistory).where(eq(TB_memberWeightHistory.memberID, memberID))
+  }
+
 }
 
 export const memberService = new MemberService();

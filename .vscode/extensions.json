@@ -3,6 +3,7 @@
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
     "firsttris.vscode-jest-runner",
-    "Gruntfuggly.todo-tree"
+    "Gruntfuggly.todo-tree",
+    "ms-playwright.playwright"
   ]
 }

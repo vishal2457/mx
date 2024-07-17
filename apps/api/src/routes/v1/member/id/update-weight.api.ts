@@ -1,22 +1,26 @@
 import { Router } from 'express';
+import {
+  v_param_id,
+  Z_memberWeightHistory,
+} from '../../../../../../../libs/mx-schema/src';
 import { success } from '../../../../shared/api-response/response-handler';
 import { validate } from '../../../../shared/middlewares/validation.middleware';
-import { TB_member, v_param_id } from '../../../../../../../libs/mx-schema/src';
-import { createInsertSchema } from 'drizzle-zod';
 import { memberService } from '../member.service';
 
 export default Router().put(
-  '/metric/:id',
+  '/weight/:id',
   validate({
-    body: createInsertSchema(TB_member).pick({
-      height: true,
+    body: Z_memberWeightHistory.pick({
       weight: true,
-      age: true,
     }),
     params: v_param_id,
   }),
   async (req, res) => {
     const result = await memberService.updateMember(req.body, req.params.id);
+    await memberService.createMemberWeightHistory({
+      weight: req.body.weight,
+      memberID: req.params.id,
+    });
     success(res, result, 'updated');
   },
 );

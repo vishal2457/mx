@@ -23,7 +23,7 @@ import { MemberListComponent } from './member-list/member-list.component';
 import { MemberRoutingModule } from './member-routing.module';
 import { CreateMemberComponent } from './modify-member/create-member.component';
 import { MemberFormComponent } from './modify-member/member-form/member-form.component';
-import { UpdateMemberComponent } from './modify-member/update-member.component';
+import { UpdateMemberComponent } from './modify-member/update-member/update-member.component';
 import { StatsCardComponent } from './modify-member/components/stats-card.component';
 
 @NgModule({

@@ -20,15 +20,15 @@
       </div>
     }
     <mx-input label="Name" [control]="formControls.name" />
+    <mx-select
+    label="Gender"
+    [control]="formControls.gender"
+    [items]="GENDER"
+  />
     @if (formControls.age) {
       <mx-input-number label="age" [control]="formControls.age" />
     }
-    <mx-select
-      label="Gender"
-      [control]="formControls.gender"
-      [items]="GENDER"
-    />
-    <mx-input label="Mobile" [control]="formControls.mobile" />
+
     @if (formControls.height) {
       <mx-input-number
         label="Height"
@@ -43,6 +43,7 @@
         type="number"
       />
     }
+    <mx-input label="Mobile" [control]="formControls.mobile" />
     <mx-input label="Email" [control]="formControls.email" />
     <mx-input
       label="Emergency Contact"

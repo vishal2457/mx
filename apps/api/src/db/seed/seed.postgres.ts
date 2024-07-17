@@ -3,12 +3,7 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 dotenv.config({ path: `${process.cwd()}/.env` });
 
 import { Pool } from 'pg';
-import {
-  TB_menu,
-  TB_organisation,
-  TB_user,
-} from '../../../../../libs/mx-schema/src';
-import { hashPassword } from '../../shared/password-hash';
+import { TB_menu } from '../../../../../libs/mx-schema/src';
 import { seedMenu } from './menu';
 
 const pool = new Pool({

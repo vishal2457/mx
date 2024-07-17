@@ -19,7 +19,7 @@ export const TB_memberPlan = pgTable('memberPlan', {
     .references(() => TB_plan.id),
   startDate: timestamp('startDate').notNull(),
   endDate: timestamp('endDate').notNull(),
-  paid: boolean('paid').default(false),
+  paid: boolean('paid').default(true),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').$onUpdate(() => new Date()),
 });

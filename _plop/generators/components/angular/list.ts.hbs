@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   <mx-grid-shell gridTitle="{{titleCase name}}s" apiURL="/{{dashCase name}}/list">
     <!-- columns -->
       {{#each schemaValue.properties}}
-      <mx-column field="{{@key}}" alignment="left" />
+      <mx-column field="{{@key}}"  />
       {{/each}}
     <!-- columns -->
 

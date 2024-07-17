@@ -12,6 +12,7 @@ import { validate } from '../../../shared/middlewares/validation.middleware';
 import { memberService } from './member.service';
 import { addMonths, parse } from 'date-fns';
 import { processEmailQueue } from '../../../shared/queue/process-email/process-email.queue';
+import { hashPassword } from '../../../shared/password-hash';
 
 const bodyValidator = z.union([
   createInsertSchema(TB_member).omit({ organisationID: true }),
@@ -31,8 +32,11 @@ export default Router().post(
       return other(res, `Member with email ${req.body.email} already exist`);
     }
 
+    const passcode = Math.floor(1000 + Math.random() * 9000);
+
     const payload: typeof TB_member.$inferInsert = {
       organisationID: req.user.organisationID,
+      passcode: hashPassword(passcode.toString()),
       ...req.body,
     };
     const newMember = await memberService.createMember(payload);
@@ -49,7 +53,11 @@ export default Router().post(
     await processEmailQueue.sendEmail({
       to: req.body.email,
       subject: 'New membership activated',
-      html: `Your membership activated, till ${memberPlanPayload.endDate}`,
+      html: `Your membership activated, till ${memberPlanPayload.endDate}
+        Credentials for member app
+        email: ${payload.email}
+        passcode: ${passcode}
+      `,
     });
 
     success(res, newMember, 'success');

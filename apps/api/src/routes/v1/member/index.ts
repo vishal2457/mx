@@ -6,6 +6,9 @@ import getMember from './id/get-member.api';
 import { asyncHandler } from '../../../shared/async-handler.util';
 import renewMembershipApi from './id/renew-membership.api';
 import getMembershipByMemberidApi from './id/get-membership-by-memberid.api';
+import updateWeightApi from './id/update-weight.api';
+import loginMemberApi from './login-member.api';
+import getWeightHistoryApi from './id/get-weight-history.api';
 
 export const member = asyncHandler([
   getMemberList,
@@ -15,4 +18,7 @@ export const member = asyncHandler([
   updateMember,
   renewMembershipApi,
   getMembershipByMemberidApi,
+  updateWeightApi,
+  loginMemberApi,
+  getWeightHistoryApi
 ]);

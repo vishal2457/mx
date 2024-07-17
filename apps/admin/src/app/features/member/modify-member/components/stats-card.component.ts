@@ -17,7 +17,7 @@ import { DisplayCurrencyComponent } from '../../../../shared/misc/display-curren
       </div>
     </div>
     <div mxCardContent>
-      @if (amount) {
+      @if (amount || amount === 0) {
         <display-currency [amount]="amount" />
       } @else if (value) {
         <p class="text-2xl font-bold">{{ value }}</p>

@@ -33,6 +33,7 @@ type TMemberForm = Omit<
   | 'weight'
   | 'age'
   | 'height'
+  | 'passcode'
 > & {
   joinDate?: string;
   planID?: number;
@@ -55,7 +56,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   private toast = inject(MxNotification);
 
   @Input({ required: true }) formType: 'create' | 'update' = 'create';
-  @Input() memberPlan: any[] = [];
 
   Z_member = Z_member;
   dialogRef!: DialogRef<any>;
