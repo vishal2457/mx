@@ -44,6 +44,14 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
         [control]="membershipForm.controls.startDate"
         label="Membership Start Date"
       />
+      <mx-select
+        class="flex-1"
+        label="Paid"
+        [control]="membershipForm.controls.paid"
+        bindLabel="name"
+        bindValue="value"
+        [items]="paidSelect"
+      />
     </div>
     <mx-dialog-footer>
       <mx-button
@@ -59,10 +67,22 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 })
 export class AddMembershipDialogComponent {
   constructor(
-    @Inject(DIALOG_DATA) public data: { memberID: number; email: string },
+    private dialogRef: DialogRef<{ refresh: boolean }>,
+    @Inject(DIALOG_DATA) private data: { memberID: number; email: string },
   ) {}
 
   @ViewChild('planSelect', { static: false }) planSelect!: MxSelectComponent;
+
+  paidSelect = [
+    {
+      name: 'Yes',
+      value: true,
+    },
+    {
+      name: 'No',
+      value: false,
+    },
+  ];
 
   private fb = inject(FormBuilder);
   private api = inject(ApiService);
@@ -74,16 +94,23 @@ export class AddMembershipDialogComponent {
     startDate: new FormControl(patchableDate(), {
       validators: [Validators.required],
     }),
+    paid: new FormControl(false, {
+      validators: [Validators.required],
+    }),
   });
 
   handleMembershipAdd() {
     const periodInMonths = this.planSelect.items.find(
       (i) => i.id === this.membershipForm.value.planID,
     ).periodInMonths;
-    this.api.post(`/member/renew-membership/${this.data.memberID}`, {
-      ...this.membershipForm.value,
-      periodInMonths,
-      email: this.data.email,
-    });
+    this.api
+      .post(`/member/renew-membership/${this.data.memberID}`, {
+        ...this.membershipForm.value,
+        periodInMonths,
+        email: this.data.email,
+      })
+      .subscribe(() => {
+        this.dialogRef.close({ refresh: true });
+      });
   }
 }

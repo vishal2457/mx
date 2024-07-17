@@ -36,7 +36,7 @@ export class ApiService {
 
   get<T>(
     endpoint: string,
-    queryParams?: QueryParams
+    queryParams?: QueryParams,
   ): Observable<MxResponse<T>> {
     return this._http
       .get<MxResponse<T>>(this.makeURL(endpoint), {
@@ -47,7 +47,7 @@ export class ApiService {
 
   getList<T>(
     endpoint: string,
-    queryParams?: QueryParams
+    queryParams?: QueryParams,
   ): Observable<MxListResponse<T>> {
     return this._http
       .get<MxListResponse<T>>(this.makeURL(endpoint), {
@@ -58,7 +58,7 @@ export class ApiService {
 
   delete<T>(
     endpoint: string,
-    queryParams?: QueryParams
+    queryParams?: QueryParams,
   ): Observable<MxResponse<T>> {
     return this._http
       .delete<MxResponse<T>>(this.makeURL(endpoint), {
@@ -84,7 +84,7 @@ export class ApiService {
     body: Partial<{
       single: { field: string; value: any };
       array: { field: string; value: any[] };
-    }>
+    }>,
   ): Observable<any> {
     const formData = new FormData();
     if (body.single?.field && body.single?.value) {
@@ -104,6 +104,7 @@ export class ApiService {
     this.notif.show({
       text:
         this.qualifyError(error.error) ||
+        this.qualifyError(error.error?.msg) ||
         this.qualifyError(error.error?.status) ||
         'Something went wrong !',
       type: 'error',

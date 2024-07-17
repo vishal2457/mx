@@ -1,4 +1,4 @@
-import { addMonths, isBefore, parse } from 'date-fns';
+import { addMonths, isAfter, isBefore, parse } from 'date-fns';
 import { Router } from 'express';
 import { z } from 'zod';
 import {
@@ -17,7 +17,7 @@ import { processEmailQueue } from '../../../../shared/queue/process-email/proces
 import { memberService } from '../member.service';
 
 const bodyValidator = z.union([
-  Z_memberPlan.pick({ planID: true, startDate: true }),
+  Z_memberPlan.pick({ planID: true, startDate: true, paid: true }),
   Z_plan.pick({ periodInMonths: true }),
   Z_member.pick({ email: true }),
 ]);
@@ -30,7 +30,7 @@ export default Router().post(
     const memberID = parseInt(req.params.id);
     const membership = await memberService.getActiveMemberShip(memberID);
     if (
-      isBefore(
+      isAfter(
         membership[0].endDate,
         parse(req.body.startDate, 'yyyy-MM-dd', new Date()),
       )
@@ -43,6 +43,7 @@ export default Router().post(
       memberID,
       endDate: addMonths(req.body.startDate, req.body.periodInMonths),
       startDate: parse(req.body.startDate, 'yyyy-MM-dd', new Date()),
+      paid: req.body.paid,
     };
     // add member plan
     await memberService.addPlan(memberPlanPayload);

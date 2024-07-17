@@ -1,7 +1,10 @@
 <div
   [@fadeAnimation]="{
     value: animationState,
-    params: { fadeIn: data.animation?.fadeIn, fadeOut: data.animation?.fadeOut }
+    params: {
+      fadeIn: data.animation?.fadeIn,
+      fadeOut: data.animation?.fadeOut,
+    },
   }"
   (@fadeAnimation.done)="onFadeFinished($event)"
   class="max-w-xs bg-background border-2 rounded-md shadow-lg mt-2 border-opacity-50"
@@ -9,7 +12,7 @@
     'bg-destructive': data.type === 'error',
     'border-blue-500': data.type === 'info' || data.type === 'loading',
     'border-green-500': data.type === 'success',
-    'border-orange-500': data.type === 'warning'
+    'border-orange-500': data.type === 'warning',
   }"
   role="alert"
 >
@@ -36,7 +39,7 @@
 </div>
 
 <ng-template #icon let-type="type">
-  <div class="flex-shrink-0">
+  <div class="flex-shrink-0 self-start mt-1">
     <div
       *ngIf="data.type === 'loading'"
       class="animate-spin inline-block w-4 h-4 border-[2px] border-current border-t-transparent text-blue-500 rounded-full"

@@ -6,14 +6,12 @@ import { createInsertSchema } from 'drizzle-zod';
 import { memberService } from '../member.service';
 
 export default Router().put(
-  '/update/:id',
+  '/metric/:id',
   validate({
-    body: createInsertSchema(TB_member).omit({
-      organisationID: true,
-      joinDate: true,
+    body: createInsertSchema(TB_member).pick({
+      height: true,
       weight: true,
       age: true,
-      height: true,
     }),
     params: v_param_id,
   }),

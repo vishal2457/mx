@@ -1,3 +1,4 @@
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,13 +16,11 @@ import {
   Z_member,
 } from '../../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../../shared/services/api.service';
-import { ControlsOf } from '../../../../shared/utils/form-controls-of';
-import { patchableDate } from '../../../../shared/utils/patchable-date';
-import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { MxSelectComponent } from '../../../../shared/ui/form/mx-select';
 import { MxNotification } from '../../../../shared/ui/notification/notification.service';
+import { ControlsOf } from '../../../../shared/utils/form-controls-of';
+import { patchableDate } from '../../../../shared/utils/patchable-date';
 import { SubSink } from '../../../../shared/utils/sub-sink';
-import { AddMembershipDialogComponent } from '../components/add-membership.component';
 
 type TMemberForm = Omit<
   TMember,
@@ -31,7 +30,16 @@ type TMemberForm = Omit<
   | 'joinDate'
   | 'organisationID'
   | 'profilePic'
-> & { joinDate: string; planID?: number };
+  | 'weight'
+  | 'age'
+  | 'height'
+> & {
+  joinDate?: string;
+  planID?: number;
+  weight?: number;
+  age?: number;
+  height?: number;
+};
 
 @Component({
   selector: 'member-form',
@@ -48,7 +56,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
 
   @Input({ required: true }) formType: 'create' | 'update' = 'create';
   @Input() memberPlan: any[] = [];
-  @Input() memberData!: TMember;
 
   Z_member = Z_member;
   dialogRef!: DialogRef<any>;
@@ -59,10 +66,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
 
   memberForm = this.fb.nonNullable.group<ControlsOf<TMemberForm>>({
     name: new FormControl(null, {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
-    age: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,
     }),
@@ -78,14 +81,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
       validators: [Validators.required, Validators.email],
       nonNullable: true,
     }),
-    height: new FormControl(null, {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
-    weight: new FormControl(null, {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
     emergencyContact: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,
@@ -96,10 +91,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
     }),
     userID: new FormControl(null, {
       validators: [Validators.required],
-      nonNullable: true,
-    }),
-    joinDate: new FormControl(patchableDate(), {
-      validators: [],
       nonNullable: true,
     }),
   });
@@ -118,6 +109,35 @@ export class MemberFormComponent implements OnInit, OnDestroy {
         'planID',
         new FormControl(null, {
           validators: [Validators.required],
+          nonNullable: true,
+        }),
+      );
+
+      this.memberForm.addControl(
+        'joinDate',
+        new FormControl(patchableDate(), {
+          validators: [Validators.required],
+          nonNullable: true,
+        }),
+      );
+      this.memberForm.addControl(
+        'weight',
+        new FormControl(null, {
+          validators: [Validators.required, Validators.maxLength(3)],
+          nonNullable: true,
+        }),
+      );
+      this.memberForm.addControl(
+        'age',
+        new FormControl(null, {
+          validators: [Validators.required, Validators.maxLength(3)],
+          nonNullable: true,
+        }),
+      );
+      this.memberForm.addControl(
+        'height',
+        new FormControl(null, {
+          validators: [Validators.required, Validators.maxLength(3)],
           nonNullable: true,
         }),
       );
@@ -196,15 +216,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
         text: 'Plan Added',
         type: 'success',
       });
-    });
-  }
-
-  openAddNewMemberShip() {
-    this.dialog.open(AddMembershipDialogComponent, {
-      data: {
-        memberID: this.memberData.id,
-        email: this.memberData.email,
-      },
     });
   }
 

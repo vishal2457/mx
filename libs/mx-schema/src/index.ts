@@ -15,6 +15,7 @@ export * from './lib/plan.schema';
 export * from './lib/member/member.schema';
 export * from './lib/member/member-attendance.schema';
 export * from './lib/member/member-plan.schema';
+export * from './lib/member/member-metric-history.schema';
 
 // zod utils
 export * from './lib/_zod-utils/v-pagination';

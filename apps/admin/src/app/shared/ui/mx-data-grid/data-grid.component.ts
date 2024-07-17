@@ -95,7 +95,7 @@ export class MxDataGridComponent
 
     if (changes['collectionSize']?.currentValue) {
       this.paginationService.updateCollectionSize(
-        changes['collectionSize']?.currentValue
+        changes['collectionSize']?.currentValue,
       );
     }
 
@@ -106,16 +106,16 @@ export class MxDataGridComponent
 
   ngOnInit(): void {
     this.subs.sink = this.paginationService.page$.subscribe((page) =>
-      this.pageChange.emit(page)
+      this.pageChange.emit(page),
     );
     this.subs.sink = this.paginationService.selectedLimit$.subscribe((limit) =>
-      this.limitChange.emit(limit)
+      this.limitChange.emit(limit),
     );
     this.subs.sink = this.columnService.sort$.subscribe((sort) =>
-      this.sortChange.emit(sort)
+      this.sortChange.emit(sort),
     );
     this.subs.sink = this.gridData.selectionInfo$.subscribe((selection) =>
-      this.selectionChange.emit(selection)
+      this.selectionChange.emit(selection),
     );
   }
 

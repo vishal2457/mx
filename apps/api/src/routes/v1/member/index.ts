@@ -5,6 +5,7 @@ import updateMember from './id/update-member.api';
 import getMember from './id/get-member.api';
 import { asyncHandler } from '../../../shared/async-handler.util';
 import renewMembershipApi from './id/renew-membership.api';
+import getMembershipByMemberidApi from './id/get-membership-by-memberid.api';
 
 export const member = asyncHandler([
   getMemberList,
@@ -13,4 +14,5 @@ export const member = asyncHandler([
   deleteMember,
   updateMember,
   renewMembershipApi,
+  getMembershipByMemberidApi,
 ]);

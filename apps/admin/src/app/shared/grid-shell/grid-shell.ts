@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
@@ -124,10 +125,11 @@ import { FilterService } from './filters/filter.service';
 })
 export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
   filterService = inject(FilterService);
-  api = inject(ApiService);
 
+  private api = inject(ApiService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private cd = inject(ChangeDetectorRef);
 
   @Input({ required: true }) apiURL!: string;
   @Input() gridTitle = '';
@@ -218,9 +220,11 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
           this.loading = false;
           this.collectionSize = data.count;
           this.data = data.rows;
+          this.cd.detectChanges();
         },
         error: () => {
           this.loading = false;
+          this.cd.detectChanges();
         },
       });
   }

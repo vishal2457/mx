@@ -15,15 +15,16 @@ import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-
 import { GridColumnsComponent } from '../../shared/ui/mx-data-grid/components/base-table/columns';
 import { MxGridToolbarComponent } from '../../shared/ui/mx-data-grid/components/toolbar/mx-toolbar';
 
+import { MxBadgeComponent } from '../../shared/ui/badge';
 import { MxDialogModule } from '../../shared/ui/dialog/dialog.module';
+import { MxInputNumberComponent } from '../../shared/ui/form/mx-input-number';
 import { MxSelectComponent } from '../../shared/ui/form/mx-select';
 import { MemberListComponent } from './member-list/member-list.component';
 import { MemberRoutingModule } from './member-routing.module';
 import { CreateMemberComponent } from './modify-member/create-member.component';
 import { MemberFormComponent } from './modify-member/member-form/member-form.component';
 import { UpdateMemberComponent } from './modify-member/update-member.component';
-import { MxInputNumberComponent } from '../../shared/ui/form/mx-input-number';
-import { MxDataGridModule } from '../../shared/ui/mx-data-grid/data-grid.module';
+import { StatsCardComponent } from './modify-member/components/stats-card.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,9 @@ import { MxDataGridModule } from '../../shared/ui/mx-data-grid/data-grid.module'
     MxSelectComponent,
     MxDialogModule,
     MxInputNumberComponent,
-    MxDataGridModule,
+    MxGridShellComponent,
+    MxBadgeComponent,
+    StatsCardComponent,
   ],
 })
 export class MemberModule {}

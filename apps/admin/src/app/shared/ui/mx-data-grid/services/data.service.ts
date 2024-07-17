@@ -19,12 +19,12 @@ export class GridDataService {
   headerChecked$ = combineLatest([this.allSelected$, this.excluded$]).pipe(
     map(([allSelection, ex]) => {
       return allSelection && !ex.length;
-    })
+    }),
   );
   pageDataSelected$ = combineLatest([this.data$, this.included$]).pipe(
     map(([d, i]) => {
       return d.length === i.length;
-    })
+    }),
   );
   selectionInfo$ = combineLatest([
     this.allSelected$,
@@ -38,7 +38,7 @@ export class GridDataService {
         excluded,
         included,
       };
-    })
+    }),
   );
 
   dataChecked(id: number) {
@@ -56,7 +56,7 @@ export class GridDataService {
         }
         return false;
       }),
-      shareReplay(1)
+      shareReplay(1),
     );
   }
 

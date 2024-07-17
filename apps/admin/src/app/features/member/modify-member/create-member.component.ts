@@ -3,6 +3,7 @@ import { MemberFormComponent } from './member-form/member-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'add-member',
@@ -18,8 +19,9 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 export class CreateMemberComponent implements OnDestroy {
   @ViewChild(MemberFormComponent) MemberFormComponent!: MemberFormComponent;
 
-  api = inject(ApiService);
-  notif = inject(MxNotification);
+  private api = inject(ApiService);
+  private notif = inject(MxNotification);
+  private router = inject(Router);
 
   private addRequests = new SubSink();
 
@@ -46,6 +48,8 @@ export class CreateMemberComponent implements OnDestroy {
       .subscribe({
         next: () => {
           this.MemberFormComponent.reset();
+          this.router.navigate(['/member/list']);
+
           this.notif.updateToast({
             text: 'Member added',
             id: 'add-member',

@@ -1,7 +1,8 @@
-import { and, eq, sql } from 'drizzle-orm';
+import { and, count, desc, eq, sql, sum } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_member,
+  TB_memberAttendance,
   TB_memberPlan,
   TB_plan,
   TB_user,
@@ -49,12 +50,7 @@ class MemberService {
   }
 
   getByID(id: Member['id']) {
-    return db
-      .select()
-      .from(TB_member)
-      .where(eq(TB_member.id, id))
-      .leftJoin(TB_memberPlan, eq(TB_member.id, TB_memberPlan.memberID))
-      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id));
+    return db.select().from(TB_member).where(eq(TB_member.id, id));
   }
 
   getByEmail(email: Member['email']) {
@@ -76,7 +72,39 @@ class MemberService {
           eq(TB_memberPlan.memberID, memberID),
           sql`${TB_memberPlan.endDate} > CURRENT_TIMESTAMP`,
         ),
+      )
+      .orderBy(desc(TB_memberPlan.id))
+      .limit(1);
+  }
+
+  getMembershipByMemberID(memberID: TMemberPlan['memberID']) {
+    return db
+      .select()
+      .from(TB_memberPlan)
+      .where(eq(TB_memberPlan.memberID, memberID))
+      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id));
+  }
+
+  getMemberShipCountByMemberID(memberID: TMemberPlan['memberID']) {
+    return db
+      .select({ count: count() })
+      .from(TB_memberPlan)
+      .where(eq(TB_memberPlan.memberID, memberID));
+  }
+
+  getMemberTotalSpent(memberID: Member['id']) {
+    return db
+      .select({ amount: sum(TB_plan.amount) })
+      .from(TB_memberPlan)
+      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
+      .groupBy(sql`${TB_memberPlan.memberID}, ${TB_memberPlan.paid}`)
+      .having(
+        and(eq(TB_memberPlan.memberID, memberID), eq(TB_memberPlan.paid, true)),
       );
+  }
+
+  createMemberAttendance(payload: typeof TB_memberAttendance.$inferInsert) {
+    return db.insert(TB_memberAttendance).values(payload).returning();
   }
 }
 

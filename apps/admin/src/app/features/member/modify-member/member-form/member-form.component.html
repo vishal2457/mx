@@ -20,23 +20,29 @@
       </div>
     }
     <mx-input label="Name" [control]="formControls.name" />
-    <mx-input-number label="age" [control]="formControls.age" />
+    @if (formControls.age) {
+      <mx-input-number label="age" [control]="formControls.age" />
+    }
     <mx-select
       label="Gender"
       [control]="formControls.gender"
       [items]="GENDER"
     />
     <mx-input label="Mobile" [control]="formControls.mobile" />
-    <mx-input-number
-      label="Height"
-      [control]="formControls.height"
-      type="number"
-    />
-    <mx-input-number
-      label="Weight"
-      [control]="formControls.weight"
-      type="number"
-    />
+    @if (formControls.height) {
+      <mx-input-number
+        label="Height"
+        [control]="formControls.height"
+        type="number"
+      />
+    }
+    @if (formControls.weight) {
+      <mx-input-number
+        label="Weight"
+        [control]="formControls.weight"
+        type="number"
+      />
+    }
     <mx-input label="Email" [control]="formControls.email" />
     <mx-input
       label="Emergency Contact"
@@ -49,7 +55,13 @@
       bindLabel="name"
       bindValue="id"
     />
-    <mx-input label="Join Date" type="date" [control]="formControls.joinDate" />
+    @if (formControls.joinDate) {
+      <mx-input
+        label="Join Date"
+        type="date"
+        [control]="formControls.joinDate"
+      />
+    }
   </div>
   <mx-textarea [control]="formControls.address" label="Address" />
 </mx-form>
@@ -81,32 +93,3 @@
     </mx-dialog-footer>
   </mx-dialog-content>
 </ng-template>
-
-@if (formType === 'update') {
-  <div class="mt-4"></div>
-  <mx-data-grid
-    gridTitle="Plan History"
-    [data]="memberPlan"
-    maxHeight="200"
-    minHeight="200"
-  >
-    <mx-toolbar
-      name="Add Membership"
-      icon="add"
-      (handleClick)="openAddNewMemberShip()"
-    />
-
-    <mx-column field="planName" title="Plan" />
-    <mx-column field="amount" />
-    <mx-column field="startDate" title="Start Date">
-      <ng-template #cell let-item>
-        {{ item.startDate | date: 'mediumDate' }}
-      </ng-template>
-    </mx-column>
-    <mx-column field="endDate" title="End Date">
-      <ng-template #cell let-item>
-        {{ item.endDate | date: 'mediumDate' }}
-      </ng-template>
-    </mx-column>
-  </mx-data-grid>
-}
