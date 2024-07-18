@@ -14,6 +14,8 @@ import {
   TB_rolePermission,
   TB_user,
   TB_memberPlan,
+  TB_bodyPart,
+  TB_exercise,
 } from '../../../../libs/mx-schema/src';
 import { APP_SETTINGS } from '../shared/app-settings';
 import { logger } from '../shared/logger/logger';
@@ -56,6 +58,8 @@ export const db = drizzle(pool, {
     TB_plan,
     TB_rolePermission,
     TB_memberPlan,
+    TB_bodyPart,
+    TB_exercise,
     // ADD NEW DB SCHEMA
   },
 });

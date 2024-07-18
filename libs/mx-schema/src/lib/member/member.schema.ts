@@ -1,5 +1,4 @@
 import {
-  boolean,
   integer,
   pgEnum,
   pgTable,
@@ -34,7 +33,7 @@ export const TB_member = pgTable('member', {
   userID: integer('userID').notNull(),
   joinDate: varchar('joinDate').notNull(),
   profilePic: text('profilePic'),
-  passcode: varchar('passcode', { length: 4 }).notNull(),
+  passcode: varchar('passcode', { length: 255 }).notNull(),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').$onUpdate(() => new Date()),
 });

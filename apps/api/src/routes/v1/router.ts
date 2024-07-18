@@ -46,6 +46,10 @@ import { member } from './member';
 import { memberAttendance } from './member-attendance';
 import getAllUserApi from './user/get-all-user.api';
 
+import { bodyPart } from './body-part';
+
+import { exercise } from './exercise';
+
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -111,7 +115,9 @@ routerv1
   .use('/organisation', organisation)
   .use('/plan', plan)
   .use('/member', member)
-  .use('/member-attendance', memberAttendance);
+  .use('/member-attendance', memberAttendance)
+  .use('/body-part', bodyPart)
+  .use('/exercise', exercise);
 // APPEND API ROUTES
 
 export default routerv1;

@@ -16,6 +16,9 @@ export * from './lib/member/member.schema';
 export * from './lib/member/member-attendance.schema';
 export * from './lib/member/member-plan.schema';
 export * from './lib/member/member-metric-history.schema';
+export * from './lib/workout/exercise.schema';
+export * from './lib/workout/body-part.schema';
+export * from './lib/workout/exercise-body.schema';
 
 // zod utils
 export * from './lib/_zod-utils/v-pagination';
