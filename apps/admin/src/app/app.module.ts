@@ -19,6 +19,7 @@ import { MxDropdownModule } from './shared/ui/dropdown/dropdown.module';
 import { MxIconComponent } from './shared/ui/icon';
 import { MxButtonComponent } from './shared/ui/button';
 import { MxInputComponent } from './shared/ui/form/mx-input';
+import { MxProgressbarComponent } from './shared/ui/progress-bar/progress-bar';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MxInputComponent } from './shared/ui/form/mx-input';
     MxIconComponent,
     MxDropdownModule,
     MxInputComponent,
+    MxProgressbarComponent,
     GbNotificationModule.forRoot(),
   ],
   providers: [
