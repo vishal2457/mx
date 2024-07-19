@@ -3,34 +3,39 @@ import { NgProgressComponent, NgProgressModule } from 'ngx-progressbar';
 import { config } from './types';
 
 @Component({
-    selector: 'mx-progressbar',
-    template: `
-    <ng-progress #mxProgress
-        [color]="progressConfig.color" 
-        [spinner]="progressConfig.spinner" 
-        [spinnerPosition]="progressConfig.spinnerPosition" 
-        [direction]="progressConfig.direction"
-        [speed]="progressConfig.speed" 
+  selector: 'mx-progressbar',
+  template: `
+    <ng-progress
+      #mxProgress
+      [color]="progressConfig.color"
+      [spinner]="progressConfig.spinner"
+      [spinnerPosition]="progressConfig.spinnerPosition"
+      [direction]="progressConfig.direction"
+      [speed]="progressConfig.speed"
     />
   `,
-    standalone: true,
-    imports: [NgProgressModule]
+  standalone: true,
+  imports: [NgProgressModule],
 })
 export class MxProgressbarComponent {
+  @ViewChild(NgProgressComponent) progress!: NgProgressComponent;
+  progressConfig: config = {
+    color: 'red',
+    spinner: true,
+    spinnerPosition: 'right',
+    direction: 'ltr+',
+    speed: 500,
+  };
 
-    @ViewChild(NgProgressComponent) progress!: NgProgressComponent;
-    progressConfig: config = { color: 'red', spinner: false, spinnerPosition: 'left', direction: 'ltr+', speed: 500 };;
+  startLoading() {
+    this.progress.start();
+  }
 
-    startLoading() {
-        this.progress.start();
-    }
+  stopLoading() {
+    this.progress.complete();
+  }
 
-    stopLoading() {
-        this.progress.complete();
-    }
-
-    configureProgress(config: config) {
-        this.progressConfig = config;
-    }
-
+  configureProgress(config: config) {
+    this.progressConfig = config;
+  }
 }
