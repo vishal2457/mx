@@ -87,7 +87,16 @@ const routes: Routes = [
             (m) => m.MemberModule
           ),
       },
+      {
+        path: "workout-template",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/workout-template/workout-template.module").then(
+            (m) => m.WorkoutTemplateModule
+          ),
+      },
 // APPEND ANGULAR ROUTES
+
 
 
 

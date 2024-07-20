@@ -21,10 +21,10 @@
     }
     <mx-input label="Name" [control]="formControls.name" />
     <mx-select
-    label="Gender"
-    [control]="formControls.gender"
-    [items]="GENDER"
-  />
+      label="Gender"
+      [control]="formControls.gender"
+      [items]="GENDER"
+    />
     @if (formControls.age) {
       <mx-input-number label="age" [control]="formControls.age" />
     }
@@ -45,6 +45,13 @@
     }
     <mx-input label="Mobile" [control]="formControls.mobile" />
     <mx-input label="Email" [control]="formControls.email" />
+    <mx-select
+      apiURL="/workout-template/all"
+      bindLabel="name"
+      bindValue="id"
+      label="Workout Template"
+      [control]="formControls.workoutTemplateID"
+    />
     <mx-input
       label="Emergency Contact"
       [control]="formControls.emergencyContact"

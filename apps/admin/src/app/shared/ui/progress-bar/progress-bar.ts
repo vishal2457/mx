@@ -19,12 +19,13 @@ import { config } from './types';
 })
 export class MxProgressbarComponent {
   @ViewChild(NgProgressComponent) progress!: NgProgressComponent;
-  progressConfig: config = {
+  progressConfig: any = {
     color: 'red',
     spinner: true,
     spinnerPosition: 'right',
     direction: 'ltr+',
-    speed: 500,
+    speed: 300,
+    thick: true,
   };
 
   startLoading() {

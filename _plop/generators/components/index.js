@@ -36,7 +36,7 @@ module.exports = {
       type: 'list',
       name: 'generator',
       message: 'What do you want to generate',
-      choices: ['crud', 'crud-api-only'],
+      choices: ['crud', 'crud-api-only', 'crud-angular-only'],
     },
   ],
   actions: (data) => {
@@ -65,6 +65,8 @@ module.exports = {
 
     if (data.generator === 'crud-api-only') {
       return getApiActions(schemaDefinition);
+    } else if (data.generator === 'crud-angular-only') {
+      return getAngularActions(schemaDefinition);
     }
     return getAllActions(schemaDefinition);
   },
@@ -157,6 +159,13 @@ function getApiActions(schemaDefinition) {
       path: '../../apps/api/src/routes/v1/router.ts',
       pattern: /(\/\/ IMPORT GENERATED FILES)/g,
       templateFile: './components/express/import-routes.ts.hbs',
+    },
+    // add tb instance to db
+    {
+      type: 'modify',
+      path: '../../apps/api/src/routes/v1/router.ts',
+      pattern: /(\/\/ ADD NEW DB SCHEMA)/g,
+      template: '\t{{dbSchema}},\n$1',
     },
   ];
 }

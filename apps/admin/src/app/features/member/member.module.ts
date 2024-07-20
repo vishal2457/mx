@@ -18,7 +18,7 @@ import { MxGridToolbarComponent } from '../../shared/ui/mx-data-grid/components/
 import { MxBadgeComponent } from '../../shared/ui/badge';
 import { MxDialogModule } from '../../shared/ui/dialog/dialog.module';
 import { MxInputNumberComponent } from '../../shared/ui/form/mx-input-number';
-import { MxSelectComponent } from '../../shared/ui/form/mx-select';
+import { MxSelectComponent } from '../../shared/ui/form/mx-select/mx-select';
 import { MemberListComponent } from './member-list/member-list.component';
 import { MemberRoutingModule } from './member-routing.module';
 import { CreateMemberComponent } from './modify-member/create-member.component';

@@ -3,7 +3,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Component, OnDestroy, OnInit, QueryList, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MxButtonComponent } from '../../ui/button';
-import { MxSelectComponent } from '../../ui/form/mx-select';
+import { MxSelectComponent } from '../../ui/form/mx-select/mx-select';
 import { MxInputComponent } from '../../ui/form/mx-input';
 import { FilterService } from './filter.service';
 import { FilterType } from './types';
@@ -125,7 +125,7 @@ export class GbFilterPanelComponent implements OnInit, OnDestroy {
     this.subs.sink = this.filterService.filterData$.subscribe((filterData) => {
       const data = filterData.reduce(
         (a, v) => ({ ...a, [v.field]: v.value }),
-        {}
+        {},
       );
       this.filterForm.patchValue(data);
     });

@@ -5,15 +5,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ApiService } from '../../services/api.service';
-import { FormBaseComponent } from './base-form';
+import { ApiService } from '../../../services/api.service';
+import { FormBaseComponent } from '../base-form';
 import { NgFor, NgIf } from '@angular/common';
-import { MxHintComponent } from '../hint';
+import { MxHintComponent } from '../../hint';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormControlPipe } from '../../pipe/form-control';
+import { FormControlPipe } from '../../../pipe/form-control';
 import { Subject } from 'rxjs';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { MxFormErrorComponent } from './form-error';
+import { MxFormErrorComponent } from '../form-error';
 
 @Component({
   selector: 'mx-select',
@@ -29,6 +29,7 @@ import { MxFormErrorComponent } from './form-error';
     FormControlPipe,
     MxFormErrorComponent,
   ],
+  styleUrl: './mx-select.scss',
   template: `
     <div>
       @if (label) {

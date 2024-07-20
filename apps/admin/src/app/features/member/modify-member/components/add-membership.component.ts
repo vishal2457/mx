@@ -10,7 +10,7 @@ import { MxButtonComponent } from '../../../../shared/ui/button';
 import { MxDialogModule } from '../../../../shared/ui/dialog/dialog.module';
 import { patchableDate } from '../../../../shared/utils/patchable-date';
 import { MxInputComponent } from '../../../../shared/ui/form/mx-input';
-import { MxSelectComponent } from '../../../../shared/ui/form/mx-select';
+import { MxSelectComponent } from '../../../../shared/ui/form/mx-select/mx-select';
 import { ApiService } from '../../../../shared/services/api.service';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 

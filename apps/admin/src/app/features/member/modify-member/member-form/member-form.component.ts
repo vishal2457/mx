@@ -16,7 +16,7 @@ import {
   Z_member,
 } from '../../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../../shared/services/api.service';
-import { MxSelectComponent } from '../../../../shared/ui/form/mx-select';
+import { MxSelectComponent } from '../../../../shared/ui/form/mx-select/mx-select';
 import { MxNotification } from '../../../../shared/ui/notification/notification.service';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 import { patchableDate } from '../../../../shared/utils/patchable-date';
@@ -86,6 +86,10 @@ export class MemberFormComponent implements OnInit, OnDestroy {
       nonNullable: true,
     }),
     gender: new FormControl(null, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    workoutTemplateID: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,
     }),

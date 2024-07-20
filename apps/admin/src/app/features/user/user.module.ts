@@ -19,7 +19,7 @@ import { CreateUserComponent } from './modify-user/create-user.component';
 import { UpdateUserComponent } from './modify-user/update-user.component';
 import { UserRoutingModule } from './user-routing.module';
 import { MxInputPasswordComponent } from '../../shared/ui/form/mx-input-password';
-import { MxSelectComponent } from '../../shared/ui/form/mx-select';
+import { MxSelectComponent } from '../../shared/ui/form/mx-select/mx-select';
 
 @NgModule({
   declarations: [

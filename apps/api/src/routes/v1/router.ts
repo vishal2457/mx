@@ -50,6 +50,8 @@ import { bodyPart } from './body-part';
 
 import { exercise } from './exercise';
 
+import { workoutTemplate } from './workout-template';
+
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -117,7 +119,8 @@ routerv1
   .use('/member', member)
   .use('/member-attendance', memberAttendance)
   .use('/body-part', bodyPart)
-  .use('/exercise', exercise);
+  .use('/exercise', exercise)
+  .use('/workout-template', workoutTemplate);
 // APPEND API ROUTES
 
 export default routerv1;

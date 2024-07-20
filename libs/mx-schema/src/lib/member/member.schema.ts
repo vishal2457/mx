@@ -11,6 +11,7 @@ import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 import { qs } from '../_zod-utils/parser';
 import { TB_organisation } from '../organisation/organisation.schema';
+import { TB_workoutTemplate } from '../workout/workout-template.schema';
 
 export const GENDERS = ['Male', 'Female'] as const;
 
@@ -34,6 +35,9 @@ export const TB_member = pgTable('member', {
   joinDate: varchar('joinDate').notNull(),
   profilePic: text('profilePic'),
   passcode: varchar('passcode', { length: 255 }).notNull(),
+  workoutTemplateID: integer('workoutTemplateID')
+    .notNull()
+    .references(() => TB_workoutTemplate.id),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').$onUpdate(() => new Date()),
 });

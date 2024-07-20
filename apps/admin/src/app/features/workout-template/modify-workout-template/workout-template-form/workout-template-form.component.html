@@ -1,0 +1,35 @@
+<mx-form [form]="workoutTemplateForm" [zodSchema]="Z_workoutTemplate">
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+    <mx-input label="Name" [control]="formControls.name" />
+    <mx-input label="Description" [control]="formControls.description" />
+    <mx-select
+      label="Target"
+      [items]="targetEnums"
+      [control]="formControls.target"
+    />
+    <mx-select
+      label="Intensity"
+      [items]="intensityEnums"
+      [control]="formControls.intensity"
+    />
+    <mx-input
+      label="Approx Calorie burn"
+      [control]="formControls.approxCalorieBurn"
+      type="number"
+    />
+    <mx-input
+      label="Approx time to complete"
+      [control]="formControls.approxCalorieBurn"
+      type="number"
+      [hints]="['Enter time in minutes, eg: 45 or 80']"
+    />
+    <mx-checkbox [control]="formControls.active" label="Active" />
+  </div>
+
+  <div mxCard class="my-4">
+    <div mxCardHeader>
+      <div mxCardtitle>Workout Details</div>
+    </div>
+    <div mxCardContent></div>
+  </div>
+</mx-form>

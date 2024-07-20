@@ -24,8 +24,9 @@ class ExerciseService {
     return getTotalCount(TB_exercise);
   }
 
-  createExercise(payload: typeof TB_exercise.$inferInsert) {
-    return db.insert(TB_exercise).values(payload).returning();
+  createExercise(payload: typeof TB_exercise.$inferInsert, tx?: any) {
+    const ex = tx || db;
+    return ex.insert(TB_exercise).values(payload).returning();
   }
 
   updateExercise(
@@ -49,8 +50,9 @@ class ExerciseService {
     });
   }
 
-  addExerciseBody(exerciseBody: TExerciseBody[]) {
-    return db.insert(TB_exerciseBody).values(exerciseBody);
+  addExerciseBody(exerciseBody: TExerciseBody[], tx?: any) {
+    const ex = tx || db;
+    return ex.insert(TB_exerciseBody).values(exerciseBody);
   }
 }
 

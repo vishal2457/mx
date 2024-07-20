@@ -1,4 +1,11 @@
-import { integer, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  integer,
+  pgEnum,
+  pgTable,
+  serial,
+  text,
+} from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 
 export const TEMPLATE_TARGET = [
@@ -23,6 +30,7 @@ export const TB_workoutTemplate = pgTable('workoutTemplate', {
   intensity: workoutIntensityEnum('intensity').default('Moderate'),
   approxCalorieBurn: integer('approxCalorieBurn').notNull(),
   approxTimeToCompleteInM: integer('approxTimeToCompleteInM').default(45),
+  active: boolean('active').default(true),
 });
 
 export const Z_workoutTemplate = createSelectSchema(TB_workoutTemplate);
