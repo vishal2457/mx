@@ -14,15 +14,18 @@ export default Router().post(
   '/create',
   validate({
     body: createInsertSchema(TB_exercise).merge(
-      z.object({ exerciseBody: Z_exerciseBody.array() }),
+      z.object({ bodyPartID: z.number().array() }),
     ),
   }),
   async (req, res) => {
     await db.transaction(async (tx) => {
       try {
-        const { exerciseBody, ...rest } = req.body;
-        const result = await exerciseService.createExercise(rest, tx);
-        await exerciseService.addExerciseBody(exerciseBody, tx);
+        const { bodyPartID, ...rest } = req.body;
+        const [result] = await exerciseService.createExercise(rest, tx);
+        await exerciseService.addExerciseBody(
+          bodyPartID.map((i) => ({ exerciseID: result.id, bodyPartID: i })),
+          tx,
+        );
         success(res, result, 'success');
       } catch (error) {
         tx.rollback();

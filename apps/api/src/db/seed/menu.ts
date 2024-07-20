@@ -10,6 +10,11 @@ export const seedMenu = [
     link: '/member/list',
   },
   {
+    name: 'Exercise',
+    icon: 'group',
+    link: '/exercise/list',
+  },
+  {
     name: 'Workout',
     icon: 'group',
     link: '/workout-template/list',

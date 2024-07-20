@@ -23,7 +23,7 @@ export class PaginationService {
     this.collectionSize$,
     this.selectedLimit$,
   ]).pipe(
-    map(([page, collectionSize, limit]) => ({ page, collectionSize, limit }))
+    map(([page, collectionSize, limit]) => ({ page, collectionSize, limit })),
   );
 
   updateSelectedLimit(limit: number) {

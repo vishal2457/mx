@@ -1,0 +1,22 @@
+<mx-form [form]="exerciseForm" [zodSchema]="Z_exercise">
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+    <div class="flex gap-2 items-center">
+      <mx-select
+        apiURL="/body-part/all"
+        [control]="formControls.bodyPartID"
+        label="Body Part"
+        [hints]="['Select body parts targeted by this exercise']"
+        bindLabel="name"
+        bindValue="id"
+        [multiple]="true"
+        class="flex-1"
+      />
+      <mx-button variant="outline" (handleClick)="openAddBodyPart()" ><mx-icon icon="add" /></mx-button>
+    </div>
+
+    <mx-input label="Name" [control]="formControls.name" />
+    <mx-input label="Description" [control]="formControls.description" />
+    <mx-select label="Level" [control]="formControls.level" [items]="exerciseLevel" />
+    <mx-input label="Reference URL" [control]="formControls.referenceURL" />
+  </div>
+</mx-form>

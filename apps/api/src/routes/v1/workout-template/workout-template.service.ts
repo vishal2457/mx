@@ -57,8 +57,9 @@ class WorkoutTemplateService {
     });
   }
 
-  addWorkoutDetails(workoutDetails: WorkoutDetailsInsert) {
-    return db.insert(TB_workoutTemplateDetail).values(workoutDetails);
+  addWorkoutDetails(workoutDetails: WorkoutDetailsInsert, tx?: any) {
+    const ex = tx || db;
+    return ex.insert(TB_workoutTemplateDetail).values(workoutDetails);
   }
 }
 

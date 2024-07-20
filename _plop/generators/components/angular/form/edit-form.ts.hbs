@@ -46,7 +46,7 @@ export class Update{{properCase name}}Component implements OnInit, OnDestroy {
   }
 
   private fetch{{properCase name}}Details(id: string) {
-    this.api.get<T{{properCase name}}>(`/{{name}}/${id}`).subscribe(({ data }) => {
+    this.api.get<T{{properCase name}}>(`/{{name}}/detail/${id}`).subscribe(({ data }) => {
        this.{{name}}FormComponent.patchValue(data);
     });
   }

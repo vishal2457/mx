@@ -40,7 +40,7 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
 
   private fetchWorkoutTemplateDetails(id: string) {
     this.api
-      .get<TWorkoutTemplate>(`/workoutTemplate/${id}`)
+      .get<TWorkoutTemplate>(`/workout-template/detail/${id}`)
       .subscribe(({ data }) => {
         this.workoutTemplateFormComponent.patchValue(data);
       });

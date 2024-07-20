@@ -3,8 +3,9 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 dotenv.config({ path: `${process.cwd()}/.env` });
 
 import { Pool } from 'pg';
-import { TB_menu } from '../../../../../libs/mx-schema/src';
+import { TB_exercise, TB_menu } from '../../../../../libs/mx-schema/src';
 import { seedMenu } from './menu';
+import { exerciseData } from './exersice';
 
 const pool = new Pool({
   host: process.env.NODE_HOST,
@@ -21,6 +22,12 @@ async function seed() {
 
   await db.delete(TB_menu);
   await db.insert(TB_menu).values(seedMenu);
+
+  await db.delete(TB_exercise);
+  await db.insert(TB_exercise).values(exerciseData);
+
+  // await db.delete(TB_bodyPart);
+  // await db.insert(TB_bodyPart).values(bodyPartsData);
 
   // await db
   //   .insert(TB_organisation)

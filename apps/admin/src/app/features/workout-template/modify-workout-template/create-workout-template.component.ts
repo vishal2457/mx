@@ -41,10 +41,10 @@ export class CreateWorkoutTemplateComponent implements OnDestroy {
     });
 
     this.addRequests.sink = this.api
-      .post(
-        '/workoutTemplate/create',
-        this.WorkoutTemplateFormComponent.getFormValue(),
-      )
+      .post('/workout-template/create', {
+        ...this.WorkoutTemplateFormComponent.getFormValue(),
+        workoutDetails: this.WorkoutTemplateFormComponent.workoutDetailData,
+      })
       .subscribe({
         next: () => {
           this.WorkoutTemplateFormComponent.reset();

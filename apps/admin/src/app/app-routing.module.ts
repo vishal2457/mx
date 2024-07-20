@@ -95,7 +95,16 @@ const routes: Routes = [
             (m) => m.WorkoutTemplateModule
           ),
       },
+      {
+        path: "exercise",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/exercise/exercise.module").then(
+            (m) => m.ExerciseModule
+          ),
+      },
 // APPEND ANGULAR ROUTES
+
 
 
 

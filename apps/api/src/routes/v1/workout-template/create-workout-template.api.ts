@@ -15,22 +15,24 @@ export default Router().post(
   validate({
     body: createInsertSchema(TB_workoutTemplate).merge(
       z.object({
-        workoutDetails: createInsertSchema(TB_workoutTemplateDetail).array(),
+        workoutDetails: createInsertSchema(TB_workoutTemplateDetail)
+          .omit({ workoutTemplateID: true })
+          .array(),
       }),
     ),
   }),
   async (req, res) => {
     await db.transaction(async (tx) => {
       const { workoutDetails, ...rest } = req.body;
-      const result = await workoutTemplateService.createWorkoutTemplate(
+      const [result] = await workoutTemplateService.createWorkoutTemplate(
         rest,
         tx,
       );
       const workoutDetailPayload = workoutDetails.map((i) => ({
         ...i,
-        wokroutTemplateID: result[0].id,
+        workoutTemplateID: result.id,
       }));
-      await workoutTemplateService.addWorkoutDetails(workoutDetailPayload);
+      await workoutTemplateService.addWorkoutDetails(workoutDetailPayload, tx);
       success(res, result, 'success');
     });
   },

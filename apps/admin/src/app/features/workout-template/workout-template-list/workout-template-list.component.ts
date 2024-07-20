@@ -3,41 +3,46 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'workout-template-list',
-  template: `
-  <page-header header="workoutTemplate" [showCancel]="false">
-      <mx-button  (handleClick)="create()">
+  template: ` <page-header header="Workout Templates" [showCancel]="false">
+      <mx-button (handleClick)="create()">
         <span class="flex items-center">
-          <p>Add workoutTemplate</p>
+          <p>Add Workout Template</p>
         </span>
       </mx-button>
     </page-header>
-  <mx-grid-shell gridTitle="workoutTemplates" apiURL="/workout-template/list">
-    <!-- columns -->
-      <mx-column field="id"  />
-      <mx-column field="name"  />
-      <mx-column field="description"  />
-      <mx-column field="target"  />
-      <mx-column field="intensity"  />
-      <mx-column field="approxCalorieBurn"  />
-      <mx-column field="approxTimeToCompleteInM"  />
-      <mx-column field="active"  />
-    <!-- columns -->
+    <mx-grid-shell
+      gridTitle="Workout Templates"
+      apiURL="/workout-template/list"
+    >
+      <!-- columns -->
+      <mx-column field="id" />
+      <mx-column field="name" />
+      <mx-column field="description" />
+      <mx-column field="target" />
+      <mx-column field="intensity" />
+      <mx-column field="approxCalorieBurn" />
+      <mx-column field="approxTimeToCompleteInM" />
+      <mx-column field="active" />
+      <!-- columns -->
 
-    <!-- filters -->
-      <mx-grid-filter label="Id" field="id"  />
-      <mx-grid-filter label="Name" field="name"  />
-      <mx-grid-filter label="Description" field="description"  />
-      <mx-grid-filter label="Target" field="target"  />
-      <mx-grid-filter label="Intensity" field="intensity"  />
-      <mx-grid-filter label="ApproxCalorieBurn" field="approxCalorieBurn"  />
-      <mx-grid-filter label="ApproxTimeToCompleteInM" field="approxTimeToCompleteInM"  />
-      <mx-grid-filter label="Active" field="active"  />
-    <!-- filters -->
+      <!-- filters -->
+      <mx-grid-filter label="Id" field="id" />
+      <mx-grid-filter label="Name" field="name" />
+      <mx-grid-filter label="Description" field="description" />
+      <mx-grid-filter label="Target" field="target" />
+      <mx-grid-filter label="Intensity" field="intensity" />
+      <mx-grid-filter label="ApproxCalorieBurn" field="approxCalorieBurn" />
+      <mx-grid-filter
+        label="ApproxTimeToCompleteInM"
+        field="approxTimeToCompleteInM"
+      />
+      <mx-grid-filter label="Active" field="active" />
+      <!-- filters -->
 
-    <!-- actions -->
+      <!-- actions -->
       <mx-action icon="edit" (handleClick)="edit($event)" text="Edit" />
-    <!-- actions -->
-  </mx-grid-shell>`,
+      <!-- actions -->
+    </mx-grid-shell>`,
 })
 export class WorkoutTemplateListComponent {
   private router = inject(Router);

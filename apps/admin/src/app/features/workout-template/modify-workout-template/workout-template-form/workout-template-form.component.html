@@ -12,24 +12,33 @@
       [items]="intensityEnums"
       [control]="formControls.intensity"
     />
-    <mx-input
+    <mx-input-number
       label="Approx Calorie burn"
       [control]="formControls.approxCalorieBurn"
       type="number"
     />
-    <mx-input
+    <mx-input-number
       label="Approx time to complete"
-      [control]="formControls.approxCalorieBurn"
+      [control]="formControls.approxTimeToCompleteInM"
       type="number"
       [hints]="['Enter time in minutes, eg: 45 or 80']"
     />
     <mx-checkbox [control]="formControls.active" label="Active" />
   </div>
 
-  <div mxCard class="my-4">
-    <div mxCardHeader>
-      <div mxCardtitle>Workout Details</div>
-    </div>
-    <div mxCardContent></div>
-  </div>
-</mx-form>
+
+  <div class="my-4"></div>
+  <mx-data-grid [data]="workoutDetailData" gridTitle="Workout Detail" >
+    <mx-toolbar
+    icon="add"
+    name="Add Workout"
+    (handleClick)="openAddWorkoutDetail()"
+  />
+    <mx-column field="exerciseName" />
+    <mx-column field="set" />
+    <mx-column field="reps" />
+
+    <mx-action icon="edit" (handleClick)="openAddWorkoutDetail($event, true)" text="Edit" />
+    <mx-action icon="delete" text="Delete" />
+
+  </mx-data-grid>

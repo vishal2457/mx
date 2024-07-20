@@ -1,7 +1,7 @@
 import { pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 
-export const EXERCISE_LEVEL = ['Advance', 'Intermediate', 'Begineer'] as const;
+export const EXERCISE_LEVEL = ['Advanced', 'Intermediate', 'Beginner'] as const;
 export const levelEnum = pgEnum('level', EXERCISE_LEVEL);
 
 export const TB_exercise = pgTable('exercise', {

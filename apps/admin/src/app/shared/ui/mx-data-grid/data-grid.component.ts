@@ -52,8 +52,8 @@ export class MxDataGridComponent
   @Input() gridTitle = '';
   @Input() hideFeatures: HideFeatures = [];
   @Input() selectable = false;
-  @Input({ required: true }) maxHeight!: string;
-  @Input({ required: true }) minHeight!: string;
+  @Input() maxHeight!: string;
+  @Input() minHeight!: string;
 
   @Output() emitEvents = new EventEmitter<any>();
   @Output() sortChange = new EventEmitter();

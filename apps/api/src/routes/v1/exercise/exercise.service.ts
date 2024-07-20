@@ -32,8 +32,10 @@ class ExerciseService {
   updateExercise(
     payload: Partial<typeof TB_exercise.$inferInsert>,
     id: Exercise['id'],
+    tx: any,
   ) {
-    return db
+    const ex = db || tx;
+    return ex
       .update(TB_exercise)
       .set(payload)
       .where(eq(TB_exercise.id, id))
@@ -45,14 +47,21 @@ class ExerciseService {
   }
 
   getByID(id: Exercise['id']) {
-    return db.query.TB_exercise.findFirst({
-      where: eq(TB_exercise.id, id),
-    });
+    return db
+      .select()
+      .from(TB_exercise)
+      .leftJoin(TB_exerciseBody, eq(TB_exercise.id, TB_exerciseBody.exerciseID))
+      .where(eq(TB_exercise.id, id));
   }
 
   addExerciseBody(exerciseBody: TExerciseBody[], tx?: any) {
     const ex = tx || db;
     return ex.insert(TB_exerciseBody).values(exerciseBody);
+  }
+
+  deleteExerciseBody(id: Exercise['id'], tx?: any) {
+    const ex = tx || db;
+    return ex.delete(TB_exerciseBody).where(eq(TB_exerciseBody.exerciseID, id));
   }
 }
 

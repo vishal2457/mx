@@ -51,6 +51,7 @@ import { FilterService } from './filters/filter.service';
     [maxHeight]="maxHeight"
     (sortChange)="handleSort($event)"
     (limitChange)="handleLimitChange($event)"
+    (pageChange)="handlePageChange($event)"
   >
     @for (tool of toolbar; track tool.name) {
       <mx-toolbar
@@ -192,6 +193,11 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
 
   protected handleLimitChange(limit) {
     this.gridEvents = { ...this.gridEvents, limit };
+    this._getData();
+  }
+
+  protected handlePageChange(page) {
+    this.gridEvents = { ...this.gridEvents, page };
     this._getData();
   }
 

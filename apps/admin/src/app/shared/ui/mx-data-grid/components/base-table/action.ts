@@ -1,13 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ContentChild,
   EventEmitter,
   Input,
   Output,
-  TemplateRef,
 } from '@angular/core';
-import { GridColumnsComponent } from './columns';
 
 @Component({
   selector: 'mx-action',
