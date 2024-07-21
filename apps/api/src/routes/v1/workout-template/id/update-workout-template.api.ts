@@ -7,7 +7,7 @@ import {
 } from '../../../../../../../libs/mx-schema/src';
 import { createInsertSchema } from 'drizzle-zod';
 import { workoutTemplateService } from '../workout-template.service';
-
+import { db } from '../../../../db/db';
 
 export default Router().put(
   '/update/:id',
@@ -16,7 +16,23 @@ export default Router().put(
     params: v_param_id,
   }),
   async (req, res) => {
-    const result = await workoutTemplateService.updateWorkoutTemplate(req.body, req.params.id);
-    success(res, result, 'updated');
-  }
+    await db.transaction(async (tx) => {
+      const { workoutDetails, ...rest } = req.body;
+      const [result] = await workoutTemplateService.updateWorkoutTemplate(
+        rest,
+        req.params.id,
+        tx,
+      );
+      await workoutTemplateService.deleteWorkoutTemplateDetails(
+        req.params.id,
+        tx,
+      );
+      const workoutDetailPayload = workoutDetails.map((i) => ({
+        ...i,
+        workoutTemplateID: result.id,
+      }));
+      await workoutTemplateService.addWorkoutDetails(workoutDetailPayload, tx);
+      success(res, result, 'success');
+    });
+  },
 );

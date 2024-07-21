@@ -8,6 +8,8 @@ import { MemberFormComponent } from '../member-form/member-form.component';
 import { Dialog } from '@angular/cdk/dialog';
 import { AddMembershipDialogComponent } from '../components/add-membership.component';
 import { MxGridShellComponent } from '../../../../shared/grid-shell/grid-shell';
+import { calculateBMI } from '../../../../../../../../libs/helpers/src';
+import * as echarts from 'echarts';
 
 @Component({
   selector: 'edit-member',
@@ -25,12 +27,13 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
   private dialog = inject(Dialog);
 
   memberID!: string;
-  memberData: TMember | undefined;
+  memberData: (TMember & { bmi: string }) | undefined;
   totalSpent!: number;
   private requests = new SubSink();
   private subs = new SubSink();
 
   ngOnInit(): void {
+    // this.renderBmiChart();
     this.memberID = this.route.snapshot.params['id'];
     this.fetchMemberDetails(this.memberID);
   }
@@ -38,6 +41,65 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.requests.unsubscribe();
     this.subs.unsubscribe();
+  }
+
+  private renderBmiChart() {
+    const option = {
+      series: [
+        {
+          type: 'gauge',
+          axisLine: {
+            lineStyle: {
+              width: 2,
+              color: [
+                [18.5, '#67e0e3'],
+                [25, '#37a2da'],
+                [40, '#fd666d'],
+              ],
+            },
+          },
+          pointer: {
+            itemStyle: {
+              color: 'auto',
+            },
+          },
+          axisTick: {
+            distance: -30,
+            length: 8,
+            lineStyle: {
+              color: '#fff',
+              width: 2,
+            },
+          },
+          splitLine: {
+            distance: -60,
+            length: 10,
+            lineStyle: {
+              color: '#fff',
+              width: 4,
+            },
+          },
+          axisLabel: {
+            color: 'inherit',
+            distance: 40,
+            fontSize: 5,
+          },
+          detail: {
+            valueAnimation: true,
+            formatter: '{value}',
+            color: 'inherit',
+            fontSize: 15,
+          },
+          data: [
+            {
+              value: 21.75,
+            },
+          ],
+        },
+      ],
+    };
+    const myChart = echarts.init(document.getElementById('bmi-gauge'));
+    myChart.setOption(option);
   }
 
   private fetchMemberDetails(id: string) {
@@ -48,7 +110,10 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
       }>(`/member/${id}`)
       .subscribe(({ data }) => {
         const details = data.details;
-        this.memberData = details;
+        this.memberData = {
+          ...details,
+          bmi: calculateBMI(details.height, details.weight).toFixed(2),
+        };
         this.memberFormComponent.patchValue(details);
         this.totalSpent = parseFloat(data.memberTotalSpent?.amount);
       });

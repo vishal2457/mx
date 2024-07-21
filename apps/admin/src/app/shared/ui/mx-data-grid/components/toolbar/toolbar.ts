@@ -14,17 +14,17 @@ import { ToolbarService } from '../../services/toolbar.service';
       role="toolbar"
       aria-label="Toolbar with button groups"
     >
-      <p class="font-semibold lg:text-2xl md:text-sm pb-4">
+      <p class="font-semibold lg:text-xl md:text-sm pb-4">
         {{ meta.gridTitle$ | async }}
       </p>
       <div class="flex">
         <mx-btn-group-container>
           @for (tool of toolbarService.options$ | async; track tool.name) {
-          <mx-btn-group
-            (handleClick)="tool.handleClick.emit(tool)"
-            [icon]="tool.icon"
-            [text]="tool.name || ''"
-          />
+            <mx-btn-group
+              (handleClick)="tool.handleClick.emit(tool)"
+              [icon]="tool.icon"
+              [text]="tool.name || ''"
+            />
           }
         </mx-btn-group-container>
         <mx-overlay class="ml-2">
@@ -37,23 +37,26 @@ import { ToolbarService } from '../../services/toolbar.service';
 
           <p class="text-sm">Show Columns</p>
           <div class=" my-1 h-px border w-full"></div>
-          @for (column of columnService.columns$ |async; track column.field; let
-          index = $index ) {
-          <div
-            class="w-full flex gap-2 cursor-pointer items-center hover:bg-accent py-0.5"
-            (click)="columnService.handleColumnVisibility(index)"
-          >
-            @if(column.visible) {
-            <span
-              class="size-2 inline-block rounded-full bg-emerald-800 dark:bg-emerald-500 ml-2"
-            ></span>
-            } @else {
-            <span
-              class="size-2 inline-block rounded-full bg-red-800 dark:bg-red-500 ml-2"
-            ></span>
-            }
-            {{ column.title || column.field }}
-          </div>
+          @for (
+            column of columnService.columns$ | async;
+            track column.field;
+            let index = $index
+          ) {
+            <div
+              class="w-full flex gap-2 cursor-pointer items-center hover:bg-accent py-0.5"
+              (click)="columnService.handleColumnVisibility(index)"
+            >
+              @if (column.visible) {
+                <span
+                  class="size-2 inline-block rounded-full bg-emerald-800 dark:bg-emerald-500 ml-2"
+                ></span>
+              } @else {
+                <span
+                  class="size-2 inline-block rounded-full bg-red-800 dark:bg-red-500 ml-2"
+                ></span>
+              }
+              {{ column.title || column.field }}
+            </div>
           }
         </mx-overlay>
       </div>
@@ -63,7 +66,7 @@ import { ToolbarService } from '../../services/toolbar.service';
 export class GridToolbarComponent {
   constructor(
     public toolbarService: ToolbarService,
-    public meta: MetaDataService
+    public meta: MetaDataService,
   ) {
     this.renderToolbar$ = combineLatest([
       this.meta.gridTitle$,

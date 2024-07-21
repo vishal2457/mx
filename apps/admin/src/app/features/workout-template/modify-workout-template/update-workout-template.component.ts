@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TWorkoutTemplate } from '../../../../../../../libs/mx-schema/src';
+import {
+  TWorkoutTemplate,
+  TWorkoutTemplateDetail,
+} from '../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
@@ -40,9 +43,20 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
 
   private fetchWorkoutTemplateDetails(id: string) {
     this.api
-      .get<TWorkoutTemplate>(`/workout-template/detail/${id}`)
+      .get<
+        TWorkoutTemplate & {
+          workoutTemplateDetail: Array<
+            TWorkoutTemplateDetail & {
+              exerciseName: string;
+            }
+          >;
+        }
+      >(`/workout-template/detail/${id}`)
       .subscribe(({ data }) => {
         this.workoutTemplateFormComponent.patchValue(data);
+        this.workoutTemplateFormComponent.setWorkoutDetailData(
+          data.workoutTemplateDetail,
+        );
       });
   }
 
@@ -58,10 +72,10 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
     });
 
     this.requests.sink = this.api
-      .put(
-        `/workoutTemplate/update/${this.workoutTemplateID}`,
-        this.workoutTemplateFormComponent.getFormValue(),
-      )
+      .put(`/workout-template/update/${this.workoutTemplateID}`, {
+        ...this.workoutTemplateFormComponent.getFormValue(),
+        workoutDetails: this.workoutTemplateFormComponent.workoutDetailData,
+      })
       .subscribe({
         next: () => {
           this.notif.updateToast({

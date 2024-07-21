@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'workout-template-list',
-  template: ` <page-header header="Workout Templates" [showCancel]="false">
+  template: ` <page-header
+      header="Manage Workout Templates"
+      [showCancel]="false"
+    >
       <mx-button (handleClick)="create()">
         <span class="flex items-center">
           <p>Add Workout Template</p>

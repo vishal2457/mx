@@ -4,6 +4,7 @@ import {
   TEMPLATE_TARGET,
   TExercise,
   TWorkoutTemplate,
+  TWorkoutTemplateDetail,
   WORKOUT_INTENSITY,
   Z_workoutTemplate,
 } from '../../../../../../../../libs/mx-schema/src';
@@ -13,6 +14,12 @@ import { SubSink } from '../../../../shared/utils/sub-sink';
 import { AddWorkoutDetailComponent } from '../components/add-workout-details-dialog.component';
 import { map, of } from 'rxjs';
 import { ApiService } from '../../../../shared/services/api.service';
+
+type WorkoutDetailData = Array<
+  TWorkoutTemplateDetail & {
+    exerciseName: string;
+  }
+>;
 
 @Component({
   selector: 'workoutTemplate-form',
@@ -27,7 +34,7 @@ export class WorkoutTemplateFormComponent {
 
   targetEnums = Array.from(TEMPLATE_TARGET);
   intensityEnums = Array.from(WORKOUT_INTENSITY);
-  workoutDetailData: any[] = [];
+  workoutDetailData: WorkoutDetailData = [];
   exercises: TExercise[] = [];
 
   private subs = new SubSink();
@@ -81,6 +88,10 @@ export class WorkoutTemplateFormComponent {
   }
   patchValue(value) {
     this.workoutTemplateForm.patchValue(value);
+  }
+
+  setWorkoutDetailData(data: WorkoutDetailData) {
+    this.workoutDetailData = data;
   }
 
   openAddWorkoutDetail(e?: any, editMode = false) {

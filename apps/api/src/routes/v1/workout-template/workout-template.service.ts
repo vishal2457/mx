@@ -1,13 +1,13 @@
 import { eq } from 'drizzle-orm';
 import { Request } from 'express';
 import {
+  TB_exercise,
   TB_workoutTemplate,
   TB_workoutTemplateDetail,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
 import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
-import { createInsertSchema } from 'drizzle-zod';
 
 type WorkoutTemplate = typeof TB_workoutTemplate.$inferSelect;
 type WorkoutDetailsInsert = typeof TB_workoutTemplateDetail.$inferInsert;
@@ -39,8 +39,10 @@ class WorkoutTemplateService {
   updateWorkoutTemplate(
     payload: Partial<typeof TB_workoutTemplate.$inferInsert>,
     id: WorkoutTemplate['id'],
+    tx?: any,
   ) {
-    return db
+    const ex = tx || db;
+    return ex
       .update(TB_workoutTemplate)
       .set(payload)
       .where(eq(TB_workoutTemplate.id, id))
@@ -52,14 +54,30 @@ class WorkoutTemplateService {
   }
 
   getByID(id: WorkoutTemplate['id']) {
-    return db.query.TB_workoutTemplate.findFirst({
-      where: eq(TB_workoutTemplate.id, id),
-    });
+    return db
+      .select()
+      .from(TB_workoutTemplate)
+      .innerJoin(
+        TB_workoutTemplateDetail,
+        eq(TB_workoutTemplate.id, TB_workoutTemplateDetail.workoutTemplateID),
+      )
+      .innerJoin(
+        TB_exercise,
+        eq(TB_exercise.id, TB_workoutTemplateDetail.exerciseID),
+      )
+      .where(eq(TB_workoutTemplate.id, id));
   }
 
   addWorkoutDetails(workoutDetails: WorkoutDetailsInsert, tx?: any) {
     const ex = tx || db;
     return ex.insert(TB_workoutTemplateDetail).values(workoutDetails);
+  }
+
+  deleteWorkoutTemplateDetails(id: WorkoutTemplate['id'], tx?: any) {
+    const ex = tx || db;
+    return ex
+      .delete(TB_workoutTemplateDetail)
+      .where(eq(TB_workoutTemplateDetail.workoutTemplateID, id));
   }
 }
 

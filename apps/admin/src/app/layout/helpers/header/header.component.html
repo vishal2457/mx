@@ -1,17 +1,11 @@
 @if (theme$|async; as theme) {
 <nav
-  class="bg-background align-middle fixed top-0 z-[102] w-full"
-  [ngClass]="{
-      'border-b': theme === 'dark' || (theme === 'light' && !sidebarOpen),
-    }"
+  class="bg-background align-middle fixed top-0 z-[102] w-full border-b"
 >
   <div class="flex justify-between items-center">
     <div
-      class="flex w-72 py-1 px-2 bg-neutral-800 justify-between items-center"
-      [ngClass]="{
-        'bg-neutral-800': sidebarOpen,
-        'bg-background': !sidebarOpen
-      }"
+      class="flex w-72 py-1 px-2 bg-background justify-between items-center"
+
     >
       <div class="flex justify-center items-center">
         <img src="/assets/logo.png" class="h-8 w-8 my-1 mx-2" />
@@ -20,11 +14,7 @@
           >{{ PANEL_CONFIG.shortName }}</span
         > -->
         <span
-          class="text-md font-semibold text-white whitespace-nowrap underline"
-          [ngClass]="{
-            'text-white': sidebarOpen,
-            'text-foreground': !sidebarOpen
-          }"
+          class="text-md font-semibold  whitespace-nowrap underline"
           >{{ PANEL_CONFIG.name }}</span
         >
       </div>
@@ -33,17 +23,12 @@
         icon="dock_to_right"
         size="lg"
         class="cursor-pointer"
-        [iconClass]="{
-          'text-white': sidebarOpen,
-          'text-foreground': !sidebarOpen
-        }"
+
       />
     </div>
     <div
       class="flex-grow"
-      [ngClass]="{
-        'border-b': theme === 'light' && sidebarOpen
-      }"
+
     >
       <div class="flex justify-end">
         <mx-dropdown>

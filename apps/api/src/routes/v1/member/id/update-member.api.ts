@@ -14,6 +14,7 @@ export default Router().put(
       weight: true,
       age: true,
       height: true,
+      passcode: true,
     }),
     params: v_param_id,
   }),
