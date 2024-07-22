@@ -128,7 +128,7 @@ export const App = () => {
               <TouchableOpacity
                 style={[styles.listItem, styles.learning]}
                 onPress={() =>
-                  Linking.openURL('https://blog.nrwl.io/?utm_source=nx-project')
+                  Linking.openURL('https://nx.dev/blog/?utm_source=nx-project')
                 }
               >
                 <Svg
@@ -375,7 +375,7 @@ export const App = () => {
                   <Svg
                     width={48}
                     height={48}
-                    viewBox="0 0 120 120"
+                    viewBox="0 0 24 24"
                     stroke="currentColor"
                     fill="transparent"
                   >
@@ -482,14 +482,14 @@ export const App = () => {
                     styles.marginBottomMd,
                   ]}
                 >
-                  nx g @nx/react-native:lib ui
+                  nx g @nx/expo:lib ui
                 </Text>
                 <Text style={[styles.textXS, styles.monospace, styles.comment]}>
                   # Add a component
                 </Text>
                 <Text style={[styles.textXS, styles.monospace]}>nx g \</Text>
                 <Text style={[styles.textXS, styles.monospace]}>
-                  @nx/react-native:component \
+                  @nx/expo:component \
                 </Text>
                 <Text style={[styles.textXS, styles.monospace]}>
                   ui/src/lib/button
@@ -633,7 +633,6 @@ const styles = StyleSheet.create({
   },
   monospace: {
     color: '#ffffff',
-    fontFamily: 'Courier New',
     marginVertical: 4,
   },
   comment: {
