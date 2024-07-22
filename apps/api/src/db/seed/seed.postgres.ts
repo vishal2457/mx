@@ -3,9 +3,15 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 dotenv.config({ path: `${process.cwd()}/.env` });
 
 import { Pool } from 'pg';
-import { TB_exercise, TB_menu } from '../../../../../libs/mx-schema/src';
+import {
+  TB_bodyPart,
+  TB_exercise,
+  TB_menu,
+} from '../../../../../libs/mx-schema/src';
 import { seedMenu } from './menu';
 import { exerciseData } from './exersice';
+import { sql } from 'drizzle-orm';
+import { bodyPartsData } from './body-parts';
 
 const pool = new Pool({
   host: process.env.NODE_HOST,
@@ -24,10 +30,29 @@ async function seed() {
   await db.insert(TB_menu).values(seedMenu);
 
   await db.delete(TB_exercise);
-  await db.insert(TB_exercise).values(exerciseData);
+  await db
+    .insert(TB_exercise)
+    .values(exerciseData)
+    .onConflictDoUpdate({
+      target: TB_exercise.id,
+      set: {
+        name: sql`excluded.name`,
+        description: sql`excluded.description`,
+        level: sql`excluded.level`,
+      },
+    });
 
-  // await db.delete(TB_bodyPart);
-  // await db.insert(TB_bodyPart).values(bodyPartsData);
+  await db.delete(TB_bodyPart);
+  await db
+    .insert(TB_bodyPart)
+    .values(bodyPartsData)
+    .onConflictDoUpdate({
+      target: TB_bodyPart.id,
+      set: {
+        name: sql`excluded.name`,
+        description: sql`excluded.description`,
+      },
+    });
 
   // await db
   //   .insert(TB_organisation)

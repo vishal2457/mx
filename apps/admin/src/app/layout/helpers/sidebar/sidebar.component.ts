@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   sidebarService = inject(SidebarService);
 
   @Output() changeTheme = new EventEmitter();
-  @Input() theme = 'light';
+  @Input() theme: string | null = 'light';
 
   archiveMenu: number[] = this.ls.get('archiveMenu') || [];
   searchMenu = new FormControl<string>('');
@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.sink = this.searchMenu.valueChanges.subscribe((value) =>
-      this.sidebarService.updateSearchTerm(value || '')
+      this.sidebarService.updateSearchTerm(value || ''),
     );
   }
 

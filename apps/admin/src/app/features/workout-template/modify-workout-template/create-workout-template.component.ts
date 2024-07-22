@@ -3,6 +3,8 @@ import { WorkoutTemplateFormComponent } from './workout-template-form/workout-te
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
+import { Dialog } from '@angular/cdk/dialog';
+import { ConfirmModalComponent } from '../../../shared/misc/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'add-workoutTemplate',
@@ -21,6 +23,7 @@ export class CreateWorkoutTemplateComponent implements OnDestroy {
 
   api = inject(ApiService);
   notif = inject(MxNotification);
+  private dialog = inject(Dialog);
 
   private addRequests = new SubSink();
 
@@ -31,6 +34,16 @@ export class CreateWorkoutTemplateComponent implements OnDestroy {
 
   handleSubmit() {
     if (this.WorkoutTemplateFormComponent.isInValid()) {
+      return;
+    }
+    if (!this.WorkoutTemplateFormComponent.workoutDetailData.length) {
+      this.dialog.open(ConfirmModalComponent, {
+        data: {
+          hideCancel: true,
+          title: 'Error saving workout template',
+          description: 'Add atleast one exercise routine in workout detail',
+        },
+      });
       return;
     }
     this.addRequests.unsubscribe();

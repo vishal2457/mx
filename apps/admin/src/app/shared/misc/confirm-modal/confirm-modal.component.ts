@@ -18,15 +18,18 @@ import { MxDialogModule } from '../../ui/dialog/dialog.module';
         (handleClick)="dialogRef.close({ success: true })"
         >OK</mx-button
       >
-      <mx-button (handleClick)="dialogRef.close({ success: false })"
-        >CANCEL</mx-button
-      >
+      @if (!data.hideCancel) {
+        <mx-button (handleClick)="dialogRef.close({ success: false })"
+          >CANCEL</mx-button
+        >
+      }
     </mx-dialog-footer>
   </mx-dialog-content>`,
 })
 export class ConfirmModalComponent {
   constructor(
     public dialogRef: DialogRef<{ success: boolean }>,
-    @Inject(DIALOG_DATA) public data: { title: string; description?: string }
+    @Inject(DIALOG_DATA)
+    public data: { title: string; description?: string; hideCancel?: boolean },
   ) {}
 }

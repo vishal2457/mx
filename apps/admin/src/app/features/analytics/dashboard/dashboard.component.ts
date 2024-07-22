@@ -47,8 +47,10 @@ export class DashboardComponent implements OnInit {
       },
       series: [
         {
-          name: 'orders',
           type: 'bar',
+          itemStyle: {
+            borderRadius: [5, 5, 0, 0],
+          },
           data: [5, 20, 36, 10, 10, 20, 30],
         },
       ],
@@ -89,7 +91,7 @@ export class DashboardComponent implements OnInit {
           type: 'line',
           stack: 'Total',
           data: [...Array(7).keys()].map((x) =>
-            Math.floor(Math.random() * 600)
+            Math.floor(Math.random() * 600),
           ),
         },
         {
@@ -97,7 +99,7 @@ export class DashboardComponent implements OnInit {
           type: 'line',
           stack: 'Total',
           data: [...Array(7).keys()].map((x) =>
-            Math.floor(Math.random() * 600)
+            Math.floor(Math.random() * 600),
           ),
         },
       ],

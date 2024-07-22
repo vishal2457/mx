@@ -1,10 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { R_userLogin } from '../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../shared/services/api.service';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
-import { SidebarService } from '../../../shared/services/sidebar.service';
 
 @Component({
   selector: 'app-login',
@@ -26,8 +25,6 @@ export class LoginComponent {
     password: ['', [Validators.required]],
   });
 
-  private sidebarService = inject(SidebarService);
-
   handleSubmit() {
     if (this.loginForm.invalid) {
       this.showErrors = true;
@@ -36,8 +33,6 @@ export class LoginComponent {
     this.api.post<R_userLogin>('/user/login', this.loginForm.value).subscribe({
       next: (data) => {
         this.ls.set('token', data.data.token);
-        this.ls.set('menu', data.data.menu);
-        this.sidebarService.setMenu(data.data.menu);
         this.router.navigate(['/']);
       },
     });

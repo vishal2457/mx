@@ -20,7 +20,7 @@ import { config } from './types';
 export class MxProgressbarComponent {
   @ViewChild(NgProgressComponent) progress!: NgProgressComponent;
   progressConfig: any = {
-    color: 'red',
+    color: 'blue',
     spinner: true,
     spinnerPosition: 'right',
     direction: 'ltr+',

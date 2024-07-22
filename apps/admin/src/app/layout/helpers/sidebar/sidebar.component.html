@@ -17,30 +17,30 @@
         />
       </div>
       <ul class="space-y-1">
-        @for (m of sidebarService.mainMenu$ |async; track m.name) {
-        <li>
-          <a
-            [routerLink]="m.link"
-            routerLinkActive="bg-accent"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="flex items-center px-2 py-1 text-base font-medium rounded-lg  hover:bg-accent group justify-between"
-          >
-            <span class="flex items-center">
-              <mx-icon [icon]="m.icon" class="mt-1" />
-              <span class="ml-3 tracking-wider">{{ m.name }}</span>
-            </span>
-            <!-- <mx-dropdown class="opacity-0 group-hover:opacity-100">
+        @for (m of sidebarService.mainMenu$ | async; track m.name) {
+          <li>
+            <a
+              [routerLink]="m.link"
+              routerLinkActive="bg-accent"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="flex items-center px-2 py-1 text-base font-medium rounded-lg hover:bg-accent group justify-between"
+            >
+              <span class="flex items-center">
+                <mx-icon [icon]="m.icon" class="mt-1" />
+                <span class="ml-3 tracking-wider">{{ m.name }}</span>
+              </span>
+              <!-- <mx-dropdown class="opacity-0 group-hover:opacity-100">
                 <mx-button variant="ghost" size="small-icon" trigger>
                   <mx-icon icon="more_vert" />
                 </mx-button>
                 <mx-dropdown-item
                   text="Archive"
                   icon="archive"
-                  (handleClick)="sidebarService.archiveMenu(m.id)"
+                  (handleClick)="sidebarService.archiveMenu(m.name)"
                 />
               </mx-dropdown> -->
-          </a>
-        </li>
+            </a>
+          </li>
         }
       </ul>
     </div>
@@ -49,7 +49,7 @@
       <ul class="space-y-1" trigger>
         <li>
           <a
-            class="flex items-center px-2 py-1 text-base font-medium rounded-lg  hover:bg-gray-800 group"
+            class="flex items-center px-2 py-1 text-base font-medium rounded-lg hover:bg-gray-800 group"
           >
             <mx-icon icon="archive" />
             <span class="ml-3">Archived</span>
@@ -72,7 +72,7 @@
             </button>
             <button
               title="Unarchive"
-              (click)="sidebarService.unarchiveMenu(m.id)"
+              (click)="sidebarService.unarchiveMenu(m.name)"
               class="cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
             >
               <mx-icon icon="unarchive" />

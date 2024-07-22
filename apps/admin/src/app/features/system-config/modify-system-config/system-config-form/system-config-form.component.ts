@@ -16,7 +16,7 @@ export class SystemConfigFormComponent {
   private fb = inject(FormBuilder);
 
   systemConfigForm = this.fb.nonNullable.group<
-    ControlsOf<Omit<TSystemConfig, 'id'>>
+    ControlsOf<Omit<TSystemConfig, 'id' | 'organisationID'>>
   >({
     logo: new FormControl(null, {
       validators: [Validators.required],
@@ -30,6 +30,7 @@ export class SystemConfigFormComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    theme: new FormControl('default'),
   });
 
   get formControls() {

@@ -7,7 +7,6 @@ import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/li
 
 type UserRole = typeof TB_userRole.$inferSelect;
 
-
 class UserRoleService {
   getUserRoleList(query: Request['query']) {
     return getListQueryWithFilters(TB_userRole, query);
@@ -41,6 +40,9 @@ class UserRoleService {
     return db.select().from(TB_userRole).where(eq(TB_userRole.id, id));
   }
 
+  getRolesByUserID(userID: UserRole['userID']) {
+    return db.select().from(TB_userRole).where(eq(TB_userRole.userID, userID));
+  }
 }
 
 export const userRoleService = new UserRoleService();

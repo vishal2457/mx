@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
     >
       <!-- columns -->
       <mx-column field="member.name" title="Name" />
-      <mx-column field="plan.name" title="Plan" />
       <mx-column field="member.age" title="Age" />
       <mx-column field="member.mobile" title="mobile" />
       <mx-column field="member.email" title="email" />

@@ -3,15 +3,16 @@ import { BehaviorSubject, shareReplay, combineLatest, map } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { TMenu } from '../../../../../../libs/mx-schema/src';
 import { matchSorter } from 'match-sorter';
+import { MENU_DATA } from '../constants/menu-contstant';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SidebarService {
   ls = inject(LocalStorageService);
-  private menu = new BehaviorSubject<TMenu[]>(this.ls.get('menu') || []);
-  private archive = new BehaviorSubject<number[]>(
-    this.ls.get('archiveMenu') || []
+  private menu = new BehaviorSubject(MENU_DATA);
+  private archive = new BehaviorSubject<string[]>(
+    this.ls.get('archiveMenu') || [],
   );
   private sidebarOpen = new BehaviorSubject(true);
   private searchMenu = new BehaviorSubject('');
@@ -22,12 +23,12 @@ export class SidebarService {
     this.searchMenu.asObservable(),
   ]).pipe(
     map(([menu, archived, searchTerm]) => {
-      const finalMenu = menu.filter((m) => !archived.includes(m.id));
+      const finalMenu = menu.filter((m) => !archived.includes(m.name));
       if (searchTerm) {
         return matchSorter(finalMenu, searchTerm, { keys: ['name'] });
       }
       return finalMenu;
-    })
+    }),
   );
 
   archived$ = combineLatest([
@@ -35,14 +36,13 @@ export class SidebarService {
     this.archive.asObservable(),
   ]).pipe(
     map(([menu, archived]) => {
-      return menu.filter((m) => archived.includes(m.id));
-    })
+      return menu.filter((m) => archived.includes(m.name));
+    }),
   );
 
   sidebarOpen$ = this.sidebarOpen.asObservable().pipe(shareReplay());
 
   setMenu(menu: TMenu[]) {
-    this.ls.set('menu', menu);
     this.menu.next(menu);
   }
 
@@ -51,18 +51,18 @@ export class SidebarService {
     this.sidebarOpen.next(!currentValue);
   }
 
-  archiveMenu(id: number) {
+  archiveMenu(name: string) {
     const archive = this.archive.value;
-    archive.push(id);
+    archive.push(name);
     this.archive.next(archive);
     this.ls.set('archiveMenu', archive);
   }
 
-  unarchiveMenu(id: number) {
+  unarchiveMenu(name: string) {
     const archive = this.archive.value;
     archive.splice(
-      archive.findIndex((i) => i === id),
-      1
+      archive.findIndex((i) => i === name),
+      1,
     );
     this.archive.next(archive);
     this.ls.set('archiveMenu', archive);

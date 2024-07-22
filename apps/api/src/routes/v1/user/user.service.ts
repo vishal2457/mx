@@ -35,6 +35,7 @@ class UserService {
   // get user by id
   getUserByID(id: (typeof TB_user.$inferSelect)['id']) {
     return db.query.TB_user.findFirst({
+      columns: { password: false },
       where: eq(TB_user.id, id),
     });
   }

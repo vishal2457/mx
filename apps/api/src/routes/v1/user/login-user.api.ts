@@ -7,7 +7,6 @@ import {
 import { generateToken } from '../../../shared/jwt/token-utils';
 import { validate } from '../../../shared/middlewares/validation.middleware';
 import { checkPassword } from '../../../shared/password-hash';
-import { menuService } from '../menu/menu.service';
 import { userService } from './user.service';
 
 export default Router().post(
@@ -23,12 +22,11 @@ export default Router().post(
     if (!checkPassword(req.body.password, user.password)) {
       return unauthorized(res, 'Incorrect credentials');
     }
-    const menu = await menuService.getAllActiveMenu();
     const token = generateToken({
       email: user.email,
       id: user.id,
       organisationID: user.organisationID,
     });
-    success(res, { token, menu }, 'login success');
+    success(res, { token }, 'login success');
   },
 );

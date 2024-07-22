@@ -1,0 +1,18 @@
+::ng-deep .ng-value-label {
+  @apply text-foreground;
+}
+
+::ng-deep .ng-input input {
+  @apply text-foreground;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  @apply bg-card text-foreground hover:bg-accent hover:text-foreground;
+}
+
+::ng-deep
+  .ng-dropdown-panel
+  .ng-dropdown-panel-items
+  .ng-option.ng-option-selected {
+  @apply hover:bg-accent hover:text-foreground bg-accent text-foreground;
+}

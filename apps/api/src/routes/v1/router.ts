@@ -51,6 +51,7 @@ import { bodyPart } from './body-part';
 import { exercise } from './exercise';
 
 import { workoutTemplate } from './workout-template';
+import meApi from './user/me.api';
 
 // IMPORT GENERATED FILES
 
@@ -67,6 +68,7 @@ routerv1
       getUserApi,
       updateUserApi,
       getAllUserApi,
+      meApi,
     ]),
   )
   .use('/notification', ah([getAllNotif, createNotif, deleteNotif]))
