@@ -11,5 +11,5 @@ export default Router().post(
   handler(async (req, res) => {
     const users = await db.insert(TB_menu).values(req.body);
     success(res, users, 'success');
-  })
+  }),
 );

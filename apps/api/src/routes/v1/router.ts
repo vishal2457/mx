@@ -53,6 +53,8 @@ import { exercise } from './exercise';
 import { workoutTemplate } from './workout-template';
 import meApi from './user/me.api';
 
+import { enquiry } from './enquiry';
+
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -122,7 +124,8 @@ routerv1
   .use('/member-attendance', memberAttendance)
   .use('/body-part', bodyPart)
   .use('/exercise', exercise)
-  .use('/workout-template', workoutTemplate);
+  .use('/workout-template', workoutTemplate)
+  .use('/enquiry', enquiry);
 // APPEND API ROUTES
 
 export default routerv1;

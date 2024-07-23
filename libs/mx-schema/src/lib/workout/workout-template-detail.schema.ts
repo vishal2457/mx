@@ -1,7 +1,10 @@
-import { integer, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { integer, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 import { TB_exercise } from './exercise.schema';
 import { TB_workoutTemplate } from './workout-template.schema';
+
+export const DAYS = ['1', '2', '3', '4', '5', '6', '7'] as const;
+export const daysEnum = pgEnum('day', DAYS);
 
 export const TB_workoutTemplateDetail = pgTable('workoutTemplateDetail', {
   id: serial('id').primaryKey(),
@@ -14,8 +17,9 @@ export const TB_workoutTemplateDetail = pgTable('workoutTemplateDetail', {
   set: integer('set').notNull(),
   reps: text('reps'),
   restBwRepsInS: text('restBwRepsInS').notNull(),
-  timeInS: text('timeInS'),
+  timeInM: text('timeInM'),
   additionInstruction: text('additionInstruction'),
+  day: daysEnum('day').default('1'),
 });
 
 export const Z_workoutTemplateDetail = createSelectSchema(

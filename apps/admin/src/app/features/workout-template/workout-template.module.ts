@@ -25,6 +25,7 @@ import { UpdateWorkoutTemplateComponent } from './modify-workout-template/update
 import { WorkoutTemplateFormComponent } from './modify-workout-template/workout-template-form/workout-template-form.component';
 import { WorkoutTemplateListComponent } from './workout-template-list/workout-template-list.component';
 import { WorkoutTemplateRoutingModule } from './workout-template-routing.module';
+import { MxTooltipDirective } from '../../shared/ui/tooltip/tooltip.directive';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { WorkoutTemplateRoutingModule } from './workout-template-routing.module'
     MxDataGridModule,
     MxDialogModule,
     MxInputNumberComponent,
+    MxTooltipDirective,
   ],
 })
 export class WorkoutTemplateModule {}

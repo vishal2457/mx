@@ -127,21 +127,21 @@ export class MemberFormComponent implements OnInit, OnDestroy {
       this.memberForm.addControl(
         'weight',
         new FormControl(null, {
-          validators: [Validators.required, Validators.maxLength(3)],
+          validators: [Validators.maxLength(3)],
           nonNullable: true,
         }),
       );
       this.memberForm.addControl(
         'age',
         new FormControl(null, {
-          validators: [Validators.required, Validators.maxLength(3)],
+          validators: [Validators.maxLength(3)],
           nonNullable: true,
         }),
       );
       this.memberForm.addControl(
         'height',
         new FormControl(null, {
-          validators: [Validators.required, Validators.maxLength(3)],
+          validators: [Validators.maxLength(3)],
           nonNullable: true,
         }),
       );

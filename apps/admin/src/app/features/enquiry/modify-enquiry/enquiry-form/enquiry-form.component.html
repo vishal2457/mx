@@ -1,0 +1,7 @@
+<mx-form [form]="enquiryForm" [zodSchema]="Z_enquiry">
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+    <mx-input label="CustomerName" [control]="formControls.customerName" />
+    <mx-input label="Mobile" [control]="formControls.mobile" />
+    <mx-input label="Email" [control]="formControls.email" />
+  </div>
+</mx-form>

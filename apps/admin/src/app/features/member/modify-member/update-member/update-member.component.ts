@@ -112,7 +112,9 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
         const details = data.details;
         this.memberData = {
           ...details,
-          bmi: calculateBMI(details.height, details.weight).toFixed(2),
+          bmi: calculateBMI(details.height || 0, details.weight || 0).toFixed(
+            2,
+          ),
         };
         this.memberFormComponent.patchValue(details);
         this.totalSpent = parseFloat(data.memberTotalSpent?.amount);

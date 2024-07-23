@@ -103,7 +103,16 @@ const routes: Routes = [
             (m) => m.ExerciseModule
           ),
       },
+      {
+        path: "enquiry",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/enquiry/enquiry.module").then(
+            (m) => m.EnquiryModule
+          ),
+      },
 // APPEND ANGULAR ROUTES
+
 
 
 

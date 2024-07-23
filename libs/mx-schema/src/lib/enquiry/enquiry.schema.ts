@@ -8,6 +8,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { TB_user } from '../user/user.schema';
+import { createSelectSchema } from 'drizzle-zod';
 
 export const STATUS_ENUM = ['Open', 'Closed'] as const;
 export const statusEnum = pgEnum('status', STATUS_ENUM);
@@ -27,3 +28,6 @@ export const TB_enquiry = pgTable('enquiry', {
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').$onUpdate(() => new Date()),
 });
+
+export const Z_enquiry = createSelectSchema(TB_enquiry);
+export type TEnquiry = typeof TB_enquiry.$inferSelect;
