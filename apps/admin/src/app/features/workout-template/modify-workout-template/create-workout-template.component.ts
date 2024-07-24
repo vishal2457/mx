@@ -36,7 +36,7 @@ export class CreateWorkoutTemplateComponent implements OnDestroy {
     if (this.WorkoutTemplateFormComponent.isInValid()) {
       return;
     }
-    if (!this.WorkoutTemplateFormComponent.workoutDetailData.length) {
+    if (!this.WorkoutTemplateFormComponent.workoutDetailData) {
       this.dialog.open(ConfirmModalComponent, {
         data: {
           hideCancel: true,

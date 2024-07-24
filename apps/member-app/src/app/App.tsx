@@ -19,6 +19,7 @@ export const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
+      <Text>asd</Text>
     </>
   );
 };

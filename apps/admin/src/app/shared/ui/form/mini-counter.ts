@@ -14,16 +14,28 @@ import { MxButtonComponent } from '../button';
     FormControlPipe,
     MxButtonComponent,
   ],
-  template: ` <div
-      class="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700"
+  template: `<div class="flex flex-col gap-2">
+    @if (label) {
+      <label
+        [for]="_id"
+        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-1 capitalize"
+      >
+        {{ label }}
+        @if (required) {
+          <span class="text-red-600">*</span>
+        }
+      </label>
+    }
+    <div
+      class="py-2 px-3 inline-block border rounded-lg "
       data-hs-input-number=""
     >
       <div class="flex items-center gap-x-1.5">
         <mx-button
+          variant="secondary"
           (handleClick)="decrease()"
-          tabindex="-1"
           aria-label="Decrease"
-          size="sm"
+          size="xs"
         >
           <svg
             class="shrink-0 size-3.5"
@@ -44,8 +56,15 @@ import { MxButtonComponent } from '../button';
           [control]="control()"
           inputClass="w-[50px] h-[25px] text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           type="number"
+          [max]="max()"
+          [min]="min()"
         />
-        <mx-button (click)="increase()" tabindex="-1" aria-label="Increase">
+        <mx-button
+          size="xs"
+          variant="secondary"
+          (click)="increase()"
+          aria-label="Increase"
+        >
           <svg
             class="shrink-0 size-3.5"
             xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +83,10 @@ import { MxButtonComponent } from '../button';
         </mx-button>
       </div>
     </div>
-    <!-- End Input Number -->`,
+    <div>
+      <!-- End Input Number -->
+    </div>
+  </div>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MxMiniCounterComponent extends FormBaseComponent {
@@ -81,7 +103,7 @@ export class MxMiniCounterComponent extends FormBaseComponent {
 
   decrease() {
     const control = this.control();
-    if (control.value === this.min()) {
+    if (control.value <= this.min()) {
       return;
     }
     control.setValue(control.value - 1);

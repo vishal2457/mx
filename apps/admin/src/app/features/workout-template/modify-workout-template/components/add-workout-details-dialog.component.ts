@@ -6,7 +6,12 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import {
   TExercise,
   TWorkoutTemplateDetail,
@@ -65,12 +70,9 @@ type Steps = '1' | '2';
             class="min-w-7 min-h-7 group inline-flex items-center text-xs align-middle"
           >
             <span
-              class="size-7 flex justify-center items-center shrink-0  font-medium  rounded-full  bg-primary"
+              class="size-7  flex justify-center items-center shrink-0  font-medium  rounded-full  bg-primary"
             >
-              <span
-                class="hs-stepper-success:hidden hs-stepper-completed:hidden"
-                >1</span
-              >
+              <span>1</span>
             </span>
             <span class="ms-2 text-sm font-medium "> Step </span>
           </span>
@@ -136,17 +138,40 @@ type Steps = '1' | '2';
             </ul>
           </div>
         } @else if (activeStep === '2') {
-          <div>
-            @for (item of checked | keyvalue; track item.key) {
-              <div class="my-2">
-                <label>{{ item.value?.name }}</label>
-                <div class="flex gap-2">
+          <div class=" h-64 overflow-y-auto">
+            @for (
+              form of workoutTemplateDetailform;
+              track $index;
+              let index = $index
+            ) {
+              <div class="my-4">
+                <label class="font-semibold"
+                  >{{ index + 1 }}.&nbsp;{{
+                    form.controls._meta.value.name
+                  }}</label
+                >
+                <div class="grid grid-cols-3  gap-2 mt-2">
                   <mx-mini-counter
-                    [control]="workoutTemplateDetailform.controls.reps"
+                    label="Total sets"
+                    [control]="form.controls.set"
                   />
                   <mx-input
                     label="Repetitions"
-                    [control]="workoutTemplateDetailform.controls.reps"
+                    [control]="form.controls.reps"
+                  />
+                  <mx-input-number
+                    label="Rest bw reps"
+                    [control]="form.controls.restBwRepsInS"
+                  />
+                </div>
+                <div class="grid grid-cols-2  gap-2 mt-2">
+                  <mx-input-number
+                    label="Estimated time to complete"
+                    [control]="form.controls.timeInM"
+                  />
+                  <mx-input
+                    label="Additional instructions"
+                    [control]="form.controls.additionInstruction"
                   />
                 </div>
               </div>
@@ -157,14 +182,16 @@ type Steps = '1' | '2';
 
         <!-- Button Group -->
         <div class="mt-5 flex justify-between items-center gap-x-2">
-          <button
-            type="button"
-            class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg border border-gray-200 bg-white  shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-            data-hs-stepper-back-btn=""
+          <mx-button
+            (handleClick)="changeStep('1')"
+            [disabled]="activeStep === '1'"
+            variant="secondary"
           >
             Back
-          </button>
-          <mx-button (handleClick)="changeStep('2')"> Next </mx-button>
+          </mx-button>
+          <mx-button (handleClick)="changeStep('2')">
+            {{ activeStep === '1' ? 'Next' : 'Submit' }}
+          </mx-button>
         </div>
         <!-- End Button Group -->
       </div>
@@ -190,39 +217,41 @@ export class AddWorkoutDetailComponent implements OnInit {
         exerciseID: number | null;
         set: number | null;
         reps: string | null;
-        restBwRepsInS: string | null;
-        timeInS: string | null;
+        restBwRepsInS: number | null;
+        timeInS: number | null;
         additionInstruction: string | null;
-      }>;
+      }>[];
     }>,
     @Inject(DIALOG_DATA)
     protected data: {
       editMode: boolean;
-      formValues: Omit<TWorkoutTemplateDetail, 'id' | 'workoutTemplateID'>;
+      formValues: Array<
+        Omit<TWorkoutTemplateDetail, 'id' | 'workoutTemplateID'> & {
+          _meta: any;
+        }
+      >;
       exerciseData: TExercise[];
     },
   ) {}
 
   private fb = inject(FormBuilder);
-  protected checked = new Map();
-
-  workoutTemplateDetailform = this.fb.group<
-    ControlsOf<Omit<TWorkoutTemplateDetail, 'id' | 'workoutTemplateID' | 'day'>>
-  >({
-    exerciseID: new FormControl(null, [Validators.required]),
-    set: new FormControl(null, [Validators.required]),
-    reps: new FormControl(null, [Validators.required]),
-    timeInM: new FormControl(null),
-    restBwRepsInS: new FormControl(null, [Validators.required]),
-    additionInstruction: new FormControl(''),
-  });
+  protected checked: Map<number, TExercise> = new Map();
 
   activeStep: Steps = '1';
   activatedSteps: string[] = ['1'];
+  workoutTemplateDetailform: FormGroup<
+    ControlsOf<
+      Omit<TWorkoutTemplateDetail, 'id' | 'workoutTemplateID' | 'day'>
+    > & { _meta: any }
+  >[] = [];
+  step2ValuesTemp: any[] = [];
 
   ngOnInit(): void {
     if (this.data.editMode) {
-      this.workoutTemplateDetailform.patchValue(this.data.formValues);
+      this.step2ValuesTemp = this.data.formValues;
+      for (const exercise of this.data.formValues) {
+        this.checked.set(exercise.exerciseID, exercise._meta);
+      }
     }
   }
 
@@ -234,19 +263,75 @@ export class AddWorkoutDetailComponent implements OnInit {
     }
   }
 
-  handleSubmit() {
-    this.dialogRef.close({
-      formValues: this.workoutTemplateDetailform.value,
-      editMode: this.data.editMode,
-    });
-  }
-
   changeStep(step: Steps) {
+    if (this.activeStep === '2' && step === '2') {
+      if (this.formInvalid()) {
+        alert('Fields invalid, Please fill all details');
+        return;
+      }
+      this.handleSubmit();
+    }
     if (this.checked.size) {
       this.activatedSteps.push(step);
     }
     if (this.activatedSteps.includes(step)) {
       this.activeStep = step;
     }
+
+    if (step === '1') {
+      this.step2ValuesTemp = this.getFormArrayValue();
+      this.workoutTemplateDetailform = [];
+    }
+
+    if (step === '2') {
+      this.step2Init();
+    }
+  }
+
+  private handleSubmit() {
+    this.dialogRef.close({
+      formValues: this.getFormArrayValue(),
+      editMode: this.data.editMode,
+    });
+  }
+
+  private step2Init() {
+    for (const [_, value] of this.checked) {
+      const existing = this.step2ValuesTemp.find(
+        (i) => i.exerciseID === value.id,
+      );
+      this.workoutTemplateDetailform.push(this.getFormGroup(value, existing));
+    }
+  }
+
+  private getFormGroup(exercise: TExercise, existing?: any) {
+    const form = this.fb.group<
+      ControlsOf<
+        Omit<TWorkoutTemplateDetail, 'id' | 'workoutTemplateID' | 'day'> & {
+          _meta: any;
+        }
+      >
+    >({
+      exerciseID: new FormControl(exercise.id, [Validators.required]),
+      set: new FormControl(3, [Validators.required]),
+      reps: new FormControl('12,10,8', [Validators.required]),
+      timeInM: new FormControl(15),
+      restBwRepsInS: new FormControl(30, [Validators.required]),
+      additionInstruction: new FormControl(''),
+      _meta: new FormControl(exercise),
+    });
+
+    if (existing) {
+      form.patchValue(existing);
+    }
+    return form;
+  }
+
+  private getFormArrayValue() {
+    return this.workoutTemplateDetailform.map((form) => form.value);
+  }
+
+  private formInvalid() {
+    return this.workoutTemplateDetailform.some((form) => form.invalid);
   }
 }

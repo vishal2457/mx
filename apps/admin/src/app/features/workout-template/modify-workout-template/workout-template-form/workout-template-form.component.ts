@@ -34,7 +34,13 @@ export class WorkoutTemplateFormComponent {
 
   targetEnums = Array.from(TEMPLATE_TARGET);
   intensityEnums = Array.from(WORKOUT_INTENSITY);
-  workoutDetailData: WorkoutDetailData = [];
+  workoutDetailData: {
+    day1: any[];
+    day2: any[];
+    day3: any[];
+    day4: any[];
+    day5: any[];
+  } = { day1: [], day2: [], day3: [], day4: [], day5: [] };
   exercises: TExercise[] = [];
 
   private subs = new SubSink();
@@ -91,15 +97,22 @@ export class WorkoutTemplateFormComponent {
   }
 
   setWorkoutDetailData(data: WorkoutDetailData) {
-    this.workoutDetailData = data;
+    // this.workoutDetailData = data;
   }
 
-  openAddWorkoutDetail(e?: any, editMode = false) {
+  openAddWorkoutDetail(day: string, editMode = false) {
     this.fetchExercise().subscribe((exerciseData) => {
       const ref = this.dialog.open(AddWorkoutDetailComponent, {
+        maxWidth: '500px',
+        maxHeight: '500px',
         data: {
           editMode,
-          formValues: e?.cellData,
+          formValues: this.workoutDetailData[day].map((i) => {
+            return {
+              ...i,
+              _meta: this.exercises.find((e) => e.id === i.exerciseID),
+            };
+          }),
           exerciseData,
         },
       });
@@ -108,40 +121,18 @@ export class WorkoutTemplateFormComponent {
         if (!result) {
           return;
         }
-        if (result.editMode) {
-          const arr = this.workoutDetailData;
-          const ix = arr.findIndex(
-            (item) => item.exerciseID === result.formValues.exerciseID,
-          );
-          arr[ix] = {
-            ...result.formValues,
-            exerciseName: this.exercises.find(
-              (i) => i.id === result.formValues.exerciseID,
-            )?.name,
-          };
-          this.workoutDetailData = [...arr];
-        } else {
-          this.workoutDetailData = [
-            ...this.workoutDetailData,
-            {
-              ...result.formValues,
-              exerciseName: this.exercises.find(
-                (i) => i.id === result.formValues.exerciseID,
-              )?.name,
-            },
-          ];
-        }
+        this.workoutDetailData[day] = result.formValues;
       });
     });
   }
 
   private fetchExercise() {
-    const existingIDs = this.workoutDetailData.map((i) => i.exerciseID);
-    if (this.exercises.length) {
-      return of(this.exercises.filter((i) => !existingIDs.includes(i.id)));
-    }
     return this.api
       .get<TExercise[]>('/exercise/all')
       .pipe(map((data) => (this.exercises = data.data)));
+  }
+
+  private getExerciseName(exerciseID: number) {
+    return this.exercises.find((i) => i.id === exerciseID)?.name;
   }
 }

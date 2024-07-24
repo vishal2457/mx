@@ -21,7 +21,7 @@ const buttonVariants = cva(
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90 w-full',
         outline:
-          'border border-input hover:bg-accent hover:text-accent-foreground w-full',
+          'border border-input hover:bg-accent hover:text-accent-foreground',
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/80 w-full',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
@@ -30,6 +30,7 @@ const buttonVariants = cva(
       size: {
         default: 'h-8  px-4',
         sm: 'h-7 px-3 rounded-md',
+        xs: 'h-5 px-2 rounded-md',
         lg: 'h-11 px-8 rounded-md',
         icon: 'h-10 w-10',
         'small-icon': 'h-8 w-8',
@@ -46,7 +47,7 @@ const buttonVariants = cva(
       size: 'default',
       rounded: 'sm',
     },
-  }
+  },
 );
 
 @Component({

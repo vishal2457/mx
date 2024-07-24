@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControlPipe } from '../../pipe/form-control';
 import { mergetw } from '../../utils/tw-merge';
 import { MxHintComponent } from '../hint';
@@ -56,8 +56,8 @@ import { safeParseInt } from '../../utils/safe-parse-int';
         type="number"
         [placeholder]="placeholder"
         [formControl]="control() | formControl"
-        [maxlength]="maxlength"
-        [minlength]="minlength"
+        [max]="max"
+        [min]="min"
       />
       @if (rightIcon && !clearable) {
         <span class="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -90,8 +90,8 @@ export class MxInputNumberComponent
   extends FormBaseComponent
   implements OnInit, OnDestroy
 {
-  @Input() maxlength = 524288;
-  @Input() minlength = 0;
+  @Input() max = 524288;
+  @Input() min = 0;
   @Input() rightIcon = '';
   @Input() leftIcon = '';
   @Input() clearable = false;
@@ -127,6 +127,11 @@ export class MxInputNumberComponent
       }
       control.patchValue(this.formatValue(value), { emitEvent: false });
     });
+
+    this.control().addValidators([
+      Validators.max(this.max),
+      Validators.min(this.min),
+    ]);
   }
 
   ngOnDestroy(): void {

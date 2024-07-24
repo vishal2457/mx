@@ -16,8 +16,8 @@ export const TB_workoutTemplateDetail = pgTable('workoutTemplateDetail', {
     .references(() => TB_exercise.id),
   set: integer('set').notNull(),
   reps: text('reps'),
-  restBwRepsInS: text('restBwRepsInS').notNull(),
-  timeInM: text('timeInM'),
+  restBwRepsInS: integer('restBwRepsInS').notNull(),
+  timeInM: integer('timeInM'),
   additionInstruction: text('additionInstruction'),
   day: daysEnum('day').default('1'),
 });

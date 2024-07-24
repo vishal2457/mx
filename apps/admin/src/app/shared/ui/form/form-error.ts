@@ -53,6 +53,16 @@ export class MxFormErrorComponent {
         case 'pattern':
           errorsList.push('Invalid pattern.');
           break;
+        case 'max':
+          errorsList.push(
+            `Must be less than ${errors[errorName].max}, entered ${errors[errorName].actual}`,
+          );
+          break;
+        case 'min':
+          errorsList.push(
+            `Must be greater than ${errors[errorName].min}, entered ${errors[errorName].actual}`,
+          );
+          break;
         // Add more cases as needed
         default:
           errorsList.push(
