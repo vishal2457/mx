@@ -136,7 +136,22 @@ type Steps = '1' | '2';
             </ul>
           </div>
         } @else if (activeStep === '2') {
-          second step
+          <div>
+            @for (item of checked | keyvalue; track item.key) {
+              <div class="my-2">
+                <label>{{ item.value?.name }}</label>
+                <div class="flex gap-2">
+                  <mx-mini-counter
+                    [control]="workoutTemplateDetailform.controls.reps"
+                  />
+                  <mx-input
+                    label="Repetitions"
+                    [control]="workoutTemplateDetailform.controls.reps"
+                  />
+                </div>
+              </div>
+            }
+          </div>
         }
         <!-- End First Contnet -->
 
@@ -227,11 +242,11 @@ export class AddWorkoutDetailComponent implements OnInit {
   }
 
   changeStep(step: Steps) {
-    if (this.activatedSteps.includes(step)) {
-      this.activeStep = step;
-    }
     if (this.checked.size) {
       this.activatedSteps.push(step);
+    }
+    if (this.activatedSteps.includes(step)) {
+      this.activeStep = step;
     }
   }
 }

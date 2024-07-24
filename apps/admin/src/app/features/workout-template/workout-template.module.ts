@@ -26,6 +26,7 @@ import { WorkoutTemplateFormComponent } from './modify-workout-template/workout-
 import { WorkoutTemplateListComponent } from './workout-template-list/workout-template-list.component';
 import { WorkoutTemplateRoutingModule } from './workout-template-routing.module';
 import { MxTooltipDirective } from '../../shared/ui/tooltip/tooltip.directive';
+import { MxMiniCounterComponent } from '../../shared/ui/form/mini-counter';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { MxTooltipDirective } from '../../shared/ui/tooltip/tooltip.directive';
     MxDialogModule,
     MxInputNumberComponent,
     MxTooltipDirective,
+    MxMiniCounterComponent,
   ],
 })
 export class WorkoutTemplateModule {}
