@@ -116,6 +116,17 @@ export class WorkoutTemplateFormComponent {
   }
 
   setWorkoutDetailData(data: WorkoutDetailData) {
+    this.fetchExercise().subscribe((exerciseData) => {
+      for (const iterator of data) {
+        const { day, dayName, ...rest } = iterator;
+        this.workoutDetailData[day].push({
+          ...rest,
+          _meta: exerciseData.find((e) => e.id === rest.exerciseID),
+        });
+        this.workoutDetailDayNames[day] = dayName;
+      }
+    });
+
     // this.workoutDetailData = data;
   }
 
@@ -129,7 +140,6 @@ export class WorkoutTemplateFormComponent {
           formValues: this.workoutDetailData[day].map((i) => {
             return {
               ...i,
-
               _meta: this.exercises.find((e) => e.id === i.exerciseID),
             };
           }),

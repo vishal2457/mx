@@ -8,6 +8,8 @@ import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
 import { WorkoutTemplateFormComponent } from './workout-template-form/workout-template-form.component';
+import { ConfirmModalComponent } from '../../../shared/misc/confirm-modal/confirm-modal.component';
+import { Dialog } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'edit-workoutTemplate',
@@ -28,6 +30,7 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
   private notif = inject(MxNotification);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private dialog = inject(Dialog);
 
   workoutTemplateID!: string;
   private requests = new SubSink();
@@ -64,6 +67,21 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
     if (this.workoutTemplateFormComponent.isInValid()) {
       return;
     }
+
+    const workoutDetails =
+      this.workoutTemplateFormComponent.getWorkoutDetailData();
+
+    if (!workoutDetails.length) {
+      this.dialog.open(ConfirmModalComponent, {
+        data: {
+          hideCancel: true,
+          title: 'Error saving workout template',
+          description: 'Add atleast one exercise routine in workout detail',
+        },
+      });
+      return;
+    }
+
     this.requests.unsubscribe();
     this.notif.show({
       text: 'Updating WorkoutTemplate',
@@ -74,7 +92,7 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
     this.requests.sink = this.api
       .put(`/workout-template/update/${this.workoutTemplateID}`, {
         ...this.workoutTemplateFormComponent.getFormValue(),
-        workoutDetails: this.workoutTemplateFormComponent.workoutDetailData,
+        workoutDetails,
       })
       .subscribe({
         next: () => {
