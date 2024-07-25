@@ -36,7 +36,9 @@ export class AddBodyPartComponent {
   private fb = inject(FormBuilder);
   private api = inject(ApiService);
 
-  bodyPartForm = this.fb.group<ControlsOf<Omit<TBodyPart, 'id'>>>({
+  bodyPartForm = this.fb.group<
+    ControlsOf<Omit<TBodyPart, 'id' | 'organisationID'>>
+  >({
     name: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,

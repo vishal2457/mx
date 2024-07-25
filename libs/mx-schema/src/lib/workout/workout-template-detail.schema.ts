@@ -3,7 +3,15 @@ import { createSelectSchema } from 'drizzle-zod';
 import { TB_exercise } from './exercise.schema';
 import { TB_workoutTemplate } from './workout-template.schema';
 
-export const DAYS = ['1', '2', '3', '4', '5', '6', '7'] as const;
+export const DAYS = [
+  'day1',
+  'day2',
+  'day3',
+  'day4',
+  'day5',
+  'day6',
+  'day7',
+] as const;
 export const daysEnum = pgEnum('day', DAYS);
 
 export const TB_workoutTemplateDetail = pgTable('workoutTemplateDetail', {
@@ -19,7 +27,8 @@ export const TB_workoutTemplateDetail = pgTable('workoutTemplateDetail', {
   restBwRepsInS: integer('restBwRepsInS').notNull(),
   timeInM: integer('timeInM'),
   additionInstruction: text('additionInstruction'),
-  day: daysEnum('day').default('1'),
+  day: daysEnum('day').default('day1').notNull(),
+  dayName: text('dayName').notNull(),
 });
 
 export const Z_workoutTemplateDetail = createSelectSchema(

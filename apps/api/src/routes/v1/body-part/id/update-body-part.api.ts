@@ -8,7 +8,6 @@ import {
 import { createInsertSchema } from 'drizzle-zod';
 import { bodyPartService } from '../body-part.service';
 
-
 export default Router().put(
   '/update/:id',
   validate({
@@ -16,7 +15,10 @@ export default Router().put(
     params: v_param_id,
   }),
   async (req, res) => {
-    const result = await bodyPartService.updateBodyPart(req.body, req.params.id);
+    const result = await bodyPartService.updateBodyPart(
+      req.body,
+      req.params.id,
+    );
     success(res, result, 'updated');
-  }
+  },
 );

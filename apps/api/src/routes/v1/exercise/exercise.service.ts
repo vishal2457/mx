@@ -16,8 +16,11 @@ class ExerciseService {
     return getListQueryWithFilters(TB_exercise, query);
   }
 
-  getAllExercises() {
-    return db.select().from(TB_exercise);
+  getAllExercises(organisationID: Exercise['organisationID']) {
+    return db
+      .select()
+      .from(TB_exercise)
+      .where(eq(TB_exercise.organisationID, organisationID));
   }
 
   getTotalCount() {

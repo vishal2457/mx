@@ -27,17 +27,24 @@
   </div>
 </mx-form>
 
+<div class="mt-3 mb-2">
+  <p class="text-xl">Workout Details</p>
+  <p class="text-xs">Add workout details</p>
+</div>
+
 <div class="my-4 grid grid-cols-4 gap-2">
   @for (item of workoutDetailData | keyvalue; track item.key) {
     <div mxCard>
       <div mxCardHeader class="flex-row justify-between items-center">
-        <div mxCardtitle>{{item.key}}</div>
-        <mx-icon
-          icon="edit"
-          iconClass="cursor-pointer"
-          mxTooltip="Edit"
-          (click)="openAddWorkoutDetail(item.key)"
-        />
+        <div mxCardtitle>{{ workoutDetailDayNames[item.key] }}</div>
+        @if (workoutDetailData[item.key].length) {
+          <mx-icon
+            icon="edit"
+            iconClass="cursor-pointer"
+            mxTooltip="Edit"
+            (click)="openAddWorkoutDetail(item.key, true)"
+          />
+        }
       </div>
       <div mxCardContent>
         <!-- List Group -->
@@ -47,23 +54,26 @@
               class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg"
             >
               <div class="flex items-center justify-between w-full">
-                <span>{{ index + 1 }}.&nbsp;{{i._meta.name}}</span>
+                <span>{{ index + 1 }}.&nbsp;{{ i._meta.name }}</span>
                 <span
-                  ><span class="font-semibold">{{i.set}}</span>&nbsp;<span
-                    class="text-muted-foreground"
-                    >({{i.reps}})</span
+                  ><span class="font-semibold">{{ i.set }}</span
+                  >&nbsp;<span class="text-muted-foreground"
+                    >({{ i.reps }})</span
                   >
                 </span>
               </div>
             </li>
           } @empty {
             <div class="flex justify-center item-center">
-              <mx-button variant="outline" (handleClick)="openAddWorkoutDetail(item.key)">Add Exercises</mx-button>
+              <mx-button
+                variant="outline"
+                (handleClick)="openAddWorkoutDetail(item.key)"
+                >Add Exercises</mx-button
+              >
             </div>
           }
         </ul>
       </div>
     </div>
   }
-
 </div>

@@ -36,7 +36,11 @@ export class CreateWorkoutTemplateComponent implements OnDestroy {
     if (this.WorkoutTemplateFormComponent.isInValid()) {
       return;
     }
-    if (!this.WorkoutTemplateFormComponent.workoutDetailData) {
+
+    const workoutDetails =
+      this.WorkoutTemplateFormComponent.getWorkoutDetailData();
+
+    if (!workoutDetails.length) {
       this.dialog.open(ConfirmModalComponent, {
         data: {
           hideCancel: true,
@@ -56,7 +60,7 @@ export class CreateWorkoutTemplateComponent implements OnDestroy {
     this.addRequests.sink = this.api
       .post('/workout-template/create', {
         ...this.WorkoutTemplateFormComponent.getFormValue(),
-        workoutDetails: this.WorkoutTemplateFormComponent.workoutDetailData,
+        workoutDetails,
       })
       .subscribe({
         next: () => {

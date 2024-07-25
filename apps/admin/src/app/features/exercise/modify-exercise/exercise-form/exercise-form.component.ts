@@ -25,7 +25,9 @@ export class ExerciseFormComponent implements OnDestroy {
   exerciseLevel = Array.from(EXERCISE_LEVEL);
 
   exerciseForm = this.fb.nonNullable.group<
-    ControlsOf<Omit<TExercise, 'id'> & { bodyPartID: number | null[] }>
+    ControlsOf<
+      Omit<TExercise, 'id' | 'organisationID'> & { bodyPartID: number | null[] }
+    >
   >({
     bodyPartID: new FormControl([], {
       validators: [Validators.required],

@@ -29,6 +29,7 @@ type Steps = '1' | '2';
       <mx-dialog-description
         >Press save after submitting to save your changes</mx-dialog-description
       >
+      <mx-input label="Day Name" [control]="dayName" />
     </mx-dialog-header>
     <!-- <div class="grid grid-cols-1 gap-4">
       <mx-select
@@ -213,6 +214,7 @@ export class AddWorkoutDetailComponent implements OnInit {
   constructor(
     private dialogRef: DialogRef<{
       editMode: boolean;
+      dayName: string;
       formValues: Partial<{
         exerciseID: number | null;
         set: number | null;
@@ -225,6 +227,7 @@ export class AddWorkoutDetailComponent implements OnInit {
     @Inject(DIALOG_DATA)
     protected data: {
       editMode: boolean;
+      dayName: string;
       formValues: Array<
         Omit<TWorkoutTemplateDetail, 'id' | 'workoutTemplateID'> & {
           _meta: any;
@@ -239,9 +242,13 @@ export class AddWorkoutDetailComponent implements OnInit {
 
   activeStep: Steps = '1';
   activatedSteps: string[] = ['1'];
+  dayName = new FormControl(this.data.dayName, Validators.required);
   workoutTemplateDetailform: FormGroup<
     ControlsOf<
-      Omit<TWorkoutTemplateDetail, 'id' | 'workoutTemplateID' | 'day'>
+      Omit<
+        TWorkoutTemplateDetail,
+        'id' | 'workoutTemplateID' | 'day' | 'dayName'
+      >
     > & { _meta: any }
   >[] = [];
   step2ValuesTemp: any[] = [];
@@ -292,6 +299,7 @@ export class AddWorkoutDetailComponent implements OnInit {
     this.dialogRef.close({
       formValues: this.getFormArrayValue(),
       editMode: this.data.editMode,
+      dayName: this.dayName.value || '',
     });
   }
 
@@ -307,7 +315,10 @@ export class AddWorkoutDetailComponent implements OnInit {
   private getFormGroup(exercise: TExercise, existing?: any) {
     const form = this.fb.group<
       ControlsOf<
-        Omit<TWorkoutTemplateDetail, 'id' | 'workoutTemplateID' | 'day'> & {
+        Omit<
+          TWorkoutTemplateDetail,
+          'id' | 'workoutTemplateID' | 'day' | 'dayName'
+        > & {
           _meta: any;
         }
       >

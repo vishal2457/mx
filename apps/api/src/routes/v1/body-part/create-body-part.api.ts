@@ -4,12 +4,19 @@ import { validate } from '../../../shared/middlewares/validation.middleware';
 import { TB_bodyPart } from '../../../../../../libs/mx-schema/src';
 import { createInsertSchema } from 'drizzle-zod';
 import { bodyPartService } from './body-part.service';
+import { secure } from '../../../shared/jwt/jwt-auth.middleware';
 
 export default Router().post(
   '/create',
-  validate({ body: createInsertSchema(TB_bodyPart) }),
+  secure,
+  validate({
+    body: createInsertSchema(TB_bodyPart).omit({ organisationID: true }),
+  }),
   async (req, res) => {
-    const result = await bodyPartService.createBodyPart(req.body);
+    const result = await bodyPartService.createBodyPart({
+      ...req.body,
+      organisationID: req.user.organisationID,
+    });
     success(res, result, 'success');
-  }
+  },
 );

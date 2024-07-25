@@ -9,23 +9,27 @@ import { createInsertSchema } from 'drizzle-zod';
 import { workoutTemplateService } from './workout-template.service';
 import { z } from 'zod';
 import { db } from '../../../db/db';
+import { secure } from '../../../shared/jwt/jwt-auth.middleware';
 
 export default Router().post(
   '/create',
+  secure,
   validate({
-    body: createInsertSchema(TB_workoutTemplate).merge(
-      z.object({
-        workoutDetails: createInsertSchema(TB_workoutTemplateDetail)
-          .omit({ workoutTemplateID: true })
-          .array(),
-      }),
-    ),
+    body: createInsertSchema(TB_workoutTemplate)
+      .omit({ organisationID: true })
+      .merge(
+        z.object({
+          workoutDetails: createInsertSchema(TB_workoutTemplateDetail)
+            .omit({ workoutTemplateID: true })
+            .array(),
+        }),
+      ),
   }),
   async (req, res) => {
     await db.transaction(async (tx) => {
       const { workoutDetails, ...rest } = req.body;
       const [result] = await workoutTemplateService.createWorkoutTemplate(
-        rest,
+        { ...rest, organisationID: req.user.organisationID },
         tx,
       );
       const workoutDetailPayload = workoutDetails.map((i) => ({

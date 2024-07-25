@@ -7,6 +7,7 @@ import {
   text,
 } from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
+import { TB_organisation } from '../organisation/organisation.schema';
 
 export const TEMPLATE_TARGET = [
   'Over Weight',
@@ -24,6 +25,9 @@ export const workoutIntensityEnum = pgEnum(
 
 export const TB_workoutTemplate = pgTable('workoutTemplate', {
   id: serial('id').primaryKey(),
+  organisationID: integer('organisationID')
+    .notNull()
+    .references(() => TB_organisation.id),
   name: text('name').notNull(),
   description: text('description').notNull(),
   target: targetEnum('target').default('Normal'),

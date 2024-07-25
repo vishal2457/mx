@@ -40,13 +40,32 @@ export class WorkoutTemplateFormComponent {
     day3: any[];
     day4: any[];
     day5: any[];
-  } = { day1: [], day2: [], day3: [], day4: [], day5: [] };
+    day6: any[];
+    day7: any[];
+  } = { day1: [], day2: [], day3: [], day4: [], day5: [], day6: [], day7: [] };
+  workoutDetailDayNames: {
+    day1: string;
+    day2: string;
+    day3: string;
+    day4: string;
+    day5: string;
+    day6: string;
+    day7: string;
+  } = {
+    day1: 'Chest',
+    day2: 'Back',
+    day3: 'Arms',
+    day4: 'Shoulder',
+    day5: 'Legs',
+    day6: 'Cardio',
+    day7: 'HIIT',
+  };
   exercises: TExercise[] = [];
 
   private subs = new SubSink();
 
   workoutTemplateForm = this.fb.nonNullable.group<
-    ControlsOf<Omit<TWorkoutTemplate, 'id'>>
+    ControlsOf<Omit<TWorkoutTemplate, 'id' | 'organisationID'>>
   >({
     name: new FormControl(null, {
       validators: [Validators.required],
@@ -110,9 +129,11 @@ export class WorkoutTemplateFormComponent {
           formValues: this.workoutDetailData[day].map((i) => {
             return {
               ...i,
+
               _meta: this.exercises.find((e) => e.id === i.exerciseID),
             };
           }),
+          dayName: this.workoutDetailDayNames[day],
           exerciseData,
         },
       });
@@ -122,17 +143,37 @@ export class WorkoutTemplateFormComponent {
           return;
         }
         this.workoutDetailData[day] = result.formValues;
+        this.workoutDetailDayNames[day] = result.dayName;
       });
     });
   }
 
   private fetchExercise() {
+    if (this.exercises.length) {
+      return of(this.exercises);
+    }
     return this.api
       .get<TExercise[]>('/exercise/all')
       .pipe(map((data) => (this.exercises = data.data)));
   }
 
-  private getExerciseName(exerciseID: number) {
-    return this.exercises.find((i) => i.id === exerciseID)?.name;
+  getWorkoutDetailData() {
+    let result: TWorkoutTemplateDetail[] = [];
+    const requestData = JSON.parse(
+      JSON.stringify({ ...this.workoutDetailData }),
+    );
+    for (const key in requestData) {
+      const data = [...requestData[key]];
+      const arr = data.map((i) => {
+        delete i._meta;
+        return {
+          day: key as any,
+          dayName: this.workoutDetailDayNames[key],
+          ...i,
+        };
+      });
+      result = [...result, ...arr];
+    }
+    return result;
   }
 }
