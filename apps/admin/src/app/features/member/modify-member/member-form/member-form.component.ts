@@ -34,6 +34,7 @@ type TMemberForm = Omit<
   | 'age'
   | 'height'
   | 'passcode'
+  | 'quickAdd'
 > & {
   joinDate?: string;
   planID?: number;

@@ -17,6 +17,8 @@ import {
   TWorkoutTemplateDetail,
 } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
+import { SubSink } from '../../../../shared/utils/sub-sink';
+import { matchSorter } from 'match-sorter';
 
 type Steps = '1' | '2';
 
@@ -31,39 +33,6 @@ type Steps = '1' | '2';
       >
       <mx-input label="Day Name" [control]="dayName" />
     </mx-dialog-header>
-    <!-- <div class="grid grid-cols-1 gap-4">
-      <mx-select
-        label="Exercise"
-        [items]="data.exerciseData"
-        bindLabel="name"
-        bindValue="id"
-        [control]="workoutTemplateDetailform.controls.exerciseID"
-      />
-      <mx-input-number
-        label="Total Sets"
-        [control]="workoutTemplateDetailform.controls.set"
-      />
-      <mx-input
-        label="Repetition"
-        [control]="workoutTemplateDetailform.controls.reps"
-        [hints]="['Enter reps in comma seperated form, eg: 12,10,8']"
-      />
-      <mx-input
-        label="Rest between reps"
-        [control]="workoutTemplateDetailform.controls.restBwRepsInS"
-        [hints]="['Enter time in seconds']"
-      />
-      <mx-input
-        label="Estimated time to complete"
-        [control]="workoutTemplateDetailform.controls.timeInM"
-        [hints]="['Enter time in Minutes']"
-      />
-      <mx-input
-        label="Additional instruction"
-        [control]="workoutTemplateDetailform.controls.additionInstruction"
-      />
-    </div> -->
-
     <div>
       <ul class="relative flex flex-row gap-x-2">
         <li class="flex items-center gap-x-2 shrink basis-0 flex-1 group">
@@ -71,11 +40,15 @@ type Steps = '1' | '2';
             class="min-w-7 min-h-7 group inline-flex items-center text-xs align-middle"
           >
             <span
-              class="size-7  flex justify-center items-center shrink-0  font-medium  rounded-full  bg-primary"
+              class="size-7  flex justify-center items-center shrink-0  font-medium  rounded-full  "
+              [ngClass]="{
+                'bg-primary text-primary-foreground': activeStep === '1',
+                'bg-secondary': activeStep !== '1',
+              }"
             >
               <span>1</span>
             </span>
-            <span class="ms-2 text-sm font-medium "> Step </span>
+            <span class="ms-2 text-sm font-medium ">Step</span>
           </span>
           <div
             class="w-full h-px flex-1 bg-gray-200 group-last:hidden hs-stepper-success:bg-blue-600 hs-stepper-completed:bg-teal-600 dark:bg-neutral-700 dark:hs-stepper-success:bg-blue-600 dark:hs-stepper-completed:bg-teal-600"
@@ -87,7 +60,11 @@ type Steps = '1' | '2';
             class="min-w-7 min-h-7 group inline-flex items-center text-xs align-middle"
           >
             <span
-              class="size-7 flex justify-center items-center shrink-0  font-medium  rounded-full bg-secondary "
+              class="size-7 flex justify-center items-center shrink-0  font-medium  rounded-full"
+              [ngClass]="{
+                'bg-primary text-primary-foreground': activeStep === '2',
+                'bg-secondary': activeStep !== '2',
+              }"
             >
               <span
                 class="hs-stepper-success:hidden hs-stepper-completed:hidden"
@@ -106,16 +83,25 @@ type Steps = '1' | '2';
         <!-- First Contnet -->
         @if (activeStep === '1') {
           <div>
-            <p>
-              {{
-                checked.size
-                  ? checked.size + ' Selected'
-                  : 'Please select an exercise'
-              }}
-            </p>
+            <div class="flex justify-between items-center">
+              <p>
+                {{
+                  checked.size
+                    ? checked.size + ' Selected'
+                    : 'Please select an exercise'
+                }}
+              </p>
+              <mx-input
+                [control]="searchControl"
+                placeholder="Search exercise"
+                inputClass="bg-background border"
+                [clearable]="true"
+                leftIcon="search"
+              />
+            </div>
             <ul class="mt-3 flex flex-col h-64 overflow-y-auto">
               @for (
-                exercise of data.exerciseData;
+                exercise of exerciseData;
                 track exercise.name;
                 let index = $index
               ) {
@@ -252,8 +238,22 @@ export class AddWorkoutDetailComponent implements OnInit {
     > & { _meta: any }
   >[] = [];
   step2ValuesTemp: any[] = [];
+  searchControl = new FormControl('');
+  exerciseData: TExercise[] = [];
+
+  private subs = new SubSink();
 
   ngOnInit(): void {
+    this.exerciseData = this.data.exerciseData;
+    this.subs.sink = this.searchControl.valueChanges.subscribe((value) => {
+      if (!value) {
+        this.exerciseData = this.data.exerciseData;
+        return;
+      }
+      this.exerciseData = matchSorter(this.data.exerciseData, value, {
+        keys: ['name'],
+      });
+    });
     if (this.data.editMode) {
       this.step2ValuesTemp = this.data.formValues;
       for (const exercise of this.data.formValues) {

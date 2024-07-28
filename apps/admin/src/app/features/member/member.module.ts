@@ -24,8 +24,11 @@ import { MemberRoutingModule } from './member-routing.module';
 import { CreateMemberComponent } from './modify-member/create-member.component';
 import { MemberFormComponent } from './modify-member/member-form/member-form.component';
 import { UpdateMemberComponent } from './modify-member/update-member/update-member.component';
-import { StatsCardComponent } from './modify-member/components/stats-card.component';
 import { MxCardModule } from '../../shared/ui/card/card.module';
+import { AddMembershipDialogComponent } from './components/add-membership.component';
+import { StatsCardComponent } from './components/stats-card.component';
+import { DisplayCurrencyComponent } from '../../shared/misc/display-currency.component';
+import { QuickAddMemberComponent } from './components/quick-add.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { MxCardModule } from '../../shared/ui/card/card.module';
     MemberFormComponent,
     CreateMemberComponent,
     UpdateMemberComponent,
+    AddMembershipDialogComponent,
+    StatsCardComponent,
+    QuickAddMemberComponent,
   ],
   imports: [
     CommonModule,
@@ -55,7 +61,7 @@ import { MxCardModule } from '../../shared/ui/card/card.module';
     MxInputNumberComponent,
     MxGridShellComponent,
     MxBadgeComponent,
-    StatsCardComponent,
+    DisplayCurrencyComponent,
     MxCardModule,
   ],
 })

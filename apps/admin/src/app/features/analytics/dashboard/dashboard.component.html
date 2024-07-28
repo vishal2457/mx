@@ -14,8 +14,7 @@
     </div>
     <div mxCardContent>
       <span class="flex">
-        <mx-icon icon="currency_rupee" class="mt-1" />
-        <p class="text-2xl font-bold">45,231.89</p>
+        <display-currency [amount]="9985.89" />
       </span>
       <span class="flex gap-1 items-center cursor-pointer">
         <p class="text-xs text-muted-foreground">View reports</p>
@@ -49,11 +48,12 @@
         mxCardtitle
         class="text-purple-800 dark:text-purple-300 tracking-wide"
       >
-        Orders
+        Expense Last Month
       </div>
     </div>
     <div mxCardContent>
-      <p class="text-2xl font-bold">20</p>
+      <display-currency [amount]="1000" />
+
       <span class="flex gap-1 items-center cursor-pointer">
         <p class="text-xs text-muted-foreground">View reports</p>
         <mx-icon icon="arrow_right" class="mt-1" />
@@ -96,7 +96,7 @@
   [hideFeatures]="['footer']"
   maxHeight="500px"
   minHeight="300px"
-  gridTitle="Recent Orders"
+  gridTitle="Recent Activity"
 >
   <mx-column field="id" alignment="left" />
   <mx-column field="name" alignment="left" />

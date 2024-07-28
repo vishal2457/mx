@@ -5,6 +5,7 @@ import {
   TExercise,
   TWorkoutTemplate,
   TWorkoutTemplateDetail,
+  WORKOUT_GOAL,
   WORKOUT_INTENSITY,
   Z_workoutTemplate,
 } from '../../../../../../../../libs/mx-schema/src';
@@ -34,6 +35,7 @@ export class WorkoutTemplateFormComponent {
 
   targetEnums = Array.from(TEMPLATE_TARGET);
   intensityEnums = Array.from(WORKOUT_INTENSITY);
+  workoutGoalEnums = Array.from(WORKOUT_GOAL);
   workoutDetailData: {
     day1: any[];
     day2: any[];
@@ -92,6 +94,10 @@ export class WorkoutTemplateFormComponent {
       nonNullable: true,
     }),
     active: new FormControl(true, {
+      nonNullable: true,
+    }),
+    workoutGoal: new FormControl('Stay fit', {
+      validators: [Validators.required],
       nonNullable: true,
     }),
   });

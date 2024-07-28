@@ -81,6 +81,7 @@ export class MxSelectComponent extends FormBaseComponent implements OnInit {
   @Input() multiple = false;
   @Input() clearable = false;
   @Input() searchable = true;
+  @Input() patchFirstEntry = false;
   @Input() typeahead!: Subject<string>;
 
   ngOnInit(): void {
@@ -91,6 +92,12 @@ export class MxSelectComponent extends FormBaseComponent implements OnInit {
 
   private setItems(items: any[]) {
     this.items = items;
+
+    if (this.patchFirstEntry && this.items[0] && !this.control().value) {
+      this.control().setValue(
+        this.bindValue ? this.items[0][this.bindValue] : this.items[0],
+      );
+    }
   }
 
   private _detectChanges() {

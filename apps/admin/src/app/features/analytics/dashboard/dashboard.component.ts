@@ -90,6 +90,10 @@ export class DashboardComponent implements OnInit {
           name: 'July',
           type: 'line',
           stack: 'Total',
+          smooth: true,
+          areaStyle: {
+            opacity: 0.5,
+          },
           data: [...Array(7).keys()].map((x) =>
             Math.floor(Math.random() * 600),
           ),
@@ -98,6 +102,10 @@ export class DashboardComponent implements OnInit {
           name: 'August',
           type: 'line',
           stack: 'Total',
+          smooth: true,
+          areaStyle: {
+            opacity: 0.5,
+          },
           data: [...Array(7).keys()].map((x) =>
             Math.floor(Math.random() * 600),
           ),

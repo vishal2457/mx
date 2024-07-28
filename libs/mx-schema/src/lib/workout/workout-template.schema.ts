@@ -9,6 +9,9 @@ import {
 import { createSelectSchema } from 'drizzle-zod';
 import { TB_organisation } from '../organisation/organisation.schema';
 
+export const WORKOUT_GOAL = ['Muscle Gain', 'Stay fit', 'Weight Loss'] as const;
+export const workoutGoalEnum = pgEnum('workouteGoal', WORKOUT_GOAL);
+
 export const TEMPLATE_TARGET = [
   'Over Weight',
   'Normal',
@@ -34,6 +37,7 @@ export const TB_workoutTemplate = pgTable('workoutTemplate', {
   intensity: workoutIntensityEnum('intensity').default('Moderate'),
   approxCalorieBurn: integer('approxCalorieBurn').notNull(),
   approxTimeToCompleteInM: integer('approxTimeToCompleteInM').default(45),
+  workoutGoal: workoutGoalEnum('workoutGoal').default('Stay fit'),
   active: boolean('active').default(true),
 });
 

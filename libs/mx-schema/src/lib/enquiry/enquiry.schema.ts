@@ -13,7 +13,7 @@ import { createSelectSchema } from 'drizzle-zod';
 export const STATUS_ENUM = ['Open', 'Closed'] as const;
 export const statusEnum = pgEnum('status', STATUS_ENUM);
 
-export const GOAL = ['Weight gain', 'Weight Loss', 'Stay fit'] as const;
+export const GOAL = ['Muscle gain', 'Weight Loss', 'Stay fit'] as const;
 export const goalEnum = pgEnum('goal', GOAL);
 
 export const TB_enquiry = pgTable('enquiry', {

@@ -6,22 +6,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MxButtonComponent } from '../../../../shared/ui/button';
-import { MxDialogModule } from '../../../../shared/ui/dialog/dialog.module';
-import { patchableDate } from '../../../../shared/utils/patchable-date';
-import { MxInputComponent } from '../../../../shared/ui/form/mx-input';
-import { MxSelectComponent } from '../../../../shared/ui/form/mx-select/mx-select';
-import { ApiService } from '../../../../shared/services/api.service';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { MxSelectComponent } from '../../../shared/ui/form/mx-select/mx-select';
+import { ApiService } from '../../../shared/services/api.service';
+import { patchableDate } from '../../../shared/utils/patchable-date';
 
 @Component({
   selector: 'add-membership-dialog',
-  imports: [
-    MxDialogModule,
-    MxButtonComponent,
-    MxInputComponent,
-    MxSelectComponent,
-  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <mx-dialog-content>
     <mx-dialog-header>
       <mx-dialog-title>Add membership</mx-dialog-title>
@@ -62,8 +54,6 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
       >
     </mx-dialog-footer>
   </mx-dialog-content>`,
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddMembershipDialogComponent {
   constructor(

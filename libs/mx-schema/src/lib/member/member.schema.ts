@@ -1,4 +1,5 @@
 import {
+  boolean,
   integer,
   pgEnum,
   pgTable,
@@ -23,21 +24,22 @@ export const TB_member = pgTable('member', {
     .notNull()
     .references(() => TB_organisation.id),
   name: text('name').notNull(),
-  age: integer('age'),
-  address: text('address'),
-  mobile: text('mobile').notNull(),
   email: text('email').notNull(),
-  height: integer('height'),
-  weight: integer('weight'),
-  emergencyContact: text('emergencyContact').notNull(),
-  gender: genderEnum('gender').default('Female'),
   userID: integer('userID').notNull(),
   joinDate: varchar('joinDate').notNull(),
-  profilePic: text('profilePic'),
+  quickAdd: boolean('quickAdd').default(false),
   passcode: varchar('passcode', { length: 255 }).notNull(),
-  workoutTemplateID: integer('workoutTemplateID')
-    .notNull()
-    .references(() => TB_workoutTemplate.id),
+  age: integer('age'),
+  address: text('address'),
+  mobile: text('mobile'),
+  height: integer('height'),
+  weight: integer('weight'),
+  emergencyContact: text('emergencyContact'),
+  gender: genderEnum('gender').default('Female'),
+  profilePic: text('profilePic'),
+  workoutTemplateID: integer('workoutTemplateID').references(
+    () => TB_workoutTemplate.id,
+  ),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').$onUpdate(() => new Date()),
 });

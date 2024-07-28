@@ -10,6 +10,7 @@ import { MxSelectComponent } from '../../shared/ui/form/mx-select/mx-select';
 import { MxDataGridModule } from '../../shared/ui/mx-data-grid/data-grid.module';
 import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DisplayCurrencyComponent } from '../../shared/misc/display-currency.component';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -23,6 +24,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MxDropdownModule,
     MxButtonComponent,
     MxSelectComponent,
+    DisplayCurrencyComponent,
   ],
 })
 export class AnalyticsModule {}

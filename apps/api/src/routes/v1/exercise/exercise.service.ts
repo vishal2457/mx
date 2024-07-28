@@ -12,8 +12,10 @@ import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/li
 type Exercise = typeof TB_exercise.$inferSelect;
 
 class ExerciseService {
-  getExerciseList(query: Request['query']) {
-    return getListQueryWithFilters(TB_exercise, query);
+  getExerciseList(query: Request['query'], organisationID: Exercise['id']) {
+    const q = getListQueryWithFilters(TB_exercise, query);
+    q.where(eq(TB_exercise.organisationID, organisationID));
+    return q;
   }
 
   getAllExercises(organisationID: Exercise['organisationID']) {

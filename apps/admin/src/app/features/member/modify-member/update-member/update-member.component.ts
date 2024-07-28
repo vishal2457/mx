@@ -6,7 +6,7 @@ import { MxNotification } from '../../../../shared/ui/notification/notification.
 import { SubSink } from '../../../../shared/utils/sub-sink';
 import { MemberFormComponent } from '../member-form/member-form.component';
 import { Dialog } from '@angular/cdk/dialog';
-import { AddMembershipDialogComponent } from '../components/add-membership.component';
+import { AddMembershipDialogComponent } from '../../components/add-membership.component';
 import { MxGridShellComponent } from '../../../../shared/grid-shell/grid-shell';
 import { calculateBMI } from '../../../../../../../../libs/helpers/src';
 import * as echarts from 'echarts';
