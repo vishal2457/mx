@@ -64,8 +64,6 @@ export class MainComponent implements OnDestroy, OnInit {
   initUser() {
     this.api.get('/user/me').subscribe({
       next: (data: any) => {
-        console.log(data);
-
         this.userService.setUser(data.user.user);
         // TODO: change menu according to permission
       },
