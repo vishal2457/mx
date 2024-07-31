@@ -237,7 +237,6 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
 
   private buildFilters() {
     const { page, limit, sort } = this.gridEvents;
-    console.log(this.filterValues, 'filter values');
 
     return {
       page,

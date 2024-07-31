@@ -85,7 +85,7 @@ type MemberPlanDetail = {
             <h3 id="hs-ai-modal-label" class="text-lg font-semibold ">
               Invoice
             </h3>
-            <p class="text-sm ">Invoice #3682303</p>
+            <p class="text-sm ">Invoice #{{ invoiceData?.memberPlan?.id }}</p>
           </div>
 
           <!-- Grid -->
@@ -145,7 +145,7 @@ type MemberPlanDetail = {
                 </div>
               </li>
               <li
-                class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-semibold  border  -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg  bg-neutral-200"
+                class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-semibold  border  -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg "
               >
                 <div class="flex items-center justify-between w-full">
                   <span>Amount paid</span>
@@ -233,7 +233,7 @@ type MemberPlanDetail = {
             <h3 id="hs-ai-modal-label" class="text-lg font-semibold ">
               Invoice
             </h3>
-            <p class="text-sm ">Invoice #3682303</p>
+            <p class="text-sm ">Invoice #{{ invoiceData?.memberPlan?.id }}</p>
           </div>
 
           <!-- Grid -->
@@ -293,7 +293,7 @@ type MemberPlanDetail = {
                 </div>
               </li>
               <li
-                class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-semibold  border  -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg  bg-neutral-200"
+                class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-semibold  border  -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg"
               >
                 <div class="flex items-center justify-between w-full">
                   <span>Amount paid</span>

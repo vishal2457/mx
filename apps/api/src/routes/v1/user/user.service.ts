@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { Request } from 'express';
-import { TB_user } from '../../../../../../libs/mx-schema/src';
+import { TB_organisation, TB_user } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
 import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
@@ -34,10 +34,11 @@ class UserService {
 
   // get user by id
   getUserByID(id: (typeof TB_user.$inferSelect)['id']) {
-    return db.query.TB_user.findFirst({
-      columns: { password: false },
-      where: eq(TB_user.id, id),
-    });
+    return db
+      .select()
+      .from(TB_user)
+      .leftJoin(TB_organisation, eq(TB_user.organisationID, TB_organisation.id))
+      .where(eq(TB_user.id, id));
   }
 
   updateUserByID(

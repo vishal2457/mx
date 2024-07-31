@@ -1,7 +1,29 @@
 <mx-form [form]="organisationForm" [zodSchema]="Z_organisation">
-  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
-    <mx-input label="Name" [control]="formControls.name" />
-    <mx-input label="Email" [control]="formControls.email" />
-    <mx-input label="Mobile" [control]="formControls.mobile" />
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4 items-center">
+    <mx-input
+      label="Organisation Name"
+      placeholder="Enter Name"
+      [control]="formControls.name"
+    />
+    <mx-input
+      label="Panel Name"
+      placeholder="Enter Panel name"
+      [control]="formControls.panelName"
+    />
+    <mx-input
+      label="Mobile"
+      placeholder="Enter Mobile"
+      [control]="formControls.mobile"
+    />
+
+    <!-- <mx-checkbox label="DarkMode" [control]="formControls.darkMode" /> -->
+  </div>
+
+  <div class="mt-4">
+    <mx-file-upload
+      label="Logo"
+      [previewImages]="true"
+      (handleFileChange)="handleLogoChange($event)"
+    />
   </div>
 </mx-form>

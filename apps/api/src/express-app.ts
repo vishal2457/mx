@@ -35,7 +35,7 @@ app
   .use(
     helmet({
       crossOriginResourcePolicy: false,
-    })
+    }),
   )
   .use(compression())
   .use(express.json())
@@ -43,7 +43,7 @@ app
   .use(
     helmet.frameguard({
       action: 'deny',
-    })
+    }),
   )
   .use('/static', express.static(path.join(process.cwd() + '/mx-images/')))
   .use(logHttpRequests)
@@ -57,7 +57,7 @@ app
           status_code: res.statusCode,
         })
         .observe(time);
-    })
+    }),
   );
 
 //init all the modules

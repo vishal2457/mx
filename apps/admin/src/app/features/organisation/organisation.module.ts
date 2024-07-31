@@ -20,14 +20,12 @@ import { OrganisationRoutingModule } from './organisation-routing.module';
 import { OrganisationListComponent } from './organisation-list/organisation-list.component';
 import { OrganisationFormComponent } from './modify-organisation/organisation-form/organisation-form.component';
 import { CreateOrganisationComponent } from './modify-organisation/create-organisation.component';
-import { UpdateOrganisationComponent } from './modify-organisation/update-organisation.component';
 
 @NgModule({
   declarations: [
     OrganisationListComponent,
     OrganisationFormComponent,
     CreateOrganisationComponent,
-    UpdateOrganisationComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +43,7 @@ import { UpdateOrganisationComponent } from './modify-organisation/update-organi
     MxFileUploadComponent,
     MxTextareaComponent,
     MxCheckboxComponent,
-    MxInputComponent
+    MxInputComponent,
   ],
 })
 export class OrganisationModule {}

@@ -9,7 +9,7 @@ export default Router().get(
   '/detail/:id',
   validate({ params: v_param_id }),
   ah(async (req, res) => {
-    const result = await userService.getUserByID(req.params.id);
-    success(res, result, 'User Details');
+    const [result] = await userService.getUserByID(req.params.id);
+    success(res, result.user, 'User Details');
   }),
 );

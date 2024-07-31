@@ -8,6 +8,6 @@ export default Router().get('/me', secure, async (req, res) => {
   const permissions = await rolePermissionService.getPermissionByUserID(
     req.user.id,
   );
-  const user = await userService.getUserByID(req.user.id);
-  success(res, { permissions, user }, 'User info');
+  const [result] = await userService.getUserByID(req.user.id);
+  success(res, { permissions, ...result }, 'User info');
 });

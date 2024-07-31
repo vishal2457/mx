@@ -1,12 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import {
   TOrganisation,
   Z_organisation,
 } from '../../../../../../../../libs/mx-schema/src';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 
-type TOrganisationForm = Omit<TOrganisation, 'id' | 'createdAt' | 'updatedAt'>;
+type TOrganisationForm = Omit<
+  TOrganisation,
+  'id' | 'createdAt' | 'updatedAt' | 'email' | 'emailVerified'
+>;
 
 @Component({
   selector: 'organisation-form',
@@ -19,15 +22,7 @@ export class OrganisationFormComponent {
 
   organisationForm = this.fb.nonNullable.group<ControlsOf<TOrganisationForm>>({
     name: new FormControl(null, {
-      validators: [],
-      nonNullable: true,
-    }),
-    email: new FormControl(null, {
-      validators: [],
-      nonNullable: true,
-    }),
-    emailVerified: new FormControl(null, {
-      validators: [],
+      validators: [Validators.required],
       nonNullable: true,
     }),
     active: new FormControl(null, {
@@ -35,9 +30,26 @@ export class OrganisationFormComponent {
       nonNullable: true,
     }),
     mobile: new FormControl('', {
-      validators: [],
+      validators: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+      ],
       nonNullable: true,
     }),
+    logo: new FormControl(null, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    panelName: new FormControl(null, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    darkMode: new FormControl(null, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    theme: new FormControl('default'),
   });
 
   get formControls() {
@@ -58,5 +70,9 @@ export class OrganisationFormComponent {
 
   patchValue(value) {
     this.organisationForm.patchValue(value);
+  }
+
+  handleLogoChange(file: any) {
+    this.organisationForm.patchValue({ logo: file });
   }
 }
