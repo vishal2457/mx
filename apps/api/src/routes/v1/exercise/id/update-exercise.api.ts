@@ -23,7 +23,7 @@ export default Router().put(
   async (req, res) => {
     await db.transaction(async (tx) => {
       const { bodyPartID, ...rest } = req.body;
-      const { id: exerciseID } = v_param_id.parse(req.params.id);
+      const { id: exerciseID } = v_param_id.parse(req.params);
 
       const result = await exerciseService.updateExercise(rest, exerciseID, tx);
       await exerciseService.deleteExerciseBody(exerciseID, tx);

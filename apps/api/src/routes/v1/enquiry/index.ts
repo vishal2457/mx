@@ -5,13 +5,14 @@ import deleteEnquiry from './id/delete-enquiry.api';
 import updateEnquiry from './id/update-enquiry.api';
 import getEnquiry from './id/get-enquiry.api';
 import { asyncHandler } from '../../../shared/async-handler.util';
-
+import getCountStatusOpenApi from './get-count-status-open.api';
 
 export const enquiry = asyncHandler([
-getEnquiryList,
-getEnquiry,
-createEnquiry,
-deleteEnquiry,
-updateEnquiry,
-getAllEnquiry
-])
+  getEnquiryList,
+  getEnquiry,
+  createEnquiry,
+  deleteEnquiry,
+  updateEnquiry,
+  getAllEnquiry,
+  getCountStatusOpenApi,
+]);

@@ -8,15 +8,14 @@ import {
 import { createInsertSchema } from 'drizzle-zod';
 import { enquiryService } from '../enquiry.service';
 
-
 export default Router().put(
   '/update/:id',
   validate({
-    body: createInsertSchema(TB_enquiry),
+    body: createInsertSchema(TB_enquiry).omit({ organisationID: true }),
     params: v_param_id,
   }),
   async (req, res) => {
     const result = await enquiryService.updateEnquiry(req.body, req.params.id);
     success(res, result, 'updated');
-  }
+  },
 );

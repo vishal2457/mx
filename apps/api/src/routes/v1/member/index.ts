@@ -9,6 +9,10 @@ import getMembershipByMemberidApi from './id/get-membership-by-memberid.api';
 import updateWeightApi from './id/update-weight.api';
 import loginMemberApi from './login-member.api';
 import getWeightHistoryApi from './id/get-weight-history.api';
+import getCountNewByMonth from './stats/get-count-new-by-month';
+import getRevenueByMonthApi from './stats/get-revenue-by-month.api';
+import getMemberCountApi from './stats/get-member-count.api';
+import getActiveMembershipApi from './id/get-active-membership.api';
 
 export const member = asyncHandler([
   getMemberList,
@@ -20,5 +24,9 @@ export const member = asyncHandler([
   getMembershipByMemberidApi,
   updateWeightApi,
   loginMemberApi,
-  getWeightHistoryApi
+  getWeightHistoryApi,
+  getCountNewByMonth,
+  getRevenueByMonthApi,
+  getMemberCountApi,
+  getActiveMembershipApi,
 ]);

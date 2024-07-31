@@ -5,14 +5,10 @@ import { validate } from '../../../../shared/middlewares/validation.middleware';
 import { memberService } from '../member.service';
 
 export default Router().get(
-  '/detail/:id',
+  '/active-membership/:id',
   validate({ params: v_param_id }),
   async (req, res) => {
-    const [result] = await memberService.getByID(req.params.id);
-    const [memberTotalSpent] = await memberService.getMemberTotalSpent(
-      req.params.id,
-    );
-
-    success(res, { details: result, memberTotalSpent }, 'Member Details');
+    const [result] = await memberService.getActiveMemberShip(req.params.id);
+    success(res, result, 'Membership Details');
   },
 );

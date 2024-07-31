@@ -3,11 +3,9 @@ import { success } from '../../../shared/api-response/response-handler';
 import { enquiryService } from './enquiry.service';
 import { secure } from '../../../shared/jwt/jwt-auth.middleware';
 
-export default Router().get('/list', secure, async (req, res) => {
-  const rows = await enquiryService.getEnquiryList(
-    req.query,
+export default Router().get('/count-status-open', secure, async (req, res) => {
+  const [result] = await enquiryService.getStatusOpenCount(
     req.user.organisationID,
   );
-  const count = await enquiryService.getTotalCount();
-  success(res, { rows, count }, 'success');
+  success(res, result, 'success');
 });

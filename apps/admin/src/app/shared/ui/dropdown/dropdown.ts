@@ -15,16 +15,16 @@ import {
   selector: 'mx-dropdown-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (!item){
-    <button
-      (click)="handleClick.emit($event)"
-      class="w-full cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-    >
-      <mx-icon [icon]="icon" class="mr-2" size="sm" />
-      <p>{{ text }}</p>
-    </button>
-    } @else if(item) {
-    <ng-container *ngTemplateOutlet="item"></ng-container>
+    @if (!item) {
+      <button
+        (click)="handleClick.emit($event)"
+        class="w-full cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+      >
+        <mx-icon [icon]="icon" class="mr-2" size="sm" />
+        <p>{{ text }}</p>
+      </button>
+    } @else if (item) {
+      <ng-container *ngTemplateOutlet="item"></ng-container>
     }
   `,
 })
@@ -52,27 +52,31 @@ export class MxDropdownItemComponent {
         [ngClass]="spacingClass"
         cdkMenu
       >
-        @if(dropdownTitle) {
-        <p class="text-sm">{{ dropdownTitle }}</p>
-        <div class=" my-1 h-px border w-full"></div>
-        } @for (dropdownItem of dropdownItems; track dropdownItem.text) { @if
-        (dropdownItem.seperator) {
-        <div class=" my-1 h-px border w-full"></div>
-        } @if(!dropdownItem.seperator) {
-        <mx-dropdown-item
-          cdkMenuItem
-          [text]="dropdownItem.text"
-          [icon]="dropdownItem.icon"
-          (handleClick)="handleItemClick($event, dropdownItem)"
-          class="w-full"
-        >
-          @if(dropdownItem.item) {
-          <ng-template #item>
-            <ng-container *ngTemplateOutlet="dropdownItem.item"></ng-container>
-          </ng-template>
+        @if (dropdownTitle) {
+          <p class="text-sm my-1 pl-1">{{ dropdownTitle }}</p>
+        }
+        @for (dropdownItem of dropdownItems; track dropdownItem.text) {
+          @if (dropdownItem.seperator) {
+            <div class=" my-1 h-px border w-full"></div>
           }
-        </mx-dropdown-item>
-        } }
+          @if (!dropdownItem.seperator) {
+            <mx-dropdown-item
+              cdkMenuItem
+              [text]="dropdownItem.text"
+              [icon]="dropdownItem.icon"
+              (handleClick)="handleItemClick($event, dropdownItem)"
+              class="w-full"
+            >
+              @if (dropdownItem.item) {
+                <ng-template #item>
+                  <ng-container
+                    *ngTemplateOutlet="dropdownItem.item"
+                  ></ng-container>
+                </ng-template>
+              }
+            </mx-dropdown-item>
+          }
+        }
       </div>
     </ng-template>`,
 })
@@ -94,7 +98,7 @@ export class MxDropdownComponent {
 
   protected handleItemClick(
     event: Event,
-    dropdownItem: MxDropdownItemComponent
+    dropdownItem: MxDropdownItemComponent,
   ) {
     if (!this.closeOnSelect) {
       event?.stopPropagation();

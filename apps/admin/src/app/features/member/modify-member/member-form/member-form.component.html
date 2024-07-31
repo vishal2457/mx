@@ -9,6 +9,7 @@
           bindLabel="name"
           bindValue="id"
           apiURL="/plan/all"
+          placeholder="Select plan"
           #planSelect
         />
         <mx-button
@@ -19,42 +20,64 @@
         /></mx-button>
       </div>
     }
-    <mx-input label="Name" [control]="formControls.name" />
+    <mx-input
+      label="Name"
+      placeholder="Enter name"
+      [control]="formControls.name"
+    />
     <mx-select
       label="Gender"
       [control]="formControls.gender"
       [items]="GENDER"
+      [patchFirstEntry]="true"
+      placeholder="Select Gender"
     />
     @if (formControls.age) {
-      <mx-input-number label="age" [control]="formControls.age" />
+      <mx-input-number
+        label="age"
+        [control]="formControls.age"
+        placeholder="Enter age"
+      />
     }
 
     @if (formControls.height) {
       <mx-input-number
-        label="Height"
+        label="Height (cm)"
         [control]="formControls.height"
         type="number"
+        placeholder="Height in cm"
       />
     }
     @if (formControls.weight) {
       <mx-input-number
-        label="Weight"
+        label="Weight (kg)"
         [control]="formControls.weight"
         type="number"
+        placeholder="Enter Weight"
       />
     }
-    <mx-input label="Mobile" [control]="formControls.mobile" />
-    <mx-input label="Email" [control]="formControls.email" />
+    <mx-input
+      label="Mobile"
+      [control]="formControls.mobile"
+      placeholder="Enter mobile number"
+    />
+    <mx-input
+      label="Email"
+      [control]="formControls.email"
+      placeholder="Enter email"
+    />
     <mx-select
       apiURL="/workout-template/all"
       bindLabel="name"
       bindValue="id"
       label="Workout Template"
       [control]="formControls.workoutTemplateID"
+      [patchFirstEntry]="true"
     />
     <mx-input
       label="Emergency Contact"
       [control]="formControls.emergencyContact"
+      placeholder="Enter emergency contact"
     />
     <mx-select
       label="Assigned User"
@@ -62,6 +85,7 @@
       apiURL="/user/all"
       bindLabel="name"
       bindValue="id"
+      [patchFirstEntry]="true"
     />
     @if (formControls.joinDate) {
       <mx-input
@@ -70,8 +94,13 @@
         [control]="formControls.joinDate"
       />
     }
+    <mx-checkbox label="Active" [control]="formControls.active" />
   </div>
-  <mx-textarea [control]="formControls.address" label="Address" />
+  <mx-textarea
+    [control]="formControls.address"
+    label="Address"
+    placeholder="Enter full address"
+  />
 </mx-form>
 
 <ng-template #addPlan>

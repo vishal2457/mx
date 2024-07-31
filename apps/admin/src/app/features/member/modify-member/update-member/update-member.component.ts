@@ -107,7 +107,7 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
       .get<{
         details: TMember & { memberPlan: any[] };
         memberTotalSpent: { amount: string };
-      }>(`/member/${id}`)
+      }>(`/member/detail/${id}`)
       .subscribe(({ data }) => {
         const details = data.details;
         this.memberData = {

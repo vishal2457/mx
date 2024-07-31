@@ -54,6 +54,7 @@ import { MxFormErrorComponent } from '../form-error';
         [clearable]="clearable"
         [searchable]="searchable"
         [typeahead]="typeahead"
+        [placeholder]="placeholder"
       ></ng-select>
 
       <mx-form-error [errors]="control().errors" />
@@ -111,6 +112,7 @@ export class MxSelectComponent extends FormBaseComponent implements OnInit {
 
   getItems() {
     if (!this.apiURL) {
+      this.setItems(this.items);
       return;
     }
     this.updateLoader(true);

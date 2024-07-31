@@ -2,6 +2,23 @@
   @apply text-foreground;
 }
 
+::ng-deep
+  .ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-value {
+  @apply bg-accent;
+}
+
+::ng-deep
+  .ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-value
+  .ng-value-icon.left {
+  @apply border-border border text-foreground hover:bg-accent;
+}
+
 ::ng-deep .ng-input input {
   @apply text-foreground;
 }

@@ -10,25 +10,69 @@ import {
   TMemberPlan,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
+import {
+  getTotalCount,
+  getTotalCountByOrg,
+} from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type Member = typeof TB_member.$inferSelect;
 
 class MemberService {
-  getMemberList(query: Request['query']) {
-    return getListQueryWithFilters(TB_member, query).leftJoin(
-      TB_user,
-      eq(TB_member.userID, TB_user.id),
-    );
+  // stored procedure
+  private countMemberAddedByMonth = db
+    .select({ count: count() })
+    .from(TB_member)
+    .where(
+      sql`EXTRACT (YEAR FROM ${TB_member.createdAt}) = ${sql.placeholder('year')} AND EXTRACT (MONTH FROM ${TB_member.createdAt}) = ${sql.placeholder('month')} AND ${TB_member.organisationID} = ${sql.placeholder('organisationID')}`,
+    )
+    .prepare('countMemberAddedByMonth');
+
+  private revenueByMonth = db
+    .select({ amount: sum(TB_plan.amount) })
+    .from(TB_memberPlan)
+    .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
+    .leftJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
+    .groupBy(
+      sql`${TB_memberPlan.memberID}, ${TB_memberPlan.paid}, ${TB_memberPlan.createdAt}, ${TB_member.organisationID}`,
+    )
+    .having(
+      and(
+        sql`EXTRACT (YEAR FROM ${TB_memberPlan.createdAt}) = ${sql.placeholder('year')} AND EXTRACT (MONTH FROM ${TB_memberPlan.createdAt}) = ${sql.placeholder('month')} AND ${TB_member.organisationID} = ${sql.placeholder('organisationID')}`,
+        eq(TB_memberPlan.paid, true),
+      ),
+    )
+    .prepare('revenueByMonth');
+
+  getMemberList(
+    query: Request['query'],
+    organisationID: Member['organisationID'],
+  ) {
+    return getListQueryWithFilters(TB_member, query)
+      .leftJoin(TB_user, eq(TB_member.userID, TB_user.id))
+      .where(eq(TB_member.organisationID, organisationID));
   }
 
   getAllMembers() {
     return db.select().from(TB_member);
   }
 
-  getTotalCount() {
-    return getTotalCount(TB_member);
+  getTotalCount(
+    organisationID: Member['organisationID'],
+    active?: Member['active'],
+  ) {
+    const q = getTotalCountByOrg(TB_member).where(
+      eq(TB_member.organisationID, organisationID),
+    );
+    if (active) {
+      q.where(
+        and(
+          eq(TB_member.active, true),
+          eq(TB_member.organisationID, organisationID),
+        ),
+      );
+    }
+    return q;
   }
 
   createMember(payload: typeof TB_member.$inferInsert) {
@@ -74,6 +118,7 @@ class MemberService {
           sql`${TB_memberPlan.endDate} > CURRENT_TIMESTAMP`,
         ),
       )
+      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
       .orderBy(desc(TB_memberPlan.id))
       .limit(1);
   }
@@ -115,9 +160,27 @@ class MemberService {
   }
 
   getWeightHistory(memberID: Member['id']) {
-    return db.select().from(TB_memberWeightHistory).where(eq(TB_memberWeightHistory.memberID, memberID))
+    return db
+      .select()
+      .from(TB_memberWeightHistory)
+      .where(eq(TB_memberWeightHistory.memberID, memberID));
   }
 
+  getCountMemberAddedByMonth(params: {
+    month: number;
+    year: number;
+    organisationID: number;
+  }) {
+    return this.countMemberAddedByMonth.execute(params);
+  }
+
+  getRevenueByMonth(params: {
+    month: number;
+    year: number;
+    organisationID: number;
+  }) {
+    return this.revenueByMonth.execute(params);
+  }
 }
 
 export const memberService = new MemberService();

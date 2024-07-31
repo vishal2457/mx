@@ -31,7 +31,7 @@ export default Router().post(
     const membership = await memberService.getActiveMemberShip(memberID);
     if (
       isAfter(
-        membership[0].endDate,
+        membership[0].memberPlan.endDate,
         parse(req.body.startDate, 'yyyy-MM-dd', new Date()),
       )
     ) {

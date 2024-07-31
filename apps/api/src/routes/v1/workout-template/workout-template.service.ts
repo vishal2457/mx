@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_exercise,
@@ -13,15 +13,27 @@ type WorkoutTemplate = typeof TB_workoutTemplate.$inferSelect;
 type WorkoutDetailsInsert = typeof TB_workoutTemplateDetail.$inferInsert;
 
 class WorkoutTemplateService {
-  getWorkoutTemplateList(query: Request['query']) {
-    return getListQueryWithFilters(TB_workoutTemplate, query);
+  getWorkoutTemplateList(
+    query: Request['query'],
+    organisationID: WorkoutTemplate['organisationID'],
+  ) {
+    return getListQueryWithFilters(TB_workoutTemplate, query).where(
+      eq(TB_workoutTemplate.organisationID, organisationID),
+    );
   }
 
-  getAllActiveWorkoutTemplates() {
+  getAllActiveWorkoutTemplates(
+    organisationID: WorkoutTemplate['organisationID'],
+  ) {
     return db
       .select()
       .from(TB_workoutTemplate)
-      .where(eq(TB_workoutTemplate.active, true));
+      .where(
+        and(
+          eq(TB_workoutTemplate.active, true),
+          eq(TB_workoutTemplate.organisationID, organisationID),
+        ),
+      );
   }
 
   getTotalCount() {

@@ -40,7 +40,7 @@ import { MxTooltipDirective } from '../tooltip/tooltip.directive';
           </h3>
           <p class=" text-xs mt-1">{{ description() }}</p>
           @for (hint of internalHints(); track hint) {
-          <mx-hint [message]="hint" />
+            <mx-hint [message]="hint" />
           }
         </div>
         <div
@@ -68,42 +68,44 @@ import { MxTooltipDirective } from '../tooltip/tooltip.directive';
       </div>
 
       @for (file of selectedFiles(); track file.name; let index = $index) {
-      <div
-        class="flex flex-col bg-background border shadow-lg p-4 rounded-lg mt-4"
-      >
-        <div class="flex items-center gap-2">
-          @if (file['previewURL']) {
-          <mx-overlay spacingClass="p-4">
-            <mx-image
-              [fileURL]="file['previewURL']"
-              imageClass="w-5"
-              mxTooltip="Click to preview"
-              alt="small Image"
-              trigger
-            />
-            <mx-image [fileURL]="file['previewURL']" alt="Preview image" />
-          </mx-overlay>
-
-          } @else {
-          <mx-svg-icon iconName="file" iconClass="fill-current inline-block" />
-          }
-          <div class="flex-1 mt-1">
-            <p class="text-xs  ">
-              {{ file.name }}
-              <span class="ml-2">{{ file['sizeInMb'] }} mb</span>
-            </p>
-            @if (file['fizeSizeError']) {
-            <mx-hint [message]="file['fizeSizeError']" type="error" />
+        <div
+          class="flex flex-col bg-background border shadow-lg p-4 rounded-lg mt-4"
+        >
+          <div class="flex items-center gap-2">
+            @if (file['previewURL']) {
+              <mx-overlay containerClass="p-4">
+                <mx-image
+                  [fileURL]="file['previewURL']"
+                  imageClass="w-5"
+                  mxTooltip="Click to preview"
+                  alt="small Image"
+                  trigger
+                />
+                <mx-image [fileURL]="file['previewURL']" alt="Preview image" />
+              </mx-overlay>
+            } @else {
+              <mx-svg-icon
+                iconName="file"
+                iconClass="fill-current inline-block"
+              />
             }
+            <div class="flex-1 mt-1">
+              <p class="text-xs  ">
+                {{ file.name }}
+                <span class="ml-2">{{ file['sizeInMb'] }} mb</span>
+              </p>
+              @if (file['fizeSizeError']) {
+                <mx-hint [message]="file['fizeSizeError']" type="error" />
+              }
+            </div>
+            <mx-svg-icon
+              iconName="close"
+              iconClass="cursor-pointer"
+              (handleClick)="removeFile(index)"
+              title="remove file"
+            />
           </div>
-          <mx-svg-icon
-            iconName="close"
-            iconClass="cursor-pointer"
-            (handleClick)="removeFile(index)"
-            title="remove file"
-          />
         </div>
-      </div>
       }
     </div>
   `,
@@ -193,9 +195,8 @@ export class MxFileUploadComponent {
 
       // handle max file size validation
       if (maxFileSizeMB && sizeInMb > maxFileSizeMB) {
-        file[
-          'fizeSizeError'
-        ] = `File size should be less then ${maxFileSizeMB} MB, it is ${sizeInMb} MB`;
+        file['fizeSizeError'] =
+          `File size should be less then ${maxFileSizeMB} MB, it is ${sizeInMb} MB`;
       }
 
       return file;

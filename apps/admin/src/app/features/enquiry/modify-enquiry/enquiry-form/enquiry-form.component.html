@@ -1,7 +1,29 @@
 <mx-form [form]="enquiryForm" [zodSchema]="Z_enquiry">
   <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
-    <mx-input label="CustomerName" [control]="formControls.customerName" />
+    <mx-input label="Customer Name" [control]="formControls.customerName" />
     <mx-input label="Mobile" [control]="formControls.mobile" />
     <mx-input label="Email" [control]="formControls.email" />
+    <mx-select
+      label="Goal"
+      [control]="formControls.goal"
+      [items]="goalEnum"
+      placeholder="Select goal"
+    />
+    <mx-input
+      label="Period (Months)"
+      [control]="formControls.periodInM"
+      placeholder="Enter period"
+    />
+    <mx-select
+      label="Status"
+      [control]="formControls.status"
+      [items]="statusEnum"
+      placeholder="Select status"
+    />
   </div>
+  <mx-textarea
+    label="Terms"
+    [control]="formControls.terms"
+    placeholder="Enter terms"
+  />
 </mx-form>

@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { cva, VariantProps } from 'class-variance-authority';
 import { MxIconComponent } from './icon';
+import { mergetw } from '../utils/tw-merge';
 
 const buttonVariants = cva(
   'inline-flex cursor:pointer items-center justify-center text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
@@ -72,13 +73,15 @@ export class MxButtonComponent implements OnChanges {
   @Input() size: VariantProps<typeof buttonVariants>['size'] = 'default';
   @Input() rounded: VariantProps<typeof buttonVariants>['rounded'] = 'md';
   @Input() loading = false;
+  @Input() class = '';
 
   get defaultClass() {
-    return buttonVariants({
+    const variantClasses = buttonVariants({
       variant: this.variant,
       size: this.size,
       rounded: this.rounded,
     });
+    return mergetw(variantClasses, this.class);
   }
 
   ngOnChanges(changes: SimpleChanges) {

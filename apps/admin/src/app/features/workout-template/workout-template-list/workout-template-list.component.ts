@@ -23,9 +23,15 @@ import { Router } from '@angular/router';
       <mx-column field="description" />
       <mx-column field="target" />
       <mx-column field="intensity" />
-      <mx-column field="approxCalorieBurn" />
-      <mx-column field="approxTimeToCompleteInM" />
-      <mx-column field="active" />
+      <mx-column field="approxTimeToCompleteInM" title="Time To complete (M)" />
+      <mx-column field="active">
+        <ng-template #cell let-item>
+          <mx-badge
+            [text]="item.active ? 'Yes' : 'No'"
+            [variant]="item.active ? 'success' : 'error'"
+          />
+        </ng-template>
+      </mx-column>
       <!-- columns -->
 
       <!-- filters -->
@@ -34,7 +40,6 @@ import { Router } from '@angular/router';
       <mx-grid-filter label="Description" field="description" />
       <mx-grid-filter label="Target" field="target" />
       <mx-grid-filter label="Intensity" field="intensity" />
-      <mx-grid-filter label="ApproxCalorieBurn" field="approxCalorieBurn" />
       <mx-grid-filter
         label="ApproxTimeToCompleteInM"
         field="approxTimeToCompleteInM"

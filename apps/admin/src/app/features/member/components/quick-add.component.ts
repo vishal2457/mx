@@ -28,8 +28,16 @@ import { patchableDate } from '../../../shared/utils/patchable-date';
         [patchFirstEntry]="true"
         #planSelect
       />
-      <mx-input label="Name" [control]="form.controls.name" />
-      <mx-input label="Email" [control]="form.controls.email" />
+      <mx-input
+        label="Name"
+        placeholder="Enter name"
+        [control]="form.controls.name"
+      />
+      <mx-input
+        label="Email"
+        [control]="form.controls.email"
+        placeholder="Enter email"
+      />
       <mx-select
         label="Assigned User"
         [control]="form.controls.userID"

@@ -5,7 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 // default
 @layer base {
   :root {
@@ -83,13 +82,13 @@
   //   --sidebar-foreground: 211.2 20.66% 76.27%;
   // }
 
-  .dark{
+  .dark {
     /* Name: custom color palette
        Author: Ilias Ism
        URL: https://gradient.page */
 
     /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: linear-gradient(to top left,#1488CC,#2B32B2);
+    --gradient: linear-gradient(to top left, #1488cc, #2b32b2);
     --main-background: 215 53.3% 3.52%;
 
     --background: 215 53.3% 3.52%;
@@ -105,7 +104,7 @@
     --card-foreground: 215 8.2% 97.2%;
 
     --border: 215 38% 21%;
-    --input: 215 41% 13.2%;
+    --input: 215 41% 21%;
 
     --primary: 215 82% 44%;
     --primary-foreground: 215 8.2% 97.2%;
@@ -120,7 +119,7 @@
     --destructive-foreground: 215 8.2% 97.2%;
 
     --ring: 215 82% 44%;
-}
+  }
 }
 
 // blue
@@ -184,8 +183,6 @@
 //     --chart-5: 340 75% 55%;
 //   }
 // }
-
-
 
 @layer base {
   * {

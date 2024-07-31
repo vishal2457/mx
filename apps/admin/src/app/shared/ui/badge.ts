@@ -16,7 +16,7 @@ const badgeVariants = cva(
         default:
           'bg-neutral-100 text-neutral-800 dark:bg-neutral-800/30 dark:text-neutral-500',
         secondary:
-          'bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-500',
+          'bg-gray-100 text-gray-800 dark:bg-gray-500/30 dark:text-gray-300',
         error: 'bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500',
         success:
           'bg-emerald-100 text-emerald-800 dark:bg-emerald-800/30 dark:text-emerald-500',

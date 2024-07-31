@@ -25,7 +25,7 @@ type Steps = '1' | '2';
 @Component({
   selector: 'add-workout-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<mx-dialog-content>
+  template: `<mx-dialog-content class="max-w-2xl">
     <mx-dialog-header>
       <mx-dialog-title>Add Exercises to workout template </mx-dialog-title>
       <mx-dialog-description
@@ -34,45 +34,38 @@ type Steps = '1' | '2';
       <mx-input label="Day Name" [control]="dayName" />
     </mx-dialog-header>
     <div>
-      <ul class="relative flex flex-row gap-x-2">
-        <li class="flex items-center gap-x-2 shrink basis-0 flex-1 group">
+      <ul class="relative flex flex-row gap-x-2 justify-center items-center">
+        <li class="flex items-center gap-x-2 group">
           <span
-            class="min-w-7 min-h-7 group inline-flex items-center text-xs align-middle"
+            class="size-7 flex justify-center items-center shrink-0  font-medium  rounded-full"
+            [ngClass]="{
+              'bg-primary text-primary-foreground': activeStep === '1',
+              'bg-secondary': activeStep !== '1',
+            }"
           >
-            <span
-              class="size-7  flex justify-center items-center shrink-0  font-medium  rounded-full  "
-              [ngClass]="{
-                'bg-primary text-primary-foreground': activeStep === '1',
-                'bg-secondary': activeStep !== '1',
-              }"
-            >
-              <span>1</span>
-            </span>
-            <span class="ms-2 text-sm font-medium ">Step</span>
+            <span>1</span>
           </span>
+          <span class="ms-2 text-sm font-medium">Step</span>
           <div
             class="w-full h-px flex-1 bg-gray-200 group-last:hidden hs-stepper-success:bg-blue-600 hs-stepper-completed:bg-teal-600 dark:bg-neutral-700 dark:hs-stepper-success:bg-blue-600 dark:hs-stepper-completed:bg-teal-600"
           ></div>
         </li>
-
-        <li class="flex items-center gap-x-2 shrink basis-0 flex-1 group">
+        <li>
+          <span class="h-px flex-1 bg-gray-200 block size-20"></span>
+        </li>
+        <li class="flex items-center gap-x-2 group">
           <span
-            class="min-w-7 min-h-7 group inline-flex items-center text-xs align-middle"
+            class="size-7 flex justify-center items-center shrink-0  font-medium  rounded-full"
+            [ngClass]="{
+              'bg-primary text-primary-foreground': activeStep === '2',
+              'bg-secondary': activeStep !== '2',
+            }"
           >
-            <span
-              class="size-7 flex justify-center items-center shrink-0  font-medium  rounded-full"
-              [ngClass]="{
-                'bg-primary text-primary-foreground': activeStep === '2',
-                'bg-secondary': activeStep !== '2',
-              }"
+            <span class="hs-stepper-success:hidden hs-stepper-completed:hidden"
+              >2</span
             >
-              <span
-                class="hs-stepper-success:hidden hs-stepper-completed:hidden"
-                >2</span
-              >
-            </span>
-            <span class="ms-2 text-sm font-medium"> Step </span>
           </span>
+          <span class="ms-2 text-sm font-medium"> Step </span>
           <div
             class="w-full h-px flex-1 bg-gray-200 group-last:hidden hs-stepper-success:bg-blue-600 hs-stepper-completed:bg-teal-600 dark:bg-neutral-700 dark:hs-stepper-success:bg-blue-600 dark:hs-stepper-completed:bg-teal-600"
           ></div>
@@ -137,7 +130,7 @@ type Steps = '1' | '2';
                     form.controls._meta.value.name
                   }}</label
                 >
-                <div class="grid grid-cols-3  gap-2 mt-2">
+                <div class="grid grid-cols-4 gap-2 mt-2">
                   <mx-mini-counter
                     label="Total sets"
                     [control]="form.controls.set"
@@ -145,6 +138,10 @@ type Steps = '1' | '2';
                   <mx-input
                     label="Repetitions"
                     [control]="form.controls.reps"
+                  />
+                  <mx-input
+                    label="Calorie Burn"
+                    [control]="form.controls.approxCalorieBurn"
                   />
                   <mx-input-number
                     label="Rest bw reps"
@@ -326,8 +323,9 @@ export class AddWorkoutDetailComponent implements OnInit {
       exerciseID: new FormControl(exercise.id, [Validators.required]),
       set: new FormControl(3, [Validators.required]),
       reps: new FormControl('12,10,8', [Validators.required]),
-      timeInM: new FormControl(15),
+      approxCalorieBurn: new FormControl(100, Validators.required),
       restBwRepsInS: new FormControl(30, [Validators.required]),
+      timeInM: new FormControl(15),
       additionInstruction: new FormControl(''),
       _meta: new FormControl(exercise),
     });

@@ -20,7 +20,7 @@ import { ApiService } from '../../shared/services/api.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnDestroy, OnInit {
-  @ViewChild(MxProgressbarComponent) progressBar!: MxProgressbarComponent;
+  @ViewChild('mxProgress') progressBar!: MxProgressbarComponent;
 
   themeService = inject(ThemeService);
   sidebarService = inject(SidebarService);

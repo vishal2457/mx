@@ -2,6 +2,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuickAddMemberComponent } from '../components/quick-add.component';
+import { ViewInvoiceComponent } from '../components/invoice.component';
 
 @Component({
   selector: 'member-list',
@@ -21,5 +22,11 @@ export class MemberListComponent {
 
   openQuickAddDialog() {
     this.dialog.open(QuickAddMemberComponent);
+  }
+
+  openViewInvoice(e: any) {
+    this.dialog.open(ViewInvoiceComponent, {
+      data: { memberID: e.cellData.member.id },
+    });
   }
 }

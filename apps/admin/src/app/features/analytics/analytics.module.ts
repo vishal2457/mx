@@ -11,6 +11,8 @@ import { MxDataGridModule } from '../../shared/ui/mx-data-grid/data-grid.module'
 import { MxActionComponent } from '../../shared/ui/mx-data-grid/components/base-table/action';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DisplayCurrencyComponent } from '../../shared/misc/display-currency.component';
+import { MxGridShellComponent } from '../../shared/grid-shell/grid-shell';
+import { MxBadgeComponent } from '../../shared/ui/badge';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -25,6 +27,8 @@ import { DisplayCurrencyComponent } from '../../shared/misc/display-currency.com
     MxButtonComponent,
     MxSelectComponent,
     DisplayCurrencyComponent,
+    MxGridShellComponent,
+    MxBadgeComponent,
   ],
 })
 export class AnalyticsModule {}

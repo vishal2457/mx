@@ -21,6 +21,9 @@ import { EnquiryListComponent } from './enquiry-list/enquiry-list.component';
 import { EnquiryFormComponent } from './modify-enquiry/enquiry-form/enquiry-form.component';
 import { CreateEnquiryComponent } from './modify-enquiry/create-enquiry.component';
 import { UpdateEnquiryComponent } from './modify-enquiry/update-enquiry.component';
+import { MxSelectComponent } from '../../shared/ui/form/mx-select/mx-select';
+import { MxInputNumberComponent } from '../../shared/ui/form/mx-input-number';
+import { MxBadgeComponent } from '../../shared/ui/badge';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { UpdateEnquiryComponent } from './modify-enquiry/update-enquiry.componen
     MxFileUploadComponent,
     MxTextareaComponent,
     MxCheckboxComponent,
-    MxInputComponent
+    MxInputComponent,
+    MxSelectComponent,
+    MxInputNumberComponent,
+    MxBadgeComponent,
   ],
 })
 export class EnquiryModule {}

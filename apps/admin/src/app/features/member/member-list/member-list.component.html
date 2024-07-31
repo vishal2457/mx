@@ -16,7 +16,11 @@
   [defaultSort]="{ Desc: 'id' }"
 >
   <!-- columns -->
-  <mx-column field="member.name" title="Name" />
+  <mx-column field="member.name" title="Name">
+    <ng-template #cell let-item>
+      <span class="block whitespace-nowrap">{{ item.member.name }}</span>
+    </ng-template>
+  </mx-column>
   <mx-column field="member.age" title="Age" />
   <mx-column field="member.mobile" title="mobile" />
   <mx-column field="member.email" title="email" />
@@ -25,7 +29,11 @@
   <mx-column field="member.emergencyContact" title="Emergency Contact" />
   <mx-column field="member.gender" title="Gender" />
   <mx-column field="member.userID" title="Assigned User" />
-  <mx-column field="member.joinDate" title="Join Date" />
+  <mx-column field="member.joinDate" title="Join Date">
+    <ng-template #cell let-item>
+      {{ item.member.joinDate | date }}
+    </ng-template>
+  </mx-column>
   <!-- columns -->
 
   <!-- filters -->
@@ -45,5 +53,10 @@
 
   <!-- actions -->
   <mx-action icon="edit" (handleClick)="edit($event)" text="Edit" />
+  <mx-action
+    icon="receipt_long"
+    (handleClick)="openViewInvoice($event)"
+    text="View Invoice"
+  />
   <!-- actions -->
 </mx-grid-shell>

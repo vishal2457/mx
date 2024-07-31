@@ -35,7 +35,6 @@ export const TB_workoutTemplate = pgTable('workoutTemplate', {
   description: text('description').notNull(),
   target: targetEnum('target').default('Normal'),
   intensity: workoutIntensityEnum('intensity').default('Moderate'),
-  approxCalorieBurn: integer('approxCalorieBurn').notNull(),
   approxTimeToCompleteInM: integer('approxTimeToCompleteInM').default(45),
   workoutGoal: workoutGoalEnum('workoutGoal').default('Stay fit'),
   active: boolean('active').default(true),

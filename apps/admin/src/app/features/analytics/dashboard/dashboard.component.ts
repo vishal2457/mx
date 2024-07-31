@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import * as echarts from 'echarts';
+import { ApiService } from '../../../shared/services/api.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
+  private api = inject(ApiService);
+
   mockItem = {
     id: 1,
     name: 'John Doe',
@@ -17,10 +20,18 @@ export class DashboardComponent implements OnInit {
   mock = new Array(10).fill(this.mockItem);
 
   timefilter = new FormControl('last 7 days');
+  newCustomerByMonthCount = 0;
+  revenueThisMonth = 0;
+  openEnquiries = 0;
+  memberCount = 0;
 
   ngOnInit(): void {
     this.renderBarChart();
     this.renderLineChart();
+    this.newCustomerByMonth();
+    this.fetchRevenueThisMonth();
+    this.fetchOpenEnquiryCount();
+    this.fetchMemberCount();
   }
 
   renderBarChart() {
@@ -114,5 +125,43 @@ export class DashboardComponent implements OnInit {
     };
     const lineChart = echarts.init(document.getElementById('line-chart'));
     lineChart.setOption(lineChartOptions);
+  }
+
+  private newCustomerByMonth() {
+    const currentDate = new Date();
+    this.api
+      .get<{ count: number }>('/member/count-new-by-month', {
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth() + 1,
+      })
+      .subscribe((data) => {
+        this.newCustomerByMonthCount = data.data.count;
+      });
+  }
+
+  private fetchRevenueThisMonth() {
+    const currentDate = new Date();
+    this.api
+      .get<{ amount: number }>('/member/revenue-by-month', {
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth() + 1,
+      })
+      .subscribe((data) => {
+        this.revenueThisMonth = data.data.amount;
+      });
+  }
+
+  private fetchOpenEnquiryCount() {
+    this.api
+      .get<{ count: number }>('/enquiry/count-status-open')
+      .subscribe((data) => {
+        this.openEnquiries = data.data.count;
+      });
+  }
+
+  private fetchMemberCount() {
+    this.api
+      .get<{ count: number }>('/member/count')
+      .subscribe((data) => (this.memberCount = data.data.count));
   }
 }

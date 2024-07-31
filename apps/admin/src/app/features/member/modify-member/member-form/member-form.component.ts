@@ -98,6 +98,9 @@ export class MemberFormComponent implements OnInit, OnDestroy {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    active: new FormControl(true, {
+      validators: [Validators.required],
+    }),
   });
 
   planForm = this.fb.nonNullable.group<

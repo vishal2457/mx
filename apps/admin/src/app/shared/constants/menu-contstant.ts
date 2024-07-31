@@ -6,18 +6,23 @@ export const MENU_DATA = [
   },
   {
     name: 'Members',
-    icon: 'group',
+    icon: 'groups',
     link: '/member/list',
   },
   {
-    name: 'Exercise',
-    icon: 'group',
-    link: '/exercise/list',
+    name: 'Workout',
+    icon: 'summarize',
+    link: '/workout-template/list',
   },
   {
-    name: 'Workout',
-    icon: 'group',
-    link: '/workout-template/list',
+    name: 'Enquiry',
+    icon: 'info',
+    link: '/enquiry/list',
+  },
+  {
+    name: 'Exercise',
+    icon: 'exercise',
+    link: '/exercise/list',
   },
   {
     name: 'Notification',
@@ -31,7 +36,12 @@ export const MENU_DATA = [
   },
   {
     name: 'Roles',
-    icon: 'group',
+    icon: 'assignment_ind',
     link: '/role/list',
+  },
+  {
+    name: 'Plan',
+    icon: 'description',
+    link: '/plan/list',
   },
 ];

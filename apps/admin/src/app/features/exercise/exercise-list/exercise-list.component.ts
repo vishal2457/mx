@@ -17,9 +17,9 @@ import { Router } from '@angular/router';
     >
       <!-- columns -->
       <mx-column field="id" [visible]="false" />
-      <mx-column field="name" />
-      <mx-column field="description" />
-      <mx-column field="level" />
+      <mx-column field="name" alignment="left" />
+      <mx-column field="description" alignment="left" />
+      <mx-column field="level" alignment="left" />
       <!-- columns -->
 
       <!-- filters -->

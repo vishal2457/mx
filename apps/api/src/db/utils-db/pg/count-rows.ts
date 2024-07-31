@@ -5,3 +5,7 @@ export const getTotalCount = async (schema) => {
   const result = await db.select({ count: count() }).from(schema);
   return result[0].count;
 };
+
+export const getTotalCountByOrg = (schema) => {
+  return db.select({ count: count() }).from(schema).$dynamic();
+};

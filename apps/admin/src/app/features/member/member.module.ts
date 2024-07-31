@@ -29,6 +29,9 @@ import { AddMembershipDialogComponent } from './components/add-membership.compon
 import { StatsCardComponent } from './components/stats-card.component';
 import { DisplayCurrencyComponent } from '../../shared/misc/display-currency.component';
 import { QuickAddMemberComponent } from './components/quick-add.component';
+import { MxCheckboxComponent } from '../../shared/ui/form/mx-checkbox';
+import { ViewInvoiceComponent } from './components/invoice.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { QuickAddMemberComponent } from './components/quick-add.component';
     AddMembershipDialogComponent,
     StatsCardComponent,
     QuickAddMemberComponent,
+    ViewInvoiceComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +67,8 @@ import { QuickAddMemberComponent } from './components/quick-add.component';
     MxBadgeComponent,
     DisplayCurrencyComponent,
     MxCardModule,
+    MxCheckboxComponent,
+    NgxPrintModule,
   ],
 })
 export class MemberModule {}

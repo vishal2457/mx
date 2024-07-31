@@ -1,4 +1,4 @@
-<div class="w-full overflow-x-auto h-[65vh]" >
+<div class="w-full overflow-x-auto h-[65vh]">
   <table
     id="mx-table"
     cdk-table
@@ -22,7 +22,7 @@
           'text-center': column.alignment === 'center',
           'text-right': column.alignment === 'right',
         }"
-        class="h-10 text-sm font-medium bg-background px-2 whitespace-nowrap"
+        class="h-10 text-sm font-medium bg-background px-2 whitespace-nowrap divide-x"
       >
         @if (!column.head) {
         <mx-dropdown spacing="compact">
@@ -150,7 +150,11 @@
         *cdkCellDef="let element"
         class="text-center background-blur dark:bg-background/90"
       >
-        <mx-dropdown class="flex justify-center items-center">
+        <mx-dropdown
+          class="flex justify-center items-center p-3"
+          spacing="wide"
+          dropdownTitle="Actions"
+        >
           <mx-svg-icon iconName="verticle-menu" trigger />
           @for (action of actionService.actions$ |async; track action.icon) {
           @if (action.variant === 'default') {

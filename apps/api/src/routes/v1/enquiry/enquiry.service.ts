@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { and, count, eq } from 'drizzle-orm';
 import { Request } from 'express';
 import { TB_enquiry } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
@@ -8,8 +8,14 @@ import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/li
 type Enquiry = typeof TB_enquiry.$inferSelect;
 
 class EnquiryService {
-  getEnquiryList(query: Request['query']) {
-    return getListQueryWithFilters(TB_enquiry, query);
+  getEnquiryList(
+    query: Request['query'],
+    organisationID: Enquiry['organisationID'],
+  ) {
+    const q = getListQueryWithFilters(TB_enquiry, query, [
+      eq(TB_enquiry.organisationID, organisationID),
+    ]);
+    return q;
   }
 
   getAllEnquirys() {
@@ -41,6 +47,18 @@ class EnquiryService {
 
   getByID(id: Enquiry['id']) {
     return db.select().from(TB_enquiry).where(eq(TB_enquiry.id, id));
+  }
+
+  getStatusOpenCount(organisationID: Enquiry['organisationID']) {
+    return db
+      .select({ count: count() })
+      .from(TB_enquiry)
+      .where(
+        and(
+          eq(TB_enquiry.status, 'Open'),
+          eq(TB_enquiry.organisationID, organisationID),
+        ),
+      );
   }
 }
 

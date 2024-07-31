@@ -29,6 +29,7 @@ export const TB_workoutTemplateDetail = pgTable('workoutTemplateDetail', {
   additionInstruction: text('additionInstruction'),
   day: daysEnum('day').default('day1').notNull(),
   dayName: text('dayName').notNull(),
+  approxCalorieBurn: integer('approxCalorieBurn').notNull(),
 });
 
 export const Z_workoutTemplateDetail = createSelectSchema(

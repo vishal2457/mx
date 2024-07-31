@@ -1,5 +1,5 @@
 <h3 class="font-bold text-3xl">Dashboard</h3>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-4">
   <div mxCard class="bg-emerald-200 dark:bg-emerald-900">
     <div
       mxCardHeader
@@ -14,12 +14,17 @@
     </div>
     <div mxCardContent>
       <span class="flex">
-        <display-currency [amount]="9985.89" />
+        <display-currency [amount]="revenueThisMonth" />
       </span>
-      <span class="flex gap-1 items-center cursor-pointer">
-        <p class="text-xs text-muted-foreground">View reports</p>
-        <mx-icon icon="arrow_right" class="mt-1" />
-      </span>
+    </div>
+    <div
+      class="flex gap-1 items-center justify-between cursor-pointer p-1 px-6 border-t border-emerald-500"
+      mxCardFooter
+    >
+      <p class="text-xs text-emerald-700/90 dark:text-emerald-300/90">
+        View List
+      </p>
+      <mx-icon icon="arrow_right" class="mt-1" />
     </div>
   </div>
   <div mxCard class="bg-blue-200 dark:bg-blue-900">
@@ -32,11 +37,36 @@
       </div>
     </div>
     <div mxCardContent>
-      <p class="text-2xl font-bold">250</p>
-      <span class="flex gap-1 items-center cursor-pointer">
-        <p class="text-xs text-muted-foreground">View reports</p>
-        <mx-icon icon="arrow_right" class="mt-1" />
-      </span>
+      <p class="text-2xl font-bold">
+        {{ newCustomerByMonthCount }}
+      </p>
+    </div>
+    <div
+      class="flex gap-1 items-center justify-between cursor-pointer p-1 px-6 border-t border-blue-500"
+      mxCardFooter
+    >
+      <p class="text-xs text-blue-700/90 dark:text-blue-300/90">View List</p>
+      <mx-icon icon="arrow_right" class="mt-1" />
+    </div>
+  </div>
+  <div mxCard class="bg-rose-200 dark:bg-rose-900">
+    <div
+      mxCardHeader
+      class="flex-row items-center justify-between space-y-1 py-4 px-6"
+    >
+      <div mxCardtitle class="text-rose-800 dark:text-rose-300 tracking-wide">
+        Open Enquiries
+      </div>
+    </div>
+    <div mxCardContent>
+      <p class="text-2xl font-bold">{{ openEnquiries }}</p>
+    </div>
+    <div
+      class="flex gap-1 items-center justify-between cursor-pointer p-1 px-6 border-t border-rose-500"
+      mxCardFooter
+    >
+      <p class="text-xs text-rose-700/90 dark:text-rose-300/90">View List</p>
+      <mx-icon icon="arrow_right" class="mt-1" />
     </div>
   </div>
   <div mxCard class="bg-purple-200 dark:bg-purple-900">
@@ -48,16 +78,20 @@
         mxCardtitle
         class="text-purple-800 dark:text-purple-300 tracking-wide"
       >
-        Expense Last Month
+        Total Active Members
       </div>
     </div>
     <div mxCardContent>
-      <display-currency [amount]="1000" />
-
-      <span class="flex gap-1 items-center cursor-pointer">
-        <p class="text-xs text-muted-foreground">View reports</p>
-        <mx-icon icon="arrow_right" class="mt-1" />
-      </span>
+      <p class="text-2xl font-bold">{{ memberCount }}</p>
+    </div>
+    <div
+      class="flex gap-1 items-center justify-between cursor-pointer p-1 px-6 border-t border-purple-500"
+      mxCardFooter
+    >
+      <p class="text-xs text-purple-700/90 dark:text-purple-300/90">
+        View List
+      </p>
+      <mx-icon icon="arrow_right" class="mt-1" />
     </div>
   </div>
 </div>
@@ -79,8 +113,8 @@
       mxCardHeader
       class="flex-row items-center justify-between space-y-1 py-4 px-6"
     >
-      <div mxCardtitle>Previous two months revenue</div>
-      <mx-icon icon="currency_rupee" size="lg" />
+      <div mxCardtitle>Previous two months enquiry</div>
+      <mx-icon icon="list_alt" size="lg" />
     </div>
     <div mxCardContent class="p-0">
       <div id="line-chart" class="w-full h-[350px]"></div>
@@ -88,23 +122,26 @@
   </div>
 </div>
 
-<mx-data-grid
-  [data]="mock"
-  [loading]="false"
-  [selectable]="false"
-  [collectionSize]="mock.length"
-  [hideFeatures]="['footer']"
-  maxHeight="500px"
-  minHeight="300px"
-  gridTitle="Recent Activity"
->
-  <mx-column field="id" alignment="left" />
-  <mx-column field="name" alignment="left" />
-  <mx-column field="pinCode" title="Pin Code" />
-  <mx-column field="value" />
-  <mx-column field="recieved" alignment="left">
+<mx-grid-shell gridTitle="Open Enquiries" apiURL="/enquiry/list">
+  <!-- columns -->
+  <mx-column field="customerName" title="Customer Name" alignment="left" />
+  <mx-column field="mobile" alignment="right" />
+  <mx-column field="email" alignment="left" />
+  <mx-column field="goal" alignment="left" />
+  <mx-column field="periodInM" title="Period in Month" />
+  <mx-column field="status">
     <ng-template #cell let-item>
-      {{ item.recieved | date }}
+      <mx-badge
+        [text]="item.status"
+        [variant]="item.status === 'Open' ? 'info' : 'secondary'"
+      />
+      {{ item.status | date: 'medium' }}
     </ng-template>
   </mx-column>
-</mx-data-grid>
+  <mx-column field="createdAt" title="Created">
+    <ng-template #cell let-item>
+      {{ item.createdAt | date: 'medium' }}
+    </ng-template>
+  </mx-column>
+  <!-- columns -->
+</mx-grid-shell>

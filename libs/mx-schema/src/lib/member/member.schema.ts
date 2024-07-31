@@ -37,6 +37,7 @@ export const TB_member = pgTable('member', {
   emergencyContact: text('emergencyContact'),
   gender: genderEnum('gender').default('Female'),
   profilePic: text('profilePic'),
+  active: boolean('active').default(true),
   workoutTemplateID: integer('workoutTemplateID').references(
     () => TB_workoutTemplate.id,
   ),

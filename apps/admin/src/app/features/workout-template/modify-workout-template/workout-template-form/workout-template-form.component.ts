@@ -15,6 +15,7 @@ import { SubSink } from '../../../../shared/utils/sub-sink';
 import { AddWorkoutDetailComponent } from '../components/add-workout-details-dialog.component';
 import { map, of } from 'rxjs';
 import { ApiService } from '../../../../shared/services/api.service';
+import { ConfirmModalComponent } from '../../../../shared/misc/confirm-modal/confirm-modal.component';
 
 type WorkoutDetailData = Array<
   TWorkoutTemplateDetail & {
@@ -83,10 +84,6 @@ export class WorkoutTemplateFormComponent {
     }),
     intensity: new FormControl(null, {
       validators: [Validators.required],
-      nonNullable: true,
-    }),
-    approxCalorieBurn: new FormControl(null, {
-      validators: [Validators.min(0)],
       nonNullable: true,
     }),
     approxTimeToCompleteInM: new FormControl(null, {
@@ -191,5 +188,21 @@ export class WorkoutTemplateFormComponent {
       result = [...result, ...arr];
     }
     return result;
+  }
+
+  removeAll(key: string) {
+    const ref = this.dialog.open(ConfirmModalComponent, {
+      data: {
+        title: 'Are you sure you want to remove all exercises?',
+      },
+    });
+
+    this.subs.sink = ref.closed.subscribe((result: any) => {
+      if (!result.success) {
+        return;
+      }
+
+      this.workoutDetailData[key] = [];
+    });
   }
 }
