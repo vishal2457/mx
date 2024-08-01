@@ -8,7 +8,7 @@ import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 
 type TOrganisationForm = Omit<
   TOrganisation,
-  'id' | 'createdAt' | 'updatedAt' | 'email' | 'emailVerified'
+  'id' | 'createdAt' | 'updatedAt' | 'emailVerified' | 'active'
 >;
 
 @Component({
@@ -25,8 +25,8 @@ export class OrganisationFormComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
-    active: new FormControl(null, {
-      validators: [],
+    email: new FormControl('', {
+      validators: [Validators.required, Validators.email],
       nonNullable: true,
     }),
     mobile: new FormControl('', {
@@ -38,15 +38,15 @@ export class OrganisationFormComponent {
       nonNullable: true,
     }),
     logo: new FormControl(null, {
-      validators: [Validators.required],
+      validators: [],
       nonNullable: true,
     }),
     panelName: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,
     }),
-    darkMode: new FormControl(null, {
-      validators: [Validators.required],
+    darkMode: new FormControl(true, {
+      validators: [],
       nonNullable: true,
     }),
     theme: new FormControl('default'),

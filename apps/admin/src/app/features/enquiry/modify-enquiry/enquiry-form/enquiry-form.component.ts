@@ -18,6 +18,7 @@ export class EnquiryFormComponent {
   private fb = inject(FormBuilder);
   goalEnum = Array.from(GOAL);
   statusEnum = Array.from(STATUS_ENUM);
+  oldStatusValue!: string;
 
   enquiryForm = this.fb.nonNullable.group<
     ControlsOf<
@@ -67,14 +68,15 @@ export class EnquiryFormComponent {
   }
 
   getFormValue() {
-    return this.enquiryForm.value;
+    return { ...this.enquiryForm.value, oldStatusValue: this.oldStatusValue };
   }
 
   reset() {
     this.enquiryForm.reset();
   }
 
-  patchValue(value) {
+  patchValue(value: TEnquiry) {
+    this.oldStatusValue = value.status;
     this.enquiryForm.patchValue(value);
   }
 }

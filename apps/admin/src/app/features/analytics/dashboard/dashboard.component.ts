@@ -147,7 +147,9 @@ export class DashboardComponent implements OnInit {
         month: currentDate.getMonth() + 1,
       })
       .subscribe((data) => {
-        this.revenueThisMonth = data.data.amount;
+        if (data?.data?.amount) {
+          this.revenueThisMonth = data.data.amount;
+        }
       });
   }
 

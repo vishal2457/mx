@@ -1,6 +1,10 @@
 import { and, count, eq } from 'drizzle-orm';
 import { Request } from 'express';
-import { TB_enquiry } from '../../../../../../libs/mx-schema/src';
+import {
+  TB_enquiry,
+  TB_enquiryStatusHistory,
+  TB_user,
+} from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
 import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
@@ -26,15 +30,18 @@ class EnquiryService {
     return getTotalCount(TB_enquiry);
   }
 
-  createEnquiry(payload: typeof TB_enquiry.$inferInsert) {
-    return db.insert(TB_enquiry).values(payload).returning();
+  createEnquiry(payload: typeof TB_enquiry.$inferInsert, tx: any) {
+    const ex = tx || db;
+    return ex.insert(TB_enquiry).values(payload).returning();
   }
 
   updateEnquiry(
     payload: Partial<typeof TB_enquiry.$inferInsert>,
     id: Enquiry['id'],
+    tx: any,
   ) {
-    return db
+    const ex = tx || db;
+    return ex
       .update(TB_enquiry)
       .set(payload)
       .where(eq(TB_enquiry.id, id))
@@ -59,6 +66,22 @@ class EnquiryService {
           eq(TB_enquiry.organisationID, organisationID),
         ),
       );
+  }
+
+  addEnquiryStatusHistory(
+    payload: typeof TB_enquiryStatusHistory.$inferInsert,
+    tx: any,
+  ) {
+    const ex = tx || db;
+    return ex.insert(TB_enquiryStatusHistory).values(payload);
+  }
+
+  getStatusHistory(enquiryID: Enquiry['id']) {
+    return db
+      .select()
+      .from(TB_enquiryStatusHistory)
+      .leftJoin(TB_user, eq(TB_enquiryStatusHistory.userID, TB_user.id))
+      .where(eq(TB_enquiryStatusHistory.enquiryID, enquiryID));
   }
 }
 

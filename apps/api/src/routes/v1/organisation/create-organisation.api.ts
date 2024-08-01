@@ -1,16 +1,18 @@
 import { Router } from 'express';
 import { success } from '../../../shared/api-response/response-handler';
-import { validate } from '../../../shared/middlewares/validation.middleware';
-import { TB_organisation } from '../../../../../../libs/mx-schema/src';
-import { createInsertSchema } from 'drizzle-zod';
-import { organisationService } from './organisation.service';
-import { userService } from '../user/user.service';
+import { ImageUpload } from '../../../shared/middlewares/multer.middleware';
 import { hashPassword } from '../../../shared/password-hash';
+import { userService } from '../user/user.service';
+import { organisationService } from './organisation.service';
 
 export default Router().post(
   '/create',
-  validate({ body: createInsertSchema(TB_organisation) }),
+  ImageUpload.single('logo'),
+  // validate({ body: createInsertSchema(TB_organisation) }),
   async (req, res) => {
+    if (req?.file?.filename) {
+      req.body['logo'] = req.file.filename;
+    }
     const [org] = await organisationService.createOrganisation(req.body);
     await userService.createUser({
       name: req.body.name,

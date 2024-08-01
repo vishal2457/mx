@@ -26,7 +26,7 @@ export const TB_enquiry = pgTable('enquiry', {
   mobile: varchar('mobile', { length: 10 }).notNull(),
   email: text('email'),
   goal: goalEnum('goal').default('Stay fit'),
-  status: statusEnum('status').default('Open'),
+  status: statusEnum('status').default('Open').notNull(),
   userID: integer('userID').references(() => TB_user.id),
   periodInM: integer('periodInM').notNull().default(6),
   terms: text('terms'),

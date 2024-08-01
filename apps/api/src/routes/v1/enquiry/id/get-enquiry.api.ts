@@ -9,6 +9,9 @@ export default Router().get(
   validate({ params: v_param_id }),
   async (req, res) => {
     const [result] = await enquiryService.getByID(req.params.id);
-    success(res, result, 'Enquiry Details');
+    const enquiryStatusHistory = await enquiryService.getStatusHistory(
+      req.params.id,
+    );
+    success(res, { detail: result, enquiryStatusHistory }, 'Enquiry Details');
   },
 );

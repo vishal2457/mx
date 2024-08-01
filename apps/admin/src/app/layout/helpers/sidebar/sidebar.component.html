@@ -45,41 +45,68 @@
       </ul>
     </div>
 
-    <mx-dropdown *ngIf="(sidebarService.archived$ | async)?.length">
-      <ul class="space-y-1" trigger>
+    <ul class="space-y-1">
         <li>
           <a
-            class="flex items-center px-2 py-1 text-base font-medium rounded-lg hover:bg-gray-800 group"
+            routerLink="organisation"
+            routerLinkActive="bg-accent"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center px-2 py-1 text-base font-medium rounded-lg hover:bg-accent group justify-between"
           >
-            <mx-icon icon="archive" />
-            <span class="ml-3">Archived</span>
+            <span class="flex items-center">
+              <mx-icon icon="home" class="mt-1" />
+              <span class="ml-3 tracking-wider">Organisation</span>
+            </span>
+            <!-- <mx-dropdown class="opacity-0 group-hover:opacity-100">
+              <mx-button variant="ghost" size="small-icon" trigger>
+                <mx-icon icon="more_vert" />
+              </mx-button>
+              <mx-dropdown-item
+                text="Archive"
+                icon="archive"
+                (handleClick)="sidebarService.archiveMenu(m.name)"
+              />
+            </mx-dropdown> -->
           </a>
         </li>
-      </ul>
-      <mx-dropdown-item
-        *ngFor="let m of sidebarService.archived$ | async"
-        [text]="m.name"
-        [icon]="m.icon"
-      >
-        <ng-template #item>
-          <div class="flex gap-1">
-            <button
-              (click)="navigateTo(m.link)"
-              class="w-full cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-            >
-              <mx-icon [icon]="m.icon" class="mr-2" />
-              <p>{{ m.name }}</p>
-            </button>
-            <button
-              title="Unarchive"
-              (click)="sidebarService.unarchiveMenu(m.name)"
-              class="cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-            >
-              <mx-icon icon="unarchive" />
-            </button>
-          </div>
-        </ng-template>
-      </mx-dropdown-item>
-    </mx-dropdown>
+        <!-- <mx-dropdown>
+            <li trigger>
+              <a
+                class="flex items-center px-2 py-1 text-base font-medium rounded-lg hover:bg-gray-800 group"
+              >
+                <mx-icon icon="archive" />
+                <span class="ml-3">Archived</span>
+              </a>
+            </li>
+
+          <mx-dropdown-item
+            *ngFor="let m of sidebarService.archived$ | async"
+            [text]="m.name"
+            [icon]="m.icon"
+          >
+            <ng-template #item>
+              <div class="flex gap-1">
+                <button
+                  (click)="navigateTo(m.link)"
+                  class="w-full cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                >
+                  <mx-icon [icon]="m.icon" class="mr-2" />
+                  <p>{{ m.name }}</p>
+                </button>
+                <button
+                  title="Unarchive"
+                  (click)="sidebarService.unarchiveMenu(m.name)"
+                  class="cursor-pointer relative flex select-none items-center rounded-sm px-2 py-0.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                >
+                  <mx-icon icon="unarchive" />
+                </button>
+              </div>
+            </ng-template>
+          </mx-dropdown-item>
+        </mx-dropdown> -->
+
+    </ul>
+
+
   </div>
 </aside>

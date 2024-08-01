@@ -8,14 +8,19 @@
 
     >
       <div class="flex justify-center items-center">
-        <img src="/assets/logo.png" class="h-8 w-8 my-1 mx-2" />
+        @let organisation = organisation$ | async;
+        @if (organisation?.logo) {
+          <mx-image [filename]="organisation?.logo || ''" imageClass="h-8 w-8 my-1 mx-2" />
+        }@else {
+          <mx-image fileURL="/assets/logo.png" imageClass="h-8 w-8 my-1 mx-2" />
+        }
         <!-- <span
           class="text-xl font-semibold whitespace-nowrap text-white bg-emerald-900 py-1 px-2 flex items-center justify-center mr-2 rounded"
           >{{ PANEL_CONFIG.shortName }}</span
         > -->
         <span
           class="text-md font-semibold  whitespace-nowrap underline"
-          >{{ PANEL_CONFIG.name }}</span
+          >{{ organisation?.panelName || PANEL_CONFIG.name }}</span
         >
       </div>
       <mx-icon
@@ -34,7 +39,7 @@
         <mx-dropdown>
           <mx-button
             variant="ghost"
-            class="justify-end mr-2"
+            class=" mr-2"
             size="icon"
             trigger
           >

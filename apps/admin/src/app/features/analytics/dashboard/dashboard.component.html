@@ -122,7 +122,7 @@
   </div>
 </div>
 
-<mx-grid-shell gridTitle="Open Enquiries" apiURL="/enquiry/list">
+<mx-grid-shell gridTitle="Open Enquiries" apiURL="/enquiry/list" [defaultFilters]="{ status: 'eq|Open|t'}">
   <!-- columns -->
   <mx-column field="customerName" title="Customer Name" alignment="left" />
   <mx-column field="mobile" alignment="right" />
@@ -135,7 +135,6 @@
         [text]="item.status"
         [variant]="item.status === 'Open' ? 'info' : 'secondary'"
       />
-      {{ item.status | date: 'medium' }}
     </ng-template>
   </mx-column>
   <mx-column field="createdAt" title="Created">

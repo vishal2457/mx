@@ -24,6 +24,7 @@ import { UpdateEnquiryComponent } from './modify-enquiry/update-enquiry.componen
 import { MxSelectComponent } from '../../shared/ui/form/mx-select/mx-select';
 import { MxInputNumberComponent } from '../../shared/ui/form/mx-input-number';
 import { MxBadgeComponent } from '../../shared/ui/badge';
+import { MxDataGridModule } from '../../shared/ui/mx-data-grid/data-grid.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { MxBadgeComponent } from '../../shared/ui/badge';
     MxSelectComponent,
     MxInputNumberComponent,
     MxBadgeComponent,
+    MxDataGridModule,
   ],
 })
 export class EnquiryModule {}

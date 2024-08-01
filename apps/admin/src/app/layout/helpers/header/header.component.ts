@@ -5,6 +5,7 @@ import { SidebarService } from '../../../shared/services/sidebar.service';
 import { APP_CONFIG } from '../../../../config';
 import { SubSink } from '../../../shared/utils/sub-sink';
 import { environment } from '../../../../environments/environment';
+import { UserService } from '../../../shared/services/user-data.service';
 
 @Component({
   selector: 'mx-header',
@@ -13,10 +14,12 @@ import { environment } from '../../../../environments/environment';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   themeService = inject(ThemeService);
-  theme$ = this.themeService.theme$;
   sidebarService = inject(SidebarService);
   router = inject(Router);
+  userService = inject(UserService);
 
+  theme$ = this.themeService.theme$;
+  organisation$ = this.userService.organisation$;
   sidebarOpen = true;
   PANEL_CONFIG = APP_CONFIG.panelConfig;
   lastBuild = environment.latestBuildTime;
@@ -24,7 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.sink = this.sidebarService.sidebarOpen$.subscribe(
-      (value) => (this.sidebarOpen = value)
+      (value) => (this.sidebarOpen = value),
     );
   }
 

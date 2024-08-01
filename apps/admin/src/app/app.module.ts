@@ -20,6 +20,7 @@ import { MxIconComponent } from './shared/ui/icon';
 import { MxButtonComponent } from './shared/ui/button';
 import { MxInputComponent } from './shared/ui/form/mx-input';
 import { MxProgressbarComponent } from './shared/ui/progress-bar/progress-bar';
+import { MxImageComponent } from './shared/ui/display-image';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MxProgressbarComponent } from './shared/ui/progress-bar/progress-bar';
     MxInputComponent,
     MxProgressbarComponent,
     GbNotificationModule.forRoot(),
+    MxImageComponent,
   ],
   providers: [
     HttpClient,

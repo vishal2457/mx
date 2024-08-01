@@ -17,9 +17,9 @@ class WorkoutTemplateService {
     query: Request['query'],
     organisationID: WorkoutTemplate['organisationID'],
   ) {
-    return getListQueryWithFilters(TB_workoutTemplate, query).where(
+    return getListQueryWithFilters(TB_workoutTemplate, query, [
       eq(TB_workoutTemplate.organisationID, organisationID),
-    );
+    ]);
   }
 
   getAllActiveWorkoutTemplates(

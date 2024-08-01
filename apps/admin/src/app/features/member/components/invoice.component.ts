@@ -3,26 +3,11 @@ import { Component, Inject, inject, OnInit } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { ApiService } from '../../../shared/services/api.service';
+import { TMemberPlan, TPlan } from '../../../../../../../libs/mx-schema/src';
 
 type MemberPlanDetail = {
-  memberPlan: {
-    id: number;
-    memberID: number;
-    planID: number;
-    startDate: string;
-    endDate: string;
-    paid: boolean;
-    createdAt: string;
-    updatedAt: string;
-  };
-  plan: {
-    id: number;
-    name: string;
-    amount: number;
-    periodInMonths: number;
-    createdAt: string;
-    updatedAt: string;
-  };
+  memberPlan: TMemberPlan;
+  plan: TPlan;
 };
 
 @Component({

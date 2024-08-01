@@ -124,7 +124,7 @@ import { FilterService } from './filters/filter.service';
     <mx-filter-pills toolbarFooter />
   </mx-data-grid>`,
 })
-export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
+export class MxGridShellComponent implements OnDestroy, OnInit {
   filterService = inject(FilterService);
 
   private api = inject(ApiService);
@@ -137,6 +137,10 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
   @Input() loadOnMount = true;
   @Input() fields = '';
   @Input() defaultSort: any = {};
+  //   example value = {
+  //     "status": "eq|Closed|t"
+  // }
+  @Input() defaultFilters: any = {};
   @Input() minHeight = '300px';
   @Input() maxHeight = '';
   @Input() dynamicHeight = true;
@@ -179,11 +183,6 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
       this._getData();
     });
     this.getFilterFromRoute();
-  }
-
-  ngAfterViewInit(): void {
-    this.configureDynamicHeight();
-    this.dynamicTableHeight();
   }
 
   protected handleSort(sort: any) {
@@ -237,12 +236,15 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
 
   private buildFilters() {
     const { page, limit, sort } = this.gridEvents;
+    const filters = Object.keys(this.filterValues).length
+      ? this.filterValues
+      : this.defaultFilters;
 
     return {
       page,
       limit,
       sort: safeStringify(sort || this.defaultSort),
-      filters: safeStringify(this.filterValues),
+      filters: safeStringify(filters),
       fields: this.fields,
     };
   }
@@ -260,32 +262,32 @@ export class MxGridShellComponent implements OnDestroy, OnInit, AfterViewInit {
     );
   }
 
-  private dynamicTableHeight() {
-    if (!this.dynamicHeight) {
-      return;
-    }
-    window.onresize = this.configureDynamicHeight.bind(this);
-  }
+  // private dynamicTableHeight() {
+  //   if (!this.dynamicHeight) {
+  //     return;
+  //   }
+  //   window.onresize = this.configureDynamicHeight.bind(this);
+  // }
 
-  private configureDynamicHeight(): void {
-    // Wait for digest cycle to complete
-    // height of the users viewable screen
-    const viewableHeight: number = window.innerHeight;
+  // private configureDynamicHeight(): void {
+  //   // Wait for digest cycle to complete
+  //   // height of the users viewable screen
+  //   const viewableHeight: number = window.innerHeight;
 
-    // height from table content top to top of page
-    const mxTablePixelsFromTop: number = this.mxDataGrid.nativeElement
-      .querySelector('#mx-table')
-      .getBoundingClientRect().top;
+  //   // height from table content top to top of page
+  //   const mxTablePixelsFromTop: number = this.mxDataGrid.nativeElement
+  //     .querySelector('#mx-table')
+  //     .getBoundingClientRect().top;
 
-    // 68 = pagination height; 34 = footer height
-    const otherElements: number = 68 + 34;
+  //   // 68 = pagination height; 34 = footer height
+  //   const otherElements: number = 68 + 34;
 
-    // 5% room for error to account for edge cases
-    const marginForError: number = viewableHeight * 0.05;
+  //   // 5% room for error to account for edge cases
+  //   const marginForError: number = viewableHeight * 0.05;
 
-    this.maxHeight =
-      viewableHeight -
-      (mxTablePixelsFromTop + marginForError + otherElements) +
-      'px';
-  }
+  //   this.maxHeight =
+  //     viewableHeight -
+  //     (mxTablePixelsFromTop + marginForError + otherElements) +
+  //     'px';
+  // }
 }

@@ -1,16 +1,16 @@
-import { Injectable, Injector, Inject } from "@angular/core";
-import { Overlay } from "@angular/cdk/overlay";
-import { ComponentPortal } from "@angular/cdk/portal";
+import { Injectable, Injector, Inject } from '@angular/core';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 import {
   MX_NOTIFICATION_CONFIG_TOKEN,
   MxNotificationConfig,
   MxNotificationData,
-} from "./notification-config";
-import { MxNotificationComponent } from "./notification.component";
-import { MxNotificationRef } from "./notification-ref";
+} from './notification-config';
+import { MxNotificationComponent } from './notification.component';
+import { MxNotificationRef } from './notification-ref';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class MxNotification {
   private currentlyRendered = new Map<
@@ -21,7 +21,7 @@ export class MxNotification {
   constructor(
     private overlay: Overlay,
     @Inject(MX_NOTIFICATION_CONFIG_TOKEN)
-    private notificationConfig: MxNotificationConfig
+    private notificationConfig: MxNotificationConfig,
   ) {}
 
   show(data: MxNotificationData) {
@@ -43,7 +43,7 @@ export class MxNotification {
     const notificationPortal = new ComponentPortal(
       MxNotificationComponent,
       null,
-      injector
+      injector,
     );
 
     overlayRef.attach(notificationPortal);
@@ -63,11 +63,18 @@ export class MxNotification {
   }
 
   getPositionStrategy() {
+    // return this.overlay
+    //   .position()
+    //   .global()
+    //   .bottom(`${(this.currentlyRendered.size || 1 - 1) * 60 + 20}px`)
+    //   .right(this.notificationConfig.position?.right + "px");
     return this.overlay
       .position()
       .global()
-      .bottom(`${(this.currentlyRendered.size || 1 - 1) * 60 + 20}px`)
-      .right(this.notificationConfig.position?.right + "px");
+      .centerHorizontally(
+        `${(this.currentlyRendered.size || 1 - 1) * 60 + 20}px`,
+      )
+      .right(this.notificationConfig.position?.right + 'px');
   }
 
   getInjector(data: MxNotificationData, notificationRef: MxNotificationRef) {
@@ -110,7 +117,7 @@ export class MxNotification {
     const notificationPortal = new ComponentPortal(
       MxNotificationComponent,
       null,
-      injector
+      injector,
     );
 
     overlayRef.attach(notificationPortal);

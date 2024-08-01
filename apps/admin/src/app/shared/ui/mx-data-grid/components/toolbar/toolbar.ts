@@ -18,7 +18,7 @@ import { ToolbarService } from '../../services/toolbar.service';
         {{ meta.gridTitle$ | async }}
       </p>
       <div class="flex">
-        <mx-btn-group-container>
+        <mx-btn-group-container containerClass="mr-2">
           @for (tool of toolbarService.options$ | async; track tool.name) {
             <mx-btn-group
               (handleClick)="tool.handleClick.emit(tool)"
@@ -27,7 +27,7 @@ import { ToolbarService } from '../../services/toolbar.service';
             />
           }
         </mx-btn-group-container>
-        <mx-overlay containerClass="ml-2">
+        <mx-overlay>
           <mx-button trigger variant="outline">
             <span class="flex items-center">
               <mx-icon icon="view_column" class="mr-2" />

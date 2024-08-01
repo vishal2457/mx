@@ -5,10 +5,10 @@ import { v_param_id } from '../../../../../../../libs/mx-schema/src';
 import { organisationService } from '../organisation.service';
 
 export default Router().get(
-  '/:id',
+  '/detail/:id',
   validate({ params: v_param_id }),
   async (req, res) => {
-    const result = await organisationService.getByID(req.params.id);
+    const [result] = await organisationService.getByID(req.params.id);
     success(res, result, 'Organisation Details');
-  }
+  },
 );

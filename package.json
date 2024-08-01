@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "lint:affected": "nx affected -t lint",
-    "all": "nx run-many --target=serve --projects=api  --host=0.0.0.0",
+    "all": "nx run-many --target=serve --projects=api,admin",
     "expo": "nx start member-app",
     "build:all": "node ./scripts/set-env.js && nx run-many --target=build --configuration=production",
     "migration:g": "drizzle-kit generate --config=./libs/mx-schema/drizzle.config.ts",

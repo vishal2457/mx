@@ -13,6 +13,13 @@ import { MxProgressbarComponent } from '../../shared/ui/progress-bar/progress-ba
 import { SubSink } from '../../shared/utils/sub-sink';
 import { UserService } from '../../shared/services/user-data.service';
 import { ApiService } from '../../shared/services/api.service';
+import { TOrganisation, TUser } from '../../../../../../libs/mx-schema/src';
+
+type MeResponse = {
+  permissions: Array<any>;
+  user: TUser;
+  organisation: TOrganisation;
+};
 
 @Component({
   selector: 'app-main',
@@ -43,6 +50,9 @@ export class MainComponent implements OnDestroy, OnInit {
 
   // start and stops the progress bar during RouterEvent changes
   launchProgressbar(event: RouterEvent): void {
+    if (!this.progressBar) {
+      return;
+    }
     if (event instanceof NavigationStart) {
       this.progressBar.startLoading();
     }
@@ -62,9 +72,10 @@ export class MainComponent implements OnDestroy, OnInit {
   }
 
   initUser() {
-    this.api.get('/user/me').subscribe({
-      next: (data: any) => {
-        this.userService.setUser(data.user.user);
+    this.api.get<MeResponse>('/user/me').subscribe({
+      next: (result) => {
+        this.userService.setUser(result.data.user);
+        this.userService.setOrganisation(result.data.organisation);
         // TODO: change menu according to permission
       },
     });

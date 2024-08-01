@@ -20,6 +20,7 @@ import { OrganisationRoutingModule } from './organisation-routing.module';
 import { OrganisationListComponent } from './organisation-list/organisation-list.component';
 import { OrganisationFormComponent } from './modify-organisation/organisation-form/organisation-form.component';
 import { CreateOrganisationComponent } from './modify-organisation/create-organisation.component';
+import { MxImageComponent } from '../../shared/ui/display-image';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CreateOrganisationComponent } from './modify-organisation/create-organi
     MxTextareaComponent,
     MxCheckboxComponent,
     MxInputComponent,
+    MxImageComponent,
   ],
 })
 export class OrganisationModule {}
