@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import { success } from '../../../../shared/api-response/response-handler';
+import {
+  other,
+  success,
+} from '../../../../shared/api-response/response-handler';
 import { validate } from '../../../../shared/middlewares/validation.middleware';
 import { TB_member, v_param_id } from '../../../../../../../libs/mx-schema/src';
 import { createInsertSchema } from 'drizzle-zod';
@@ -19,6 +22,11 @@ export default Router().put(
     params: v_param_id,
   }),
   async (req, res) => {
+    const member = await memberService.getByEmail(req.body.email);
+    if (member) {
+      return other(res, `Member with email ${req.body.email} already exist`);
+    }
+
     const result = await memberService.updateMember(req.body, req.params.id);
     success(res, result, 'updated');
   },

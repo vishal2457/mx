@@ -15,11 +15,7 @@ const nodemailerTransporter = nodemailer.createTransport({
   },
 });
 
-export const sendEmail = async (mailData: {
-  to: string;
-  subject: string;
-  html: string;
-}) => {
+export const sendEmail = async (mailData: any) => {
   try {
     if (!mailData) {
       return false;
@@ -27,9 +23,7 @@ export const sendEmail = async (mailData: {
 
     const mailOptions = {
       from: APP_SETTINGS.SENDER_EMAIL_ID,
-      to: mailData.to,
-      subject: mailData.subject,
-      html: mailData.html,
+      ...mailData,
     };
 
     const res = await nodemailerTransporter.sendMail(mailOptions);

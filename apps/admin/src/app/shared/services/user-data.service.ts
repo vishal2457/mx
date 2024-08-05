@@ -18,4 +18,8 @@ export class UserService {
   setOrganisation(data: TOrganisation) {
     this.organisation.next(data);
   }
+
+  getOrganisation() {
+    return this.organisation.value;
+  }
 }

@@ -33,7 +33,7 @@
       class="flex-row items-center justify-between space-y-1 py-4 px-6"
     >
       <div mxCardtitle class="text-blue-800 dark:text-blue-300 tracking-wide">
-        New Customers This Month
+        New Members This Month
       </div>
     </div>
     <div mxCardContent>
@@ -101,8 +101,10 @@
       mxCardHeader
       class="flex-row items-center justify-between space-y-1 py-4 px-6"
     >
-      <div mxCardtitle>Last seven days Attendance</div>
-      <mx-icon icon="list_alt" size="lg" />
+      <div mxCardtitle>Last seven Months Revenue</div>
+      <div mxCardtitle>Total <display-currency [amount]="totalRevenueForLastSevenMonths" class="text-sm" /> </div>
+      <!-- <mx-icon icon="list_alt" size="lg" /> -->
+
     </div>
     <div mxCardContent class="p-0">
       <div id="bar-chart" class="w-full h-[350px]"></div>

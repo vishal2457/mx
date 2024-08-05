@@ -6,6 +6,7 @@ import { APP_CONFIG } from '../../../../config';
 import { SubSink } from '../../../shared/utils/sub-sink';
 import { environment } from '../../../../environments/environment';
 import { UserService } from '../../../shared/services/user-data.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'mx-header',
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   sidebarOpen = true;
   PANEL_CONFIG = APP_CONFIG.panelConfig;
   lastBuild = environment.latestBuildTime;
+  searchMember = new FormControl('');
   private subs = new SubSink();
 
   ngOnInit(): void {

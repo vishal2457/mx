@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { ApiService } from '../../../shared/services/api.service';
 import { TMemberPlan, TPlan } from '../../../../../../../libs/mx-schema/src';
+import { UserService } from '../../../shared/services/user-data.service';
 
 type MemberPlanDetail = {
   memberPlan: TMemberPlan;
@@ -13,10 +14,11 @@ type MemberPlanDetail = {
 @Component({
   selector: 'view-invoice',
   template: `<mx-dialog-content>
+    @let organisation = organisation$ | async;
     @if (downloadPDF) {
       <div
         id="print-section"
-        class="relative flex flex-col shadow-lg rounded-xl pointer-events-auto "
+        class="relative flex flex-col shadow-lg rounded-xl pointer-events-auto text-black "
       >
         <div
           class="relative overflow-hidden min-h-32 text-center rounded-t-xl  bg-slate-300"
@@ -32,7 +34,7 @@ type MemberPlanDetail = {
             >
               <path
                 fill="currentColor"
-                class="fill-background"
+                class="fill-white"
                 d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
               ></path>
             </svg>
@@ -43,14 +45,14 @@ type MemberPlanDetail = {
         <div class="relative z-10 -mt-12 ">
           <!-- Icon -->
           <span
-            class="mx-auto flex justify-center items-center size-[62px] rounded-full border bg-background"
+            class="mx-auto flex justify-center items-center size-[62px] rounded-full border bg-white border-black"
           >
             <svg
               class="shrink-0 size-6"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
-              fill="currentColor"
+              fill="fill-black"
               viewBox="0 0 16 16"
             >
               <path
@@ -68,7 +70,7 @@ type MemberPlanDetail = {
         <div class="p-4 sm:p-7 overflow-y-auto">
           <div class="text-center">
             <h3 id="hs-ai-modal-label" class="text-lg font-semibold ">
-              Invoice
+              {{ organisation?.name }}
             </h3>
             <p class="text-sm ">Invoice #{{ invoiceData?.memberPlan?.id }}</p>
           </div>
@@ -98,9 +100,11 @@ type MemberPlanDetail = {
 
             <div>
               <span class="block text-xs uppercase text-muted-foreground"
-                >Payment method:</span
+                >End Date:</span
               >
-              <span class="block text-sm font-medium ">UPI</span>
+              <span class="block text-sm font-medium ">{{
+                invoiceData?.memberPlan?.endDate | date: 'mediumDate'
+              }}</span>
             </div>
             <!-- End Col -->
           </div>
@@ -125,8 +129,8 @@ type MemberPlanDetail = {
                 class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border  -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg "
               >
                 <div class="flex items-center justify-between w-full">
-                  <span>Tax</span>
-                  <display-currency class="font-normal text-sm" [amount]="0" />
+                  <span>Period</span>
+                  <p>{{ invoiceData?.plan?.periodInMonths }} Months</p>
                 </div>
               </li>
               <li
@@ -147,15 +151,8 @@ type MemberPlanDetail = {
             <p class="text-sm ">
               If you have any questions, please contact us at
               <a
-                class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                href="#"
-                >example&#64;site.com</a
-              >
-              or call at
-              <a
-                class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                href="tel:+1898345492"
-                >+1 898-34-5492</a
+                class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2  focus:outline-none focus:underline font-medium dark:text-blue-500"
+                >{{ organisation?.email }}</a
               >
             </p>
           </div>
@@ -216,7 +213,7 @@ type MemberPlanDetail = {
         <div class="p-4 sm:p-7 overflow-y-auto">
           <div class="text-center">
             <h3 id="hs-ai-modal-label" class="text-lg font-semibold ">
-              Invoice
+              {{ organisation?.name }}
             </h3>
             <p class="text-sm ">Invoice #{{ invoiceData?.memberPlan?.id }}</p>
           </div>
@@ -246,9 +243,11 @@ type MemberPlanDetail = {
 
             <div>
               <span class="block text-xs uppercase text-muted-foreground"
-                >Payment method:</span
+                >End Date:</span
               >
-              <span class="block text-sm font-medium ">UPI</span>
+              <span class="block text-sm font-medium ">{{
+                invoiceData?.memberPlan?.endDate | date: 'mediumDate'
+              }}</span>
             </div>
             <!-- End Col -->
           </div>
@@ -273,8 +272,8 @@ type MemberPlanDetail = {
                 class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border  -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg "
               >
                 <div class="flex items-center justify-between w-full">
-                  <span>Tax</span>
-                  <display-currency class="font-normal text-sm" [amount]="0" />
+                  <span>Period</span>
+                  <p>{{ invoiceData?.plan?.periodInMonths }} Months</p>
                 </div>
               </li>
               <li
@@ -318,16 +317,10 @@ type MemberPlanDetail = {
           <div class="mt-5 sm:mt-10">
             <p class="text-sm ">
               If you have any questions, please contact us at
+
               <a
-                class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                href="#"
-                >example&#64;site.com</a
-              >
-              or call at
-              <a
-                class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                href="tel:+1898345492"
-                >+1 898-34-5492</a
+                class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2  focus:outline-none focus:underline font-medium dark:text-blue-500"
+                >{{ organisation?.email }}</a
               >
             </p>
           </div>
@@ -341,9 +334,11 @@ export class ViewInvoiceComponent implements OnInit {
   constructor(@Inject(DIALOG_DATA) private data: { memberID: number }) {}
 
   private api = inject(ApiService);
+  private user = inject(UserService);
 
   invoiceData: MemberPlanDetail | null = null;
   downloadPDF = false;
+  organisation$ = this.user.organisation$;
 
   ngOnInit(): void {
     this.api

@@ -1,3 +1,4 @@
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { Component, inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TMember } from '../../../../../../../libs/mx-schema/src';
@@ -6,6 +7,8 @@ import { MxSelectComponent } from '../../../shared/ui/form/mx-select/mx-select';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { ControlsOf } from '../../../shared/utils/form-controls-of';
 import { patchableDate } from '../../../shared/utils/patchable-date';
+import { QuickAddPlanComponent } from './quick-add-plan.component';
+import { UserService } from '../../../shared/services/user-data.service';
 
 @Component({
   selector: 'quick-add-member',
@@ -18,16 +21,22 @@ import { patchableDate } from '../../../shared/utils/patchable-date';
       >
     </mx-dialog-header>
     <div class="grid grid-cols-1 gap-4">
-      <mx-select
-        class="flex-1"
-        label="Plan"
-        [control]="form.controls.planID"
-        bindLabel="name"
-        bindValue="id"
-        apiURL="/plan/all"
-        [patchFirstEntry]="true"
-        #planSelect
-      />
+      <div class="flex gap-2 items-center">
+        <mx-select
+          class="flex-1"
+          label="Plan"
+          [control]="form.controls.planID"
+          bindLabel="name"
+          bindValue="id"
+          apiURL="/plan/all"
+          placeholder="Select plan"
+          [patchFirstEntry]="true"
+          #planSelect
+        />
+        <mx-button variant="outline" class="mt-3" (handleClick)="openPlanForm()"
+          ><mx-icon icon="add"
+        /></mx-button>
+      </div>
       <mx-input
         label="Name"
         placeholder="Enter name"
@@ -64,11 +73,15 @@ import { patchableDate } from '../../../shared/utils/patchable-date';
   </mx-dialog-content>`,
 })
 export class QuickAddMemberComponent {
+  constructor(private dialogRef: DialogRef<{ success: boolean }>) {}
+
   @ViewChild('planSelect', { static: false }) planSelect!: MxSelectComponent;
 
   private fb = inject(FormBuilder);
   private api = inject(ApiService);
   private notif = inject(MxNotification);
+  private dialog = inject(Dialog);
+  private user = inject(UserService);
 
   form = this.fb.group<
     ControlsOf<
@@ -93,6 +106,7 @@ export class QuickAddMemberComponent {
 
     this.api.post('/member/create', this.getFormValue()).subscribe({
       next: () => {
+        this.dialogRef.close({ success: true });
         this.notif.updateToast({
           text: 'Member added',
           id: 'add-member',
@@ -103,13 +117,31 @@ export class QuickAddMemberComponent {
   }
 
   private getFormValue() {
-    const periodInMonths = this.planSelect.items.find(
+    const selectedPlan = this.planSelect.items.find(
       (i) => i.id === this.form.value.planID,
-    ).periodInMonths;
+    );
+
+    const org = this.user.getOrganisation();
+
     return {
       ...this.form.value,
-      periodInMonths,
+      periodInMonths: selectedPlan.periodInMonths,
       quickAdd: true,
+      amount: selectedPlan.amount,
+      organisation: {
+        name: org?.name,
+        email: org?.email,
+      },
     };
+  }
+
+  openPlanForm() {
+    const ref = this.dialog.open(QuickAddPlanComponent);
+    ref.closed.subscribe((data: any) => {
+      if (data.success) {
+        this.planSelect.getItems();
+        this.form.controls.planID.reset();
+      }
+    });
   }
 }

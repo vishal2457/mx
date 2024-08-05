@@ -3,17 +3,16 @@ import { Request } from 'express';
 import {
   TB_member,
   TB_memberAttendance,
-  TB_memberWeightHistory,
   TB_memberPlan,
+  TB_memberWeightHistory,
+  TB_memberWorkoutLog,
   TB_plan,
   TB_user,
+  TB_workoutTemplateDetail,
   TMemberPlan,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import {
-  getTotalCount,
-  getTotalCountByOrg,
-} from '../../../db/utils-db/pg/count-rows';
+import { getTotalCountByOrg } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type Member = typeof TB_member.$inferSelect;
@@ -33,16 +32,32 @@ class MemberService {
     .from(TB_memberPlan)
     .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
     .leftJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
-    .groupBy(
-      sql`${TB_memberPlan.memberID}, ${TB_memberPlan.paid}, ${TB_memberPlan.createdAt}, ${TB_member.organisationID}`,
-    )
-    .having(
+    .where(
       and(
         sql`EXTRACT (YEAR FROM ${TB_memberPlan.createdAt}) = ${sql.placeholder('year')} AND EXTRACT (MONTH FROM ${TB_memberPlan.createdAt}) = ${sql.placeholder('month')} AND ${TB_member.organisationID} = ${sql.placeholder('organisationID')}`,
         eq(TB_memberPlan.paid, true),
       ),
     )
     .prepare('revenueByMonth');
+
+  private lastNMonthRevenue = db
+    .select({
+      month: sql`DATE_TRUNC('month', ${TB_memberPlan.createdAt})`.as('month'),
+      totalAmount: sql`SUM(${TB_plan.amount})`.as('total_amount'),
+    })
+    .from(TB_memberPlan)
+    .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
+    .leftJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
+    .where(
+      and(
+        sql`${TB_memberPlan.createdAt} >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '6 months'`,
+        eq(TB_member.organisationID, sql.placeholder('organisationID')),
+        eq(TB_memberPlan.paid, true),
+      ),
+    )
+    .groupBy(sql`DATE_TRUNC('month', ${TB_memberPlan.createdAt})`)
+    .orderBy(desc(sql`month`))
+    .prepare('last-seven-month-revenue');
 
   getMemberList(
     query: Request['query'],
@@ -104,7 +119,7 @@ class MemberService {
 
   // start new subscription
   addPlan(body: typeof TB_memberPlan.$inferInsert) {
-    return db.insert(TB_memberPlan).values(body);
+    return db.insert(TB_memberPlan).values(body).returning();
   }
 
   // get active membership by member id
@@ -180,6 +195,40 @@ class MemberService {
     organisationID: number;
   }) {
     return this.revenueByMonth.execute(params);
+  }
+
+  getLastNMonthRevenue(organisationID: Member['organisationID']) {
+    return this.lastNMonthRevenue.execute({
+      organisationID,
+    });
+  }
+
+  createManyWorkoutLogs(payload: (typeof TB_memberWorkoutLog.$inferInsert)[]) {
+    return db.insert(TB_memberWorkoutLog).values(payload);
+  }
+
+  getLastWorkoutDay(memberID: Member['id']) {
+    return db
+      .select()
+      .from(TB_memberWorkoutLog)
+      .where(eq(TB_memberWorkoutLog.memberID, memberID))
+      .orderBy(desc(TB_memberPlan.id))
+      .limit(1);
+  }
+
+  getTodaysWorkout(
+    day: 'day1' | 'day2' | 'day3' | 'day4' | 'day5' | 'day6' | 'day7',
+    workoutTemplateID: number,
+  ) {
+    return db
+      .select()
+      .from(TB_workoutTemplateDetail)
+      .where(
+        and(
+          eq(TB_workoutTemplateDetail.day, day),
+          eq(TB_workoutTemplateDetail.workoutTemplateID, workoutTemplateID),
+        ),
+      );
   }
 }
 

@@ -13,9 +13,9 @@ type Exercise = typeof TB_exercise.$inferSelect;
 
 class ExerciseService {
   getExerciseList(query: Request['query'], organisationID: Exercise['id']) {
-    const q = getListQueryWithFilters(TB_exercise, query);
-    q.where(eq(TB_exercise.organisationID, organisationID));
-    return q;
+    return getListQueryWithFilters(TB_exercise, query, [
+      eq(TB_exercise.organisationID, organisationID),
+    ]);
   }
 
   getAllExercises(organisationID: Exercise['organisationID']) {

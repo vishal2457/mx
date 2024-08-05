@@ -1,22 +1,14 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { EnquiryFormComponent } from './enquiry-form/enquiry-form.component';
-import { ApiService } from '../../../shared/services/api.service';
-import { MxNotification } from '../../../shared/ui/notification/notification.service';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-import { SubSink } from '../../../shared/utils/sub-sink';
 import {
   TEnquiry,
   TEnquiryStatusHistory,
   TUser,
 } from '../../../../../../../libs/mx-schema/src';
+import { ApiService } from '../../../shared/services/api.service';
+import { MxNotification } from '../../../shared/ui/notification/notification.service';
+import { SubSink } from '../../../shared/utils/sub-sink';
+import { EnquiryFormComponent } from './enquiry-form/enquiry-form.component';
 
 @Component({
   selector: 'edit-enquiry',

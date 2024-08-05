@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import * as echarts from 'echarts';
 import { ApiService } from '../../../shared/services/api.service';
+import { safeParseInt } from '../../../shared/utils/safe-parse-int';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,43 +19,52 @@ export class DashboardComponent implements OnInit {
     recieved: new Date(),
   };
   mock = new Array(10).fill(this.mockItem);
+  private readonly MONTHS = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
 
   timefilter = new FormControl('last 7 days');
   newCustomerByMonthCount = 0;
   revenueThisMonth = 0;
   openEnquiries = 0;
   memberCount = 0;
+  totalRevenueForLastSevenMonths = 0;
 
   ngOnInit(): void {
-    this.renderBarChart();
     this.renderLineChart();
     this.newCustomerByMonth();
     this.fetchRevenueThisMonth();
     this.fetchOpenEnquiryCount();
     this.fetchMemberCount();
+    this.fetchLastSevenMonthRevenue();
   }
 
-  renderBarChart() {
+  renderBarChart(data: number[], months: string[]) {
     const option = {
-      // title: {
-      //   text: 'ECharts Getting Started Example',
-      // },
       tooltip: {},
-      // legend: {
-      //   data: ['orders'],
-      // },
       xAxis: {
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: months,
         splitLine: { show: false },
-        axisLine: { show: false },
+        axisLine: { show: true },
         axisTick: { show: false },
-        axisLabel: { show: false },
+        axisLabel: { show: true },
       },
       yAxis: {
         splitLine: { show: false },
-        axisLine: { show: false },
+        axisLine: { show: true },
         axisTick: { show: false },
-        axisLabel: { show: false },
+        axisLabel: { show: true },
       },
       series: [
         {
@@ -62,7 +72,7 @@ export class DashboardComponent implements OnInit {
           itemStyle: {
             borderRadius: [5, 5, 0, 0],
           },
-          data: [5, 20, 36, 10, 10, 20, 30],
+          data,
         },
       ],
     };
@@ -165,5 +175,32 @@ export class DashboardComponent implements OnInit {
     this.api
       .get<{ count: number }>('/member/count')
       .subscribe((data) => (this.memberCount = data.data.count));
+  }
+
+  private fetchLastSevenMonthRevenue() {
+    this.api
+      .get<
+        Array<{
+          month: string;
+          totalAmount: number;
+        }>
+      >('/member/last-n-month-revenue')
+      .subscribe((result) => {
+        const data = result.data
+          .map((item) => {
+            const amount = safeParseInt(item.totalAmount);
+            this.totalRevenueForLastSevenMonths =
+              this.totalRevenueForLastSevenMonths + amount;
+            return amount;
+          })
+          .reverse();
+        const months = result.data
+          .map(
+            (item) => this.MONTHS[new Date(item.month).getMonth().toString()],
+          )
+          .reverse();
+
+        this.renderBarChart(data, months);
+      });
   }
 }

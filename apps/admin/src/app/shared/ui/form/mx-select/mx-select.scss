@@ -19,6 +19,11 @@
   @apply border-border border text-foreground hover:bg-accent;
 }
 
+::ng-deep .ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+  @apply border-ring border
+}
+
+
 ::ng-deep .ng-input input {
   @apply text-foreground;
 }

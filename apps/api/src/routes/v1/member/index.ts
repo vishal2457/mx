@@ -13,6 +13,10 @@ import getCountNewByMonth from './stats/get-count-new-by-month';
 import getRevenueByMonthApi from './stats/get-revenue-by-month.api';
 import getMemberCountApi from './stats/get-member-count.api';
 import getActiveMembershipApi from './id/get-active-membership.api';
+import getLastNMonthRevenueApi from './stats/get-last-n-month-revenue.api';
+import updateProfilePicApi from './id/update-profile-pic.api';
+import logWorkoutApi from './id/log-workout.api';
+import getTodaysWorkoutApi from './id/get-todays-workout.api';
 
 export const member = asyncHandler([
   getMemberList,
@@ -29,4 +33,8 @@ export const member = asyncHandler([
   getRevenueByMonthApi,
   getMemberCountApi,
   getActiveMembershipApi,
+  getLastNMonthRevenueApi,
+  updateProfilePicApi,
+  logWorkoutApi,
+  getTodaysWorkoutApi,
 ]);

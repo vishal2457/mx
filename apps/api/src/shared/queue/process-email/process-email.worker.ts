@@ -12,5 +12,5 @@ export const emailWorker = new Worker(
       throw new Error(error);
     }
   },
-  { connection: queueConnection, concurrency: 5 }
+  { connection: queueConnection, concurrency: 5 },
 );

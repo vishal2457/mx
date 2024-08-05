@@ -10,33 +10,34 @@ class ProcessEmailQueue extends BaseQueue {
   constructor() {
     super(GLOBAL_CONSTANTS.QUEUE_NAMES.processEmail, emailWorker);
   }
-  async sendEmail(
-    data: {
-      to: string;
-      subject: string;
-      html: string;
-    }
-  ) {
+  async sendEmail(data: {
+    to: string;
+    subject: string;
+    html: string;
+    attachments?: {
+      filename: string;
+      path: string;
+      contentType: string;
+    }[];
+  }) {
     return this.add(GLOBAL_CONSTANTS.QUEUE_NAMES.processEmail, data);
   }
 
-  async sendEmailWithTemplate(
-    {
-      to,
-      subject,
-      templateFile,
-      replacements,
-    }: {
-      to: string;
-      subject: string;
-      templateFile: string;
-      replacements: Record<string, any> | any[];
-    }
-  ) {
+  async sendEmailWithTemplate({
+    to,
+    subject,
+    templateFile,
+    replacements,
+  }: {
+    to: string;
+    subject: string;
+    templateFile: string;
+    replacements: Record<string, any> | any[];
+  }) {
     // TODO: find a way to get templated file in build automatically
     const html = readFileSync(
       path.join(__dirname, `../../../templates/${templateFile}`),
-      { encoding: 'utf8' }
+      { encoding: 'utf8' },
     );
     const template = handleBars.compile(html);
     const htmlToSend = template(replacements);

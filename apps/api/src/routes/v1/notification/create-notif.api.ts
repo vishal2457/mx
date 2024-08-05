@@ -1,14 +1,12 @@
 import { Router } from 'express';
-import { other, success } from '../../../shared/api-response/response-handler';
-import { db } from '../../../db/db';
 import {
   TB_customerFcm,
   TB_notification,
-  Z_notification_insert,
 } from '../../../../../../libs/mx-schema/src';
-import { validate } from '../../../shared/middlewares/validation.middleware';
-import { firebaseNotificationQueue } from '../../../shared/queue/firebase-notification/firebase-notification.queue';
+import { db } from '../../../db/db';
+import { other, success } from '../../../shared/api-response/response-handler';
 import { ImageUpload } from '../../../shared/middlewares/multer.middleware';
+import { firebaseNotificationQueue } from '../../../shared/queue/firebase-notification/firebase-notification.queue';
 
 export default Router().post(
   '/create',
@@ -30,12 +28,12 @@ export default Router().post(
 
     await firebaseNotificationQueue.sendNotification(
       'firebase-notification-from-admin',
-      { tokens: tokens, payload }
+      { tokens: tokens, payload },
     );
     const results = await db
       .insert(TB_notification)
       .values(payload)
       .returning();
     success(res, results, 'success');
-  }
+  },
 );

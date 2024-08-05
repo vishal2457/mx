@@ -14,8 +14,8 @@
         />
         <mx-button
           variant="outline"
-          class="mt-6"
-          (handleClick)="openPlanForm(addPlan)"
+          class="mt-3"
+          (handleClick)="openPlanForm()"
           ><mx-icon icon="add"
         /></mx-button>
       </div>
@@ -102,31 +102,3 @@
     placeholder="Enter full address"
   />
 </mx-form>
-
-<ng-template #addPlan>
-  <mx-dialog-content>
-    <mx-dialog-header>
-      <mx-dialog-title>Add new plan</mx-dialog-title>
-      <mx-dialog-description
-        >Quick add new plans while adding members</mx-dialog-description
-      >
-    </mx-dialog-header>
-    <div class="grid grid-cols-1 gap-4">
-      <mx-input [control]="planForm.controls.name" label="Name" />
-      <mx-input-number [control]="planForm.controls.amount" label="Amount" />
-      <mx-input-number
-        [control]="planForm.controls.periodInMonths"
-        label="Period in months"
-        [hints]="periodInMonthHint"
-      />
-    </div>
-    <mx-dialog-footer>
-      <mx-button
-        size="sm"
-        (handleClick)="handlePlanAdd()"
-        [disabled]="planForm.invalid"
-        >Save</mx-button
-      >
-    </mx-dialog-footer>
-  </mx-dialog-content>
-</ng-template>
