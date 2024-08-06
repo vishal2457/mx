@@ -9,7 +9,7 @@ import {
 } from '../../../../../../../libs/mx-schema/src';
 import { createInsertSchema } from 'drizzle-zod';
 
-const bodyValidation = createInsertSchema(TB_memberWorkoutLog);
+const bodyValidation = createInsertSchema(TB_memberWorkoutLog).array();
 
 export default Router().post(
   '/log-workout/:id',

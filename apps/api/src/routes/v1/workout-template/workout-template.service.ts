@@ -1,9 +1,11 @@
-import { and, eq } from 'drizzle-orm';
+import { and, count, desc, eq } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_exercise,
+  TB_memberWorkoutLog,
   TB_workoutTemplate,
   TB_workoutTemplateDetail,
+  TMember,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
 import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
@@ -90,6 +92,51 @@ class WorkoutTemplateService {
     return ex
       .delete(TB_workoutTemplateDetail)
       .where(eq(TB_workoutTemplateDetail.workoutTemplateID, id));
+  }
+
+  getWorkoutTemplateDetailCount(workoutTemplateID: WorkoutTemplate['id']) {
+    return db
+      .select({ count: count() })
+      .from(TB_workoutTemplateDetail)
+      .where(eq(TB_workoutTemplateDetail.workoutTemplateID, workoutTemplateID));
+  }
+
+  getLastWorkoutDay(memberID: TMember['id']) {
+    return db
+      .select({
+        day: TB_workoutTemplateDetail.day,
+        workoutTemplateID: TB_workoutTemplateDetail.workoutTemplateID,
+      })
+      .from(TB_memberWorkoutLog)
+      .leftJoin(
+        TB_workoutTemplateDetail,
+        eq(
+          TB_memberWorkoutLog.workoutTemplateDetailID,
+          TB_workoutTemplateDetail.id,
+        ),
+      )
+      .where(eq(TB_memberWorkoutLog.memberID, memberID))
+      .orderBy(desc(TB_memberWorkoutLog.id))
+      .limit(1);
+  }
+
+  getTodaysWorkout(
+    day: 'day1' | 'day2' | 'day3' | 'day4' | 'day5' | 'day6' | 'day7',
+    workoutTemplateID: number,
+  ) {
+    return db
+      .select()
+      .from(TB_workoutTemplateDetail)
+      .leftJoin(
+        TB_exercise,
+        eq(TB_workoutTemplateDetail.exerciseID, TB_exercise.id),
+      )
+      .where(
+        and(
+          eq(TB_workoutTemplateDetail.day, day),
+          eq(TB_workoutTemplateDetail.workoutTemplateID, workoutTemplateID),
+        ),
+      );
   }
 }
 

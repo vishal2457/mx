@@ -1,4 +1,4 @@
-import { and, count, desc, eq, sql, sum } from 'drizzle-orm';
+import { and, count, desc, eq, not, sql, sum } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_member,
@@ -113,8 +113,14 @@ class MemberService {
     return db.select().from(TB_member).where(eq(TB_member.id, id));
   }
 
-  getByEmail(email: Member['email']) {
-    return db.query.TB_member.findFirst({ where: eq(TB_member.email, email) });
+  getByEmail(email: Member['email'], omitID?: Member['id']) {
+    let where = eq(TB_member.email, email);
+    if (omitID) {
+      where = and(eq(TB_member.email, email), not(eq(TB_member.id, omitID)));
+    }
+    return db.query.TB_member.findFirst({
+      where,
+    });
   }
 
   // start new subscription
@@ -205,30 +211,6 @@ class MemberService {
 
   createManyWorkoutLogs(payload: (typeof TB_memberWorkoutLog.$inferInsert)[]) {
     return db.insert(TB_memberWorkoutLog).values(payload);
-  }
-
-  getLastWorkoutDay(memberID: Member['id']) {
-    return db
-      .select()
-      .from(TB_memberWorkoutLog)
-      .where(eq(TB_memberWorkoutLog.memberID, memberID))
-      .orderBy(desc(TB_memberPlan.id))
-      .limit(1);
-  }
-
-  getTodaysWorkout(
-    day: 'day1' | 'day2' | 'day3' | 'day4' | 'day5' | 'day6' | 'day7',
-    workoutTemplateID: number,
-  ) {
-    return db
-      .select()
-      .from(TB_workoutTemplateDetail)
-      .where(
-        and(
-          eq(TB_workoutTemplateDetail.day, day),
-          eq(TB_workoutTemplateDetail.workoutTemplateID, workoutTemplateID),
-        ),
-      );
   }
 }
 

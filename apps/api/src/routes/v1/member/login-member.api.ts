@@ -21,13 +21,15 @@ export default Router().post(
     if (!checkPassword(req.body.passcode, member.passcode)) {
       return unauthorized(res, 'Invalid credentials');
     }
+    delete member.passcode;
     const payload = {
       id: member.id,
       email: member.email,
       organisationID: member.organisationID,
+      workoutTemplateID: member.workoutTemplateID,
     };
     const token = generateToken(payload);
 
-    success(res, { token, member: payload }, 'success');
+    success(res, { token, member }, 'success');
   },
 );

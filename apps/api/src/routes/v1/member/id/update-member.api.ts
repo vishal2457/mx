@@ -22,7 +22,10 @@ export default Router().put(
     params: v_param_id,
   }),
   async (req, res) => {
-    const member = await memberService.getByEmail(req.body.email);
+    const member = await memberService.getByEmail(
+      req.body.email,
+      req.params.id,
+    );
     if (member) {
       return other(res, `Member with email ${req.body.email} already exist`);
     }

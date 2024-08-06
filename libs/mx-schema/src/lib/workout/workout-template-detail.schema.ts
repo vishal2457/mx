@@ -3,6 +3,15 @@ import { createSelectSchema } from 'drizzle-zod';
 import { TB_exercise } from './exercise.schema';
 import { TB_workoutTemplate } from './workout-template.schema';
 
+export const DAYS_KEY_VALUE = {
+  day1: 'day1',
+  day2: 'day2',
+  day3: 'day3',
+  day4: 'day4',
+  day5: 'day5',
+  day6: 'day6',
+  day7: 'day7',
+};
 export const DAYS = [
   'day1',
   'day2',
