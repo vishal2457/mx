@@ -25,6 +25,7 @@ export default Router().get(
     const todaysWorkout = await workoutTemplateService.getTodaysWorkout(
       nextDay,
       req.user.workoutTemplateID,
+      req.user.id,
     );
 
     success(res, todaysWorkout, 'Todays workout');

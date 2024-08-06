@@ -1,22 +1,20 @@
+import { createInsertSchema } from 'drizzle-zod';
 import { Router } from 'express';
+import { TB_memberWorkoutLog } from '../../../../../../../libs/mx-schema/src';
 import { success } from '../../../../shared/api-response/response-handler';
-import { memberService } from '../member.service';
 import { secure } from '../../../../shared/jwt/jwt-auth.middleware';
 import { validate } from '../../../../shared/middlewares/validation.middleware';
-import {
-  TB_memberWorkoutLog,
-  v_param_id,
-} from '../../../../../../../libs/mx-schema/src';
-import { createInsertSchema } from 'drizzle-zod';
+import { memberService } from '../member.service';
 
 const bodyValidation = createInsertSchema(TB_memberWorkoutLog).array();
 
 export default Router().post(
-  '/log-workout/:id',
+  '/log-workout',
   secure,
-  validate({ params: v_param_id, body: bodyValidation }),
+  validate({ body: bodyValidation }),
   async (req, res) => {
-    const result = await memberService.createManyWorkoutLogs(req.body);
+    const payload = req.body.map((i) => ({ ...i, memberID: req.user.id }));
+    const result = await memberService.createManyWorkoutLogs(payload);
     success(res, result, 'success');
   },
 );

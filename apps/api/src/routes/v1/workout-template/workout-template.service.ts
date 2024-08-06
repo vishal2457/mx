@@ -1,4 +1,4 @@
-import { and, count, desc, eq } from 'drizzle-orm';
+import { and, count, desc, eq, sql } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_exercise,
@@ -123,6 +123,7 @@ class WorkoutTemplateService {
   getTodaysWorkout(
     day: 'day1' | 'day2' | 'day3' | 'day4' | 'day5' | 'day6' | 'day7',
     workoutTemplateID: number,
+    memberID: TMember['id'],
   ) {
     return db
       .select()
@@ -130,6 +131,17 @@ class WorkoutTemplateService {
       .leftJoin(
         TB_exercise,
         eq(TB_workoutTemplateDetail.exerciseID, TB_exercise.id),
+      )
+      .leftJoin(
+        TB_memberWorkoutLog,
+        and(
+          eq(
+            TB_memberWorkoutLog.workoutTemplateDetailID,
+            TB_workoutTemplateDetail.id,
+          ),
+          eq(TB_memberWorkoutLog.memberID, memberID),
+          sql`DATE(${TB_memberWorkoutLog.createdAt}) = CURRENT_DATE`,
+        ),
       )
       .where(
         and(
