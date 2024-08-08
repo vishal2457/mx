@@ -89,7 +89,7 @@ jobs:
             docker compose  -f docker-compose.prod.yml --profile prod up -d
 
       - name: Run db migrations
-        run: npm run migrate
+        run: npm run db:push
 
       - name: Run db seed
         run: npm run db:seed

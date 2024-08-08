@@ -1,1 +1,0 @@
-ALTER TABLE "config" ADD COLUMN "ads" boolean DEFAULT true NOT NULL;
