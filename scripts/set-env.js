@@ -20,7 +20,7 @@ const formatter = new Intl.DateTimeFormat([], options);
 const indianTime = formatter.format(new Date());
 
 const envs = {
-  api: `https://${process.env.NODE_HOST}:3000`,
+  api: `https://${process.env.NODE_HOST}:3001`,
   latestBuildTime: indianTime,
 };
 

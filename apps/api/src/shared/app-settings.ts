@@ -1,12 +1,12 @@
 const {
-  APP_NAME = 'maximus',
+  APP_NAME = 'fitflow',
   NODE_ENV = 'development',
   PORT = 3000,
   ENCRYPT = false,
   NODE_HOST = 'localhost',
   REDIS_HOST = 'redis',
   REDIS_PORT = '6379',
-  DB_NAME = 'maximus',
+  DB_NAME = 'fitflow',
   DB_HOST = 'db',
   DB_PORT = '5432',
   DB_USERNAME = 'root',
@@ -39,7 +39,7 @@ export const APP_SETTINGS = {
   NODE_HOST,
   APP_NAME,
   DEFAULT_IMAGE_QUALITY_REDUCTION: parseInt(
-    DEFAULT_IMAGE_QUALITY_REDUCTION || '80'
+    DEFAULT_IMAGE_QUALITY_REDUCTION || '80',
   ),
   IS_DEVELOPMENT: NODE_ENV === 'development',
   JWT_SECRET,

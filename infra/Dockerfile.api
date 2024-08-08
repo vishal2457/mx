@@ -2,7 +2,7 @@
 FROM docker.io/node:lts-alpine
 
 ENV HOST=0.0.0.0
-ENV PORT=3000
+ENV PORT=3001
 
 WORKDIR /app
 # Install build tools
@@ -13,6 +13,6 @@ COPY dist/apps/api api
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
 RUN npm --prefix api ci --no-audit --progress=false
-EXPOSE 3000
+EXPOSE 3001
 
 CMD [ "node", "api" ]

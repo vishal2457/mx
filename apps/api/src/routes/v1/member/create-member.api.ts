@@ -109,9 +109,9 @@ export default Router().post(
   }),
   async (req, res) => {
     const member = await memberService.getByEmail(req.body.email);
-    if (member) {
-      return other(res, `Member with email ${req.body.email} already exist`);
-    }
+    // if (member) {
+    //   return other(res, `Member with email ${req.body.email} already exist`);
+    // }
 
     const passcode = Math.floor(1000 + Math.random() * 9000);
 

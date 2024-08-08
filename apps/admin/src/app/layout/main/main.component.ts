@@ -95,12 +95,7 @@ export class MainComponent implements OnDestroy, OnInit {
       next: (result) => {
         this.userService.setUser(result.data.user);
         this.userService.setOrganisation(result.data.organisation);
-        const permission = result.data.permissions;
-        this.userService.setPermission(permission);
-        const initMenu = MENU_DATA.find(
-          (m) => permission[0].rolePermission.menuName === m.name,
-        );
-        this.router.navigate([initMenu?.link]);
+        this.userService.setPermission(result.data.permissions);
         // TODO: change menu according to permission
       },
     });

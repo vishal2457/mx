@@ -73,7 +73,7 @@ services:
       context: .
       dockerfile: ./infra/Dockerfile.caddy
     ports:
-      - 3001:3000
+      - 3001:3001
       - 4201:80
       - 4202:443
     volumes:
