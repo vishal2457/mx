@@ -1,3 +1,10 @@
+# [3.13.0](https://github.com/vishal2457/mx/compare/v3.12.0...v3.13.0) (2024-08-08)
+
+
+### Features
+
+* migration deleted ([d8a808c](https://github.com/vishal2457/mx/commit/d8a808c26eaedf664e1b55311624faa61cf6b699))
+
 # [3.12.0](https://github.com/vishal2457/mx/compare/v3.11.0...v3.12.0) (2024-08-08)
 
 
