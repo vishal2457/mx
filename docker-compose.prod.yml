@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: fitflow
 
     ports:
-      - 5433:5433
+      - 5433:5432
     # Volume to persist the data even after the container is stopped
     volumes:
       - ./app-data-mx/data/postgres:/var/lib/postgresql/data
