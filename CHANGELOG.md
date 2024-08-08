@@ -1,3 +1,10 @@
+# [3.12.0](https://github.com/vishal2457/mx/compare/v3.11.0...v3.12.0) (2024-08-08)
+
+
+### Features
+
+* member workoute log query changes ([5e29e44](https://github.com/vishal2457/mx/commit/5e29e443535c34594de6e6e0481c876085cfae3e))
+
 # [3.11.0](https://github.com/vishal2457/mx/compare/v3.10.1...v3.11.0) (2024-08-08)
 
 
