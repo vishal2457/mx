@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TUser } from '../../../../../../../libs/mx-schema/src';
+import { TOrganisation, TUser } from '../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
@@ -38,9 +38,17 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   }
 
   private fetchUserDetails(id: string) {
-    this.api.get<TUser>(`/user/detail/${id}`).subscribe(({ data }) => {
-      this.userFormComponent.patchValue({ email: data.email });
-    });
+    this.api
+      .get<
+        TUser & { organisation: TOrganisation; roles: number[] }
+      >(`/user/detail/${id}`)
+      .subscribe(({ data }) => {
+        this.userFormComponent.patchValue({
+          email: data.email,
+          name: data.name,
+          roles: data.roles,
+        });
+      });
   }
 
   handleSubmit() {

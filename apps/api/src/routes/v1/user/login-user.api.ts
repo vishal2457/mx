@@ -8,6 +8,7 @@ import { generateToken } from '../../../shared/jwt/token-utils';
 import { validate } from '../../../shared/middlewares/validation.middleware';
 import { checkPassword } from '../../../shared/password-hash';
 import { userService } from './user.service';
+import { roleService } from '../role/role.service';
 
 export default Router().post(
   '/login',
@@ -22,11 +23,13 @@ export default Router().post(
     if (!checkPassword(req.body.password, user.password)) {
       return unauthorized(res, 'Incorrect credentials');
     }
+
+    const permissions = await roleService.getRolePermissionByUserID(user.id);
     const token = generateToken({
       email: user.email,
       id: user.id,
       organisationID: user.organisationID,
     });
-    success(res, { token }, 'login success');
+    success(res, { token, permissions }, 'login success');
   },
 );

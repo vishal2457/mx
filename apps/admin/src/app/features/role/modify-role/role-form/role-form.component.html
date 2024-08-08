@@ -1,27 +1,8 @@
 <mx-form [form]="roleForm" [zodSchema]="Z_role">
   <div class="grid grid-cols-3 gap-4">
-    <mx-input
-      label="Name"
-      [control]="formControls.name"
-    />
+    <mx-input label="Name" [control]="formControls.name" />
   </div>
   <div class="mt-4">
-    <mx-textarea  [control]="formControls.description" label="Description" />
+    <mx-textarea [control]="formControls.description" label="Description" />
   </div>
 </mx-form>
-<div class="my-4"></div>
-
-<mx-grid-shell apiURL="/rolePermission/list" gridTitle="Assigned Permissions">
-  <!-- columns -->
-  <mx-column field="id" alignment="left" [visible]="false" />
-  <mx-column field="name" alignment="left" />
-  <!-- columns -->
-
-  <!-- filters -->
-  <mx-grid-filter label="name" field="name" />
-  <!-- filters -->
-
-  <!-- actions -->
-  <!-- <mx-action icon="edit" (handleClick)="update($event)" text="Edit" /> -->
-  <!-- actions -->
-</mx-grid-shell>

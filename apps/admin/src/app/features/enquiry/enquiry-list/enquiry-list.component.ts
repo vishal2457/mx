@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
         </span>
       </mx-button>
     </page-header>
-    <mx-grid-shell gridTitle="Enquirys" apiURL="/enquiry/list">
+    <mx-grid-shell gridTitle="Enquiry List" apiURL="/enquiry/list">
       <!-- columns -->
       <mx-column field="id" />
       <mx-column field="customerName" title="Customer Name" />

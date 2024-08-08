@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MxGridShellComponent } from '../../shared/grid-shell/grid-shell';
 import { MxGridToolbarComponent } from '../../shared/ui/mx-data-grid/components/toolbar/mx-toolbar';
 import { MxInputComponent } from '../../shared/ui/form/mx-input';
@@ -29,6 +29,7 @@ import { MxTextareaComponent } from '../../shared/ui/form/textarea';
   imports: [
     RoleRoutingModule,
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     PageHeaderComponent,
     MxGridShellComponent,

@@ -122,6 +122,7 @@
     "@types/jest": "^29.5.12",
     "@types/multer": "^1.4.11",
     "@types/node": "~20.14.10",
+    "@types/pdfkit": "^0.13.4",
     "@types/react": "~18.2.45",
     "@typescript-eslint/eslint-plugin": "7.16.0",
     "@typescript-eslint/parser": "7.16.0",

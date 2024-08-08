@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TMember } from '../../../../../../../../libs/mx-schema/src';
+import {
+  TMember,
+  TWorkoutTemplate,
+} from '../../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../../shared/services/api.service';
 import { MxNotification } from '../../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../../shared/utils/sub-sink';
@@ -10,6 +13,7 @@ import { AddMembershipDialogComponent } from '../../components/add-membership.co
 import { MxGridShellComponent } from '../../../../shared/grid-shell/grid-shell';
 import { calculateBMI } from '../../../../../../../../libs/helpers/src';
 import * as echarts from 'echarts';
+import { UpdateMemberDialogComponent } from '../../components/update-member-dialog.component';
 
 @Component({
   selector: 'edit-member',
@@ -27,7 +31,7 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
   private dialog = inject(Dialog);
 
   memberID!: string;
-  memberData: (TMember & { bmi: string }) | undefined;
+  memberData: (TMember & { bmi: string; workoutTemplateName }) | undefined;
   totalSpent!: number;
   private requests = new SubSink();
   private subs = new SubSink();
@@ -105,8 +109,11 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
   private fetchMemberDetails(id: string) {
     this.api
       .get<{
-        details: TMember & { memberPlan: any[] };
+        details: TMember & {
+          memberPlan: any[];
+        };
         memberTotalSpent: { amount: string };
+        workoutTemplate: TWorkoutTemplate;
       }>(`/member/detail/${id}`)
       .subscribe(({ data }) => {
         const details = data.details;
@@ -115,37 +122,9 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
           bmi: calculateBMI(details.height || 0, details.weight || 0).toFixed(
             2,
           ),
+          workoutTemplateName: data?.workoutTemplate?.name,
         };
-        this.memberFormComponent.patchValue(details);
         this.totalSpent = parseFloat(data.memberTotalSpent?.amount);
-      });
-  }
-
-  handleSubmit() {
-    if (this.memberFormComponent.isInValid()) {
-      return;
-    }
-    this.requests.unsubscribe();
-    this.notif.show({
-      text: 'Updating Member',
-      id: 'update-member',
-      type: 'loading',
-    });
-
-    this.requests.sink = this.api
-      .put(
-        `/member/update/${this.memberID}`,
-        this.memberFormComponent.getFormValue(),
-      )
-      .subscribe({
-        next: () => {
-          this.notif.updateToast({
-            text: 'Member updated',
-            id: 'update-member',
-            type: 'success',
-          });
-          this.router.navigate(['/member/list']);
-        },
       });
   }
 
@@ -160,6 +139,19 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
     this.subs.sink = ref.closed.subscribe((result: any) => {
       if (result.refresh) {
         this.gridShell.refresh();
+      }
+    });
+  }
+
+  openUpdateMember() {
+    const ref = this.dialog.open(UpdateMemberDialogComponent, {
+      data: this.memberData,
+    });
+
+    this.subs.sink = ref.closed.subscribe((result: any) => {
+      if (result.success) {
+        this.fetchMemberDetails(this.memberID);
+        // this.gridShell.refresh();
       }
     });
   }

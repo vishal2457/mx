@@ -1,7 +1,6 @@
 <mx-form [form]="workoutTemplateForm" [zodSchema]="Z_workoutTemplate">
-  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4 items-center">
     <mx-input label="Name" [control]="formControls.name" />
-    <mx-input label="Description" [control]="formControls.description" />
     <mx-select
       label="Target"
       [items]="targetEnums"
@@ -25,6 +24,7 @@
     />
     <mx-checkbox [control]="formControls.active" label="Active" />
   </div>
+  <mx-textarea label="Description" [control]="formControls.description" />
 </mx-form>
 
 <div class="mt-3 mb-2">
@@ -68,25 +68,33 @@
                     containerClass="border border-gray-500 p-4 w-[250px]"
                   >
                     <mx-icon icon="info" iconClass="cursor-pointer" trigger />
-                    <p class="text-lg text-gray-500">Exercise Details</p>
+                    <p class="text-lg text-gray-500 dark:text-gray-400">
+                      Exercise Details
+                    </p>
                     <div class="flex items-center justify-between w-full mt-2">
-                      <span class="text-gray-300">Sets</span>
+                      <span class="text-gray-500 dark:text-gray-400">Sets</span>
                       <span>{{ i.set }}</span>
                     </div>
                     <div class="flex items-center justify-between w-full mt-2">
-                      <span class="text-gray-300">Reps</span>
+                      <span class="text-gray-500 dark:text-gray-400">Reps</span>
                       <span>{{ i.reps }}</span>
                     </div>
                     <div class="flex items-center justify-between w-full mt-2">
-                      <span class="text-gray-300">Calorie Burn</span>
+                      <span class="text-gray-500 dark:text-gray-400"
+                        >Calorie Burn</span
+                      >
                       <span>{{ i.approxCalorieBurn }}</span>
                     </div>
                     <div class="flex items-center justify-between w-full mt-2">
-                      <span class="text-gray-300">Rest bw reps</span>
+                      <span class="text-gray-500 dark:text-gray-400"
+                        >Rest bw reps</span
+                      >
                       <span>{{ i.restBwRepsInS }}</span>
                     </div>
                     <div class="w-full flex flex-col gap-2 mt-4">
-                      <span class="text-gray-300">Instructions</span>
+                      <span class="text-gray-500 dark:text-gray-400"
+                        >Instructions</span
+                      >
                       <span>{{ i.additionInstruction }}</span>
                     </div>
                   </mx-overlay>

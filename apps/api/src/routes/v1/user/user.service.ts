@@ -1,13 +1,19 @@
 import { eq } from 'drizzle-orm';
 import { Request } from 'express';
-import { TB_organisation, TB_user } from '../../../../../../libs/mx-schema/src';
+import {
+  TB_organisation,
+  TB_user,
+  TB_userRole,
+  TUserRole,
+} from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
 import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 class UserService {
-  createUser(payload: typeof TB_user.$inferInsert) {
-    return db.insert(TB_user).values(payload).returning();
+  createUser(payload: typeof TB_user.$inferInsert, tx?: any) {
+    const ex = tx || db;
+    return ex.insert(TB_user).values(payload).returning();
   }
 
   getUserList(query: Request['query']) {
@@ -38,18 +44,34 @@ class UserService {
       .select()
       .from(TB_user)
       .leftJoin(TB_organisation, eq(TB_user.organisationID, TB_organisation.id))
+      .leftJoin(TB_userRole, eq(TB_user.id, TB_userRole.userID))
       .where(eq(TB_user.id, id));
   }
 
   updateUserByID(
     payload: Partial<typeof TB_user.$inferInsert>,
     id: (typeof TB_user.$inferSelect)['id'],
+    tx?: any,
   ) {
-    return db
+    const ex = tx || db;
+    return ex
       .update(TB_user)
       .set(payload)
       .where(eq(TB_user.id, id))
       .returning();
+  }
+
+  deleteUserRoleByUserID(userID: TUserRole['userID'], tx?: any) {
+    const ex = tx || db;
+    return ex.delete(TB_userRole).where(eq(TB_userRole.userID, userID));
+  }
+
+  createBulkUserRole(
+    payload: Array<typeof TB_userRole.$inferInsert>,
+    tx?: any,
+  ) {
+    const ex = tx || db;
+    return ex.insert(TB_userRole).values(payload);
   }
 }
 

@@ -14,9 +14,28 @@ import { SubSink } from '../../shared/utils/sub-sink';
 import { UserService } from '../../shared/services/user-data.service';
 import { ApiService } from '../../shared/services/api.service';
 import { TOrganisation, TUser } from '../../../../../../libs/mx-schema/src';
+import { MENU_DATA } from '../../shared/constants/menu-contstant';
 
 type MeResponse = {
-  permissions: Array<any>;
+  permissions: Array<{
+    rolePermission: {
+      id: number;
+      permission: string;
+      menuName: string;
+      roleID: number;
+    };
+    role: {
+      id: number;
+      name: string;
+      description: string;
+      organisationID: number;
+    };
+    userRole: {
+      id: number;
+      roleID: number;
+      userID: number;
+    };
+  }>;
   user: TUser;
   organisation: TOrganisation;
 };
@@ -76,6 +95,12 @@ export class MainComponent implements OnDestroy, OnInit {
       next: (result) => {
         this.userService.setUser(result.data.user);
         this.userService.setOrganisation(result.data.organisation);
+        const permission = result.data.permissions;
+        this.userService.setPermission(permission);
+        const initMenu = MENU_DATA.find(
+          (m) => permission[0].rolePermission.menuName === m.name,
+        );
+        this.router.navigate([initMenu?.link]);
         // TODO: change menu according to permission
       },
     });

@@ -1,5 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
+import { MENU_OBJECT } from '../../../shared/constants/menu-contstant';
+import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
+import { UserService } from '../../../shared/services/user-data.service';
 
 @Component({
   selector: 'workout-template-list',
@@ -7,11 +11,13 @@ import { Router } from '@angular/router';
       header="Manage Workout Templates"
       [showCancel]="false"
     >
-      <mx-button (handleClick)="create()">
-        <span class="flex items-center">
-          <p>Add Workout Template</p>
-        </span>
-      </mx-button>
+      @if (canAdd) {
+        <mx-button (handleClick)="create()">
+          <span class="flex items-center">
+            <p>Add Workout Template</p>
+          </span>
+        </mx-button>
+      }
     </page-header>
     <mx-grid-shell
       gridTitle="Workout Templates"
@@ -48,12 +54,32 @@ import { Router } from '@angular/router';
       <!-- filters -->
 
       <!-- actions -->
-      <mx-action icon="edit" (handleClick)="edit($event)" text="Edit" />
+      @if (canEdit) {
+        <mx-action
+          icon="edit"
+          (handleClick)="edit($event)"
+          text="Edit"
+          [visible]="canEdit"
+        />
+      }
+
       <!-- actions -->
     </mx-grid-shell>`,
 })
-export class WorkoutTemplateListComponent {
+export class WorkoutTemplateListComponent implements OnInit {
   private router = inject(Router);
+  private user = inject(UserService);
+
+  canEdit = false;
+  canAdd = false;
+
+  ngOnInit(): void {
+    this.user.permissions$.pipe(take(2)).subscribe((data) => {
+      const permissions = this.user.getPermission(MENU_OBJECT.WORKOUT, data);
+      this.canEdit = permissions.includes(PERMISSIONS.UPDATE);
+      this.canAdd = permissions.includes(PERMISSIONS.CREATE);
+    });
+  }
 
   create() {
     this.router.navigate(['/workout-template/create']);

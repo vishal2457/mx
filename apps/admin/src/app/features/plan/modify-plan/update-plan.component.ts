@@ -17,7 +17,7 @@ import { TPlan } from '../../../../../../../libs/mx-schema/src';
 @Component({
   selector: 'edit-plan',
   template: ` <page-header header="Edit Plan">
-      <mx-button  (handleClick)="handleSubmit()">
+      <mx-button (handleClick)="handleSubmit()">
         <span class="flex items-center">
           <p>Save</p>
         </span>
@@ -31,14 +31,14 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
   private api = inject(ApiService);
   private notif = inject(MxNotification);
   private route = inject(ActivatedRoute);
-  private router = inject(Router)
+  private router = inject(Router);
 
   planID!: string;
-  private requests = new SubSink()
+  private requests = new SubSink();
 
   ngOnInit(): void {
     this.planID = this.route.snapshot.params['id'];
-    this.fetchPlanDetails( this.planID)
+    this.fetchPlanDetails(this.planID);
   }
 
   ngOnDestroy(): void {
@@ -46,12 +46,12 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
   }
 
   private fetchPlanDetails(id: string) {
-    this.api.get<TPlan>(`/plan/${id}`).subscribe(({ data }) => {
-       this.planFormComponent.patchValue(data);
+    this.api.get<TPlan>(`/plan/detail/${id}`).subscribe(({ data }) => {
+      this.planFormComponent.patchValue(data);
     });
   }
 
-    handleSubmit() {
+  handleSubmit() {
     if (this.planFormComponent.isInValid()) {
       return;
     }
@@ -75,5 +75,4 @@ export class UpdatePlanComponent implements OnInit, OnDestroy {
         },
       });
   }
-
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './layout/main/main.component';
 import { authGuard } from './shared/services/auth.guard';
+import { MENU_OBJECT } from './shared/constants/menu-contstant';
 
 const routes: Routes = [
   {
@@ -42,12 +43,6 @@ const routes: Routes = [
           import('./features/user/user.module').then((m) => m.UserModule),
       },
       {
-        path: 'role',
-        canActivate: [authGuard],
-        loadChildren: () =>
-          import('./features/role/role.module').then((m) => m.RoleModule),
-      },
-      {
         path: 'analytics',
         canActivate: [authGuard],
         loadChildren: () =>
@@ -55,70 +50,51 @@ const routes: Routes = [
             (m) => m.AnalyticsModule,
           ),
       },
-            {
-        path: "system-config",
+      {
+        path: 'organisation',
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/system-config/system-config.module").then(
-            (m) => m.SystemConfigModule
+          import('./features/organisation/organisation.module').then(
+            (m) => m.OrganisationModule,
           ),
       },
       {
-        path: "organisation",
+        path: 'plan',
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/organisation/organisation.module").then(
-            (m) => m.OrganisationModule
+          import('./features/plan/plan.module').then((m) => m.PlanModule),
+      },
+      {
+        path: 'member',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('./features/member/member.module').then((m) => m.MemberModule),
+      },
+      {
+        path: 'workout-template',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('./features/workout-template/workout-template.module').then(
+            (m) => m.WorkoutTemplateModule,
           ),
       },
       {
-        path: "plan",
+        path: 'exercise',
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/plan/plan.module").then(
-            (m) => m.PlanModule
+          import('./features/exercise/exercise.module').then(
+            (m) => m.ExerciseModule,
           ),
       },
       {
-        path: "member",
+        path: 'enquiry',
         canActivate: [authGuard],
         loadChildren: () =>
-          import("./features/member/member.module").then(
-            (m) => m.MemberModule
+          import('./features/enquiry/enquiry.module').then(
+            (m) => m.EnquiryModule,
           ),
       },
-      {
-        path: "workout-template",
-        canActivate: [authGuard],
-        loadChildren: () =>
-          import("./features/workout-template/workout-template.module").then(
-            (m) => m.WorkoutTemplateModule
-          ),
-      },
-      {
-        path: "exercise",
-        canActivate: [authGuard],
-        loadChildren: () =>
-          import("./features/exercise/exercise.module").then(
-            (m) => m.ExerciseModule
-          ),
-      },
-      {
-        path: "enquiry",
-        canActivate: [authGuard],
-        loadChildren: () =>
-          import("./features/enquiry/enquiry.module").then(
-            (m) => m.EnquiryModule
-          ),
-      },
-// APPEND ANGULAR ROUTES
-
-
-
-
-
-
-
+      // APPEND ANGULAR ROUTES
     ],
   },
 ];

@@ -14,7 +14,7 @@ export default Router().post(
     body: createInsertSchema(TB_role).omit({ organisationID: true }),
   }),
   ah(async (req, res) => {
-    const result = await roleService.createRole({
+    const [result] = await roleService.createRole({
       ...req.body,
       organisationID: req.user.organisationID,
     });

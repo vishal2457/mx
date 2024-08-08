@@ -28,55 +28,55 @@ export const generateInvoice = (
     const stream = fs.createWriteStream(filepath);
     doc.pipe(stream);
 
-    doc.font('Helvetica').fontSize(12);
-
-    // Rectangle as a container (background)
+    // Background and margins
     doc
       .rect(20, 20, doc.page.width - 40, doc.page.height - 40)
-      .fill('#f8fafc') // slate-300 background
+      .fill('#f8fafc') // Slate-300 background
       .stroke();
+
+    doc.font('Helvetica');
 
     // Title and subtitle
     doc
-      .fontSize(16)
-      .fill('#000000')
-      .text(payload.organisationName, 0, 110, { align: 'center' })
-      .fontSize(10)
-      .text('Invoice #123456', { align: 'center' });
+      .fontSize(20)
+      .fill('#1f2937') // Darker text color for title
+      .text(payload.organisationName, { align: 'center' })
+      .moveDown(0.5)
+      .fontSize(14)
+      .fill('#6b7280') // Gray for subtitle
+      .text('Invoice #123456', { align: 'center' })
+      .moveDown(1);
 
-    // Grid of information
-    const startX = 20;
-    const startY = 140;
-    const columnWidth = (doc.page.width - 40) / 3;
-    const rowHeight = 30;
+    // Information Grid
+    const startX = 40;
+    const startY = 180;
+    const columnWidth = (doc.page.width - 80) / 3;
+    const rowHeight = 25;
 
-    doc.fontSize(10).fill('#6b7280'); // muted foreground color
+    const infoFields = [
+      { label: 'Amount paid:', value: payload.amount },
+      { label: 'Date paid:', value: payload.datePaid },
+      { label: 'End Date:', value: payload.endDate },
+    ];
 
-    // First column
-    doc
-      .text('Amount paid:', startX, startY)
-      .fill('#000000')
-      .text(payload.amount, startX, startY + 12);
-
-    // Second column
-    doc
-      .fill('#6b7280')
-      .text('Date paid:', startX + columnWidth, startY)
-      .fill('#000000')
-      .text(payload.datePaid, startX + columnWidth, startY + 12);
-
-    // Third column
-    doc
-      .fill('#6b7280')
-      .text('End Date:', startX + 2 * columnWidth, startY)
-      .fill('#000000')
-      .text(payload.endDate, startX + 2 * columnWidth, startY + 12);
+    infoFields.forEach((field, index) => {
+      doc
+        .fontSize(10)
+        .fill('#6b7280') // Muted label color
+        .text(field.label, startX + columnWidth * index, startY)
+        .moveDown(0.5)
+        .fontSize(12)
+        .fill('#000000') // Normal text color
+        .text(field.value, startX + columnWidth * index, startY + 12);
+    });
 
     // Summary Section
     doc
-      .fill('#000000')
-      .fontSize(12)
-      .text('Summary', startX, startY + rowHeight * 2);
+      .moveDown(2)
+      .fontSize(14)
+      .fill('#1f2937') // Heading color
+      .text('Summary', startX)
+      .moveDown(0.5);
 
     const summaryItems = [
       { label: 'Amount', value: payload.amount },
@@ -86,33 +86,39 @@ export const generateInvoice = (
 
     summaryItems.forEach((item, index) => {
       doc
+        .fontSize(12)
+        .fill('#374151') // Dark text color for summary items
         .rect(
           startX,
-          startY + rowHeight * (3 + index),
-          doc.page.width - 40,
+          startY + 100 + index * rowHeight,
+          doc.page.width - 80,
           rowHeight,
         )
         .stroke()
-        .fill('#000000')
-        .text(item.label, startX + 10, startY + rowHeight * (3 + index) + 8)
+        .text(item.label, startX + 10, startY + 110 + index * rowHeight)
         .text(
-          item.value,
-          doc.page.width - 120,
-          startY + rowHeight * (3 + index) + 8,
+          item.value.toString(),
+          doc.page.width - 150,
+          startY + 110 + index * rowHeight,
+          { align: 'right' },
         );
     });
 
-    // Contact Section
-    doc.text(
-      `If you have any questions, please contact us at ${payload.organisationEmail}`,
-      startX,
-      startY + rowHeight * 7 + 20,
-      {
-        width: doc.page.width - 40,
-        align: 'left',
-        lineGap: 5,
-      },
-    );
+    // Contact Information
+    doc
+      .moveDown(2)
+      .fontSize(10)
+      .fill('#6b7280')
+      .text(
+        `If you have any questions, please contact us at ${payload.organisationEmail}`,
+        startX,
+        startY + 200,
+        {
+          width: doc.page.width - 80,
+          align: 'center',
+          lineGap: 5,
+        },
+      );
 
     // Finalize the PDF and end the stream
     doc.end();

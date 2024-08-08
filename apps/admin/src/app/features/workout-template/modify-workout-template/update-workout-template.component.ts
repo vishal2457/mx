@@ -10,15 +10,21 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 import { WorkoutTemplateFormComponent } from './workout-template-form/workout-template-form.component';
 import { ConfirmModalComponent } from '../../../shared/misc/confirm-modal/confirm-modal.component';
 import { Dialog } from '@angular/cdk/dialog';
+import { UserService } from '../../../shared/services/user-data.service';
+import { take } from 'rxjs';
+import { MENU_OBJECT } from '../../../shared/constants/menu-contstant';
+import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
 
 @Component({
   selector: 'edit-workoutTemplate',
   template: ` <page-header header="Edit Workout Template">
-      <mx-button (handleClick)="handleSubmit()">
-        <span class="flex items-center">
-          <p>Save</p>
-        </span>
-      </mx-button>
+      @if (canUpdate) {
+        <mx-button (handleClick)="handleSubmit()">
+          <span class="flex items-center">
+            <p>Save</p>
+          </span>
+        </mx-button>
+      }
     </page-header>
     <workoutTemplate-form />`,
 })
@@ -31,11 +37,18 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private dialog = inject(Dialog);
+  private user = inject(UserService);
 
   workoutTemplateID!: string;
   private requests = new SubSink();
+  canUpdate = false;
 
   ngOnInit(): void {
+    this.user.permissions$.pipe(take(2)).subscribe((data) => {
+      const permissions = this.user.getPermission(MENU_OBJECT.WORKOUT, data);
+      this.canUpdate = permissions.includes(PERMISSIONS.UPDATE);
+    });
+
     this.workoutTemplateID = this.route.snapshot.params['id'];
     this.fetchWorkoutTemplateDetails(this.workoutTemplateID);
   }

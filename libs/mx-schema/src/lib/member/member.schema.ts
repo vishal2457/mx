@@ -35,7 +35,7 @@ export const TB_member = pgTable('member', {
   height: integer('height'),
   weight: integer('weight'),
   emergencyContact: text('emergencyContact'),
-  gender: genderEnum('gender').default('Female'),
+  gender: genderEnum('gender').default('Male'),
   profilePic: text('profilePic'),
   active: boolean('active').default(true),
   workoutTemplateID: integer('workoutTemplateID').references(

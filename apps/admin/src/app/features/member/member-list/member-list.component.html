@@ -16,27 +16,27 @@
   [defaultSort]="{ Desc: 'id' }"
 >
   <!-- columns -->
-  <mx-column field="member.id" title="ID" alignment="left">
+  <mx-column field="id" title="ID" alignment="left">
     <ng-template #cell let-item>
-      <span class="block whitespace-nowrap">#{{ item.member.id }}</span>
+      <span class="block whitespace-nowrap">#{{ item.id }}</span>
     </ng-template>
   </mx-column>
-  <mx-column field="member.name" title="Name" alignment="left">
+  <mx-column field="name" title="Name" alignment="left">
     <ng-template #cell let-item>
-      <span class="block whitespace-nowrap">{{ item.member.name }}</span>
+      <span class="block whitespace-nowrap">{{ item.name }}</span>
     </ng-template>
   </mx-column>
-  <mx-column field="member.age" title="Age" alignment="right" />
-  <mx-column field="member.mobile" title="mobile" alignment="right" />
-  <mx-column field="member.email" title="email" alignment="left"/>
-  <mx-column field="member.height" title="height" />
-  <mx-column field="member.weight" title="weight" />
-  <mx-column field="member.emergencyContact" title="Emergency Contact" />
-  <mx-column field="member.gender" title="Gender" />
-  <mx-column field="member.userID" title="Assigned User" />
-  <mx-column field="member.joinDate" title="Join Date">
+  <mx-column field="age" title="Age" alignment="right" />
+  <mx-column field="mobile" title="mobile" alignment="right" />
+  <mx-column field="email" title="email" alignment="left" />
+  <mx-column field="height" title="height" />
+  <mx-column field="weight" title="weight" />
+  <mx-column field="emergencyContact" title="Emergency Contact" />
+  <mx-column field="gender" title="Gender" />
+  <mx-column field="userID" title="Assigned User" />
+  <mx-column field="joinDate" title="Join Date">
     <ng-template #cell let-item>
-      {{ item.member.joinDate | date }}
+      {{ item.joinDate | date }}
     </ng-template>
   </mx-column>
   <!-- columns -->

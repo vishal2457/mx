@@ -9,7 +9,17 @@ export default Router().get(
   '/detail/:id',
   validate({ params: v_param_id }),
   ah(async (req, res) => {
-    const [result] = await userService.getUserByID(req.params.id);
-    success(res, result.user, 'User Details');
+    const result = await userService.getUserByID(req.params.id);
+    const response = result.reduce<any>((acc, curr) => {
+      delete curr.user.password;
+      return {
+        ...curr.user,
+        organisation: curr.organisation,
+        roles: acc.roles
+          ? acc.roles.push(curr.userRole.roleID)
+          : [curr.userRole.roleID],
+      };
+    }, {});
+    success(res, response, 'User Details');
   }),
 );

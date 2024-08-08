@@ -5,16 +5,18 @@ import { MxActionComponent } from '../components/base-table/action';
 @Injectable()
 export class ActionService {
   private _actions = new BehaviorSubject<QueryList<MxActionComponent> | null>(
-    null
+    null,
   );
 
   actions$ = this._actions.asObservable().pipe(shareReplay());
   hasActions$ = this.actions$.pipe(
     map((data) => !!data?.length),
-    shareReplay()
+    shareReplay(),
   );
 
   updateActions(actions: QueryList<MxActionComponent>) {
+    const arr = actions.toArray();
+    actions.reset(arr.filter((i) => i.visible));
     this._actions.next(actions);
   }
 }

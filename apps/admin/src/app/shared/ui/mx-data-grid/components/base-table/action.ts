@@ -5,6 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'mx-action',
@@ -29,6 +30,7 @@ import {
 export class MxActionComponent {
   @Input() icon!: string;
   @Input() text = '';
+  @Input() visible = true;
   @Input() variant: 'destructive' | 'success' | 'warning' | 'default' =
     'default';
 

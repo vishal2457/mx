@@ -1,45 +1,149 @@
-<page-header [header]="'Member details' + ' #' + memberID">
-  <mx-button (handleClick)="handleSubmit()">
-    <span class="flex items-center">
-      <p>Save</p>
-    </span>
-  </mx-button>
-</page-header>
-<member-form formType="update" />
-
-<div class="my-4"></div>
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-4">
-  <stats-card title="Total Spent" [amount]="totalSpent || 0" />
-  <stats-card title="Attendance This Month" value="30%" />
-  <div mxCard>
-    <div
-      mxCardHeader
-      class="flex-row items-center justify-between space-y-1 py-4 px-6"
-    >
-      <div mxCardtitle>
-        Weight
+<page-header [header]="'Member details' + ' #' + memberID" />
+<div class="mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-2 gap-4">
+      <div mxCard>
+        <div
+          mxCardHeader
+          class="flex-row items-center justify-between space-y-1 px-6"
+        >
+          <div mxCardtitle>Total Spent</div>
+        </div>
+        <div mxCardContent>
+          <display-currency [amount]="totalSpent || 0" />
+        </div>
+      </div>
+      <div mxCard>
+        <div
+          mxCardHeader
+          class="flex-row items-center justify-between space-y-1 px-6"
+        >
+          <div mxCardtitle>Calories Burnt this month</div>
+        </div>
+        <div mxCardContent class="flex gap-2 items-center">
+          <p class="text-2xl font-bold">100</p>
+          <span class="text-muted-foreground text-md">Kcal</span>
+        </div>
+      </div>
+      <div mxCard>
+        <div
+          mxCardHeader
+          class="flex-row items-center justify-between space-y-1 px-6"
+        >
+          <div mxCardtitle>Weight</div>
+        </div>
+        <div mxCardContent>
+          <p class="text-2xl font-bold">{{ memberData?.weight }}kg</p>
+        </div>
+      </div>
+      <div mxCard>
+        <div
+          mxCardHeader
+          class="flex-row items-center justify-between space-y-1 px-6"
+        >
+          <div mxCardtitle>BMI</div>
+        </div>
+        <div mxCardContent class="flex justify-between items-center">
+          <p class="text-2xl font-bold">{{ memberData?.bmi }}</p>
+          <!-- <div id="bmi-gauge" class=" h-[150px] w-[100px]"></div> -->
+        </div>
       </div>
     </div>
-    <div mxCardContent>
-        <p class="text-2xl font-bold">{{ memberData?.weight }}kg</p>
-    </div>
-  </div>
-  <div mxCard>
-
-    <div
-      mxCardHeader
-      class="flex-row items-center justify-between space-y-1 py-4 px-6"
-    >
-      <div mxCardtitle>
-        BMI
+    <div mxCard>
+      <div
+        mxCardHeader
+        class="flex-row items-center justify-between space-y-1 py-4 px-6"
+      >
+        <div mxCardtitle class="text-lg capitalize">
+          {{ memberData?.name }}
+        </div>
+        <mx-button
+          variant="ghost"
+          size="icon"
+          (handleClick)="openUpdateMember()"
+        >
+          <mx-icon icon="edit" />
+        </mx-button>
       </div>
-    </div>
-    <div mxCardContent class="flex justify-between items-center">
-        <p class="text-2xl font-bold">{{ memberData?.bmi }}</p>
-      <!-- <div id="bmi-gauge" class=" h-[150px] w-[100px]"></div> -->
+      <div mxCardContent class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <span>
+          <label
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+          >
+            Workout Template
+          </label>
+          <p
+            class="text-sm cursor-pointer hover:underline"
+            [routerLink]="
+              '/workout-template/update/' + memberData?.workoutTemplateID
+            "
+          >
+            {{ memberData?.workoutTemplateName }}
+          </p>
+        </span>
+        <span>
+          <label
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+          >
+            Gender
+          </label>
+          <p class="text-sm">{{ memberData?.gender }}</p>
+        </span>
+
+        <span>
+          <label
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+          >
+            Emergency Contact
+          </label>
+          <p class="text-sm">{{ memberData?.emergencyContact }}</p>
+        </span>
+        <span>
+          <label
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+          >
+            Email
+          </label>
+          <p class="text-sm">{{ memberData?.email }}</p>
+        </span>
+        <span>
+          <label
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+          >
+            Mobile
+          </label>
+          <p class="text-sm">{{ memberData?.mobile }}</p>
+        </span>
+        <span>
+          <label
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+          >
+            Join date
+          </label>
+          <p class="text-sm">{{ memberData?.joinDate | date: 'mediumDate' }}</p>
+        </span>
+        <span>
+          <label
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+          >
+            Age
+          </label>
+          <p class="text-sm">{{ memberData?.age }}</p>
+        </span>
+        <span>
+          <label
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
+          >
+            Height
+          </label>
+          <p class="text-sm">{{ memberData?.height }}</p>
+        </span>
+        <!-- <div id="bmi-gauge" class=" h-[150px] w-[100px]"></div> -->
+      </div>
     </div>
   </div>
 </div>
+
 @if (memberData?.id) {
   <div class="my-4"></div>
   <mx-grid-shell

@@ -150,6 +150,7 @@
         *cdkCellDef="let element"
         class="text-center background-blur dark:bg-background/90"
       >
+        @if (actionService.hasActions$|async) {
         <mx-dropdown
           class="flex justify-center items-center p-3"
           spacing="compact"
@@ -177,6 +178,7 @@
           </mx-dropdown-item>
           } }
         </mx-dropdown>
+        }
       </td>
       } @else if (column.field === isSelectable) {
       <td

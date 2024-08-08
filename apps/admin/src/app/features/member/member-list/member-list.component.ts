@@ -28,7 +28,7 @@ export class MemberListComponent implements OnDestroy {
   }
 
   edit(e: any) {
-    this.router.navigate(['/member/update/' + e.cellData.member.id]);
+    this.router.navigate(['/member/update/' + e.cellData.id]);
   }
 
   openQuickAddDialog() {
@@ -41,7 +41,7 @@ export class MemberListComponent implements OnDestroy {
 
   openViewInvoice(e: any) {
     this.dialog.open(ViewInvoiceComponent, {
-      data: { memberID: e.cellData.member.id },
+      data: { memberID: e.cellData.id },
     });
   }
 }

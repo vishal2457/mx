@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
     <mx-toolbar icon="add" name="Add" (handleClick)="add()" />
 
     <!-- columns -->
-    <mx-column field="id" alignment="left" />
+    <mx-column field="id" alignment="left" [visible]="false" />
     <mx-column field="name" alignment="left" />
     <mx-column field="description" alignment="left" />
 

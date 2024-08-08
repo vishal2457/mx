@@ -9,10 +9,21 @@ export default Router().get(
   validate({ params: v_param_id }),
   async (req, res) => {
     const [result] = await memberService.getByID(req.params.id);
+    delete result.member.createdAt;
+    delete result.member.updatedAt;
+
     const [memberTotalSpent] = await memberService.getMemberTotalSpent(
       req.params.id,
     );
 
-    success(res, { details: result, memberTotalSpent }, 'Member Details');
+    success(
+      res,
+      {
+        details: result.member,
+        memberTotalSpent,
+        workoutTemplate: result.workoutTemplate,
+      },
+      'Member Details',
+    );
   },
 );

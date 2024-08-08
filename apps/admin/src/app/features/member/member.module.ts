@@ -33,6 +33,7 @@ import { MxCheckboxComponent } from '../../shared/ui/form/mx-checkbox';
 import { ViewInvoiceComponent } from './components/invoice.component';
 import { NgxPrintModule } from 'ngx-print';
 import { QuickAddPlanComponent } from './components/quick-add-plan.component';
+import { UpdateMemberDialogComponent } from './components/update-member-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { QuickAddPlanComponent } from './components/quick-add-plan.component';
     QuickAddMemberComponent,
     ViewInvoiceComponent,
     QuickAddPlanComponent,
+    UpdateMemberDialogComponent,
   ],
   imports: [
     CommonModule,

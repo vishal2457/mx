@@ -74,6 +74,9 @@ export class MxDataGridComponent
   ngAfterContentInit(): void {
     this.updateColumns(this.columns);
     if (this.actions) {
+      this.subs.sink = this.actions.changes.subscribe((actions) => {
+        this.actionService.updateActions(actions);
+      });
       this.actionService.updateActions(this.actions);
     }
     if (this.toolbar) {
@@ -126,9 +129,7 @@ export class MxDataGridComponent
   private updateColumns(col: QueryList<GridColumnsComponent>) {
     const _columns = col.toArray();
 
-    if (this.actions?.length) {
-      _columns.push(STATIC_ACTION_HEADER);
-    }
+    _columns.push(STATIC_ACTION_HEADER);
 
     if (this.selectable) {
       _columns.unshift(STATIC_SELECTABLE_HEADER);

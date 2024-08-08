@@ -29,6 +29,7 @@ import { MxTooltipDirective } from '../../shared/ui/tooltip/tooltip.directive';
 import { MxMiniCounterComponent } from '../../shared/ui/form/mini-counter';
 import { MxOverlayComponent } from '../../shared/ui/overlay';
 import { MxBadgeComponent } from '../../shared/ui/badge';
+import { MxTextareaComponent } from '../../shared/ui/form/textarea';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { MxBadgeComponent } from '../../shared/ui/badge';
     MxMiniCounterComponent,
     MxOverlayComponent,
     MxBadgeComponent,
+    MxTextareaComponent,
   ],
 })
 export class WorkoutTemplateModule {}

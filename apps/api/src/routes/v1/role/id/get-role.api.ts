@@ -10,6 +10,7 @@ export default Router().get(
   validate({ params: v_param_id }),
   ah(async (req, res) => {
     const result = await roleService.getByID(req.params.id);
+
     success(res, result, 'Role Details');
-  })
+  }),
 );

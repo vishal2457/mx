@@ -8,7 +8,7 @@ export default Router().get(
   '/detail/:id',
   validate({ params: v_param_id }),
   async (req, res) => {
-    const result = await planService.getByID(req.params.id);
+    const [result] = await planService.getByID(req.params.id);
     success(res, result, 'Plan Details');
   },
 );

@@ -14,15 +14,12 @@ import {
   TMember,
   Z_member,
 } from '../../../../../../../../libs/mx-schema/src';
-import { ApiService } from '../../../../shared/services/api.service';
+import { UserService } from '../../../../shared/services/user-data.service';
 import { MxSelectComponent } from '../../../../shared/ui/form/mx-select/mx-select';
-import { MxNotification } from '../../../../shared/ui/notification/notification.service';
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 import { patchableDate } from '../../../../shared/utils/patchable-date';
 import { SubSink } from '../../../../shared/utils/sub-sink';
 import { QuickAddPlanComponent } from '../../components/quick-add-plan.component';
-import { UserService } from '../../../../shared/services/user-data.service';
-import { CurrencyPipe } from '@angular/common';
 
 type TMemberForm = Omit<
   TMember,
@@ -56,7 +53,6 @@ export class MemberFormComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private dialog = inject(Dialog);
   private user = inject(UserService);
-  // private cp = inject(CurrencyPipe);
 
   @Input({ required: true }) formType: 'create' | 'update' = 'create';
 

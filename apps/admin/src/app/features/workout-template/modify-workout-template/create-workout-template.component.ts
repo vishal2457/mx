@@ -1,31 +1,47 @@
-import { Component, OnDestroy, ViewChild, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { WorkoutTemplateFormComponent } from './workout-template-form/workout-template-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
 import { Dialog } from '@angular/cdk/dialog';
 import { ConfirmModalComponent } from '../../../shared/misc/confirm-modal/confirm-modal.component';
+import { UserService } from '../../../shared/services/user-data.service';
+import { MENU_OBJECT } from '../../../shared/constants/menu-contstant';
+import { take } from 'rxjs';
+import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
 
 @Component({
   selector: 'add-workoutTemplate',
   template: `<page-header header="Add Workout Template">
-      <mx-button (handleClick)="handleSubmit()">
-        <span class="flex items-center">
-          <p>Save</p>
-        </span>
-      </mx-button>
+      @if (canAdd) {
+        <mx-button (handleClick)="handleSubmit()">
+          <span class="flex items-center">
+            <p>Save</p>
+          </span>
+        </mx-button>
+      }
     </page-header>
     <workoutTemplate-form />`,
 })
-export class CreateWorkoutTemplateComponent implements OnDestroy {
+export class CreateWorkoutTemplateComponent implements OnDestroy, OnInit {
   @ViewChild(WorkoutTemplateFormComponent)
   WorkoutTemplateFormComponent!: WorkoutTemplateFormComponent;
 
   api = inject(ApiService);
   notif = inject(MxNotification);
   private dialog = inject(Dialog);
+  private user = inject(UserService);
 
   private addRequests = new SubSink();
+
+  canAdd = false;
+
+  ngOnInit(): void {
+    this.user.permissions$.pipe(take(2)).subscribe((data) => {
+      const permissions = this.user.getPermission(MENU_OBJECT.WORKOUT, data);
+      this.canAdd = permissions.includes(PERMISSIONS.CREATE);
+    });
+  }
 
   ngOnDestroy(): void {
     this.addRequests.unsubscribe();

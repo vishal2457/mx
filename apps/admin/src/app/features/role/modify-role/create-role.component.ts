@@ -10,6 +10,8 @@ import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { FormGroup } from '@angular/forms';
 import { SubSink } from '../../../shared/utils/sub-sink';
+import { Router } from '@angular/router';
+import { TRole } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'add-role',
@@ -25,8 +27,9 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 export class CreateRoleComponent implements AfterViewInit, OnDestroy {
   @ViewChild(RoleFormComponent) RoleFormComponent!: RoleFormComponent;
 
-  api = inject(ApiService);
-  notif = inject(MxNotification);
+  private api = inject(ApiService);
+  private notif = inject(MxNotification);
+  private router = inject(Router);
 
   roleForm!: FormGroup;
   private addRequests = new SubSink();
@@ -53,15 +56,16 @@ export class CreateRoleComponent implements AfterViewInit, OnDestroy {
     });
 
     this.addRequests.sink = this.api
-      .post('/role/create', this.roleForm.value)
+      .post<TRole>('/role/create', this.roleForm.value)
       .subscribe({
-        next: () => {
+        next: (data) => {
           this.roleForm.reset();
           this.notif.updateToast({
             text: 'Role added',
             id: 'add-role',
             type: 'success',
           });
+          this.router.navigate([`/role/update/${data.data.id}`]);
         },
       });
   }

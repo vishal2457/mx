@@ -1,17 +1,20 @@
 import {
   Component,
   EventEmitter,
-  Output,
-  Input,
   inject,
-  OnInit,
+  Input,
   OnDestroy,
+  OnInit,
+  Output,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
 import { SidebarService } from '../../../shared/services/sidebar.service';
-import { FormControl } from '@angular/forms';
+import { UserService } from '../../../shared/services/user-data.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
+import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
+import { MENU_DATA } from '../../../shared/constants/menu-contstant';
 
 @Component({
   selector: 'mx-sidebar',
@@ -22,6 +25,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ls = inject(LocalStorageService);
   router = inject(Router);
   sidebarService = inject(SidebarService);
+  userService = inject(UserService);
 
   @Output() changeTheme = new EventEmitter();
   @Input() theme: string | null = 'light';
@@ -31,6 +35,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
 
   ngOnInit(): void {
+    this.subs.sink = this.userService.permissions$.subscribe((permissions) => {
+      const menu = MENU_DATA;
+
+      const permittedMenu = menu.filter((item) => {
+        return permissions.some(
+          (i) =>
+            i.rolePermission.menuName === item.name &&
+            i.rolePermission.permission === PERMISSIONS.VIEW,
+        );
+      });
+      this.sidebarService.setMenu(permittedMenu);
+    });
+
     this.subs.sink = this.searchMenu.valueChanges.subscribe((value) =>
       this.sidebarService.updateSearchTerm(value || ''),
     );

@@ -81,6 +81,7 @@ import { FilterService } from './filters/filter.service';
         [icon]="action.icon"
         [text]="action.text"
         [variant]="action.variant"
+        [visible]="action.visible"
         (handleClick)="action.handleClick && action.handleClick.emit($event)"
       />
     }

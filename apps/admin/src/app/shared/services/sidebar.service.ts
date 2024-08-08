@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, shareReplay, combineLatest, map } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
-import { TMenu } from '../../../../../../libs/mx-schema/src';
 import { matchSorter } from 'match-sorter';
 import { MENU_DATA } from '../constants/menu-contstant';
 
@@ -42,7 +41,7 @@ export class SidebarService {
 
   sidebarOpen$ = this.sidebarOpen.asObservable().pipe(shareReplay());
 
-  setMenu(menu: TMenu[]) {
+  setMenu(menu) {
     this.menu.next(menu);
   }
 
@@ -70,5 +69,9 @@ export class SidebarService {
 
   updateSearchTerm(term: string) {
     this.searchMenu.next(term);
+  }
+
+  getMenu() {
+    return this.menu.value;
   }
 }

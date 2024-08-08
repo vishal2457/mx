@@ -8,6 +8,7 @@ import {
   TB_memberWorkoutLog,
   TB_plan,
   TB_user,
+  TB_workoutTemplate,
   TB_workoutTemplateDetail,
   TMemberPlan,
 } from '../../../../../../libs/mx-schema/src';
@@ -63,9 +64,9 @@ class MemberService {
     query: Request['query'],
     organisationID: Member['organisationID'],
   ) {
-    return getListQueryWithFilters(TB_member, query)
-      .leftJoin(TB_user, eq(TB_member.userID, TB_user.id))
-      .where(eq(TB_member.organisationID, organisationID));
+    return getListQueryWithFilters(TB_member, query).where(
+      eq(TB_member.organisationID, organisationID),
+    );
   }
 
   getAllMembers() {
@@ -110,7 +111,14 @@ class MemberService {
   }
 
   getByID(id: Member['id']) {
-    return db.select().from(TB_member).where(eq(TB_member.id, id));
+    return db
+      .select()
+      .from(TB_member)
+      .leftJoin(
+        TB_workoutTemplate,
+        eq(TB_member.workoutTemplateID, TB_workoutTemplate.id),
+      )
+      .where(eq(TB_member.id, id));
   }
 
   getByEmail(email: Member['email'], omitID?: Member['id']) {

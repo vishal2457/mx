@@ -6,10 +6,14 @@ import { TB_user } from './user.schema';
 
 export const TB_userRole = pgTable('userRole', {
   id: serial('id').primaryKey(),
-  roleID: integer('roleID').notNull().references(() => TB_role.id),
-  userID: integer('userID').notNull().references(() => TB_user.id),
+  roleID: integer('roleID')
+    .notNull()
+    .references(() => TB_role.id),
+  userID: integer('userID')
+    .notNull()
+    .references(() => TB_user.id),
 });
 
 export const Z_userRole_insert = createInsertSchema(TB_userRole);
 export const Z_userRole = createSelectSchema(TB_userRole);
-export type TUSerRole = z.infer<typeof Z_userRole>;
+export type TUserRole = typeof TB_userRole.$inferSelect;
