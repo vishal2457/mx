@@ -1,6 +1,6 @@
 services:
   # Postgres service
-  db:
+  db-mx:
     # Image to be pulled from Docker Hub
     image: postgres:alpine
     restart: always
@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: fitflow
 
     ports:
-      - 5433:5432
+      - 5433:5433
     # Volume to persist the data even after the container is stopped
     volumes:
       - ./app-data-mx/data/postgres:/var/lib/postgresql/data
@@ -22,11 +22,11 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
+  redis-mx:
     image: redis:alpine
     command: ['redis-server', '--bind', 'redis', '--port', '6379']
     ports:
-      - 6378:6379
+      - 6379:6379
     volumes:
       - ./app-data/redis_data:/data
     healthcheck:
@@ -64,21 +64,32 @@ services:
         delay: 15s
         max_attempts: 7
     depends_on:
-      - db
-      - redis
+      - db-mx
+      - redis-mx
 
-  caddy-mx:
-    image: vishal2457/mx-caddy
-    restart: unless-stopped
-    profiles: ['prod']
+  # caddy-mx:
+  #   image: vishal2457/mx-caddy
+  #   restart: unless-stopped
+  #   profiles: ['prod']
+  #   build:
+  #     context: .
+  #     dockerfile: ./infra/Dockerfile.caddy
+  #   ports:
+  #     - 3001:3001
+  #     - 4200:4200
+  #     - 443:443
+  #   volumes:
+  #     - ./app-data-mx/api/images:/app/mx-images
+  #   depends_on:
+  #     - api-mx
+
+  nginx-mx:
+    image: vishal2457/mx-nginx
     build:
-      context: .
-      dockerfile: ./infra/Dockerfile.caddy
+      context: ./
+      dockerfile: ./infra/Dockerfile.nginx
     ports:
       - 3001:3001
       - 4200:4200
-      - 443:443
-    volumes:
-      - ./app-data-mx/api/images:/app/mx-images
     depends_on:
       - api-mx

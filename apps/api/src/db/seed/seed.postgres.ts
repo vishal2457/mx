@@ -29,15 +29,15 @@ async function seed() {
     logger: true,
   });
 
-  await db
-    .insert(TB_organisation)
-    .values({ name: 'test', email: 'test@test.com' });
-  await db.insert(TB_user).values({
-    name: 'Admin',
-    email: 'test@test.com',
-    password: hashPassword('123'),
-    organisationID: 1,
-  });
+  // await db
+  //   .insert(TB_organisation)
+  //   .values({ name: 'test', email: 'test@test.com' });
+  // await db.insert(TB_user).values({
+  //   name: 'Admin',
+  //   email: 'test@test.com',
+  //   password: hashPassword('123'),
+  //   organisationID: 1,
+  // });
 
   await db.delete(TB_exercise);
   await db
