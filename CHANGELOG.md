@@ -1,3 +1,55 @@
+# [3.11.0](https://github.com/vishal2457/mx/compare/v3.10.1...v3.11.0) (2024-08-08)
+
+
+### Bug Fixes
+
+* hide join date in update form ([b24ef51](https://github.com/vishal2457/mx/commit/b24ef515fe38d0ed215d3d4cf31480d90fc41d84))
+* role crud ([88eaecf](https://github.com/vishal2457/mx/commit/88eaecfc2a83fdd8d75ff12cdd42f08e63e7c81d))
+* unsub subscription in constructor ([d022d4b](https://github.com/vishal2457/mx/commit/d022d4b8d7687daf2c01ec2313555912c271e7fc))
+* weight history api fixed ([0bb1f99](https://github.com/vishal2457/mx/commit/0bb1f99fcfe9070272eca68f8ab6c3ba01b621c2))
+
+
+### Features
+
+* all dependencies updated ([5c3b14a](https://github.com/vishal2457/mx/commit/5c3b14a0ee8ff55039a95cd05245d12aa876557d))
+* apis added ([3cda6b1](https://github.com/vishal2457/mx/commit/3cda6b16a4fdc6a2e2f8bc707f4f94d981cce2c9))
+* better form error handling for anuglar, roles route added ([d0e1ec8](https://github.com/vishal2457/mx/commit/d0e1ec8f7ddad3ec5f3e257fcb54f7340177d90d))
+* create member done ([d6177c0](https://github.com/vishal2457/mx/commit/d6177c04c16f321d4a8f650ab0d4e1d71e93a6ba))
+* daywise workout added ([101a160](https://github.com/vishal2457/mx/commit/101a1606f78e04ee8aafea6ab9a54c0cb7c2ac7c))
+* forgot password api added ([dc37164](https://github.com/vishal2457/mx/commit/dc37164247b3e0d42804de8e973e822a51b144b2))
+* github release workflow added ([aac580c](https://github.com/vishal2457/mx/commit/aac580c8461a9a9b994dfe5334d9a4115fafca29))
+* invoice download added ([cf3aca7](https://github.com/vishal2457/mx/commit/cf3aca76cec81946717c3e1dac7ef5b1f604759b))
+* member app added in expo ([d8d8e77](https://github.com/vishal2457/mx/commit/d8d8e77796e3546fcddbc9404bd3b02313c1160e))
+* member attendance added ([1536e54](https://github.com/vishal2457/mx/commit/1536e54f3bbebd83ce36854c5351adafae72a7ac))
+* member detail page changed ([6dc34b0](https://github.com/vishal2457/mx/commit/6dc34b0f60f7ee3a2c38ec6d57e739dcf1b6e8e7))
+* member mobile app added ([e2ca87f](https://github.com/vishal2457/mx/commit/e2ca87f2816b6ca4084be64c1d1d5f94ce88755c))
+* member workoute log query changes ([95afb12](https://github.com/vishal2457/mx/commit/95afb1259e4d3e08c2e3c7097ae379e5889f5f26))
+* membership plan added to members ([6dea552](https://github.com/vishal2457/mx/commit/6dea55225bada4f82bd15c3f88b1d2a5ee22c8ae))
+* menu moved to FE ([657390d](https://github.com/vishal2457/mx/commit/657390de8160fbb1fe078519c40a53b7b47d62c9))
+* migrations added ([e30654f](https://github.com/vishal2457/mx/commit/e30654f1b2dc314b4eb0016d3f697cd261bad880))
+* mini counter added ([1ade725](https://github.com/vishal2457/mx/commit/1ade725ef5506b863fa19ce8aac9558217e3cd3f))
+* monitoring added with prometheus and grafana ([d8f63ef](https://github.com/vishal2457/mx/commit/d8f63ef7edf315456c6fdc0221463886d68e08c1))
+* node js prometheus client added ([37f0073](https://github.com/vishal2457/mx/commit/37f007322520dfee59cd55b3663f0a3d85b84b62))
+* organisation changes ([65296c2](https://github.com/vishal2457/mx/commit/65296c2f3b689044d017b94c74ec84204b3c58ed))
+* organisation settings added, enquiry status history added ([bb583b5](https://github.com/vishal2457/mx/commit/bb583b5990660979d19f4167637d34b1fe90f6f1))
+* password input ([e22f34a](https://github.com/vishal2457/mx/commit/e22f34a26f8c16bf52f6d8e2b7e01e98a12b72e9)), closes [#29](https://github.com/vishal2457/mx/issues/29)
+* quick member add feature added ([66f36a6](https://github.com/vishal2457/mx/commit/66f36a68340ecf4957bcbca5e80bdb51ef3125a0))
+* remove db cred ([80c8e9f](https://github.com/vishal2457/mx/commit/80c8e9ff0a85cc63b19d2c7acf6bc31a4a102c3d))
+* role permission added ([734fb98](https://github.com/vishal2457/mx/commit/734fb982abbf64f5ab6bce54fcbe024402f780bc))
+* schema design ([e3fd87e](https://github.com/vishal2457/mx/commit/e3fd87e10a908ca04c549ea22fe0fa947c29b927))
+* service file added to plop ([89c1007](https://github.com/vishal2457/mx/commit/89c10079aeb4b43b5e724315f824145082f716c3))
+* stats added in member details ([cc4f24e](https://github.com/vishal2457/mx/commit/cc4f24ecd7a0e7720772da17fc8af5e9e1d158ea))
+* todays workout api build ([ceb5461](https://github.com/vishal2457/mx/commit/ceb54612d32f61b12ca0e7687ca7b697a343902b))
+* tooltip container changes ([8710bb9](https://github.com/vishal2457/mx/commit/8710bb9e942b011bffcc2d65c172dc63cbac3edf))
+* ui component changes ([337d95c](https://github.com/vishal2457/mx/commit/337d95c8c9854f900881daf8c3c26aad1e48e9c9)), closes [#36](https://github.com/vishal2457/mx/issues/36)
+* workout detail added in template detail ([706e926](https://github.com/vishal2457/mx/commit/706e92678c512c52c2b8818c0486c28322a7a079))
+* workout detail changes ([8b657da](https://github.com/vishal2457/mx/commit/8b657dafcabcfb62e7e1dd821d746f0b23c25b48))
+* workout template added ([bcf93a1](https://github.com/vishal2457/mx/commit/bcf93a1e1ce6a89e7a549db0e21a83e2209c1391))
+* workout template added, exercise, exercise body ([a2f12dd](https://github.com/vishal2457/mx/commit/a2f12dde193086f22714b2d35386e4bee1afbdec))
+* workout template create done ([9a37291](https://github.com/vishal2457/mx/commit/9a372912910bae4c5a16cf10c53fa662fb91c551))
+* workout template update added ([e861af8](https://github.com/vishal2457/mx/commit/e861af8ed15d42c788787ff641a9a0b32c00679a))
+* workout ui added ([286d949](https://github.com/vishal2457/mx/commit/286d949f307d7b11f50b0cf1ae5e7b8ac08bcc71))
+
 ## [3.10.1](https://github.com/vishal2457/mx/compare/v3.10.0...v3.10.1) (2024-06-26)
 
 
