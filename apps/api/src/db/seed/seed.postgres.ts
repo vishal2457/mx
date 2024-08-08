@@ -7,11 +7,14 @@ import {
   TB_bodyPart,
   TB_exercise,
   TB_menu,
+  TB_organisation,
+  TB_user,
 } from '../../../../../libs/mx-schema/src';
 import { seedMenu } from './menu';
 import { exerciseData } from './exersice';
 import { sql } from 'drizzle-orm';
 import { bodyPartsData } from './body-parts';
+import { hashPassword } from '../../shared/password-hash';
 
 const pool = new Pool({
   host: process.env.NODE_HOST,
@@ -26,8 +29,15 @@ async function seed() {
     logger: true,
   });
 
-  await db.delete(TB_menu);
-  await db.insert(TB_menu).values(seedMenu);
+  await db
+    .insert(TB_organisation)
+    .values({ name: 'test', email: 'test@test.com' });
+  await db.insert(TB_user).values({
+    name: 'Admin',
+    email: 'test@test.com',
+    password: hashPassword('123'),
+    organisationID: 1,
+  });
 
   await db.delete(TB_exercise);
   await db
@@ -53,16 +63,6 @@ async function seed() {
         description: sql`excluded.description`,
       },
     });
-
-  // await db
-  //   .insert(TB_organisation)
-  //   .values({ name: 'test', email: 'test@test.com' });
-  // await db.insert(TB_user).values({
-  //   name: 'Admin',
-  //   email: 'test@test.com',
-  //   password: hashPassword('123'),
-  //   organisationID: 1,
-  // });
 
   process.exit(0);
 }
