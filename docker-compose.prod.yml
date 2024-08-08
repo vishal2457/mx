@@ -35,7 +35,7 @@ services:
       timeout: 5s
       retries: 5
 
-  api:
+  api-mx:
     image: vishal2457/mx-api
     profiles: ['prod']
     build:
@@ -67,7 +67,7 @@ services:
       - db
       - redis
 
-  caddy:
+  caddy-mx:
     image: vishal2457/mx-caddy
     restart: unless-stopped
     profiles: ['prod']
@@ -76,7 +76,7 @@ services:
       dockerfile: ./infra/Dockerfile.caddy
     ports:
       - 3001:3001
-      - 80:80
+      - 4200:4200
       - 443:443
     volumes:
       - ./app-data/api/images:/app/mx-images
