@@ -1,3 +1,10 @@
+# [3.15.0](https://github.com/vishal2457/mx/compare/v3.14.0...v3.15.0) (2024-08-10)
+
+
+### Features
+
+* changes in member wiehgt api and update member api ([42d4cb8](https://github.com/vishal2457/mx/commit/42d4cb8265255a4b23142ed070d6eb0356e57c25))
+
 # [3.14.0](https://github.com/vishal2457/mx/compare/v3.13.0...v3.14.0) (2024-08-08)
 
 
