@@ -1,4 +1,10 @@
-import { integer, pgTable, serial, timestamp } from 'drizzle-orm/pg-core';
+import {
+  integer,
+  numeric,
+  pgTable,
+  serial,
+  timestamp,
+} from 'drizzle-orm/pg-core';
 import { TB_member } from './member.schema';
 import { createSelectSchema } from 'drizzle-zod';
 
@@ -7,7 +13,7 @@ export const TB_memberWeightHistory = pgTable('memberWeightHistory', {
   memberID: integer('memberID')
     .notNull()
     .references(() => TB_member.id),
-  weight: integer('weight').notNull(),
+  weight: numeric('weight').notNull(),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
 });
 

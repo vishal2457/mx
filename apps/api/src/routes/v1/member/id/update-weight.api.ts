@@ -16,7 +16,7 @@ export default Router().put(
     params: v_param_id,
   }),
   async (req, res) => {
-    const result = await memberService.updateMember(req.body, req.params.id);
+    const [result] = await memberService.updateMember(req.body, req.params.id);
     await memberService.createMemberWeightHistory({
       weight: req.body.weight,
       memberID: req.params.id,

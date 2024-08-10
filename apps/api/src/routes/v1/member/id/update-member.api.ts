@@ -30,7 +30,8 @@ export default Router().put(
       return other(res, `Member with email ${req.body.email} already exist`);
     }
 
-    const result = await memberService.updateMember(req.body, req.params.id);
+    const [result] = await memberService.updateMember(req.body, req.params.id);
+    delete result.passcode;
     success(res, result, 'updated');
   },
 );

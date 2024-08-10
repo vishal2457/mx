@@ -119,9 +119,10 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
         const details = data.details;
         this.memberData = {
           ...details,
-          bmi: calculateBMI(details.height || 0, details.weight || 0).toFixed(
-            2,
-          ),
+          bmi: calculateBMI(
+            details.height || '0',
+            details.weight || '0',
+          ).toFixed(2),
           workoutTemplateName: data?.workoutTemplate?.name,
         };
         this.totalSpent = parseFloat(data.memberTotalSpent?.amount);

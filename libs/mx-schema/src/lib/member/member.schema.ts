@@ -1,6 +1,7 @@
 import {
   boolean,
   integer,
+  numeric,
   pgEnum,
   pgTable,
   serial,
@@ -32,8 +33,8 @@ export const TB_member = pgTable('member', {
   age: integer('age'),
   address: text('address'),
   mobile: text('mobile'),
-  height: integer('height'),
-  weight: integer('weight'),
+  height: numeric('height'),
+  weight: numeric('weight'),
   emergencyContact: text('emergencyContact'),
   gender: genderEnum('gender').default('Male'),
   profilePic: text('profilePic'),

@@ -192,7 +192,9 @@ class MemberService {
     return db
       .select()
       .from(TB_memberWeightHistory)
-      .where(eq(TB_memberWeightHistory.memberID, memberID));
+      .where(eq(TB_memberWeightHistory.memberID, memberID))
+      .orderBy(desc(TB_memberWeightHistory.id))
+      .limit(10);
   }
 
   getCountMemberAddedByMonth(params: {
