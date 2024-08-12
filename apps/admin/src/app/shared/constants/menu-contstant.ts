@@ -1,16 +1,3 @@
-export const MENU_OBJECT = {
-  ANALYTICS: 'Analytics',
-  MEMBERS: 'Members',
-  WORKOUT: 'Workout',
-  ENQUIRY: 'Enquiry',
-  EXERCISE: 'Exercise',
-  NOTIFICATION: 'Notification',
-  USERS: 'Users',
-  ROLES: 'Roles',
-  PLAN: 'Plan',
-  ORGANISATION: 'Organisation',
-} as const;
-
 export const MENU_DATA = [
   {
     name: 'Analytics',

@@ -17,6 +17,8 @@ import getLastNMonthRevenueApi from './stats/get-last-n-month-revenue.api';
 import updateProfilePicApi from './id/update-profile-pic.api';
 import logWorkoutApi from './id/log-workout.api';
 import getTodaysWorkoutApi from './id/get-todays-workout.api';
+import deleteMemberWorkoutApi from './id/delete-member-workout.api';
+import getLastNMonthsWorkoutLogsApi from './id/get-last-n-months-workout-logs.api';
 
 export const member = asyncHandler([
   getMemberList,
@@ -37,4 +39,6 @@ export const member = asyncHandler([
   updateProfilePicApi,
   logWorkoutApi,
   getTodaysWorkoutApi,
+  deleteMemberWorkoutApi,
+  getLastNMonthsWorkoutLogsApi,
 ]);

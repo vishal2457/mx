@@ -1,13 +1,27 @@
-import { index, integer, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import {
+  index,
+  integer,
+  pgEnum,
+  pgTable,
+  serial,
+  text,
+} from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 import { TB_role } from '../role.schema';
+import { PERMISSIONS } from '../app-constants.constants';
+
+export const permissionEnum = pgEnum('permission', [
+  PERMISSIONS.VIEW,
+  PERMISSIONS.CREATE,
+  PERMISSIONS.UPDATE,
+]);
 
 export const TB_rolePermission = pgTable(
   'rolePermission',
   {
     id: serial('id').primaryKey(),
-    permission: text('permission').notNull(),
+    permission: permissionEnum('permission').notNull(),
     menuName: text('menuName').notNull(),
     roleID: integer('roleID')
       .notNull()

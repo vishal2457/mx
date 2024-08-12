@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+  PERMISSIONS,
+  RESOURCES,
   TWorkoutTemplate,
   TWorkoutTemplateDetail,
 } from '../../../../../../../libs/mx-schema/src';
@@ -12,8 +14,6 @@ import { ConfirmModalComponent } from '../../../shared/misc/confirm-modal/confir
 import { Dialog } from '@angular/cdk/dialog';
 import { UserService } from '../../../shared/services/user-data.service';
 import { take } from 'rxjs';
-import { MENU_OBJECT } from '../../../shared/constants/menu-contstant';
-import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
 
 @Component({
   selector: 'edit-workoutTemplate',
@@ -45,7 +45,7 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user.permissions$.pipe(take(2)).subscribe((data) => {
-      const permissions = this.user.getPermission(MENU_OBJECT.WORKOUT, data);
+      const permissions = this.user.getPermission(RESOURCES.WORKOUT, data);
       this.canUpdate = permissions.includes(PERMISSIONS.UPDATE);
     });
 

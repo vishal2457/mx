@@ -15,8 +15,9 @@ export const TB_memberWorkoutLog = pgTable('memberWorkoutLog', {
   sets: integer('sets').notNull(),
   reps: text('reps').notNull(),
   exerciseName: text('exerciseName').notNull(),
-  completedTime: text('completedTime').notNull(),
+  completedTime: integer('completedTime').notNull(),
   intensity: workoutIntensityEnum('intensity').default('Moderate'),
+  approxCalorieBurn: integer('approxCalorieBurn'),
   createdAt: timestamp('createdAt').defaultNow(),
 });
 

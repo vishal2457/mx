@@ -12,7 +12,7 @@ import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/li
 
 class UserService {
   createUser(payload: typeof TB_user.$inferInsert, tx?: any) {
-    const ex = tx || db;
+    const ex: typeof db = tx || db;
     return ex.insert(TB_user).values(payload).returning();
   }
 

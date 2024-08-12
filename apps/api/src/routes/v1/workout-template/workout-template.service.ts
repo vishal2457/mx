@@ -1,4 +1,4 @@
-import { and, count, desc, eq, sql } from 'drizzle-orm';
+import { and, count, desc, eq, ne, sql } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_exercise,
@@ -44,7 +44,7 @@ class WorkoutTemplateService {
 
   createWorkoutTemplate(
     payload: typeof TB_workoutTemplate.$inferInsert,
-    tx: any,
+    tx?: typeof db,
   ) {
     const ex = tx || db;
     return ex.insert(TB_workoutTemplate).values(payload).returning();
@@ -53,7 +53,7 @@ class WorkoutTemplateService {
   updateWorkoutTemplate(
     payload: Partial<typeof TB_workoutTemplate.$inferInsert>,
     id: WorkoutTemplate['id'],
-    tx?: any,
+    tx?: typeof db,
   ) {
     const ex = tx || db;
     return ex
@@ -82,12 +82,12 @@ class WorkoutTemplateService {
       .where(eq(TB_workoutTemplate.id, id));
   }
 
-  addWorkoutDetails(workoutDetails: WorkoutDetailsInsert, tx?: any) {
+  addWorkoutDetails(workoutDetails: WorkoutDetailsInsert, tx?: typeof db) {
     const ex = tx || db;
     return ex.insert(TB_workoutTemplateDetail).values(workoutDetails);
   }
 
-  deleteWorkoutTemplateDetails(id: WorkoutTemplate['id'], tx?: any) {
+  deleteWorkoutTemplateDetails(id: WorkoutTemplate['id'], tx?: typeof db) {
     const ex = tx || db;
     return ex
       .delete(TB_workoutTemplateDetail)
@@ -115,7 +115,12 @@ class WorkoutTemplateService {
           TB_workoutTemplateDetail.id,
         ),
       )
-      .where(eq(TB_memberWorkoutLog.memberID, memberID))
+      .where(
+        and(
+          eq(TB_memberWorkoutLog.memberID, memberID),
+          ne(sql`DATE(${TB_memberWorkoutLog.createdAt})`, sql`CURRENT_DATE`),
+        ),
+      )
       .orderBy(desc(TB_memberWorkoutLog.id))
       .limit(1);
   }

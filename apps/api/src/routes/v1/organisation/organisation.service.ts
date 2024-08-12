@@ -7,7 +7,6 @@ import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/li
 
 type Organisation = typeof TB_organisation.$inferSelect;
 
-
 class OrganisationService {
   getOrganisationList(query: Request['query']) {
     return getListQueryWithFilters(TB_organisation, query);
@@ -21,13 +20,15 @@ class OrganisationService {
     return getTotalCount(TB_organisation);
   }
 
-  createOrganisation(payload: typeof TB_organisation.$inferInsert) {
-    return db.insert(TB_organisation).values(payload).returning();
+  createOrganisation(payload: typeof TB_organisation.$inferInsert, tx: any) {
+    const ex: typeof db = tx || db;
+    return ex.insert(TB_organisation).values(payload).returning();
   }
 
   updateOrganisation(
     payload: Partial<typeof TB_organisation.$inferInsert>,
-    id: Organisation['id']) {
+    id: Organisation['id'],
+  ) {
     return db
       .update(TB_organisation)
       .set(payload)
@@ -43,6 +44,12 @@ class OrganisationService {
     return db.select().from(TB_organisation).where(eq(TB_organisation.id, id));
   }
 
+  getByEmail(email: Organisation['email']) {
+    return db
+      .select()
+      .from(TB_organisation)
+      .where(eq(TB_organisation.email, email));
+  }
 }
 
 export const organisationService = new OrganisationService();

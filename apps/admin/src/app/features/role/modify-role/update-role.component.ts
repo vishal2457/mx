@@ -13,11 +13,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { SubSink } from '../../../shared/utils/sub-sink';
 import {
+  PERMISSIONS,
   TRole,
   TRolePermission,
 } from '../../../../../../../libs/mx-schema/src';
 import { MENU_DATA } from '../../../shared/constants/menu-contstant';
-import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
 
 @Component({
   selector: 'edit-role',

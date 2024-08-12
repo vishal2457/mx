@@ -1,4 +1,4 @@
-import { and, count, desc, eq, not, sql, sum } from 'drizzle-orm';
+import { and, count, desc, eq, gte, not, sql, sum } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_member,
@@ -7,10 +7,9 @@ import {
   TB_memberWeightHistory,
   TB_memberWorkoutLog,
   TB_plan,
-  TB_user,
   TB_workoutTemplate,
-  TB_workoutTemplateDetail,
   TMemberPlan,
+  TmemberWorkoutLog,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
 import { getTotalCountByOrg } from '../../../db/utils-db/pg/count-rows';
@@ -221,6 +220,31 @@ class MemberService {
 
   createManyWorkoutLogs(payload: (typeof TB_memberWorkoutLog.$inferInsert)[]) {
     return db.insert(TB_memberWorkoutLog).values(payload);
+  }
+
+  deleteWorkoutLog(id: TmemberWorkoutLog['id']) {
+    return db.delete(TB_memberWorkoutLog).where(eq(TB_memberWorkoutLog.id, id));
+  }
+
+  getLastNMonthsWorkoutLogs(
+    memberID: TmemberWorkoutLog['memberID'],
+    months = 2,
+  ) {
+    return db
+      .select()
+      .from(TB_memberWorkoutLog)
+      .where(
+        and(
+          eq(TB_memberWorkoutLog.memberID, memberID),
+          gte(
+            sql`DATE_TRUNC('month', ${TB_memberWorkoutLog.createdAt})`,
+            sql.raw(
+              `DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '${months} months'`,
+            ),
+          ),
+        ),
+      )
+      .orderBy(TB_memberWorkoutLog.createdAt);
   }
 }
 

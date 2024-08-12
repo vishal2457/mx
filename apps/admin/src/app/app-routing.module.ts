@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './layout/main/main.component';
 import { authGuard } from './shared/services/auth.guard';
-import { MENU_OBJECT } from './shared/constants/menu-contstant';
 
 const routes: Routes = [
   {

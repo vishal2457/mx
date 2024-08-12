@@ -6,9 +6,11 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 import { Dialog } from '@angular/cdk/dialog';
 import { ConfirmModalComponent } from '../../../shared/misc/confirm-modal/confirm-modal.component';
 import { UserService } from '../../../shared/services/user-data.service';
-import { MENU_OBJECT } from '../../../shared/constants/menu-contstant';
 import { take } from 'rxjs';
-import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
+import {
+  PERMISSIONS,
+  RESOURCES,
+} from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'add-workoutTemplate',
@@ -38,7 +40,7 @@ export class CreateWorkoutTemplateComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.user.permissions$.pipe(take(2)).subscribe((data) => {
-      const permissions = this.user.getPermission(MENU_OBJECT.WORKOUT, data);
+      const permissions = this.user.getPermission(RESOURCES.WORKOUT, data);
       this.canAdd = permissions.includes(PERMISSIONS.CREATE);
     });
   }

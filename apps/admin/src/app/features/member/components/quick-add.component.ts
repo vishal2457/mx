@@ -55,6 +55,14 @@ import { UserService } from '../../../shared/services/user-data.service';
         bindValue="id"
         [patchFirstEntry]="true"
       />
+      <mx-select
+        apiURL="/workout-template/all"
+        bindLabel="name"
+        bindValue="id"
+        label="Workout Template"
+        [control]="form.controls.workoutTemplateID"
+        [patchFirstEntry]="true"
+      />
       <mx-input
         label="Join Date"
         type="date"
@@ -85,7 +93,10 @@ export class QuickAddMemberComponent {
 
   form = this.fb.group<
     ControlsOf<
-      Pick<TMember, 'name' | 'email' | 'userID' | 'joinDate'> & {
+      Pick<
+        TMember,
+        'name' | 'email' | 'userID' | 'joinDate' | 'workoutTemplateID'
+      > & {
         planID: number;
       }
     >
@@ -94,6 +105,7 @@ export class QuickAddMemberComponent {
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     userID: new FormControl(null, [Validators.required]),
+    workoutTemplateID: new FormControl(null, [Validators.required]),
     joinDate: new FormControl(patchableDate(), [Validators.required]),
   });
 

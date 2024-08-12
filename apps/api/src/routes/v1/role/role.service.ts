@@ -27,8 +27,9 @@ class RoleService {
     return getTotalCount(TB_role);
   }
 
-  createRole(payload: typeof TB_role.$inferInsert) {
-    return db.insert(TB_role).values(payload).returning();
+  createRole(payload: typeof TB_role.$inferInsert, tx?: typeof db) {
+    const ex = tx || db;
+    return ex.insert(TB_role).values(payload).returning();
   }
 
   updateRole(payload: typeof TB_role.$inferInsert, id: Role['id'], tx?: any) {
@@ -62,8 +63,8 @@ class RoleService {
   }
 
   createRolePermission(
-    payload: (typeof TB_rolePermission.$inferInsert)[],
-    tx?: any,
+    payload: Array<typeof TB_rolePermission.$inferInsert>,
+    tx?: typeof db,
   ) {
     const ex = tx || db;
     return ex.insert(TB_rolePermission).values(payload);

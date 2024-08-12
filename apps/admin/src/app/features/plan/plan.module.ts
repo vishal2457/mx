@@ -21,6 +21,7 @@ import { PlanListComponent } from './plan-list/plan-list.component';
 import { PlanFormComponent } from './modify-plan/plan-form/plan-form.component';
 import { CreatePlanComponent } from './modify-plan/create-plan.component';
 import { UpdatePlanComponent } from './modify-plan/update-plan.component';
+import { MxInputNumberComponent } from '../../shared/ui/form/mx-input-number';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { UpdatePlanComponent } from './modify-plan/update-plan.component';
     MxFileUploadComponent,
     MxTextareaComponent,
     MxCheckboxComponent,
-    MxInputComponent
+    MxInputComponent,
+    MxInputNumberComponent,
   ],
 })
 export class PlanModule {}

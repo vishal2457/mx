@@ -10,6 +10,7 @@ import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type Exercise = typeof TB_exercise.$inferSelect;
+type ExerciseInsert = typeof TB_exercise.$inferInsert;
 
 class ExerciseService {
   getExerciseList(query: Request['query'], organisationID: Exercise['id']) {
@@ -29,9 +30,12 @@ class ExerciseService {
     return getTotalCount(TB_exercise);
   }
 
-  createExercise(payload: typeof TB_exercise.$inferInsert, tx?: any) {
+  createExercise(payload: ExerciseInsert | ExerciseInsert[], tx?: typeof db) {
     const ex = tx || db;
-    return ex.insert(TB_exercise).values(payload).returning();
+    return ex
+      .insert(TB_exercise)
+      .values(payload as ExerciseInsert)
+      .returning();
   }
 
   updateExercise(

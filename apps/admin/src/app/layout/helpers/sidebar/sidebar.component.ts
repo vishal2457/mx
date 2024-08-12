@@ -13,8 +13,8 @@ import { LocalStorageService } from '../../../shared/services/local-storage.serv
 import { SidebarService } from '../../../shared/services/sidebar.service';
 import { UserService } from '../../../shared/services/user-data.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
-import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
 import { MENU_DATA } from '../../../shared/constants/menu-contstant';
+import { PERMISSIONS } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'mx-sidebar',

@@ -1,9 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { MENU_OBJECT } from '../../../shared/constants/menu-contstant';
-import { PERMISSIONS } from '../../../shared/constants/permissions.constants';
 import { UserService } from '../../../shared/services/user-data.service';
+import {
+  PERMISSIONS,
+  RESOURCES,
+} from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'workout-template-list',
@@ -75,7 +77,7 @@ export class WorkoutTemplateListComponent implements OnInit {
 
   ngOnInit(): void {
     this.user.permissions$.pipe(take(2)).subscribe((data) => {
-      const permissions = this.user.getPermission(MENU_OBJECT.WORKOUT, data);
+      const permissions = this.user.getPermission(RESOURCES.WORKOUT, data);
       this.canEdit = permissions.includes(PERMISSIONS.UPDATE);
       this.canAdd = permissions.includes(PERMISSIONS.CREATE);
     });

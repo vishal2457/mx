@@ -6,6 +6,7 @@ import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type BodyPart = typeof TB_bodyPart.$inferSelect;
+type BodyPartInsert = typeof TB_bodyPart.$inferInsert;
 
 class BodyPartService {
   getBodyPartList(query: Request['query']) {
@@ -20,8 +21,12 @@ class BodyPartService {
     return getTotalCount(TB_bodyPart);
   }
 
-  createBodyPart(payload: typeof TB_bodyPart.$inferInsert) {
-    return db.insert(TB_bodyPart).values(payload).returning();
+  createBodyPart(payload: BodyPartInsert[] | BodyPartInsert, tx?: typeof db) {
+    const ex = tx || db;
+    return ex
+      .insert(TB_bodyPart)
+      .values(payload as BodyPartInsert)
+      .returning();
   }
 
   updateBodyPart(

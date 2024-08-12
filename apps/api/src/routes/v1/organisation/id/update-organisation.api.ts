@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import { success } from '../../../../shared/api-response/response-handler';
+import {
+  other,
+  success,
+} from '../../../../shared/api-response/response-handler';
 import { ImageUpload } from '../../../../shared/middlewares/multer.middleware';
 import { organisationService } from '../organisation.service';
 
@@ -11,6 +14,11 @@ export default Router().put(
   // }),
   ImageUpload.single('logo'),
   async (req, res) => {
+    const [existing] = await organisationService.getByEmail(req.body.email);
+    if (existing) {
+      return other(res, 'Organisation with this email already exist');
+    }
+
     if (req?.file?.filename) {
       req.body['logo'] = req.file.filename;
     }
