@@ -41,6 +41,22 @@ export class ExerciseFormComponent implements OnDestroy {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    mechanic: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    equipment: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    category: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    force: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
     level: new FormControl(null, {
       validators: [Validators.required],
       nonNullable: true,

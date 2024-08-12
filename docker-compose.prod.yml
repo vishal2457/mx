@@ -36,7 +36,7 @@ services:
       retries: 5
 
   api-mx:
-    image: vishal2457/mx-api
+    image: mx-api
     profiles: ['prod']
     build:
       context: ./
@@ -68,7 +68,7 @@ services:
       - redis-mx
 
   # caddy-mx:
-  #   image: vishal2457/mx-caddy
+  #   image: mx-caddy
   #   restart: unless-stopped
   #   profiles: ['prod']
   #   build:
@@ -84,7 +84,7 @@ services:
   #     - api-mx
 
   nginx-mx:
-    image: vishal2457/mx-nginx
+    image: mx-nginx
     build:
       context: ./
       dockerfile: ./infra/Dockerfile.nginx

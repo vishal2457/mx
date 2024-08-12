@@ -8,7 +8,7 @@ import renewMembershipApi from './id/renew-membership.api';
 import getMembershipByMemberidApi from './id/get-membership-by-memberid.api';
 import updateWeightApi from './id/update-weight.api';
 import loginMemberApi from './login-member.api';
-import getWeightHistoryApi from './id/get-weight-history.api';
+import getWeightHistoryApi from './stats/get-weight-history.api';
 import getCountNewByMonth from './stats/get-count-new-by-month';
 import getRevenueByMonthApi from './stats/get-revenue-by-month.api';
 import getMemberCountApi from './stats/get-member-count.api';
@@ -18,7 +18,7 @@ import updateProfilePicApi from './id/update-profile-pic.api';
 import logWorkoutApi from './id/log-workout.api';
 import getTodaysWorkoutApi from './id/get-todays-workout.api';
 import deleteMemberWorkoutApi from './id/delete-member-workout.api';
-import getLastNMonthsWorkoutLogsApi from './id/get-last-n-months-workout-logs.api';
+import getLastNMonthsWorkoutLogsApi from './stats/get-last-n-months-workout-logs.api';
 
 export const member = asyncHandler([
   getMemberList,

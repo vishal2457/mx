@@ -16,8 +16,10 @@ import { TB_organisation } from '../organisation/organisation.schema';
 import { TB_workoutTemplate } from '../workout/workout-template.schema';
 
 export const GENDERS = ['Male', 'Female'] as const;
+export const EXPERIENCE_LEVEL = ['expert', 'intermediate', 'beginner'] as const;
 
 export const genderEnum = pgEnum('gender', GENDERS);
+export const experienceEnum = pgEnum('experience', EXPERIENCE_LEVEL);
 
 export const TB_member = pgTable('member', {
   id: serial('id').primaryKey(),
@@ -39,6 +41,7 @@ export const TB_member = pgTable('member', {
   gender: genderEnum('gender').default('Male'),
   profilePic: text('profilePic'),
   active: boolean('active').default(true),
+  experience: experienceEnum('experience').default('intermediate'),
   workoutTemplateID: integer('workoutTemplateID').references(
     () => TB_workoutTemplate.id,
   ),

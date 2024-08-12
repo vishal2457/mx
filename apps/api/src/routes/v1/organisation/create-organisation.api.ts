@@ -81,7 +81,13 @@ export default Router().post(
       await roleService.createRolePermission(rolePremissionPayload, tx);
 
       const exercisePayload = exerciseData.map((value) => ({
-        ...value,
+        name: value.name,
+        description: value.instructions.join(', '),
+        mechanic: value.mechanic,
+        equipment: value.equipment,
+        category: value.category,
+        force: value.force,
+        level: value.level,
         organisationID: org.id,
       }));
       await exerciseService.createExercise(exercisePayload, tx);

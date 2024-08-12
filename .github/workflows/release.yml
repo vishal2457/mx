@@ -90,6 +90,3 @@ jobs:
 
       - name: Run db migrations
         run: npm run db:push
-
-      - name: Run db seed
-        run: npm run db:seed

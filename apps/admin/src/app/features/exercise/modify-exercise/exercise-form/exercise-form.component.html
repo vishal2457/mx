@@ -11,12 +11,30 @@
         [multiple]="true"
         class="flex-1"
       />
-      <mx-button variant="outline" (handleClick)="openAddBodyPart()" ><mx-icon icon="add" /></mx-button>
+      <mx-button variant="outline" (handleClick)="openAddBodyPart()"
+        ><mx-icon icon="add"
+      /></mx-button>
     </div>
 
     <mx-input label="Name" [control]="formControls.name" />
-    <mx-input label="Description" [control]="formControls.description" />
-    <mx-select label="Level" [control]="formControls.level" [items]="exerciseLevel" />
+    <mx-input
+      label="Mechanic"
+      placeholder="eg (compound, isolation etc)"
+      [control]="formControls.mechanic"
+    />
+    <mx-input
+      label="Equipment"
+      placeholder="eg (body only, machine)"
+      [control]="formControls.equipment"
+    />
+    <mx-input label="Category" [control]="formControls.category" />
+    <mx-input label="Description" [control]="formControls.force" />
+    <mx-select
+      label="Level"
+      [control]="formControls.level"
+      [items]="exerciseLevel"
+    />
     <mx-input label="Reference URL" [control]="formControls.referenceURL" />
+    <mx-input label="Description" [control]="formControls.description" />
   </div>
 </mx-form>

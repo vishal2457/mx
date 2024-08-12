@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: maximus
+      POSTGRES_DB: fitflow
 
     ports:
       - 5432:5432
@@ -35,8 +35,8 @@ services:
       timeout: 5s
       retries: 5
 
-  api:
-    image: vishal2457/mx-api-dev
+  api-mx:
+    image: mx-api-dev
     profiles: ['dev']
     build:
       context: ./
@@ -58,21 +58,21 @@ services:
       - db
       - redis
 
-  caddy:
-    image: vishal2457/mx-caddy-dev
-    restart: unless-stopped
-    profiles: ['dev']
-    build:
-      context: .
-      dockerfile: ./infra/Dockerfile.caddy
-    ports:
-      - 3001:3000
-      - 4201:80
-      - 4202:443
-    volumes:
-      - ./app-data-dev/api/images:/app/mx-images
-    depends_on:
-      - api
+  # caddy:
+  #   image: vishal2457/mx-caddy-dev
+  #   restart: unless-stopped
+  #   profiles: ['dev']
+  #   build:
+  #     context: .
+  #     dockerfile: ./infra/Dockerfile.caddy
+  #   ports:
+  #     - 3001:3000
+  #     - 4201:80
+  #     - 4202:443
+  #   volumes:
+  #     - ./app-data-dev/api/images:/app/mx-images
+  #   depends_on:
+  #     - api
 
   prometheus:
     image: prom/prometheus:latest
@@ -105,3 +105,14 @@ services:
       - '--extend.query-path=/etc/postgres_exporter/queries.yaml'
     depends_on:
       - db
+
+  nginx-mx:
+    image: mx-nginx
+    build:
+      context: ./
+      dockerfile: ./infra/Dockerfile.nginx
+    ports:
+      - 3001:3001
+      - 4200:4200
+    depends_on:
+      - api-mx
