@@ -1,7 +1,7 @@
 const {
   APP_NAME = 'fitflow',
   NODE_ENV = 'development',
-  PORT = 3000,
+  PORT = 3001,
   ENCRYPT = false,
   NODE_HOST = 'localhost',
   REDIS_HOST = 'redis-mx',

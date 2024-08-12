@@ -3,7 +3,7 @@ const { resolve } = require('path');
 
 const targetPath = resolve(
   __dirname,
-  '../apps/admin/src/environments/environment.prod.ts'
+  '../apps/admin/src/environments/environment.prod.ts',
 );
 
 const options = {
@@ -20,7 +20,7 @@ const formatter = new Intl.DateTimeFormat([], options);
 const indianTime = formatter.format(new Date());
 
 const envs = {
-  api: `https://${process.env.NODE_HOST}:3001`,
+  api: `http://${process.env.NODE_HOST}:3001`,
   latestBuildTime: indianTime,
 };
 

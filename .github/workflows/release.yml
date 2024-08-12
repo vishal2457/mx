@@ -28,9 +28,11 @@ jobs:
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> $GITHUB_ENV
           echo "NODE_HOST=${{ secrets.NODE_HOST }}" >> $GITHUB_ENV
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
-          echo "RAZORPAY_KEY=${{ secrets.RAZORPAY_KEY }}" >> $GITHUB_ENV
-          echo "RAZORPAY_SECRET=${{ secrets.RAZORPAY_SECRET }}" >> $GITHUB_ENV
           echo "FIREBASE_PRIVATE_KEY_ID=${{ secrets.FIREBASE_PRIVATE_KEY_ID }}" >> $GITHUB_ENV
+          echo "SENDER_EMAIL_HOST=${{ secrets.SENDER_EMAIL_HOST }}" >> $GITHUB_ENV
+          echo "SENDER_EMAIL_PORT=${{ secrets.SENDER_EMAIL_PORT }}" >> $GITHUB_ENV
+          echo "SENDER_EMAIL_ID=${{ secrets.SENDER_EMAIL_ID }}" >> $GITHUB_ENV
+          echo "SENDER_EMAIL_PASSWORD=${{ secrets.SENDER_EMAIL_PASSWORD }}" >> $GITHUB_ENV
 
       - name: install dependencies
         run: npm ci --no-audit --progress=false
