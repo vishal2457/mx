@@ -9,14 +9,15 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: fitflow
+      POSTGRES_PORT: 5433
     expose:
-      - '5433'
+      - 5433
     ports:
       - 5433:5433
     # Volume to persist the data even after the container is stopped
     volumes:
-      - ./app-data-dev/data/postgres:/var/lib/postgresql/data
-    command: -p 5433
+      - ./app-data-mx/data/postgres:/var/lib/postgresql/data
+      - ./infra/postgres.conf:/var/lib/postgresql/data/postgresql.conf # Mount custom config
     # Healthcheck command because other containers depend on this one
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
@@ -105,13 +106,13 @@ services:
   #   depends_on:
   #     - db
 
-  nginx-mx:
-    image: mx-nginx
-    build:
-      context: ./
-      dockerfile: ./infra/Dockerfile.nginx
-    ports:
-      - 3001:3001
-      - 4200:4200
-    depends_on:
-      - api-mx
+  # nginx-mx:
+  #   image: mx-nginx
+  #   build:
+  #     context: ./
+  #     dockerfile: ./infra/Dockerfile.nginx
+  #   ports:
+  #     - 3001:3001
+  #     - 4200:4200
+  #   depends_on:
+  #     - api-mx
