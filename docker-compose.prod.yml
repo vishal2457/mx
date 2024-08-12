@@ -9,8 +9,9 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: fitflow
+      POSTGRES_PORT: 5433
     expose:
-      - '5433'
+      - 5433
     ports:
       - 5433:5433
     # Volume to persist the data even after the container is stopped
