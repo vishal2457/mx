@@ -12,7 +12,7 @@ COPY dist/apps/api api
 
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
-RUN npm --prefix api i --no-audit --progress=false
+RUN npm --prefix api ci --no-audit --progress=false
 EXPOSE 3001
 
 CMD [ "node", "api" ]

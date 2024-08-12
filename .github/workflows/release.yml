@@ -82,8 +82,10 @@ jobs:
             export NODE_HOST=${{ secrets.NODE_HOST}}
             export FIREBASE_PRIVATE_KEY_ID=${{ secrets.FIREBASE_PRIVATE_KEY_ID}}
             export JWT_SECRET=${{ secrets.JWT_SECRET}}
-            export RAZORPAY_KEY=${{ secrets.RAZORPAY_KEY}}
-            export RAZORPAY_SECRET=${{ secrets.RAZORPAY_SECRET}}
+            export SENDER_EMAIL_HOST=${SENDER_EMAIL_HOST}
+            export SENDER_EMAIL_PORT=${SENDER_EMAIL_PORT}
+            export SENDER_EMAIL_ID=${SENDER_EMAIL_ID}
+            export SENDER_EMAIL_PASSWORD=${SENDER_EMAIL_PASSWORD}
             docker compose  -f docker-compose.prod.yml --profile prod down
             docker compose  -f docker-compose.prod.yml --profile prod pull
             docker compose  -f docker-compose.prod.yml --profile prod up -d
