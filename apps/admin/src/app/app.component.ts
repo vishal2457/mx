@@ -10,6 +10,6 @@ export class AppComponent {
   title = 'Maximus';
 
   constructor(private socketService: SocketService) {
-    socketService.init();
+    // socketService.init();
   }
 }

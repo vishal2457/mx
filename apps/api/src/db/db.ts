@@ -23,7 +23,7 @@ import { logger } from '../shared/logger/logger';
 
 // or
 const pool = new Pool({
-  host: APP_SETTINGS.DB_HOST,
+  host: APP_SETTINGS.NODE_HOST,
   port: APP_SETTINGS.DB_PORT,
   user: APP_SETTINGS.DB_USERNAME,
   password: APP_SETTINGS.DB_PASSWORD,
