@@ -12,9 +12,9 @@ import { secure } from '../../../shared/jwt/jwt-auth.middleware';
 import { db } from '../../../db/db';
 import { z } from 'zod';
 
-const validateBody = createInsertSchema(TB_enquiry)
-  .omit({ organisationID: true })
-  .extend({ oldStatusValue: z.enum(STATUS_ENUM) });
+const validateBody = createInsertSchema(TB_enquiry).omit({
+  organisationID: true,
+});
 
 export default Router().post(
   '/create',
@@ -31,16 +31,15 @@ export default Router().post(
         },
         tx,
       );
-      if (req.body.oldStatusValue !== req.body.status) {
-        await enquiryService.addEnquiryStatusHistory(
-          {
-            userID: req.user.id,
-            enquiryID: result.id,
-            status: req.body.oldStatusValue,
-          },
-          tx,
-        );
-      }
+      await enquiryService.addEnquiryStatusHistory(
+        {
+          userID: req.user.id,
+          enquiryID: result.id,
+          status: req.body.status,
+        },
+        tx,
+      );
+
       success(res, result, 'success');
     });
   },

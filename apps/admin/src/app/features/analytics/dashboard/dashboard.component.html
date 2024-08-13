@@ -42,6 +42,7 @@
       </p>
     </div>
     <div
+      routerLink="/member/list"
       class="flex gap-1 items-center justify-between cursor-pointer p-1 px-6 border-t border-blue-500"
       mxCardFooter
     >
@@ -62,6 +63,7 @@
       <p class="text-2xl font-bold">{{ openEnquiries }}</p>
     </div>
     <div
+      routerLink="/enquiry/list"
       class="flex gap-1 items-center justify-between cursor-pointer p-1 px-6 border-t border-rose-500"
       mxCardFooter
     >
@@ -71,6 +73,7 @@
   </div>
   <div mxCard class="bg-purple-200 dark:bg-purple-900">
     <div
+      routerLink="/member/list"
       mxCardHeader
       class="flex-row items-center justify-between space-y-1 py-4 px-6"
     >
@@ -102,9 +105,14 @@
       class="flex-row items-center justify-between space-y-1 py-4 px-6"
     >
       <div mxCardtitle>Last seven Months Revenue</div>
-      <div mxCardtitle>Total <display-currency [amount]="totalRevenueForLastSevenMonths" class="text-sm" /> </div>
+      <div mxCardtitle>
+        Total
+        <display-currency
+          [amount]="totalRevenueForLastSevenMonths"
+          class="text-sm"
+        />
+      </div>
       <!-- <mx-icon icon="list_alt" size="lg" /> -->
-
     </div>
     <div mxCardContent class="p-0">
       <div id="bar-chart" class="w-full h-[350px]"></div>
@@ -124,7 +132,11 @@
   </div>
 </div>
 
-<mx-grid-shell gridTitle="Open Enquiries" apiURL="/enquiry/list" [defaultFilters]="{ status: 'eq|Open|t'}">
+<mx-grid-shell
+  gridTitle="Open Enquiries"
+  apiURL="/enquiry/list"
+  [defaultFilters]="{ status: 'eq|Open|t' }"
+>
   <!-- columns -->
   <mx-column field="customerName" title="Customer Name" alignment="left" />
   <mx-column field="mobile" alignment="right" />

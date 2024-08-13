@@ -6,6 +6,7 @@ import {
   TB_memberPlan,
   TB_memberWeightHistory,
   TB_memberWorkoutLog,
+  TB_organisation,
   TB_plan,
   TB_workoutTemplate,
   TMemberPlan,
@@ -245,6 +246,30 @@ class MemberService {
         ),
       )
       .orderBy(TB_memberWorkoutLog.createdAt);
+  }
+
+  memberPlanCount(organisationID: Member['organisationID']) {
+    return getTotalCountByOrg(TB_memberPlan)
+      .innerJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
+      .innerJoin(
+        TB_organisation,
+        eq(TB_member.organisationID, TB_organisation.id),
+      )
+      .where(eq(TB_member.organisationID, organisationID));
+  }
+
+  memberPlanList(
+    organisationID: Member['organisationID'],
+    query: Request['query'],
+  ) {
+    return getListQueryWithFilters(TB_member, query, [
+      eq(TB_member.organisationID, organisationID),
+    ])
+      .innerJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
+      .innerJoin(
+        TB_organisation,
+        eq(TB_member.organisationID, TB_organisation.id),
+      );
   }
 }
 

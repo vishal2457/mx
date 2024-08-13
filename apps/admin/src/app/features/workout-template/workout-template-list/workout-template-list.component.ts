@@ -16,7 +16,7 @@ import {
       @if (canAdd) {
         <mx-button (handleClick)="create()">
           <span class="flex items-center">
-            <p>Add Workout Template</p>
+            <p>Add</p>
           </span>
         </mx-button>
       }

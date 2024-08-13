@@ -32,7 +32,7 @@
   <p class="text-xs">Add workout details</p>
 </div>
 
-<div class="my-4 grid grid-cols-4 gap-2">
+<div class="my-4 grid grid-cols-1 md:grid-cols-3 gap-2">
   @for (item of workoutDetailData | keyvalue; track item.key) {
     <div mxCard>
       <div mxCardHeader class="flex-row justify-between items-center">
