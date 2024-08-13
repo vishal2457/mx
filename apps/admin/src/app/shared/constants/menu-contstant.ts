@@ -1,47 +1,54 @@
+import { RESOURCES } from '../../../../../../libs/mx-schema/src';
+
 export const MENU_DATA = [
   {
-    name: 'Analytics',
+    name: RESOURCES.ANALYTICS,
     icon: 'analytics',
     link: '/analytics',
   },
   {
-    name: 'Members',
+    name: RESOURCES.MEMBERS,
     icon: 'groups',
     link: '/member/list',
   },
   {
-    name: 'Workout',
+    name: RESOURCES.WORKOUT,
     icon: 'summarize',
     link: '/workout-template/list',
   },
   {
-    name: 'Enquiry',
+    name: RESOURCES.ENQUIRY,
     icon: 'info',
     link: '/enquiry/list',
   },
   {
-    name: 'Exercise',
+    name: RESOURCES.EXERCISE,
     icon: 'exercise',
     link: '/exercise/list',
   },
   {
-    name: 'Notification',
+    name: RESOURCES.NOTIFICATION,
     icon: 'notifications',
     link: '/notification/list',
   },
   {
-    name: 'Users',
+    name: RESOURCES.USERS,
     icon: 'group',
     link: '/user/list',
   },
   {
-    name: 'Roles',
+    name: RESOURCES.ROLES,
     icon: 'assignment_ind',
     link: '/role/list',
   },
   {
-    name: 'Plan',
+    name: RESOURCES.PLAN,
     icon: 'description',
     link: '/plan/list',
+  },
+  {
+    name: RESOURCES.MEMBER_PLAN,
+    icon: 'description',
+    link: '/member-plan/list',
   },
 ] as const;

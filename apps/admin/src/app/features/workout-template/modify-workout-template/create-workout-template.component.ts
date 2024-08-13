@@ -11,6 +11,7 @@ import {
   PERMISSIONS,
   RESOURCES,
 } from '../../../../../../../libs/mx-schema/src';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'add-workoutTemplate',
@@ -33,6 +34,7 @@ export class CreateWorkoutTemplateComponent implements OnDestroy, OnInit {
   notif = inject(MxNotification);
   private dialog = inject(Dialog);
   private user = inject(UserService);
+  private router = inject(Router);
 
   private addRequests = new SubSink();
 
@@ -52,6 +54,7 @@ export class CreateWorkoutTemplateComponent implements OnDestroy, OnInit {
 
   handleSubmit() {
     if (this.WorkoutTemplateFormComponent.isInValid()) {
+      this.WorkoutTemplateFormComponent.markAllAsTouched();
       return;
     }
 
@@ -88,6 +91,7 @@ export class CreateWorkoutTemplateComponent implements OnDestroy, OnInit {
             id: 'add-workoutTemplate',
             type: 'success',
           });
+          this.router.navigate(['/workout-template/list']);
         },
       });
   }

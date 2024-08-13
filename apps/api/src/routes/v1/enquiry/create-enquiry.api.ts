@@ -1,16 +1,11 @@
-import { Router } from 'express';
-import { success } from '../../../shared/api-response/response-handler';
-import { validate } from '../../../shared/middlewares/validation.middleware';
-import {
-  GOAL,
-  STATUS_ENUM,
-  TB_enquiry,
-} from '../../../../../../libs/mx-schema/src';
 import { createInsertSchema } from 'drizzle-zod';
-import { enquiryService } from './enquiry.service';
-import { secure } from '../../../shared/jwt/jwt-auth.middleware';
+import { Router } from 'express';
+import { TB_enquiry } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import { z } from 'zod';
+import { success } from '../../../shared/api-response/response-handler';
+import { secure } from '../../../shared/jwt/jwt-auth.middleware';
+import { validate } from '../../../shared/middlewares/validation.middleware';
+import { enquiryService } from './enquiry.service';
 
 const validateBody = createInsertSchema(TB_enquiry).omit({
   organisationID: true,

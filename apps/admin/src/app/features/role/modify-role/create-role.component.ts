@@ -45,7 +45,7 @@ export class CreateRoleComponent implements AfterViewInit, OnDestroy {
 
   handleSubmit() {
     if (this.roleForm.invalid) {
-      this.roleForm.markAsTouched();
+      this.RoleFormComponent.markAllAsTouched();
       return;
     }
     this.addRequests.unsubscribe();

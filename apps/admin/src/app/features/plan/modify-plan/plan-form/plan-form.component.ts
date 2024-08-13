@@ -48,4 +48,8 @@ export class PlanFormComponent {
   patchValue(value) {
     this.planForm.patchValue(value);
   }
+
+  markAllAsTouched() {
+    this.planForm.markAllAsTouched();
+  }
 }

@@ -1,18 +1,14 @@
-import {
-  Component,
-  OnDestroy,
-  ViewChild,
-  inject,
-} from '@angular/core';
+import { Component, OnDestroy, ViewChild, inject } from '@angular/core';
 import { EnquiryFormComponent } from './enquiry-form/enquiry-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { SubSink } from '../../../shared/utils/sub-sink';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'add-enquiry',
   template: `<page-header header="Add Enquiry">
-      <mx-button  (handleClick)="handleSubmit()">
+      <mx-button (handleClick)="handleSubmit()">
         <span class="flex items-center">
           <p>Save</p>
         </span>
@@ -25,6 +21,7 @@ export class CreateEnquiryComponent implements OnDestroy {
 
   api = inject(ApiService);
   notif = inject(MxNotification);
+  router = inject(Router);
 
   private addRequests = new SubSink();
 
@@ -35,6 +32,7 @@ export class CreateEnquiryComponent implements OnDestroy {
 
   handleSubmit() {
     if (this.EnquiryFormComponent.isInValid()) {
+      this.EnquiryFormComponent.markAllAsTouched();
       return;
     }
     this.addRequests.unsubscribe();
@@ -49,6 +47,7 @@ export class CreateEnquiryComponent implements OnDestroy {
       .subscribe({
         next: () => {
           this.EnquiryFormComponent.reset();
+          this.router.navigate(['/enquiry/list']);
           this.notif.updateToast({
             text: 'Enquiry added',
             id: 'add-enquiry',

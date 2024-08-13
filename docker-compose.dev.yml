@@ -9,15 +9,11 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: fitflow
-      POSTGRES_PORT: 5433
-    expose:
-      - 5433
     ports:
-      - 5433:5433
+      - 5432:5432
     # Volume to persist the data even after the container is stopped
     volumes:
       - ./app-data-mx/data/postgres:/var/lib/postgresql/data
-      - ./infra/postgres.conf:/var/lib/postgresql/data/postgresql.conf # Mount custom config
     # Healthcheck command because other containers depend on this one
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
@@ -27,11 +23,8 @@ services:
 
   redis-mx:
     image: redis:alpine
-    command: --port 6378
     ports:
-      - 6378:6378
-    expose:
-      - '6378'
+      - 6379:6379
     volumes:
       - ./app-data-dev/redis_data:/data
 

@@ -19,6 +19,8 @@ import logWorkoutApi from './id/log-workout.api';
 import getTodaysWorkoutApi from './id/get-todays-workout.api';
 import deleteMemberWorkoutApi from './id/delete-member-workout.api';
 import getLastNMonthsWorkoutLogsApi from './stats/get-last-n-months-workout-logs.api';
+import getMemberPlanListApi from './get-member-plan-list.api';
+import getWorkoutLogApi from './id/get-workout-log.api';
 
 export const member = asyncHandler([
   getMemberList,
@@ -41,4 +43,6 @@ export const member = asyncHandler([
   getTodaysWorkoutApi,
   deleteMemberWorkoutApi,
   getLastNMonthsWorkoutLogsApi,
+  getMemberPlanListApi,
+  getWorkoutLogApi,
 ]);

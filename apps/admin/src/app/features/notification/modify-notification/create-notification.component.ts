@@ -33,7 +33,7 @@ export class CreateNotificationComponent implements OnDestroy {
 
   handleSubmit() {
     if (this.NotificationFormComponent.isInvalid()) {
-      this.NotificationFormComponent.setShowErrors();
+      this.NotificationFormComponent.markAllAsTouched();
       return;
     }
     this.addRequests.unsubscribe();

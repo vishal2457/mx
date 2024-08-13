@@ -100,4 +100,8 @@ export class ExerciseFormComponent implements OnDestroy {
       }
     });
   }
+
+  markAllAsTouched() {
+    this.exerciseForm.markAllAsTouched();
+  }
 }

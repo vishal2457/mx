@@ -79,4 +79,8 @@ export class EnquiryFormComponent {
     this.oldStatusValue = value.status;
     this.enquiryForm.patchValue(value);
   }
+
+  markAllAsTouched() {
+    this.enquiryForm.markAllAsTouched();
+  }
 }

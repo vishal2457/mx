@@ -205,4 +205,8 @@ export class WorkoutTemplateFormComponent {
       this.workoutDetailData[key] = [];
     });
   }
+
+  markAllAsTouched() {
+    this.workoutTemplateForm.markAllAsTouched();
+  }
 }

@@ -54,6 +54,7 @@ export class UpdateExerciseComponent implements OnInit, OnDestroy {
 
   handleSubmit() {
     if (this.exerciseFormComponent.isInValid()) {
+      this.exerciseFormComponent.markAllAsTouched();
       return;
     }
     this.requests.unsubscribe();

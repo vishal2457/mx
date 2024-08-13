@@ -78,6 +78,7 @@ export class UpdateWorkoutTemplateComponent implements OnInit, OnDestroy {
 
   handleSubmit() {
     if (this.workoutTemplateFormComponent.isInValid()) {
+      this.workoutTemplateFormComponent.markAllAsTouched();
       return;
     }
 

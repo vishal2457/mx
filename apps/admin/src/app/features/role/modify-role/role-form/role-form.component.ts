@@ -28,4 +28,8 @@ export class RoleFormComponent {
   get formControls() {
     return this.roleForm.controls;
   }
+
+  markAllAsTouched() {
+    this.roleForm.markAllAsTouched();
+  }
 }

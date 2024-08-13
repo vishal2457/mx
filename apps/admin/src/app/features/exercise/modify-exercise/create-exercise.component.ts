@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  ViewChild,
-  inject,
-} from '@angular/core';
+import { Component, OnDestroy, ViewChild, inject } from '@angular/core';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
@@ -12,7 +7,7 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 @Component({
   selector: 'add-exercise',
   template: `<page-header header="Add Exercise">
-      <mx-button  (handleClick)="handleSubmit()">
+      <mx-button (handleClick)="handleSubmit()">
         <span class="flex items-center">
           <p>Save</p>
         </span>
@@ -21,7 +16,8 @@ import { SubSink } from '../../../shared/utils/sub-sink';
     <exercise-form />`,
 })
 export class CreateExerciseComponent implements OnDestroy {
-  @ViewChild(ExerciseFormComponent) ExerciseFormComponent!: ExerciseFormComponent;
+  @ViewChild(ExerciseFormComponent)
+  ExerciseFormComponent!: ExerciseFormComponent;
 
   api = inject(ApiService);
   notif = inject(MxNotification);
@@ -35,6 +31,7 @@ export class CreateExerciseComponent implements OnDestroy {
 
   handleSubmit() {
     if (this.ExerciseFormComponent.isInValid()) {
+      this.ExerciseFormComponent.markAllAsTouched();
       return;
     }
     this.addRequests.unsubscribe();

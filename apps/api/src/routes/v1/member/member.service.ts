@@ -259,17 +259,34 @@ class MemberService {
   }
 
   memberPlanList(
-    organisationID: Member['organisationID'],
     query: Request['query'],
+    organisationID: Member['organisationID'],
   ) {
-    return getListQueryWithFilters(TB_member, query, [
-      eq(TB_member.organisationID, organisationID),
-    ])
+    return getListQueryWithFilters(TB_memberPlan, query)
+      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
       .innerJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
       .innerJoin(
         TB_organisation,
-        eq(TB_member.organisationID, TB_organisation.id),
+        and(
+          eq(TB_member.organisationID, TB_organisation.id),
+          eq(TB_member.organisationID, organisationID),
+        ),
       );
+  }
+
+  memberWorkoutLog(
+    query: Request['query'],
+    memberID: TmemberWorkoutLog['memberID'],
+  ) {
+    return getListQueryWithFilters(TB_memberWorkoutLog, query, [
+      eq(TB_memberWorkoutLog.memberID, memberID),
+    ]);
+  }
+
+  memberWorkoutLogCount(memberID: TmemberWorkoutLog['memberID']) {
+    return getTotalCountByOrg(TB_memberWorkoutLog).where(
+      eq(TB_memberWorkoutLog.memberID, memberID),
+    );
   }
 }
 

@@ -83,6 +83,7 @@ export class UpdateEnquiryComponent implements OnInit, OnDestroy {
 
   handleSubmit() {
     if (this.enquiryFormComponent.isInValid()) {
+      this.enquiryFormComponent.markAllAsTouched();
       return;
     }
     this.requests.unsubscribe();

@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  ViewChild,
-  inject,
-} from '@angular/core';
+import { Component, OnDestroy, ViewChild, inject } from '@angular/core';
 import { PlanFormComponent } from './plan-form/plan-form.component';
 import { ApiService } from '../../../shared/services/api.service';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
@@ -12,7 +7,7 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 @Component({
   selector: 'add-plan',
   template: `<page-header header="Add Plan">
-      <mx-button  (handleClick)="handleSubmit()">
+      <mx-button (handleClick)="handleSubmit()">
         <span class="flex items-center">
           <p>Save</p>
         </span>
@@ -35,6 +30,7 @@ export class CreatePlanComponent implements OnDestroy {
 
   handleSubmit() {
     if (this.PlanFormComponent.isInValid()) {
+      this.PlanFormComponent.markAllAsTouched();
       return;
     }
     this.addRequests.unsubscribe();

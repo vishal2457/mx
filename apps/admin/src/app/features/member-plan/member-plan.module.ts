@@ -18,6 +18,7 @@ import { MxGridToolbarComponent } from '../../shared/ui/mx-data-grid/components/
 
 import { MemberPlanListComponent } from './member-plan-list/member-plan-list.component';
 import { MemberPlanRoutingModule } from './member-plan-routing.module';
+import { MxBadgeComponent } from '../../shared/ui/badge';
 
 @NgModule({
   declarations: [MemberPlanListComponent],
@@ -31,6 +32,7 @@ import { MemberPlanRoutingModule } from './member-plan-routing.module';
     MxButtonComponent,
     MxIconComponent,
     MxGridFilterComponent,
+    MxBadgeComponent,
   ],
 })
 export class MemberPlanModule {}

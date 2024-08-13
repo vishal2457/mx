@@ -57,7 +57,10 @@ import { MxFormErrorComponent } from '../form-error';
         [placeholder]="placeholder"
       ></ng-select>
 
-      <mx-form-error [errors]="control().errors" />
+      <mx-form-error
+        [errors]="control().errors"
+        [showError]="control().touched || control().dirty"
+      />
 
       @for (hint of hints; track hint) {
         <mx-hint [message]="hint" />

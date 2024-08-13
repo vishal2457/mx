@@ -34,6 +34,7 @@ import { ViewInvoiceComponent } from './components/invoice.component';
 import { NgxPrintModule } from 'ngx-print';
 import { QuickAddPlanComponent } from './components/quick-add-plan.component';
 import { UpdateMemberDialogComponent } from './components/update-member-dialog.component';
+import { WorkoutLogsComponent } from './components/workout-logs.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UpdateMemberDialogComponent } from './components/update-member-dialog.c
     ViewInvoiceComponent,
     QuickAddPlanComponent,
     UpdateMemberDialogComponent,
+    WorkoutLogsComponent,
   ],
   imports: [
     CommonModule,

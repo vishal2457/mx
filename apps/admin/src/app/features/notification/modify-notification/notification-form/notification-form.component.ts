@@ -17,7 +17,6 @@ export class NotificationFormComponent {
     }),
     notificationImage: new FormControl<null | File>(null),
   });
-  protected showErrors = false;
 
   get notificationFormControls() {
     return this.notificationForm.controls;
@@ -31,15 +30,15 @@ export class NotificationFormComponent {
     return this.notificationForm.invalid;
   }
 
-  setShowErrors() {
-    this.showErrors = true;
-  }
-
   reset() {
     this.notificationForm.reset();
   }
 
   handleFileChange(file: File) {
     this.notificationForm.patchValue({ notificationImage: file });
+  }
+
+  markAllAsTouched() {
+    this.notificationForm.markAllAsTouched();
   }
 }
