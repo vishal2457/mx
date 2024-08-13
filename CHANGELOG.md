@@ -1,3 +1,15 @@
+# [3.17.0](https://github.com/vishal2457/mx/compare/v3.16.0...v3.17.0) (2024-08-13)
+
+
+### Bug Fixes
+
+* create new enquiry bugfix ([eead6c3](https://github.com/vishal2457/mx/commit/eead6c3b9b22444410c4413483322712260e269e))
+
+
+### Features
+
+* member plans added ([34b77ae](https://github.com/vishal2457/mx/commit/34b77ae0e983f3bed3264cafb8a24c3ba7afc5da))
+
 # [3.16.0](https://github.com/vishal2457/mx/compare/v3.15.0...v3.16.0) (2024-08-12)
 
 
