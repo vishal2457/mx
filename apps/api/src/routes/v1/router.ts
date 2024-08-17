@@ -39,9 +39,6 @@ import meApi from './user/me.api';
 import { workoutTemplate } from './workout-template';
 
 import { enquiry } from './enquiry';
-
-import { memberPlan } from './member-plan';
-
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
