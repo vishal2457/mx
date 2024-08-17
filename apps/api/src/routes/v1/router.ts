@@ -40,7 +40,10 @@ import { workoutTemplate } from './workout-template';
 
 import { enquiry } from './enquiry';
 
+import { memberPlan } from './member-plan';
+
 // IMPORT GENERATED FILES
+
 
 const routerv1 = Router();
 
@@ -81,6 +84,8 @@ routerv1
   .use('/exercise', exercise)
   .use('/workout-template', workoutTemplate)
   .use('/enquiry', enquiry);
+.use("/member-plan", memberPlan)
 // APPEND API ROUTES
+
 
 export default routerv1;

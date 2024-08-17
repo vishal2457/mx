@@ -101,7 +101,16 @@ const routes: Routes = [
             (m) => m.MemberPlanModule
           ),
       },
+      {
+        path: "member-plan",
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import("./features/member-plan/member-plan.module").then(
+            (m) => m.MemberPlanModule
+          ),
+      },
 // APPEND ANGULAR ROUTES
+
 
     ],
   },

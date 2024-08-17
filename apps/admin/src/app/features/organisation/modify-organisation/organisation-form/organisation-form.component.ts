@@ -75,4 +75,8 @@ export class OrganisationFormComponent {
   handleLogoChange(file: any) {
     this.organisationForm.patchValue({ logo: file });
   }
+
+  markAllAsTouched() {
+    this.organisationForm.markAllAsTouched();
+  }
 }

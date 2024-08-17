@@ -56,6 +56,7 @@ export class CreateOrganisationComponent implements OnDestroy, OnInit {
 
   handleSubmit() {
     if (this.OrganisationFormComponent.isInValid()) {
+      this.OrganisationFormComponent.markAllAsTouched();
       return;
     }
     this.addRequests.unsubscribe();
