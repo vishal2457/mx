@@ -18,7 +18,7 @@ export const TB_memberWorkoutLog = pgTable('memberWorkoutLog', {
   completedTime: integer('completedTime').notNull(),
   intensity: workoutIntensityEnum('intensity').default('Moderate'),
   approxCalorieBurn: integer('approxCalorieBurn'),
-  createdAt: timestamp('createdAt').defaultNow(),
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
 });
 
 export const Z_memberWorkoutLog = createSelectSchema(TB_memberWorkoutLog);

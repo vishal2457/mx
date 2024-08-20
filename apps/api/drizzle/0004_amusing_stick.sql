@@ -1,0 +1,1 @@
+ALTER TABLE "memberWorkoutLog" ALTER COLUMN "createdAt" SET NOT NULL;
