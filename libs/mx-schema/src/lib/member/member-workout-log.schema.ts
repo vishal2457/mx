@@ -9,9 +9,9 @@ export const TB_memberWorkoutLog = pgTable('memberWorkoutLog', {
   memberID: integer('memberID')
     .notNull()
     .references(() => TB_member.id),
-  workoutTemplateDetailID: integer('workoutTemplateDetailID')
-    .notNull()
-    .references(() => TB_workoutTemplateDetail.id),
+  workoutTemplateDetailID: integer('workoutTemplateDetailID').references(
+    () => TB_workoutTemplateDetail.id,
+  ),
   sets: integer('sets').notNull(),
   reps: text('reps').notNull(),
   exerciseName: text('exerciseName').notNull(),

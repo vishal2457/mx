@@ -1,4 +1,4 @@
-import { and, count, desc, eq, ne, sql } from 'drizzle-orm';
+import { and, count, desc, eq, isNull, ne, not, sql } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_exercise,
@@ -152,6 +152,19 @@ class WorkoutTemplateService {
         and(
           eq(TB_workoutTemplateDetail.day, day),
           eq(TB_workoutTemplateDetail.workoutTemplateID, workoutTemplateID),
+        ),
+      );
+  }
+
+  getWorkoutLoggedManuallyToday(memberID: TMember['id']) {
+    return db
+      .select()
+      .from(TB_memberWorkoutLog)
+      .where(
+        and(
+          eq(TB_memberWorkoutLog.memberID, memberID),
+          sql`DATE(${TB_memberWorkoutLog.createdAt}) = CURRENT_DATE`,
+          isNull(TB_memberWorkoutLog.workoutTemplateDetailID),
         ),
       );
   }

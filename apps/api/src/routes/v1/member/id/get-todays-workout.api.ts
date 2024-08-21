@@ -28,6 +28,9 @@ export default Router().get(
       req.user.id,
     );
 
-    success(res, todaysWorkout, 'Todays workout');
+    const workoutLoggedToday =
+      await workoutTemplateService.getWorkoutLoggedManuallyToday(req.user.id);
+
+    success(res, { todaysWorkout, workoutLoggedToday }, 'Todays workout');
   },
 );

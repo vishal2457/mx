@@ -21,6 +21,7 @@ const {
   FIREBASE_PRIVATE_KEY_ID,
   RAZORPAY_KEY,
   RAZORPAY_SECRET,
+  OPEN_AI_API,
 } = process.env;
 
 export const APP_SETTINGS = {
@@ -49,4 +50,5 @@ export const APP_SETTINGS = {
   RAZORPAY_SECRET,
   REDIS_HOST,
   REDIS_PORT,
+  OPEN_AI_API,
 };

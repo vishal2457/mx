@@ -31,6 +31,12 @@ export default Router().put(
     }
 
     const [result] = await memberService.updateMember(req.body, req.params.id);
+    if (req.body.weight && member.weight !== req.body.weight) {
+      await memberService.createMemberWeightHistory({
+        weight: req.body.weight,
+        memberID: member.id,
+      });
+    }
     delete result.passcode;
     success(res, result, 'updated');
   },
