@@ -36,6 +36,13 @@
       "when": 1724174603170,
       "tag": "0004_amusing_stick",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1724258195671,
+      "tag": "0005_amusing_metal_master",
+      "breakpoints": true
     }
   ]
 }
