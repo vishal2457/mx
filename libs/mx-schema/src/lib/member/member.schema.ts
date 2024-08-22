@@ -13,7 +13,10 @@ import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 import { qs } from '../_zod-utils/parser';
 import { TB_organisation } from '../organisation/organisation.schema';
-import { TB_workoutTemplate } from '../workout/workout-template.schema';
+import {
+  TB_workoutTemplate,
+  workoutGoalEnum,
+} from '../workout/workout-template.schema';
 
 export const GENDERS = ['Male', 'Female'] as const;
 export const EXPERIENCE_LEVEL = ['expert', 'intermediate', 'beginner'] as const;
@@ -42,6 +45,7 @@ export const TB_member = pgTable('member', {
   profilePic: text('profilePic'),
   active: boolean('active').default(true),
   experience: experienceEnum('experience').default('intermediate'),
+  goal: workoutGoalEnum('goal').default('Stay fit'),
   workoutTemplateID: integer('workoutTemplateID').references(
     () => TB_workoutTemplate.id,
   ),
