@@ -43,6 +43,13 @@
       "when": 1724258195671,
       "tag": "0005_amusing_metal_master",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1724342857995,
+      "tag": "0006_lush_alex_power",
+      "breakpoints": true
     }
   ]
 }

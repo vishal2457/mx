@@ -1,0 +1,1 @@
+ALTER TABLE "member" ADD COLUMN "goal" "workouteGoal" DEFAULT 'Stay fit';
