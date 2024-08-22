@@ -1,3 +1,10 @@
+# [3.18.0](https://github.com/vishal2457/mx/compare/v3.17.0...v3.18.0) (2024-08-21)
+
+
+### Features
+
+* wotkout logs api changes, workout log schema changes ([b6a34f8](https://github.com/vishal2457/mx/commit/b6a34f8dcce60baca9bb1ba4a31911c0215cd9d4))
+
 # [3.17.0](https://github.com/vishal2457/mx/compare/v3.16.0...v3.17.0) (2024-08-13)
 
 
