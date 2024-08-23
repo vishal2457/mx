@@ -99,13 +99,13 @@ services:
   #   depends_on:
   #     - db
 
-  # nginx-mx:
-  #   image: mx-nginx
-  #   build:
-  #     context: ./
-  #     dockerfile: ./infra/Dockerfile.nginx
-  #   ports:
-  #     - 3001:3001
-  #     - 4200:4200
-  #   depends_on:
-  #     - api-mx
+  nginx-mx:
+    image: mx-nginx
+    build:
+      context: ./
+      dockerfile: ./infra/Dockerfile.nginx
+    ports:
+      - 3001:3001
+      - 4200:4200
+    depends_on:
+      - api-mx

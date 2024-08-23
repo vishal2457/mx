@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import openAI from 'openai';
-import { v_param_id } from '../../../../../../../libs/mx-schema/src';
 import { success } from '../../../../shared/api-response/response-handler';
 import { APP_SETTINGS } from '../../../../shared/app-settings';
-import { validate } from '../../../../shared/middlewares/validation.middleware';
 
+let openai;
 // create a new instance of the openai API
-const openai = new openAI({
-  apiKey: APP_SETTINGS.OPEN_AI_API,
-});
+if (APP_SETTINGS.OPEN_AI_API) {
+  openai = new openAI({
+    apiKey: APP_SETTINGS.OPEN_AI_API,
+  });
+}
 
 export default Router().post('/gen-workout', async (req, res) => {
   const {
