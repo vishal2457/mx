@@ -92,5 +92,5 @@ jobs:
             docker compose  -f docker-compose.prod.yml --profile prod pull
             docker compose  -f docker-compose.prod.yml --profile prod up -d
 
-      - name: Run db migrations
-        run: npm run db:push
+      # - name: Run db migrations
+      #   run: npm run db:push
