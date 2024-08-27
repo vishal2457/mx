@@ -8,6 +8,7 @@ import { validate } from '../../../shared/middlewares/validation.middleware';
 import { Z_member } from '../../../../../../libs/mx-schema/src';
 import { checkPassword } from '../../../shared/password-hash';
 import { generateToken } from '../../../shared/jwt/token-utils';
+import { APP_SETTINGS } from '../../../shared/app-settings';
 
 export default Router().post(
   '/login',
@@ -32,7 +33,11 @@ export default Router().post(
 
     success(
       res,
-      { token, member: { ...result.member, trainer: result.user } },
+      {
+        token,
+        member: { ...result.member, trainer: result.user },
+        enableAI: APP_SETTINGS.ENABLE_AI_TAB,
+      },
       'success',
     );
   },

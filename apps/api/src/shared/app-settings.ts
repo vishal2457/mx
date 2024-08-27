@@ -22,6 +22,7 @@ const {
   RAZORPAY_KEY,
   RAZORPAY_SECRET,
   OPEN_AI_API,
+  ENABLE_AI_TAB = 0,
 } = process.env;
 
 export const APP_SETTINGS = {
@@ -51,4 +52,5 @@ export const APP_SETTINGS = {
   REDIS_HOST,
   REDIS_PORT,
   OPEN_AI_API,
+  ENABLE_AI_TAB: ENABLE_AI_TAB == 0 ? false : true,
 };
