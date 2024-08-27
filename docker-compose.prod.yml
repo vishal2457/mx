@@ -84,7 +84,6 @@ services:
       context: ./
       dockerfile: ./infra/Dockerfile.nginx
     ports:
-      - 3001:3001
-      - 4200:4200
+      - 80:80
     depends_on:
       - api-mx
