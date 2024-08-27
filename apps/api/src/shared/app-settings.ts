@@ -5,7 +5,7 @@ const {
   ENCRYPT = false,
   NODE_HOST = 'localhost',
   REDIS_HOST = 'redis-mx',
-  REDIS_PORT = '6378',
+  REDIS_PORT = '6379',
   DB_NAME = 'fitflow',
   DB_HOST = 'db-mx',
   DB_PORT = '5432',
