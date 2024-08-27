@@ -23,10 +23,11 @@ services:
 
   redis-mx:
     image: redis:alpine
+    command: ['redis-server', '--bind', 'redis', '--port', '6379']
     ports:
       - 6379:6379
     volumes:
-      - ./app-data-dev/redis_data:/data
+      - ./app-data-mx/redis_data:/data
 
   api-mx:
     image: vishal2457/mx-api
