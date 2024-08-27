@@ -100,6 +100,10 @@ const bodyValidator = z.union([
   Z_plan.pick({ periodInMonths: true, amount: true }),
   z.object({ organisation: Z_organisation.pick({ name: true, email: true }) }),
 ]);
+const passcode = Math.floor(1000 + Math.random() * 9000);
+console.log(passcode);
+
+console.log(hashPassword(passcode.toString()));
 
 export default Router().post(
   '/create',
@@ -109,9 +113,9 @@ export default Router().post(
   }),
   async (req, res) => {
     const member = await memberService.getByEmail(req.body.email);
-    // if (member) {
-    //   return other(res, `Member with email ${req.body.email} already exist`);
-    // }
+    if (member) {
+      return other(res, `Member with email ${req.body.email} already exist`);
+    }
 
     const passcode = Math.floor(1000 + Math.random() * 9000);
 

@@ -86,10 +86,6 @@ export class WorkoutTemplateFormComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
-    approxTimeToCompleteInM: new FormControl(null, {
-      validators: [Validators.min(0)],
-      nonNullable: true,
-    }),
     active: new FormControl(true, {
       nonNullable: true,
     }),

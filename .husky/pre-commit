@@ -1,7 +1,12 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+echo "Building member app"
+sh scripts/build-member-web.sh
+
+
 npm run lint:affected
 npm run migration:g
+
 
 echo "\033[31m!!!!!!!!!Please commit your migrations file if any!!!!!!!!!\033[0m"

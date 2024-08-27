@@ -11,7 +11,7 @@ export default Router().get('/me', secure, async (req, res) => {
   const permissions = await roleService.getRolePermissionByUserID(req.user.id);
   const [result] = await userService.getUserByID(req.user.id);
   if (!result) {
-    unauthorized(res, 'User not found');
+    return unauthorized(res, 'User not found');
   }
   delete result.user.password;
   success(res, { permissions, ...result }, 'User info');

@@ -16,12 +16,6 @@
       [items]="workoutGoalEnums"
       [control]="formControls.workoutGoal"
     />
-    <mx-input-number
-      label="Approx time to complete"
-      [control]="formControls.approxTimeToCompleteInM"
-      type="number"
-      [hints]="['Enter time in minutes, eg: 45 or 80']"
-    />
     <mx-checkbox [control]="formControls.active" label="Active" />
   </div>
   <mx-textarea label="Description" [control]="formControls.description" />

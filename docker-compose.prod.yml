@@ -79,6 +79,7 @@ services:
   #     - api-mx
 
   nginx-mx:
+    profiles: ['prod']
     image: vishal2457/mx-nginx
     build:
       context: ./
