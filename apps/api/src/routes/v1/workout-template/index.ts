@@ -5,13 +5,14 @@ import deleteWorkoutTemplate from './id/delete-workout-template.api';
 import updateWorkoutTemplate from './id/update-workout-template.api';
 import getWorkoutTemplate from './id/get-workout-template.api';
 import { asyncHandler } from '../../../shared/async-handler.util';
-
+import calculateCalorieApi from './calculate-calorie.api';
 
 export const workoutTemplate = asyncHandler([
-getWorkoutTemplateList,
-getWorkoutTemplate,
-createWorkoutTemplate,
-deleteWorkoutTemplate,
-updateWorkoutTemplate,
-getAllWorkoutTemplate
-])
+  getWorkoutTemplateList,
+  getWorkoutTemplate,
+  createWorkoutTemplate,
+  deleteWorkoutTemplate,
+  updateWorkoutTemplate,
+  getAllWorkoutTemplate,
+  calculateCalorieApi,
+]);

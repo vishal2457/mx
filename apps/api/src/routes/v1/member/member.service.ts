@@ -8,6 +8,7 @@ import {
   TB_memberWorkoutLog,
   TB_organisation,
   TB_plan,
+  TB_user,
   TB_workoutTemplate,
   TMemberPlan,
   TmemberWorkoutLog,
@@ -64,9 +65,9 @@ class MemberService {
     query: Request['query'],
     organisationID: Member['organisationID'],
   ) {
-    return getListQueryWithFilters(TB_member, query).where(
+    return getListQueryWithFilters(TB_member, query, [
       eq(TB_member.organisationID, organisationID),
-    );
+    ]);
   }
 
   getAllMembers() {
@@ -126,9 +127,12 @@ class MemberService {
     if (omitID) {
       where = and(eq(TB_member.email, email), not(eq(TB_member.id, omitID)));
     }
-    return db.query.TB_member.findFirst({
-      where,
-    });
+
+    return db
+      .select()
+      .from(TB_member)
+      .where(where)
+      .leftJoin(TB_user, eq(TB_member.userID, TB_user.id));
   }
 
   // start new subscription

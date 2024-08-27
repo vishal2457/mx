@@ -22,19 +22,19 @@ export default Router().put(
     params: v_param_id,
   }),
   async (req, res) => {
-    const member = await memberService.getByEmail(
+    const [existingMember] = await memberService.getByEmail(
       req.body.email,
       req.params.id,
     );
-    if (member) {
+    if (existingMember) {
       return other(res, `Member with email ${req.body.email} already exist`);
     }
 
     const [result] = await memberService.updateMember(req.body, req.params.id);
-    if (req.body.weight && member.weight !== req.body.weight) {
+    if (req.body.weight && result.weight !== req.body.weight) {
       await memberService.createMemberWeightHistory({
         weight: req.body.weight,
-        memberID: member.id,
+        memberID: req.params.id,
       });
     }
     delete result.passcode;

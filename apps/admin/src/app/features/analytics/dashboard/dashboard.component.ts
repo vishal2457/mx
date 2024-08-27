@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
     recieved: new Date(),
   };
   mock = new Array(10).fill(this.mockItem);
-  private readonly MONTHS = [
+  protected readonly MONTHS = [
     'Jan',
     'Feb',
     'Mar',
@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
     'Dec',
   ];
 
-  timefilter = new FormControl('last 7 days');
+  timefilter = new FormControl('Jan');
   newCustomerByMonthCount = 0;
   revenueThisMonth = 0;
   openEnquiries = 0;

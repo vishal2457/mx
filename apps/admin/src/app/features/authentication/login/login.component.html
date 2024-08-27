@@ -1,29 +1,45 @@
-<auth-container>
-  <div class="grid gap-4">
-    <div class="grid gap-2">
-      <mx-input
-        [control]="loginForm.controls.email"
-        [showErrors]="showErrors"
-        type="email"
-        label="Email"
-        placeholder="name@example.com"
-      />
+<div
+  class="grid h-screen place-items-center bg-gradient-to-r from-blue-200 to-cyan-200"
+>
+  <div mxCard class="w-[25rem]">
+    <div mxCardHeader>
+      <div mxCardtitle class="align-center flex justify-center">
+        <img src="/assets/logo.png" class="h-20 w-h-20" />
+      </div>
     </div>
-    <div class="grid gap-2">
-      <mx-input-password
-        [control]="loginForm.controls.password"
-        [showErrors]="showErrors"
-        label="Password"
-        type="password"
-        placeholder="Enter your password"
-        [regsiterMode]="false"
-      />
-      <div>
-        <a class="text-sm text-blue-500 cursor-pointer hover:underline"
-          >Forgot Password?</a
+    <div mxCardContent>
+      <div class="flex justify-center align-center">
+        <p class="text-2xl self-end">Control Panel</p>
+      </div>
+
+      <div class="grid gap-4">
+        <mx-input
+          [control]="loginForm.controls.email"
+          type="email"
+          label="Email"
+          placeholder="name@example.com"
+        />
+        @if (!forgotPassword) {
+          <mx-input-password
+            [control]="loginForm.controls.password"
+            label="Password"
+            type="password"
+            placeholder="Enter your password"
+            [regsiterMode]="false"
+          />
+        }
+        <div>
+          <a
+            class="text-sm text-blue-500 cursor-pointer hover:underline"
+            (click)="forgotPassword = !forgotPassword"
+          >
+            {{ forgotPassword ? 'Login' : 'Forgot Password?' }}</a
+          >
+        </div>
+        <mx-button type="button" (handleClick)="handleSubmit()"
+          >Login</mx-button
         >
       </div>
     </div>
-    <mx-button type="button" (handleClick)="handleSubmit()">Login</mx-button>
   </div>
-</auth-container>
+</div>

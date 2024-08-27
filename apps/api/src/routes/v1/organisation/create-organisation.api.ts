@@ -26,11 +26,6 @@ export default Router().post(
       req.body['logo'] = req.file.filename;
     }
 
-    const [existing] = await organisationService.getByEmail(req.body.email);
-    if (existing) {
-      return other(res, 'Organisation with this email already exist');
-    }
-
     db.transaction(async (tx) => {
       const [org] = await organisationService.createOrganisation(req.body, tx);
       const [role] = await roleService.createRole(

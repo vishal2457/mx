@@ -14,6 +14,7 @@ import { MxGridShellComponent } from '../../../../shared/grid-shell/grid-shell';
 import { calculateBMI } from '../../../../../../../../libs/helpers/src';
 import * as echarts from 'echarts';
 import { UpdateMemberDialogComponent } from '../../components/update-member-dialog.component';
+import { WorkoutLogsComponent } from '../../components/workout-logs.component';
 
 @Component({
   selector: 'edit-member',
@@ -154,6 +155,12 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
         this.fetchMemberDetails(this.memberID);
         // this.gridShell.refresh();
       }
+    });
+  }
+
+  openWorkoutLogs() {
+    this.dialog.open(WorkoutLogsComponent, {
+      data: this.memberData,
     });
   }
 }

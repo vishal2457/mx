@@ -38,11 +38,12 @@ import { Router } from '@angular/router';
       <mx-grid-filter label="Mobile" field="mobile" />
       <mx-grid-filter label="Email" field="email" />
       <mx-grid-filter label="Goal" field="goal" />
-      <mx-grid-filter label="Status" field="status" />
-      <mx-grid-filter label="UserId" field="userID" />
-      <mx-grid-filter label="Terms" field="terms" />
-      <mx-grid-filter label="CreatedAt" field="createdAt" />
-      <mx-grid-filter label="UpdatedAt" field="updatedAt" />
+      <mx-grid-filter
+        type="select"
+        label="Status"
+        field="status"
+        [items]="['Open', 'Closed']"
+      />
       <!-- filters -->
 
       <!-- actions -->

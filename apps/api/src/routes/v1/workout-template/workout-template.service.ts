@@ -98,7 +98,8 @@ class WorkoutTemplateService {
     return db
       .select({ count: count() })
       .from(TB_workoutTemplateDetail)
-      .where(eq(TB_workoutTemplateDetail.workoutTemplateID, workoutTemplateID));
+      .where(eq(TB_workoutTemplateDetail.workoutTemplateID, workoutTemplateID))
+      .groupBy(TB_workoutTemplateDetail.day);
   }
 
   getLastWorkoutDay(memberID: TMember['id']) {

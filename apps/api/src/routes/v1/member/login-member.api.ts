@@ -13,23 +13,27 @@ export default Router().post(
   '/login',
   validate({ body: Z_member.pick({ email: true, passcode: true }) }),
   async (req, res) => {
-    const member = await memberService.getByEmail(req.body.email);
-    if (!member) {
+    const [result] = await memberService.getByEmail(req.body.email);
+    if (!result) {
       return unauthorized(res, 'Invalid credentials');
     }
 
-    if (!checkPassword(req.body.passcode, member.passcode)) {
+    if (!checkPassword(req.body.passcode, result.member.passcode)) {
       return unauthorized(res, 'Invalid credentials');
     }
-    delete member.passcode;
+    delete result.member.passcode;
     const payload = {
-      id: member.id,
-      email: member.email,
-      organisationID: member.organisationID,
-      workoutTemplateID: member.workoutTemplateID,
+      id: result.member.id,
+      email: result.member.email,
+      organisationID: result.member.organisationID,
+      workoutTemplateID: result.member.workoutTemplateID,
     };
     const token = generateToken(payload);
 
-    success(res, { token, member }, 'success');
+    success(
+      res,
+      { token, member: { ...result.member, trainer: result.user } },
+      'success',
+    );
   },
 );

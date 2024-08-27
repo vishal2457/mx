@@ -59,13 +59,23 @@
         <div mxCardtitle class="text-lg capitalize">
           {{ memberData?.name }}
         </div>
-        <mx-button
+        <div class="flex gap-1">
+
+          <mx-button
           variant="ghost"
           size="icon"
-          (handleClick)="openUpdateMember()"
+          (handleClick)="openWorkoutLogs()"
         >
-          <mx-icon icon="edit" />
+          <mx-icon icon="summarize" />
         </mx-button>
+          <mx-button
+            variant="ghost"
+            size="icon"
+            (handleClick)="openUpdateMember()"
+          >
+            <mx-icon icon="edit" />
+          </mx-button>
+        </div>
       </div>
       <div mxCardContent class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <span>

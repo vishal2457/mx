@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { and, eq, ne } from 'drizzle-orm';
 import { Request } from 'express';
 import { TB_organisation } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
@@ -44,11 +44,13 @@ class OrganisationService {
     return db.select().from(TB_organisation).where(eq(TB_organisation.id, id));
   }
 
-  getByEmail(email: Organisation['email']) {
+  getByEmail(email: Organisation['email'], notID: Organisation['id']) {
     return db
       .select()
       .from(TB_organisation)
-      .where(eq(TB_organisation.email, email));
+      .where(
+        and(eq(TB_organisation.email, email), ne(TB_organisation.id, notID)),
+      );
   }
 }
 

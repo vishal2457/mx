@@ -29,6 +29,7 @@ import { MxBadgeComponent } from '../../shared/ui/badge';
     DisplayCurrencyComponent,
     MxGridShellComponent,
     MxBadgeComponent,
+    MxSelectComponent,
   ],
 })
 export class AnalyticsModule {}

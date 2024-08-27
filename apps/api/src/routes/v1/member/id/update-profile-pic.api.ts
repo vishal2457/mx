@@ -6,7 +6,7 @@ import {
 import { ImageUpload } from '../../../../shared/middlewares/multer.middleware';
 import { memberService } from '../member.service';
 
-export default Router().patch(
+export default Router().put(
   '/update-profile-pic/:id',
   ImageUpload.single('profile-pic'),
   async (req, res) => {

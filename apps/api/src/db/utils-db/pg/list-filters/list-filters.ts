@@ -44,6 +44,7 @@ export const getListQueryWithFilters = (
     .from(table)
     .$dynamic();
   const expandedFilters: FilterData[] = expandFilters(filters);
+
   const whereCondition: any[] = [...defaultWhere];
   // add where conditions
   if (expandedFilters?.length) {
@@ -96,5 +97,6 @@ export const getListQueryWithFilters = (
     });
     query.limit(pagination.limit).offset(pagination.offset);
   }
+
   return query;
 };
