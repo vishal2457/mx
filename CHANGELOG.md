@@ -1,3 +1,10 @@
+# [3.19.0](https://github.com/vishal2457/mx/compare/v3.18.0...v3.19.0) (2024-08-27)
+
+
+### Features
+
+* user workout logs added in admin panel ([8229072](https://github.com/vishal2457/mx/commit/8229072d5c5c09741ec056ad54afa2b87ae45c5a))
+
 # [3.18.0](https://github.com/vishal2457/mx/compare/v3.17.0...v3.18.0) (2024-08-21)
 
 
