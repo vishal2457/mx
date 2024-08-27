@@ -1,0 +1,1 @@
+ALTER TABLE "workoutTemplate" DROP COLUMN IF EXISTS "approxTimeToCompleteInM";

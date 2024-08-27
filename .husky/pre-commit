@@ -4,9 +4,12 @@
 echo "Building member app"
 sh scripts/build-member-web.sh
 
+git add member-web-build
+git commit --no-verify -m "chore: member app build added"
+
+
 
 npm run lint:affected
 npm run migration:g
-
 
 echo "\033[31m!!!!!!!!!Please commit your migrations file if any!!!!!!!!!\033[0m"

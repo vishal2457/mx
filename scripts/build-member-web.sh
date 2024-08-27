@@ -39,5 +39,3 @@ copy_files "$BUILD_DIR" "$TARGET_DIR"
 
 echo "Build and copy process completed successfully!"
 
-git add member-web-build
-git commit --no-verify -m "chore: member app build added"
