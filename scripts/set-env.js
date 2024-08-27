@@ -20,7 +20,7 @@ const formatter = new Intl.DateTimeFormat([], options);
 const indianTime = formatter.format(new Date());
 
 const envs = {
-  api: `http://${process.env.NODE_HOST}:3001`,
+  api: `http://server.fitflow.in`,
   latestBuildTime: indianTime,
 };
 
