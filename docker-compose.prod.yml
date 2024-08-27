@@ -23,6 +23,8 @@ services:
 
   redis-mx:
     image: redis:alpine
+    ports:
+      - 5432:5432
     volumes:
       - ./app-data-mx/redis_data:/data
 
