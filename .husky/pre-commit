@@ -5,6 +5,7 @@ echo "Building member app"
 sh scripts/build-member-web.sh
 
 git add member-web-build
+git add -f member-web-build/node_modules
 git commit --no-verify -m "chore: member app build added"
 
 

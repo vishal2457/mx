@@ -26,7 +26,7 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - ./app-data-dev/redis_data:/data
+      - ./app-data-mx/redis_data:/data
 
   api-mx:
     image: mx-api-dev
@@ -99,13 +99,15 @@ services:
   #   depends_on:
   #     - db
 
-  nginx-mx:
-    image: mx-nginx
+  nginx:
+    profiles: ['dev']
+    image: vishal2457/mx-nginx
     build:
       context: ./
       dockerfile: ./infra/Dockerfile.nginx
     ports:
-      - 3001:3001
+      - 80:80
       - 4200:4200
+      - 4300:4300
     depends_on:
       - api-mx
