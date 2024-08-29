@@ -7,6 +7,9 @@ import { logger } from './shared/logger/logger';
 import { checkDbConnection } from './db/db';
 import { socketManager } from './shared/socket';
 
+// 2141
+// $2a$10$iYvyIXyxLbxezcRP.S/G/.pHPe.cnd2o7izvdjVv9pi78NyXk0ifC
+
 async function main() {
   const server = http.createServer(app);
   checkDbConnection();

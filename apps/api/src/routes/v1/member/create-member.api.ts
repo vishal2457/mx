@@ -100,10 +100,6 @@ const bodyValidator = z.union([
   Z_plan.pick({ periodInMonths: true, amount: true }),
   z.object({ organisation: Z_organisation.pick({ name: true, email: true }) }),
 ]);
-const passcode = Math.floor(1000 + Math.random() * 9000);
-console.log(passcode);
-
-console.log(hashPassword(passcode.toString()));
 
 export default Router().post(
   '/create',

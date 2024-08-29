@@ -1,21 +1,21 @@
 import { Router } from 'express';
-import { other, success } from '../../../shared/api-response/response-handler';
-import { ImageUpload } from '../../../shared/middlewares/multer.middleware';
-import { hashPassword } from '../../../shared/password-hash';
-import { userService } from '../user/user.service';
-import { organisationService } from './organisation.service';
-import { db } from '../../../db/db';
-import { roleService } from '../role/role.service';
 import {
   PERMISSIONS,
   RESOURCES,
   TB_rolePermission,
 } from '../../../../../../libs/mx-schema/src';
-import { processEmailQueue } from '../../../shared/queue/process-email/process-email.queue';
-import { exerciseService } from '../exercise/exercise.service';
-import { exerciseData } from '../../../db/seed/exersice';
+import { db } from '../../../db/db';
 import { bodyPartsData } from '../../../db/seed/body-parts';
+import { exerciseData } from '../../../db/seed/exersice';
+import { success } from '../../../shared/api-response/response-handler';
+import { ImageUpload } from '../../../shared/middlewares/multer.middleware';
+import { hashPassword } from '../../../shared/password-hash';
+import { processEmailQueue } from '../../../shared/queue/process-email/process-email.queue';
 import { bodyPartService } from '../body-part/body-part.service';
+import { exerciseService } from '../exercise/exercise.service';
+import { roleService } from '../role/role.service';
+import { userService } from '../user/user.service';
+import { organisationService } from './organisation.service';
 
 export default Router().post(
   '/create',
@@ -77,7 +77,7 @@ export default Router().post(
 
       const exercisePayload = exerciseData.map((value) => ({
         name: value.name,
-        description: value.instructions.join(', '),
+        description: value.instructions.join('##'),
         mechanic: value.mechanic,
         equipment: value.equipment,
         category: value.category,
