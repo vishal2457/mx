@@ -3,6 +3,7 @@ import {
   Component,
   Inject,
   inject,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -10,6 +11,7 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { MxSelectComponent } from '../../../shared/ui/form/mx-select/mx-select';
 import { ApiService } from '../../../shared/services/api.service';
 import { patchableDate } from '../../../shared/utils/patchable-date';
+import { TMemberPlan } from '../../../../../../../libs/mx-schema/src';
 
 @Component({
   selector: 'add-membership-dialog',
@@ -32,7 +34,7 @@ import { patchableDate } from '../../../shared/utils/patchable-date';
         #planSelect
       />
       <mx-input
-        type="date"
+        [type]="'date'"
         [control]="membershipForm.controls.startDate"
         label="Membership Start Date"
       />
@@ -55,10 +57,16 @@ import { patchableDate } from '../../../shared/utils/patchable-date';
     </mx-dialog-footer>
   </mx-dialog-content>`,
 })
-export class AddMembershipDialogComponent {
+export class AddMembershipDialogComponent implements OnInit {
   constructor(
     private dialogRef: DialogRef<{ refresh: boolean }>,
-    @Inject(DIALOG_DATA) private data: { memberID: number; email: string },
+    @Inject(DIALOG_DATA)
+    private data: {
+      memberID: number;
+      email: string;
+      edit: boolean;
+      payload: TMemberPlan;
+    },
   ) {}
 
   @ViewChild('planSelect', { static: false }) planSelect!: MxSelectComponent;
@@ -78,7 +86,7 @@ export class AddMembershipDialogComponent {
   private api = inject(ApiService);
 
   membershipForm = this.fb.group({
-    planID: new FormControl(null, {
+    planID: new FormControl<number | null>(null, {
       validators: [Validators.required],
     }),
     startDate: new FormControl(patchableDate(), {
@@ -89,18 +97,46 @@ export class AddMembershipDialogComponent {
     }),
   });
 
+  ngOnInit(): void {
+    if (this.data.edit) {
+      const { planID, startDate, paid } = this.data.payload;
+      this.membershipForm.patchValue({
+        planID,
+        startDate: patchableDate(startDate),
+        paid,
+      });
+    }
+  }
+
   handleMembershipAdd() {
     const periodInMonths = this.planSelect.items.find(
       (i) => i.id === this.membershipForm.value.planID,
     ).periodInMonths;
-    this.api
-      .post(`/member/renew-membership/${this.data.memberID}`, {
-        ...this.membershipForm.value,
-        periodInMonths,
-        email: this.data.email,
-      })
-      .subscribe(() => {
-        this.dialogRef.close({ refresh: true });
-      });
+    const payload = {
+      ...this.membershipForm.value,
+      periodInMonths,
+      email: this.data.email,
+    };
+
+    let req = this.api.post(`/member/renew-membership/${this.data.memberID}`, {
+      ...this.membershipForm.value,
+      periodInMonths,
+      email: this.data.email,
+    });
+
+    if (this.data.edit) {
+      req = this.api.put(
+        `/member/update-membership/${this.data.payload.id}/${this.data.memberID}`,
+        {
+          ...this.membershipForm.value,
+          periodInMonths,
+          email: this.data.email,
+        },
+      );
+    }
+
+    req.subscribe(() => {
+      this.dialogRef.close({ refresh: true });
+    });
   }
 }

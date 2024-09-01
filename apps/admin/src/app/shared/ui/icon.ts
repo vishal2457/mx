@@ -6,19 +6,23 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgStyle, NgClass],
-  template: `<i
-    class="material-symbols-rounded mt-1"
-    [ngClass]="iconClass"
-    [ngStyle]="{ 'font-size': sizes[size] }"
-  >
-    {{ icon }}
-  </i>`,
+  template: `
+    <img
+      [ngClass]="iconClass"
+      [ngStyle]="{
+        width: sizes[size],
+      }"
+      class="dark:invert dark:brightness-[0.9]"
+      [src]="'/assets/icons/' + icon + '.png'"
+      loading="eager"
+    />
+  `,
 })
 export class MxIconComponent {
   protected sizes = {
-    sm: '1rem',
-    md: '1.25rem',
-    lg: '1.5rem',
+    sm: '12px',
+    md: '15px',
+    lg: '18px',
   };
 
   @Input() icon = '';

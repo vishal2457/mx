@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   TMember,
+  TMemberPlan,
   TWorkoutTemplate,
 } from '../../../../../../../../libs/mx-schema/src';
 import { ApiService } from '../../../../shared/services/api.service';
@@ -130,11 +131,13 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
       });
   }
 
-  openAddNewMemberShip() {
+  openAddNewMemberShip(e: any = null) {
     const ref = this.dialog.open(AddMembershipDialogComponent, {
       data: {
         memberID: this.memberData?.id,
         email: this.memberData?.email,
+        edit: !!e,
+        payload: e.cellData.memberPlan,
       },
     });
 

@@ -31,7 +31,6 @@ import {
       <mx-column field="description" />
       <mx-column field="target" />
       <mx-column field="intensity" />
-      <mx-column field="approxTimeToCompleteInM" title="Time To complete (M)" />
       <mx-column field="active">
         <ng-template #cell let-item>
           <mx-badge

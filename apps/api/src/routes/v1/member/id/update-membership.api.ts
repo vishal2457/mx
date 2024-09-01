@@ -1,0 +1,63 @@
+import { addMonths, isAfter, isBefore, parse } from 'date-fns';
+import { Router } from 'express';
+import { z } from 'zod';
+import {
+  v_param_id,
+  Z_member,
+  Z_memberPlan,
+  Z_plan,
+} from '../../../../../../../libs/mx-schema/src';
+import {
+  other,
+  success,
+} from '../../../../shared/api-response/response-handler';
+import { secure } from '../../../../shared/jwt/jwt-auth.middleware';
+import { validate } from '../../../../shared/middlewares/validation.middleware';
+import { processEmailQueue } from '../../../../shared/queue/process-email/process-email.queue';
+import { memberService } from '../member.service';
+
+const bodyValidator = z.union([
+  Z_memberPlan.pick({ planID: true, startDate: true, paid: true }),
+  Z_plan.pick({ periodInMonths: true }),
+  Z_member.pick({ email: true }),
+]);
+
+export default Router().put(
+  '/update-membership/:id/:memberID',
+  secure,
+  validate({ params: v_param_id, body: bodyValidator }),
+  async (req, res) => {
+    const memberID = parseInt(req.params.memberID);
+    const recordID = parseInt(req.params.id);
+    const membership = await memberService.getActiveMemberShip(
+      memberID,
+      recordID,
+    );
+    if (
+      membership.length &&
+      isAfter(
+        membership[0].memberPlan.endDate,
+        parse(req.body.startDate, 'yyyy-MM-dd', new Date()),
+      )
+    ) {
+      return other(res, 'New membership cannot start before previous one Ends');
+    }
+
+    const memberPlanPayload = {
+      planID: req.body.planID,
+      memberID,
+      endDate: addMonths(req.body.startDate, req.body.periodInMonths),
+      startDate: parse(req.body.startDate, 'yyyy-MM-dd', new Date()),
+      paid: req.body.paid,
+    };
+    // add member plan
+    await memberService.updatePlan(memberPlanPayload, recordID);
+    await processEmailQueue.sendEmail({
+      to: req.body.email,
+      subject: 'Membership updated',
+      html: `Your membership is updated,starts on ${memberPlanPayload.startDate} expires on ${memberPlanPayload.endDate}`,
+    });
+
+    success(res, membership, 'Membership updated');
+  },
+);

@@ -1,3 +1,4 @@
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,12 +6,10 @@ import {
   inject,
 } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { patchableDate } from '../../../shared/utils/patchable-date';
-import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { TMember } from '../../../../../../../libs/mx-schema/src';
-import { SubSink } from '../../../shared/utils/sub-sink';
-import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { ApiService } from '../../../shared/services/api.service';
+import { MxNotification } from '../../../shared/ui/notification/notification.service';
+import { SubSink } from '../../../shared/utils/sub-sink';
 
 @Component({
   selector: 'update-member',
@@ -38,7 +37,7 @@ import { ApiService } from '../../../shared/services/api.service';
         bindValue="id"
       />
       <mx-input
-        type="date"
+        [type]="'date'"
         [control]="memberForm.controls.joinDate"
         label="Membership Start Date"
       />

@@ -55,7 +55,6 @@ import { MxButtonComponent } from '../button';
         <mx-input-number
           [control]="control()"
           inputClass="w-[50px] h-[25px] text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-          type="number"
           [max]="max()"
           [min]="min()"
         />

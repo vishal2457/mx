@@ -16,7 +16,7 @@
           leftIcon="search"
         />
       </div>
-      <ul class="space-y-1">
+      <ul class="space-y-2">
         @for (m of sidebarService.mainMenu$ | async; track m.name) {
           <li>
             <a
@@ -26,7 +26,7 @@
               class="flex items-center px-2 py-1 text-base font-medium rounded-lg hover:bg-accent group justify-between"
             >
               <span class="flex items-center">
-                <mx-icon [icon]="m.icon" class="mt-1" />
+                <mx-icon [icon]="m.icon"  />
                 <span class="ml-3 tracking-wider">{{ m.name }}</span>
               </span>
               <!-- <mx-dropdown class="opacity-0 group-hover:opacity-100">
@@ -54,7 +54,7 @@
             class="flex items-center px-2 py-1 text-base font-medium rounded-lg hover:bg-accent group justify-between"
           >
             <span class="flex items-center">
-              <mx-icon icon="home" class="mt-1" />
+              <mx-icon icon="house"  />
               <span class="ml-3 tracking-wider">Organisation</span>
             </span>
             <!-- <mx-dropdown class="opacity-0 group-hover:opacity-100">

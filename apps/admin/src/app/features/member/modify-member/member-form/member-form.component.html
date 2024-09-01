@@ -16,7 +16,7 @@
           variant="outline"
           class="mt-3"
           (handleClick)="openPlanForm()"
-          ><mx-icon icon="add"
+          ><mx-icon icon="plus"
         /></mx-button>
       </div>
     }
@@ -90,7 +90,7 @@
     @if (formControls.joinDate) {
       <mx-input
         label="Join Date"
-        type="date"
+        [type]="'date'"
         [control]="formControls.joinDate"
       />
     }

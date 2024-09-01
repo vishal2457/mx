@@ -13,7 +13,7 @@ export const MENU_DATA = [
   },
   {
     name: RESOURCES.WORKOUT,
-    icon: 'summarize',
+    icon: 'notebook',
     link: '/workout-template/list',
   },
   {
@@ -38,7 +38,7 @@ export const MENU_DATA = [
   },
   {
     name: RESOURCES.ROLES,
-    icon: 'assignment_ind',
+    icon: 'contact-round',
     link: '/role/list',
   },
   {
@@ -48,7 +48,7 @@ export const MENU_DATA = [
   },
   {
     name: RESOURCES.MEMBER_PLAN,
-    icon: 'description',
+    icon: 'file-text',
     link: '/member-plan/list',
   },
 ] as const;

@@ -256,6 +256,7 @@ export class AddWorkoutDetailComponent implements OnInit {
       for (const exercise of this.data.formValues) {
         this.checked.set(exercise.exerciseID, exercise._meta);
       }
+      this.exerciseData = this.moveSelectedItemsFirst(this.exerciseData);
     }
   }
 
@@ -342,5 +343,17 @@ export class AddWorkoutDetailComponent implements OnInit {
 
   private formInvalid() {
     return this.workoutTemplateDetailform.some((form) => form.invalid);
+  }
+
+  private moveSelectedItemsFirst(array: TExercise[]) {
+    return array.sort((a, b) => {
+      if (this.checked.has(a.id) && !this.checked.has(b.id)) {
+        return -1;
+      }
+      if (!this.checked.has(a.id) && this.checked.has(b.id)) {
+        return 1;
+      }
+      return 0;
+    });
   }
 }

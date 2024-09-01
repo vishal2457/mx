@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { mergetw } from '../../utils/tw-merge';
 import { FormControlPipe } from '../../pipe/form-control';
 import { MxIconComponent } from '../icon';
-import { SubSink } from '../../utils/sub-sink';
 import { MxFormErrorComponent } from './form-error';
 
 @Component({
@@ -31,7 +30,7 @@ import { MxFormErrorComponent } from './form-error';
         >{{ label }}</label
       >
     }
-    <button
+    <!-- <button
       type="button"
       role="checkbox"
       class="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
@@ -43,7 +42,14 @@ import { MxFormErrorComponent } from './form-error';
       } @else {
         <mx-icon icon="check_box_outline_blank" size="lg" />
       }
-    </button>
+    </button> -->
+    <input
+      class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 dark:checked:bg-primary"
+      [formControl]="control() | formControl"
+      type="checkbox"
+      [id]="label"
+    />
+
     @if (labelPlacement === 'right') {
       <label
         [for]="label"

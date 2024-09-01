@@ -31,33 +31,33 @@
               {{ column.title || column.field }} @if (columnService.sort$
               |async; as sort) {
               <mx-icon
-                [icon]="sort?.Asc === column.field ? 'arrow_upward' : sort?.Desc === column.field ? 'arrow_downward'  : 'unfold_more'"
+                [icon]="sort?.Asc === column.field ? 'chev-up' : sort?.Desc === column.field ? 'chev-down'  : 'unfold'"
                 class="mt-1"
               />
               } @else {
-              <mx-icon icon="unfold_more" class="mt-1" />
+              <mx-icon icon="unfold" class="mt-1" />
               }
             </span>
           </mx-button>
           <mx-dropdown-item
             text="ASC"
-            icon="arrow_upward"
+            icon="chev-up"
             (handleClick)="columnService.sortAsc(column.field)"
           />
           <mx-dropdown-item
             text="DESC"
-            icon="arrow_downward"
+            icon="chev-down"
             (handleClick)="columnService.sortDesc(column.field)"
           />
           <mx-dropdown-item
             text="Unsort"
-            icon="unfold_more"
+            icon="unfold"
             (handleClick)="columnService.unsort()"
           />
           <mx-dropdown-item [seperator]="true" />
           <mx-dropdown-item
             text="Move right"
-            icon="chevron_right"
+            icon="chev-right"
             (handleClick)="
                 columnService.moveRight(columnIndex)
               "
@@ -67,7 +67,7 @@
                 columnService.moveLeft(columnIndex)
               "
             text="Move left"
-            icon="chevron_left"
+            icon="chev-left"
           />
         </mx-dropdown>
         }@else {
@@ -156,7 +156,7 @@
           spacing="compact"
           dropdownTitle="Actions"
         >
-          <mx-svg-icon iconName="verticle-menu" trigger />
+          <mx-icon icon="verticle-menu" trigger />
           @for (action of actionService.actions$ |async; track action.icon) {
           @if (action.variant === 'default') {
           <mx-dropdown-item

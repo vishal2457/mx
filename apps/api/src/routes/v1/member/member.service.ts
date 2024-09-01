@@ -1,4 +1,4 @@
-import { and, count, desc, eq, gte, not, sql, sum } from 'drizzle-orm';
+import { and, count, desc, eq, gte, ne, not, sql, sum } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_member,
@@ -140,17 +140,33 @@ class MemberService {
     return db.insert(TB_memberPlan).values(body).returning();
   }
 
+  updatePlan(
+    payload: typeof TB_memberPlan.$inferInsert,
+    id: TMemberPlan['id'],
+  ) {
+    return db
+      .update(TB_memberPlan)
+      .set(payload)
+      .where(eq(TB_memberPlan.id, id));
+  }
+
   // get active membership by member id
-  getActiveMemberShip(memberID: TMemberPlan['memberID']) {
+  getActiveMemberShip(
+    memberID: TMemberPlan['memberID'],
+    omitID?: TMemberPlan['id'],
+  ) {
+    const where = [
+      eq(TB_memberPlan.memberID, memberID),
+      sql`${TB_memberPlan.endDate} > CURRENT_TIMESTAMP`,
+    ];
+
+    if (omitID) {
+      where.push(ne(TB_memberPlan.id, omitID));
+    }
     return db
       .select()
       .from(TB_memberPlan)
-      .where(
-        and(
-          eq(TB_memberPlan.memberID, memberID),
-          sql`${TB_memberPlan.endDate} > CURRENT_TIMESTAMP`,
-        ),
-      )
+      .where(and(...where))
       .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
       .orderBy(desc(TB_memberPlan.id))
       .limit(1);

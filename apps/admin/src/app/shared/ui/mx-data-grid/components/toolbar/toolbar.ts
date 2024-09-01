@@ -30,7 +30,7 @@ import { ToolbarService } from '../../services/toolbar.service';
         <mx-overlay>
           <mx-button trigger variant="outline">
             <span class="flex items-center">
-              <mx-icon icon="view_column" class="mr-2" />
+              <mx-icon icon="columns" class="mr-2" />
               <p>Columns</p>
             </span>
           </mx-button>

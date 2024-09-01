@@ -61,14 +61,10 @@ import { FilterService } from './filters/filter.service';
       />
     }
     @if (filters?.length) {
-      <mx-toolbar
-        icon="filter_alt"
-        name="Filter"
-        (handleClick)="openFilters()"
-      />
+      <mx-toolbar icon="filter" name="Filter" (handleClick)="openFilters()" />
       <!-- TODO : add a way to reset all grid options. -->
       <mx-toolbar
-        icon="restart_alt"
+        icon="list-reset"
         name="Reset grid"
         (handleClick)="filterService.clearFilterData()"
       />

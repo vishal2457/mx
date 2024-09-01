@@ -34,7 +34,7 @@ import { UserService } from '../../../shared/services/user-data.service';
           #planSelect
         />
         <mx-button variant="outline" class="mt-3" (handleClick)="openPlanForm()"
-          ><mx-icon icon="add"
+          ><mx-icon icon="plus"
         /></mx-button>
       </div>
       <mx-input
@@ -65,7 +65,7 @@ import { UserService } from '../../../shared/services/user-data.service';
       />
       <mx-input
         label="Join Date"
-        type="date"
+        [type]="'date'"
         [control]="form.controls.joinDate"
       />
     </div>

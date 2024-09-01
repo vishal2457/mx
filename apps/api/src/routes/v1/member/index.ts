@@ -22,6 +22,7 @@ import getLastNMonthsWorkoutLogsApi from './stats/get-last-n-months-workout-logs
 import getMemberPlanListApi from './get-member-plan-list.api';
 import getWorkoutLogApi from './id/get-workout-log.api';
 import generateWorkoutApi from './id/generate-workout.api';
+import updateMembershipApi from './id/update-membership.api';
 
 export const member = asyncHandler([
   getMemberList,
@@ -47,4 +48,5 @@ export const member = asyncHandler([
   getMemberPlanListApi,
   getWorkoutLogApi,
   generateWorkoutApi,
+  updateMembershipApi,
 ]);

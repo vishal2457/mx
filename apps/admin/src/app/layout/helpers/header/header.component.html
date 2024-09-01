@@ -54,12 +54,12 @@
           </mx-button>
           <mx-dropdown-item
             text="Light"
-            icon="light_mode"
+            icon="light"
             (handleClick)="themeService.changeTheme('light')"
           />
           <mx-dropdown-item
             text="Dark"
-            icon="dark_mode"
+            icon="dark"
             (handleClick)="themeService.changeTheme('dark')"
           />
           <mx-dropdown-item
@@ -68,7 +68,7 @@
             (handleClick)="logout()"
           />
           <mx-dropdown-item [seperator]="true" />
-          <mx-dropdown-item [text]="'Last Build: ' + lastBuild" />
+          <mx-dropdown-item icon="time" [text]="'Last Build: ' + lastBuild" />
         </mx-dropdown>
       </div>
     </div>
