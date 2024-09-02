@@ -36,7 +36,7 @@ class MemberService {
     .leftJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
     .where(
       and(
-        sql`EXTRACT (YEAR FROM ${TB_memberPlan.createdAt}) = ${sql.placeholder('year')} AND EXTRACT (MONTH FROM ${TB_memberPlan.createdAt}) = ${sql.placeholder('month')} AND ${TB_member.organisationID} = ${sql.placeholder('organisationID')}`,
+        sql`EXTRACT (YEAR FROM ${TB_memberPlan.startDate}) = ${sql.placeholder('year')} AND EXTRACT (MONTH FROM ${TB_memberPlan.startDate}) = ${sql.placeholder('month')} AND ${TB_member.organisationID} = ${sql.placeholder('organisationID')}`,
         eq(TB_memberPlan.paid, true),
       ),
     )

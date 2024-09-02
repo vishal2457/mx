@@ -70,7 +70,7 @@
     [searchable]="false"
   />
   @if(conditionControls[component.field].value !== 'between') {
-  <mx-input [control]="controls[component.field]" type="number" />
+  <mx-input [control]="controls[component.field]" [type]="'number'" />
   } @else if(conditionControls[component.field].value === 'between') {
   <mx-input
     [control]="controls[component.field]"

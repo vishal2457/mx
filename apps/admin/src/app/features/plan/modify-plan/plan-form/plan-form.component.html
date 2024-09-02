@@ -1,11 +1,10 @@
 <mx-form [form]="planForm" [zodSchema]="Z_plan">
   <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
     <mx-input label="Name" [control]="formControls.name" />
-    <mx-input-number label="Amount" [control]="formControls.amount" type="number" />
+    <mx-input-number label="Amount" [control]="formControls.amount" />
     <mx-input-number
       label="Period In Months"
       [control]="formControls.periodInMonths"
-      type="number"
     />
   </div>
 </mx-form>

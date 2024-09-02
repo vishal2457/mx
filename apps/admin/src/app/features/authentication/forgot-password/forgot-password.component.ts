@@ -7,7 +7,6 @@ import { FormBuilder, Validators } from '@angular/forms';
     <div class="grid gap-2">
       <mx-input
         [control]="form.controls.email"
-        type="email"
         label="Email"
         placeholder="name@example.com"
       />

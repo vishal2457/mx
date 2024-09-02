@@ -39,7 +39,7 @@ import { Router } from '@angular/router';
       <mx-grid-filter label="Email" field="email" />
       <mx-grid-filter label="Goal" field="goal" />
       <mx-grid-filter
-        type="select"
+        [type]="'select'"
         label="Status"
         field="status"
         [items]="['Open', 'Closed']"
