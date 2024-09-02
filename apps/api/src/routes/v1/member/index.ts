@@ -23,6 +23,7 @@ import getMemberPlanListApi from './get-member-plan-list.api';
 import getWorkoutLogApi from './id/get-workout-log.api';
 import generateWorkoutApi from './id/generate-workout.api';
 import updateMembershipApi from './id/update-membership.api';
+import getMembersAtRiskApi from './stats/get-members-at-risk.api';
 
 export const member = asyncHandler([
   getMemberList,
@@ -49,4 +50,5 @@ export const member = asyncHandler([
   getWorkoutLogApi,
   generateWorkoutApi,
   updateMembershipApi,
+  getMembersAtRiskApi,
 ]);

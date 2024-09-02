@@ -40,14 +40,16 @@ export class DashboardComponent implements OnInit {
   openEnquiries = 0;
   memberCount = 0;
   totalRevenueForLastSevenMonths = 0;
+  membersAtRisk: any[] = [];
 
   ngOnInit(): void {
-    this.renderLineChart();
+    // this.renderLineChart();
     this.newCustomerByMonth();
     this.fetchRevenueThisMonth();
     this.fetchOpenEnquiryCount();
     this.fetchMemberCount();
     this.fetchLastSevenMonthRevenue();
+    this.fetchMembersAtRisk();
   }
 
   renderBarChart(data: number[], months: string[]) {
@@ -80,62 +82,62 @@ export class DashboardComponent implements OnInit {
     myChart.setOption(option);
   }
 
-  renderLineChart() {
-    const lineChartOptions = {
-      tooltip: {
-        trigger: 'axis',
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true,
-      },
-      xAxis: {
-        type: 'category',
-        data: [...Array(7).keys()].map((x) => x++),
-        splitLine: { show: false },
-        axisLine: { show: false },
-        axisTick: { show: false },
-        axisLabel: { show: false },
-      },
-      yAxis: {
-        type: 'value',
-        splitLine: { show: false },
-        axisLine: { show: false },
-        axisTick: { show: false },
-        axisLabel: { show: false },
-      },
-      series: [
-        {
-          name: 'July',
-          type: 'line',
-          stack: 'Total',
-          smooth: true,
-          areaStyle: {
-            opacity: 0.5,
-          },
-          data: [...Array(7).keys()].map((x) =>
-            Math.floor(Math.random() * 600),
-          ),
-        },
-        {
-          name: 'August',
-          type: 'line',
-          stack: 'Total',
-          smooth: true,
-          areaStyle: {
-            opacity: 0.5,
-          },
-          data: [...Array(7).keys()].map((x) =>
-            Math.floor(Math.random() * 600),
-          ),
-        },
-      ],
-    };
-    const lineChart = echarts.init(document.getElementById('line-chart'));
-    lineChart.setOption(lineChartOptions);
-  }
+  // renderLineChart() {
+  //   const lineChartOptions = {
+  //     tooltip: {
+  //       trigger: 'axis',
+  //     },
+  //     grid: {
+  //       left: '3%',
+  //       right: '4%',
+  //       bottom: '3%',
+  //       containLabel: true,
+  //     },
+  //     xAxis: {
+  //       type: 'category',
+  //       data: [...Array(7).keys()].map((x) => x++),
+  //       splitLine: { show: false },
+  //       axisLine: { show: false },
+  //       axisTick: { show: false },
+  //       axisLabel: { show: false },
+  //     },
+  //     yAxis: {
+  //       type: 'value',
+  //       splitLine: { show: false },
+  //       axisLine: { show: false },
+  //       axisTick: { show: false },
+  //       axisLabel: { show: false },
+  //     },
+  //     series: [
+  //       {
+  //         name: 'July',
+  //         type: 'line',
+  //         stack: 'Total',
+  //         smooth: true,
+  //         areaStyle: {
+  //           opacity: 0.5,
+  //         },
+  //         data: [...Array(7).keys()].map((x) =>
+  //           Math.floor(Math.random() * 600),
+  //         ),
+  //       },
+  //       // {
+  //       //   name: 'August',
+  //       //   type: 'line',
+  //       //   stack: 'Total',
+  //       //   smooth: true,
+  //       //   areaStyle: {
+  //       //     opacity: 0.5,
+  //       //   },
+  //       //   data: [...Array(7).keys()].map((x) =>
+  //       //     Math.floor(Math.random() * 600),
+  //       //   ),
+  //       // },
+  //     ],
+  //   };
+  //   const lineChart = echarts.init(document.getElementById('line-chart'));
+  //   lineChart.setOption(lineChartOptions);
+  // }
 
   private newCustomerByMonth() {
     const currentDate = new Date();
@@ -202,5 +204,11 @@ export class DashboardComponent implements OnInit {
 
         this.renderBarChart(data, months);
       });
+  }
+
+  private fetchMembersAtRisk() {
+    this.api.get<any[]>('/member/at-risk').subscribe((result) => {
+      this.membersAtRisk = result.data;
+    });
   }
 }

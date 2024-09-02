@@ -109,7 +109,7 @@ export default Router().post(
   }),
   async (req, res) => {
     const member = await memberService.getByEmail(req.body.email);
-    if (member) {
+    if (member.length) {
       return other(res, `Member with email ${req.body.email} already exist`);
     }
 

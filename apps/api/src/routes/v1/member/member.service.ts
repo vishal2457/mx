@@ -1,4 +1,15 @@
-import { and, count, desc, eq, gte, ne, not, sql, sum } from 'drizzle-orm';
+import {
+  and,
+  count,
+  desc,
+  eq,
+  exists,
+  gte,
+  ne,
+  not,
+  sql,
+  sum,
+} from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_member,
@@ -44,7 +55,7 @@ class MemberService {
 
   private lastNMonthRevenue = db
     .select({
-      month: sql`DATE_TRUNC('month', ${TB_memberPlan.createdAt})`.as('month'),
+      month: sql`DATE_TRUNC('month', ${TB_memberPlan.startDate})`.as('month'),
       totalAmount: sql`SUM(${TB_plan.amount})`.as('total_amount'),
     })
     .from(TB_memberPlan)
@@ -52,12 +63,12 @@ class MemberService {
     .leftJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
     .where(
       and(
-        sql`${TB_memberPlan.createdAt} >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '6 months'`,
+        sql`${TB_memberPlan.startDate} >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '6 months'`,
         eq(TB_member.organisationID, sql.placeholder('organisationID')),
         eq(TB_memberPlan.paid, true),
       ),
     )
-    .groupBy(sql`DATE_TRUNC('month', ${TB_memberPlan.createdAt})`)
+    .groupBy(sql`DATE_TRUNC('month', ${TB_memberPlan.startDate})`)
     .orderBy(desc(sql`month`))
     .prepare('last-seven-month-revenue');
 
@@ -307,6 +318,33 @@ class MemberService {
     return getTotalCountByOrg(TB_memberWorkoutLog).where(
       eq(TB_memberWorkoutLog.memberID, memberID),
     );
+  }
+
+  getAtRisk(organisationID: Member['organisationID']) {
+    const activePlanSubquery = db
+      .select()
+      .from(TB_memberPlan)
+      .where(
+        and(
+          eq(TB_memberWorkoutLog.memberID, TB_memberPlan.memberID),
+          sql`${TB_memberPlan.endDate} > NOW()`,
+        ),
+      );
+    return db
+      .selectDistinctOn([TB_memberWorkoutLog.memberID])
+      .from(TB_memberWorkoutLog)
+      .leftJoin(
+        TB_memberPlan,
+        eq(TB_memberWorkoutLog.memberID, TB_memberPlan.memberID),
+      )
+      .leftJoin(TB_member, eq(TB_memberWorkoutLog.memberID, TB_member.id))
+      .where(
+        and(
+          sql`${TB_memberWorkoutLog.createdAt} < NOW() - INTERVAL '7 days'`,
+          exists(activePlanSubquery),
+          eq(TB_member.organisationID, organisationID),
+        ),
+      );
   }
 }
 

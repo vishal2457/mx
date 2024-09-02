@@ -128,12 +128,41 @@
       mxCardHeader
       class="flex-row items-center justify-between space-y-1 py-4 px-6"
     >
-      <div mxCardtitle>Previous Seven Months Enquiry</div>
-      <!-- <mx-icon icon="list_alt" size="lg" /> -->
+      <div mxCardtitle>
+        Members at risk
+        <p class="text-sm text-gray-400 pt-2">No workouts logged from last 7 days</p>
+
+      </div>
     </div>
-    <div mxCardContent class="p-0">
-      <div id="line-chart" class="w-full h-[350px]"></div>
+    <div mxCardContent class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      @for (item of membersAtRisk; track item.member.id) {
+        <div mxCard>
+          <div
+            mxCardHeader class="p-3">
+            <div mxCardtitle>
+              {{item?.member?.name}}
+            </div>
+            <!-- <mx-icon icon="list_alt" size="lg" /> -->
+          </div>
+          <div mxCardContent class="px-3">
+            <div class="flex gap-2 items-center">
+              <mx-icon icon="mobile"  />
+              <p class="text-sm">{{item?.member?.mobile}}</p>
+            </div>
+            <div class="flex gap-2 items-center">
+              <mx-icon icon="mail"  />
+              <p class="text-sm">{{item?.member?.email}}</p>
+            </div>
+          </div>
+        </div>
+      }
     </div>
+    @if (!membersAtRisk.length) {
+      <div class="flex flex-col gap-5 justify-center items-center min-h-40">
+        <p>No members at risk</p>
+      </div>
+    }
+
   </div>
 </div>
 
