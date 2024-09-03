@@ -170,23 +170,23 @@
       (handleClick)="openAddNewMemberShip()"
     />
 
-    <mx-column field="plan.name" title="Plan" />
-    <mx-column field="plan.amount" title="Amount" />
-    <mx-column field="memberPlan.startDate" title="Start Date">
+    <mx-column field="planName" title="Plan" />
+    <mx-column field="amount" title="Amount" />
+    <mx-column field="startDate" title="Start Date">
       <ng-template #cell let-item>
-        {{ item.memberPlan.startDate | date: 'mediumDate' }}
+        {{ item.startDate | date: 'mediumDate' }}
       </ng-template>
     </mx-column>
-    <mx-column field="memberPlan.endDate" title="End Date">
+    <mx-column field="endDate" title="End Date">
       <ng-template #cell let-item>
-        {{ item.memberPlan.endDate | date: 'mediumDate' }}
+        {{ item.endDate | date: 'mediumDate' }}
       </ng-template>
     </mx-column>
-    <mx-column field="memberPlan.paid" title="Paid">
+    <mx-column field="paid" title="Paid">
       <ng-template #cell let-item>
         <mx-badge
-          [text]="item.memberPlan.paid ? 'Yes' : 'No'"
-          [variant]="item.memberPlan.paid ? 'success' : 'error'"
+          [text]="item.paid ? 'Yes' : 'No'"
+          [variant]="item.paid ? 'success' : 'error'"
           [clearable]="false"
         />
       </ng-template>

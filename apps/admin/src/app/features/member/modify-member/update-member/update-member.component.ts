@@ -137,7 +137,7 @@ export class UpdateMemberComponent implements OnInit, OnDestroy {
         memberID: this.memberData?.id,
         email: this.memberData?.email,
         edit: !!e,
-        payload: e.cellData.memberPlan,
+        payload: e.cellData,
       },
     });
 

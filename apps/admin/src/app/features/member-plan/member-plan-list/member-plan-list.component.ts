@@ -12,9 +12,9 @@ import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
       <!-- columns -->
       <mx-column field="id" alignment="left" [visible]="false" />
       <mx-column field="member.name" title="Member" />
-      <mx-column field="plan.name" title="Plan" />
-      <mx-column field="plan.amount" title="Amount" />
-      <mx-column field="plan.periodInMonths" title="Period (Months)" />
+      <mx-column field="memberPlan.planName" title="Plan" />
+      <mx-column field="memberPlan.amount" title="Amount" />
+      <mx-column field="memberPlan.periodInMonths" title="Period (Months)" />
       <mx-column field="memberPlan.startDate" title="Start Date">
         <ng-template #cell let-item>
           {{ item.memberPlan.startDate | date: 'mediumDate' }}

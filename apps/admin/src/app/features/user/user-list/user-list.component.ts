@@ -32,7 +32,7 @@ import { SubSink } from '../../../shared/utils/sub-sink';
       <!-- actions -->
       <mx-action icon="edit" (handleClick)="update($event)" text="Edit" />
       <mx-action
-        icon="delete"
+        icon="trash"
         (handleClick)="delete($event)"
         text="Delete"
         variant="destructive"

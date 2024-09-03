@@ -15,6 +15,7 @@ import { addMonths, format, parse } from 'date-fns';
 import { processEmailQueue } from '../../../shared/queue/process-email/process-email.queue';
 import { hashPassword } from '../../../shared/password-hash';
 import { generateInvoice } from './helpers/generate-membership-invoice.helper';
+import { db } from '../../../db/db';
 
 const getEmailHtml = (payload) => {
   return `<!DOCTYPE html>
@@ -96,7 +97,11 @@ const getEmailHtml = (payload) => {
 
 const bodyValidator = z.union([
   createInsertSchema(TB_member).omit({ organisationID: true }),
-  createInsertSchema(TB_memberPlan).pick({ planID: true }),
+  createInsertSchema(TB_memberPlan).pick({
+    amount: true,
+    planName: true,
+    periodInMonths: true,
+  }),
   Z_plan.pick({ periodInMonths: true, amount: true }),
   z.object({ organisation: Z_organisation.pick({ name: true, email: true }) }),
 ]);
@@ -113,52 +118,61 @@ export default Router().post(
       return other(res, `Member with email ${req.body.email} already exist`);
     }
 
-    const passcode = Math.floor(1000 + Math.random() * 9000);
+    db.transaction(async (tx) => {
+      const passcode = Math.floor(1000 + Math.random() * 9000);
 
-    const payload: typeof TB_member.$inferInsert = {
-      organisationID: req.user.organisationID,
-      passcode: hashPassword(passcode.toString()),
-      ...req.body,
-    };
-    const [newMember] = await memberService.createMember(payload);
+      const payload: typeof TB_member.$inferInsert = {
+        organisationID: req.user.organisationID,
+        passcode: hashPassword(passcode.toString()),
+        ...req.body,
+      };
+      const [newMember] = await memberService.createMember(payload, tx);
 
-    const memberPlanPayload = {
-      planID: req.body.planID,
-      memberID: newMember.id,
-      endDate: addMonths(payload.joinDate, req.body.periodInMonths),
-      startDate: parse(payload.joinDate, 'yyyy-MM-dd', new Date()),
-    };
-    // add member plan
-    const [newMemberPlan] = await memberService.addPlan(memberPlanPayload);
-    const pdfPath = await generateInvoice(
-      {
-        organisationEmail: req.body.organisation.email,
-        amount: req.body.amount,
-        endDate: format(memberPlanPayload.endDate, 'MM dd, yyyy'),
-        datePaid: format(newMemberPlan.createdAt, 'MM dd, yyyy'),
-        organisationName: req.body.organisation.name,
-        periodInMonths: req.body.periodInMonths,
-      },
-      `${newMember.id}-invoice`,
-    );
+      const { amount, planName, periodInMonths } = req.body;
 
-    await processEmailQueue.sendEmail({
-      to: req.body.email,
-      subject: 'New membership activated',
-      html: getEmailHtml({
-        email: payload.email,
-        passcode,
-        endDate: memberPlanPayload.endDate,
-      }),
-      attachments: [
+      const memberPlanPayload = {
+        amount,
+        planName,
+        periodInMonths,
+        memberID: newMember.id,
+        endDate: addMonths(payload.joinDate, req.body.periodInMonths),
+        startDate: parse(payload.joinDate, 'yyyy-MM-dd', new Date()),
+      };
+      // add member plan
+      const [newMemberPlan] = await memberService.addPlan(
+        memberPlanPayload,
+        tx,
+      );
+      const pdfPath = await generateInvoice(
         {
-          filename: 'invoice.pdf',
-          path: pdfPath,
-          contentType: 'application/pdf',
+          organisationEmail: req.body.organisation.email,
+          amount: req.body.amount,
+          endDate: format(memberPlanPayload.endDate, 'MM dd, yyyy'),
+          datePaid: format(newMemberPlan.createdAt, 'MM dd, yyyy'),
+          organisationName: req.body.organisation.name,
+          periodInMonths: req.body.periodInMonths,
         },
-      ],
-    });
+        `${newMember.id}-invoice`,
+      );
 
-    success(res, newMember, 'success');
+      await processEmailQueue.sendEmail({
+        to: req.body.email,
+        subject: 'New membership activated',
+        html: getEmailHtml({
+          email: payload.email,
+          passcode,
+          endDate: memberPlanPayload.endDate,
+        }),
+        attachments: [
+          {
+            filename: 'invoice.pdf',
+            path: pdfPath,
+            contentType: 'application/pdf',
+          },
+        ],
+      });
+
+      success(res, newMember, 'success');
+    });
   },
 );

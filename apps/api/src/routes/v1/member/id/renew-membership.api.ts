@@ -17,7 +17,13 @@ import { processEmailQueue } from '../../../../shared/queue/process-email/proces
 import { memberService } from '../member.service';
 
 const bodyValidator = z.union([
-  Z_memberPlan.pick({ planID: true, startDate: true, paid: true }),
+  Z_memberPlan.pick({
+    amount: true,
+    planName: true,
+    periodInMonths: true,
+    startDate: true,
+    paid: true,
+  }),
   Z_plan.pick({ periodInMonths: true }),
   Z_member.pick({ email: true }),
 ]);
@@ -31,15 +37,18 @@ export default Router().post(
     const membership = await memberService.getActiveMemberShip(memberID);
     if (
       isAfter(
-        membership[0].memberPlan.endDate,
+        membership[0].endDate,
         parse(req.body.startDate, 'yyyy-MM-dd', new Date()),
       )
     ) {
       return other(res, 'New membership cannot start before previous one Ends');
     }
+    const { amount, planName, periodInMonths } = req.body;
 
     const memberPlanPayload = {
-      planID: req.body.planID,
+      amount,
+      planName,
+      periodInMonths,
       memberID,
       endDate: addMonths(req.body.startDate, req.body.periodInMonths),
       startDate: parse(req.body.startDate, 'yyyy-MM-dd', new Date()),

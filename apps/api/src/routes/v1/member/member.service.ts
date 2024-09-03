@@ -41,9 +41,8 @@ class MemberService {
     .prepare('countMemberAddedByMonth');
 
   private revenueByMonth = db
-    .select({ amount: sum(TB_plan.amount) })
+    .select({ amount: sum(TB_memberPlan.amount) })
     .from(TB_memberPlan)
-    .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
     .leftJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
     .where(
       and(
@@ -56,10 +55,9 @@ class MemberService {
   private lastNMonthRevenue = db
     .select({
       month: sql`DATE_TRUNC('month', ${TB_memberPlan.startDate})`.as('month'),
-      totalAmount: sql`SUM(${TB_plan.amount})`.as('total_amount'),
+      totalAmount: sql`SUM(${TB_memberPlan.amount})`.as('total_amount'),
     })
     .from(TB_memberPlan)
-    .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
     .leftJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
     .where(
       and(
@@ -103,8 +101,9 @@ class MemberService {
     return q;
   }
 
-  createMember(payload: typeof TB_member.$inferInsert) {
-    return db.insert(TB_member).values(payload).returning();
+  createMember(payload: typeof TB_member.$inferInsert, tx?: typeof db) {
+    const ex = tx || db;
+    return ex.insert(TB_member).values(payload).returning();
   }
 
   updateMember(
@@ -147,8 +146,9 @@ class MemberService {
   }
 
   // start new subscription
-  addPlan(body: typeof TB_memberPlan.$inferInsert) {
-    return db.insert(TB_memberPlan).values(body).returning();
+  addPlan(body: typeof TB_memberPlan.$inferInsert, tx?: typeof db) {
+    const ex = tx || db;
+    return ex.insert(TB_memberPlan).values(body).returning();
   }
 
   updatePlan(
@@ -178,7 +178,6 @@ class MemberService {
       .select()
       .from(TB_memberPlan)
       .where(and(...where))
-      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
       .orderBy(desc(TB_memberPlan.id))
       .limit(1);
   }
@@ -187,8 +186,7 @@ class MemberService {
     return db
       .select()
       .from(TB_memberPlan)
-      .where(eq(TB_memberPlan.memberID, memberID))
-      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id));
+      .where(eq(TB_memberPlan.memberID, memberID));
   }
 
   getMemberShipCountByMemberID(memberID: TMemberPlan['memberID']) {
@@ -200,9 +198,8 @@ class MemberService {
 
   getMemberTotalSpent(memberID: Member['id']) {
     return db
-      .select({ amount: sum(TB_plan.amount) })
+      .select({ amount: sum(TB_memberPlan.amount) })
       .from(TB_memberPlan)
-      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
       .groupBy(sql`${TB_memberPlan.memberID}, ${TB_memberPlan.paid}`)
       .having(
         and(eq(TB_memberPlan.memberID, memberID), eq(TB_memberPlan.paid, true)),
@@ -294,7 +291,6 @@ class MemberService {
     organisationID: Member['organisationID'],
   ) {
     return getListQueryWithFilters(TB_memberPlan, query)
-      .leftJoin(TB_plan, eq(TB_memberPlan.planID, TB_plan.id))
       .innerJoin(TB_member, eq(TB_memberPlan.memberID, TB_member.id))
       .innerJoin(
         TB_organisation,

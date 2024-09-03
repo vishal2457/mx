@@ -99,9 +99,9 @@ export class AddMembershipDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.edit) {
-      const { planID, startDate, paid } = this.data.payload;
+      const { startDate, paid } = this.data.payload;
       this.membershipForm.patchValue({
-        planID,
+        // planID,
         startDate: patchableDate(startDate),
         paid,
       });

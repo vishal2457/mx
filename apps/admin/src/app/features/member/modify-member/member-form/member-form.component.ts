@@ -19,7 +19,7 @@ import { MxSelectComponent } from '../../../../shared/ui/form/mx-select/mx-selec
 import { ControlsOf } from '../../../../shared/utils/form-controls-of';
 import { patchableDate } from '../../../../shared/utils/patchable-date';
 import { SubSink } from '../../../../shared/utils/sub-sink';
-import { QuickAddPlanComponent } from '../../components/quick-add-plan.component';
+import { QuickAddPlanComponent } from '../../../../shared/misc/quick-add-plan.component';
 
 type TMemberForm = Omit<
   TMember,

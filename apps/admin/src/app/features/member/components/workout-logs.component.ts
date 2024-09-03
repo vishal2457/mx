@@ -27,7 +27,7 @@ import { safeStringify } from '../../../shared/utils/safe-json';
                 <p class="text-sm">Reps: {{ log.reps }}</p>
                 <p class="text-sm">
                   Suggested:
-                  {{ log.workoutTemplateDetailID ? 'System' : 'User' }}
+                  {{ log?.workoutTemplateDetailID ? 'System' : 'User' }}
                 </p>
               </div>
               <div>

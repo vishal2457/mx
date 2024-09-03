@@ -1,14 +1,31 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { TPlan } from '../../../../../../../libs/mx-schema/src';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ApiService } from '../../../shared/services/api.service';
-import { MxNotification } from '../../../shared/ui/notification/notification.service';
-import { Dialog, DialogRef } from '@angular/cdk/dialog';
-import { ControlsOf } from '../../../shared/utils/form-controls-of';
-import { SubSink } from '../../../shared/utils/sub-sink';
+import { Component, Inject, inject, OnInit } from '@angular/core';
+import { MxDialogModule } from '../ui/dialog/dialog.module';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Dialog, DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { MxButtonComponent } from '../ui/button';
+import { MxInputComponent } from '../ui/form/mx-input';
+import { MxInputNumberComponent } from '../ui/form/mx-input-number';
+import { ApiService } from '../services/api.service';
+import { MxNotification } from '../ui/notification/notification.service';
+import { TPlan } from '../../../../../../libs/mx-schema/src';
+import { ControlsOf } from '../utils/form-controls-of';
+import { SubSink } from '../utils/sub-sink';
 
 @Component({
   selector: 'quick-add-plan',
+  standalone: true,
+  imports: [
+    MxDialogModule,
+    ReactiveFormsModule,
+    MxButtonComponent,
+    MxInputComponent,
+    MxInputNumberComponent,
+  ],
   template: ` <mx-dialog-content>
     <mx-dialog-header>
       <mx-dialog-title>Add new plan</mx-dialog-title>
@@ -36,7 +53,10 @@ import { SubSink } from '../../../shared/utils/sub-sink';
   </mx-dialog-content>`,
 })
 export class QuickAddPlanComponent implements OnInit {
-  constructor(private dialogRef: DialogRef<{ success: boolean }>) {}
+  constructor(
+    @Inject(DIALOG_DATA) private data: { payload: TPlan },
+    private dialogRef: DialogRef<{ success: boolean }>,
+  ) {}
 
   private fb = inject(FormBuilder);
   private api = inject(ApiService);
@@ -67,6 +87,10 @@ export class QuickAddPlanComponent implements OnInit {
           `${converted.years} year, ${converted.months} month`,
         ];
       });
+
+    if (this.data?.payload) {
+      this.planForm.patchValue(this.data.payload);
+    }
   }
 
   openPlanForm(ref) {
@@ -81,7 +105,15 @@ export class QuickAddPlanComponent implements OnInit {
     if (this.planForm.invalid) {
       return;
     }
-    this.api.post('/plan/create', this.planForm.value).subscribe(() => {
+    let req = this.api.post('/plan/create', this.planForm.value);
+
+    if (this.data.payload) {
+      req = this.api.put(
+        `/plan/update/${this.data.payload.id}`,
+        this.planForm.value,
+      );
+    }
+    req.subscribe(() => {
       this.planForm.reset();
       this.closePlanForm();
       this.toast.show({

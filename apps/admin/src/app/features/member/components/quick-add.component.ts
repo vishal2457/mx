@@ -7,8 +7,8 @@ import { MxSelectComponent } from '../../../shared/ui/form/mx-select/mx-select';
 import { MxNotification } from '../../../shared/ui/notification/notification.service';
 import { ControlsOf } from '../../../shared/utils/form-controls-of';
 import { patchableDate } from '../../../shared/utils/patchable-date';
-import { QuickAddPlanComponent } from './quick-add-plan.component';
 import { UserService } from '../../../shared/services/user-data.service';
+import { QuickAddPlanComponent } from '../../../shared/misc/quick-add-plan.component';
 
 @Component({
   selector: 'quick-add-member',
@@ -137,6 +137,7 @@ export class QuickAddMemberComponent {
 
     return {
       ...this.form.value,
+      planName: selectedPlan.name,
       periodInMonths: selectedPlan.periodInMonths,
       quickAdd: true,
       amount: selectedPlan.amount,

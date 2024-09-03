@@ -11,5 +11,5 @@ export default Router().post(
   async (req, res) => {
     const result = await planService.createPlan(req.body);
     success(res, result, 'success');
-  }
+  },
 );

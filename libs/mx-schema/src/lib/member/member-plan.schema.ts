@@ -3,20 +3,20 @@ import {
   integer,
   pgTable,
   serial,
+  text,
   timestamp,
 } from 'drizzle-orm/pg-core';
-import { TB_member } from './member.schema';
-import { TB_plan } from '../plan.schema';
 import { createSelectSchema } from 'drizzle-zod';
+import { TB_member } from './member.schema';
 
 export const TB_memberPlan = pgTable('memberPlan', {
   id: serial('id').primaryKey(),
   memberID: integer('memberID')
     .notNull()
     .references(() => TB_member.id),
-  planID: integer('planID')
-    .notNull()
-    .references(() => TB_plan.id),
+  planName: text('planName').notNull(),
+  amount: integer('amount').notNull(),
+  periodInMonths: integer('periodInMonths').notNull(),
   startDate: timestamp('startDate').notNull(),
   endDate: timestamp('endDate').notNull(),
   paid: boolean('paid').default(true),

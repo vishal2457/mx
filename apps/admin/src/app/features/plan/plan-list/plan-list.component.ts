@@ -1,5 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Dialog } from '@angular/cdk/dialog';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { SubSink } from '../../../shared/utils/sub-sink';
+import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
+import { QuickAddPlanComponent } from '../../../shared/misc/quick-add-plan.component';
+import { ConfirmModalComponent } from '../../../shared/misc/confirm-modal/confirm-modal.component';
+import { MxNotification } from '../../../shared/ui/notification/notification.service';
+import { ApiService } from '../../../shared/services/api.service';
 
 @Component({
   selector: 'plan-list',
@@ -39,16 +46,65 @@ import { Router } from '@angular/router';
       <!-- actions -->
       <mx-action icon="edit" (handleClick)="edit($event)" text="Edit" />
       <!-- actions -->
+      <mx-action
+        icon="trash"
+        (handleClick)="deletePlan($event)"
+        text="Delete"
+        variant="destructive"
+      />
     </mx-grid-shell>`,
 })
 export class PlanListComponent {
-  private router = inject(Router);
+  private dialog = inject(Dialog);
+  private toast = inject(MxNotification);
+  private api = inject(ApiService);
+  @ViewChild(MxGridShellComponent, { static: false })
+  gridShell!: MxGridShellComponent;
+
+  private subs = new SubSink();
 
   create() {
-    this.router.navigate(['/plan/create']);
+    // this.router.navigate(['/plan/create']);
+    const ref = this.dialog.open(QuickAddPlanComponent);
+    this.subs.sink = ref.closed.subscribe((data: any) => {
+      this.gridShell.refresh();
+      this.subs.unsubscribe();
+    });
   }
 
   edit(e: any) {
-    this.router.navigate(['/plan/update/' + e.cellData.id]);
+    // this.router.navigate(['/plan/update/' + e.cellData.id]);
+    const ref = this.dialog.open(QuickAddPlanComponent, {
+      data: {
+        payload: e.cellData,
+      },
+    });
+    this.subs.sink = ref.closed.subscribe((data: any) => {
+      this.gridShell.refresh();
+      this.subs.unsubscribe();
+    });
+  }
+
+  deletePlan(e: any) {
+    const ref = this.dialog.open(ConfirmModalComponent, {
+      maxWidth: '500px',
+      maxHeight: '500px',
+      data: {
+        title: `Are you sure you want to delete user ${e.cellData.email}?`,
+        description: 'This action will not be reverted once done.',
+      },
+    });
+    this.subs.sink = ref.closed.subscribe((result: any) => {
+      if (!result.success) {
+        return;
+      }
+      this.api.delete(`/plan/delete/${e.cellData.id}`).subscribe(() => {
+        this.gridShell.refresh();
+        this.toast.show({
+          text: 'Plan Deleted',
+          type: 'success',
+        });
+      });
+    });
   }
 }

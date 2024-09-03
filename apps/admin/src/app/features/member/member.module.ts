@@ -32,7 +32,6 @@ import { QuickAddMemberComponent } from './components/quick-add.component';
 import { MxCheckboxComponent } from '../../shared/ui/form/mx-checkbox';
 import { ViewInvoiceComponent } from './components/invoice.component';
 import { NgxPrintModule } from 'ngx-print';
-import { QuickAddPlanComponent } from './components/quick-add-plan.component';
 import { UpdateMemberDialogComponent } from './components/update-member-dialog.component';
 import { WorkoutLogsComponent } from './components/workout-logs.component';
 
@@ -46,7 +45,6 @@ import { WorkoutLogsComponent } from './components/workout-logs.component';
     StatsCardComponent,
     QuickAddMemberComponent,
     ViewInvoiceComponent,
-    QuickAddPlanComponent,
     UpdateMemberDialogComponent,
     WorkoutLogsComponent,
   ],
