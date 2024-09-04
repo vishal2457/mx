@@ -11,6 +11,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
       [ngClass]="iconClass"
       [ngStyle]="{
         'min-width': sizes[size],
+        'max-width': sizes[size]
       }"
       class="dark:invert dark:brightness-[0.9]"
       [src]="'/assets/icons/' + icon + '.png'"
