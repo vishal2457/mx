@@ -1,10 +1,14 @@
 import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 import { qs } from './_zod-utils/parser';
+import { TB_organisation } from './organisation/organisation.schema';
 
 export const TB_plan = pgTable('plan', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
+  organisationID: integer('organisationID').references(
+    () => TB_organisation.id,
+  ),
   amount: integer('amount').notNull(),
   periodInMonths: integer('periodInMonths').notNull(),
   createdAt: timestamp('createdAt').notNull().defaultNow(),

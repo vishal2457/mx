@@ -26,11 +26,11 @@ export const MENU_DATA = [
     icon: 'exercise',
     link: '/exercise/list',
   },
-  {
-    name: RESOURCES.NOTIFICATION,
-    icon: 'notifications',
-    link: '/notification/list',
-  },
+  // {
+  //   name: RESOURCES.NOTIFICATION,
+  //   icon: 'notifications',
+  //   link: '/notification/list',
+  // },
   {
     name: RESOURCES.USERS,
     icon: 'group',

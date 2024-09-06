@@ -6,7 +6,10 @@ import {
   TB_user,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
+import {
+  getTotalCount,
+  getTotalCountByOrg,
+} from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type Enquiry = typeof TB_enquiry.$inferSelect;
@@ -26,8 +29,10 @@ class EnquiryService {
     return db.select().from(TB_enquiry);
   }
 
-  getTotalCount() {
-    return getTotalCount(TB_enquiry);
+  getTotalCount(organisationID: Enquiry['organisationID']) {
+    return getTotalCountByOrg(TB_enquiry).where(
+      eq(TB_enquiry.organisationID, organisationID),
+    );
   }
 
   createEnquiry(payload: typeof TB_enquiry.$inferInsert, tx: any) {

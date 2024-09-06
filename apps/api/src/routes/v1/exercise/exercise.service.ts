@@ -6,7 +6,7 @@ import {
   TExerciseBody,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
+import { getTotalCountByOrg } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type Exercise = typeof TB_exercise.$inferSelect;
@@ -26,8 +26,10 @@ class ExerciseService {
       .where(eq(TB_exercise.organisationID, organisationID));
   }
 
-  getTotalCount() {
-    return getTotalCount(TB_exercise);
+  getTotalCount(organisationID: Exercise['organisationID']) {
+    return getTotalCountByOrg(TB_exercise).where(
+      eq(TB_exercise.organisationID, organisationID),
+    );
   }
 
   createExercise(payload: ExerciseInsert | ExerciseInsert[], tx?: typeof db) {

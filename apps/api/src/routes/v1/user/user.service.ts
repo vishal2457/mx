@@ -4,10 +4,14 @@ import {
   TB_organisation,
   TB_user,
   TB_userRole,
+  TUser,
   TUserRole,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
+import {
+  getTotalCount,
+  getTotalCountByOrg,
+} from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 class UserService {
@@ -16,12 +20,19 @@ class UserService {
     return ex.insert(TB_user).values(payload).returning();
   }
 
-  getUserList(query: Request['query']) {
-    return getListQueryWithFilters(TB_user, query).execute();
+  getUserList(
+    query: Request['query'],
+    organisationID: TUser['organisationID'],
+  ) {
+    return getListQueryWithFilters(TB_user, query, [
+      eq(TB_user.organisationID, organisationID),
+    ]).execute();
   }
 
-  getTotalUserCount() {
-    return getTotalCount(TB_user);
+  getTotalUserCount(organisationID: TUser['organisationID']) {
+    return getTotalCountByOrg(TB_user).where(
+      eq(TB_user.organisationID, organisationID),
+    );
   }
 
   getAll() {
@@ -34,7 +45,7 @@ class UserService {
     });
   }
 
-  deleteUserByID(id: (typeof TB_user.$inferSelect)['id']) {
+  deleteUserByID(id: TUser['id']) {
     return db.delete(TB_user).where(eq(TB_user.id, id));
   }
 

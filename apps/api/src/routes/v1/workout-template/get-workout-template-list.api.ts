@@ -8,6 +8,8 @@ export default Router().get('/list', secure, async (req, res) => {
     req.query,
     req.user.organisationID,
   );
-  const count = await workoutTemplateService.getTotalCount();
+  const [{ count }] = await workoutTemplateService.getTotalCount(
+    req.user.organisationID,
+  );
   success(res, { rows, count }, 'success');
 });

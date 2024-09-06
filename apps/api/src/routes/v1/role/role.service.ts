@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_role,
@@ -6,7 +6,7 @@ import {
   TB_userRole,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
+import { getTotalCountByOrg } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type Role = typeof TB_role.$inferSelect;
@@ -19,12 +19,17 @@ class RoleService {
     ]);
   }
 
-  getAllRoles() {
-    return db.select().from(TB_role);
+  getAllRoles(organisationID: Role['organisationID']) {
+    return db
+      .select()
+      .from(TB_role)
+      .where(eq(TB_role.organisationID, organisationID));
   }
 
-  getTotalCount() {
-    return getTotalCount(TB_role);
+  getTotalCount(organisationID: Role['organisationID']) {
+    return getTotalCountByOrg(TB_role).where(
+      eq(TB_role.organisationID, organisationID),
+    );
   }
 
   createRole(payload: typeof TB_role.$inferInsert, tx?: typeof db) {

@@ -12,7 +12,9 @@ export default Router().get(
       req.query,
       req.user.organisationID,
     );
-    const count = await roleService.getTotalCount();
+    const [{ count }] = await roleService.getTotalCount(
+      req.user.organisationID,
+    );
     success(res, { rows, count }, 'success');
   }),
 );

@@ -8,7 +8,10 @@ import {
   TMember,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import { getTotalCount } from '../../../db/utils-db/pg/count-rows';
+import {
+  getTotalCount,
+  getTotalCountByOrg,
+} from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type WorkoutTemplate = typeof TB_workoutTemplate.$inferSelect;
@@ -38,8 +41,10 @@ class WorkoutTemplateService {
       );
   }
 
-  getTotalCount() {
-    return getTotalCount(TB_workoutTemplate);
+  getTotalCount(organisationID: WorkoutTemplate['organisationID']) {
+    return getTotalCountByOrg(TB_workoutTemplate).where(
+      eq(TB_workoutTemplate.organisationID, organisationID),
+    );
   }
 
   createWorkoutTemplate(

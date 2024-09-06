@@ -66,7 +66,7 @@ export class QuickAddPlanComponent implements OnInit {
   periodInMonthHint: string[] = [];
 
   planForm = this.fb.nonNullable.group<
-    ControlsOf<Omit<TPlan, 'id' | 'createdAt' | 'updatedAt'>>
+    ControlsOf<Omit<TPlan, 'id' | 'createdAt' | 'updatedAt' | 'organisationID'>>
   >({
     name: new FormControl('', Validators.required),
     amount: new FormControl(null, Validators.required),
@@ -107,7 +107,7 @@ export class QuickAddPlanComponent implements OnInit {
     }
     let req = this.api.post('/plan/create', this.planForm.value);
 
-    if (this.data.payload) {
+    if (this.data?.payload) {
       req = this.api.put(
         `/plan/update/${this.data.payload.id}`,
         this.planForm.value,

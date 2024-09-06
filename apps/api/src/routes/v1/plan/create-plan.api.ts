@@ -4,12 +4,17 @@ import { validate } from '../../../shared/middlewares/validation.middleware';
 import { TB_plan } from '../../../../../../libs/mx-schema/src';
 import { createInsertSchema } from 'drizzle-zod';
 import { planService } from './plan.service';
+import { secure } from '../../../shared/jwt/jwt-auth.middleware';
 
 export default Router().post(
   '/create',
+  secure,
   validate({ body: createInsertSchema(TB_plan) }),
   async (req, res) => {
-    const result = await planService.createPlan(req.body);
+    const result = await planService.createPlan({
+      ...req.body,
+      organisationID: req.user.organisationID,
+    });
     success(res, result, 'success');
   },
 );
