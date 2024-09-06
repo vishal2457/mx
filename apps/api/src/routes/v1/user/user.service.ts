@@ -8,10 +8,7 @@ import {
   TUserRole,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import {
-  getTotalCount,
-  getTotalCountByOrg,
-} from '../../../db/utils-db/pg/count-rows';
+import { getTotalCountByOrg } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 class UserService {
