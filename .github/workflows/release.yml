@@ -89,6 +89,7 @@ jobs:
             docker compose -f docker-compose.prod.yml --profile prod down
             docker compose -f docker-compose.prod.yml --profile prod pull
             docker compose -f docker-compose.prod.yml --profile prod up -d
+            docker compose -f docker-compose.prod.yml run --rm certbot certonly --webroot --webroot-path=/var/www/certbot -d server.fitflow.in -d app.fitflow.in -d member.fitflow.in -d fitflow.in
 
       # - name: Run db migrations
       #   run: npm run db:push
