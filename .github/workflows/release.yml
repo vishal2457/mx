@@ -65,19 +65,27 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
 
-      - name: Deploy to VPS
-        uses: appleboy/ssh-action@v1.0.3
-        env:
-          COMPOSE_FILE: docker-compose.prod.yml
+      - name: Copy docker-compose.yml to VPS
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.NODE_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
-          envs: COMPOSE_FILE,DB_PASSWORD,DB_USERNAME,DB_PORT,NODE_HOST,JWT_SECRET,FIREBASE_PRIVATE_KEY_ID,SENDER_EMAIL_HOST,SENDER_EMAIL_PORT,SENDER_EMAIL_ID,SENDER_EMAIL_PASSWORD
+          source: './docker-compose.prod.yml'
+          target: '/home/fitflow/mx'
+          overwrite: true
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.NODE_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          envs: DB_PASSWORD,DB_USERNAME,DB_PORT,NODE_HOST,JWT_SECRET,FIREBASE_PRIVATE_KEY_ID,SENDER_EMAIL_HOST,SENDER_EMAIL_PORT,SENDER_EMAIL_ID,SENDER_EMAIL_PASSWORD
           script: |
             cd /home/fitflow/mx
-            echo "${{ env.COMPOSE_FILE }}" > docker-compose.prod.yml
             docker compose -f docker-compose.prod.yml --profile prod down
             docker compose -f docker-compose.prod.yml --profile prod pull
             docker compose -f docker-compose.prod.yml --profile prod up -d
