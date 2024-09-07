@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'exercise-list',
-  template: ` <page-header header="Exercise" [showCancel]="false">
+  template: ` <page-header module="exercise" [showCancel]="false">
       <mx-button (handleClick)="create()">
         <span class="flex items-center">
           <p>Add Exercise</p>

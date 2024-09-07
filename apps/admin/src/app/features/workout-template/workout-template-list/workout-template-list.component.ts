@@ -9,10 +9,7 @@ import {
 
 @Component({
   selector: 'workout-template-list',
-  template: ` <page-header
-      header="Manage Workout Templates"
-      [showCancel]="false"
-    >
+  template: ` <page-header module="workoutTemplate" [showCancel]="false">
       @if (canAdd) {
         <mx-button (handleClick)="create()">
           <span class="flex items-center">

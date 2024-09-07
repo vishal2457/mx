@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'enquiry-list',
-  template: ` <page-header header="Enquiry" [showCancel]="false">
+  template: ` <page-header module="enquiry" [showCancel]="false">
       <mx-button (handleClick)="create()">
         <span class="flex items-center">
           <p>Add Enquiry</p>

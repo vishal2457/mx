@@ -3,7 +3,7 @@ import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
 
 @Component({
   selector: 'mx-match-list',
-  template: ` <page-header header="Member Plans" [showCancel]="false">
+  template: ` <page-header module="memberPlan" [showCancel]="false">
     </page-header>
     <mx-grid-shell
       gridTitle="Member Plan List"

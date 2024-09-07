@@ -9,7 +9,7 @@ import { SubSink } from '../../../shared/utils/sub-sink';
 
 @Component({
   selector: 'app-user-list',
-  template: `<page-header header="Manage Users" [showCancel]="false">
+  template: `<page-header module="user" [showCancel]="false">
       <mx-button (handleClick)="create()">
         <span class="flex items-center">
           <p>Add User</p>

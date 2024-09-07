@@ -1,16 +1,15 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, inject, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { SubSink } from '../../../shared/utils/sub-sink';
 import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
-import { QuickAddPlanComponent } from '../../../shared/misc/quick-add-plan.component';
 import { ConfirmModalComponent } from '../../../shared/misc/confirm-modal/confirm-modal.component';
-import { MxNotification } from '../../../shared/ui/notification/notification.service';
+import { QuickAddPlanComponent } from '../../../shared/misc/quick-add-plan.component';
 import { ApiService } from '../../../shared/services/api.service';
+import { MxNotification } from '../../../shared/ui/notification/notification.service';
+import { SubSink } from '../../../shared/utils/sub-sink';
 
 @Component({
   selector: 'plan-list',
-  template: ` <page-header header="Plan" [showCancel]="false">
+  template: ` <page-header module="plan" [showCancel]="false">
       <mx-button (handleClick)="create()">
         <span class="flex items-center">
           <p>Add Plan</p>

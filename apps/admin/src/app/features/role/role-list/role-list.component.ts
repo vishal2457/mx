@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-role-list',
-  template: ` <page-header header="Roles" [showCancel]="false">
+  template: ` <page-header module="role" [showCancel]="false">
       <mx-button (handleClick)="add()">
         <span class="flex items-center">
           <p>Add Role</p>
