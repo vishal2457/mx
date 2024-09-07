@@ -34,19 +34,19 @@ services:
     build:
       context: ./
       dockerfile: ./infra/Dockerfile.api
-    env_file:
-      - ./.env
-    # environment:
-    #   - DB_USERNAME=${DB_USERNAME}
-    #   - DB_PORT=${DB_PORT}
-    #   - DB_PASSWORD=${DB_PASSWORD}
-    #   - NODE_HOST=${NODE_HOST}
-    #   - FIREBASE_PRIVATE_KEY_ID=${FIREBASE_PRIVATE_KEY_ID}
-    #   - JWT_SECRET=${JWT_SECRET}
-    #   - SENDER_EMAIL_HOST=${SENDER_EMAIL_HOST}
-    #   - SENDER_EMAIL_PORT=${SENDER_EMAIL_PORT}
-    #   - SENDER_EMAIL_ID=${SENDER_EMAIL_ID}
-    #   - SENDER_EMAIL_PASSWORD=${SENDER_EMAIL_PASSWORD}
+    # env_file:
+    #   - ./.env
+    environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PORT=${DB_PORT}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - NODE_HOST=${NODE_HOST}
+      - FIREBASE_PRIVATE_KEY_ID=${FIREBASE_PRIVATE_KEY_ID}
+      - JWT_SECRET=${JWT_SECRET}
+      - SENDER_EMAIL_HOST=${SENDER_EMAIL_HOST}
+      - SENDER_EMAIL_PORT=${SENDER_EMAIL_PORT}
+      - SENDER_EMAIL_ID=${SENDER_EMAIL_ID}
+      - SENDER_EMAIL_PASSWORD=${SENDER_EMAIL_PASSWORD}
     volumes:
       - ./app-data-mx/api/images:/app/mx-images
       - ./app-data-mx/api/logs:/app/logs
