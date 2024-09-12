@@ -1,3 +1,10 @@
+# [3.20.0](https://github.com/vishal2457/mx/compare/v3.19.0...v3.20.0) (2024-09-12)
+
+
+### Features
+
+* weight goal added ([42442ac](https://github.com/vishal2457/mx/commit/42442ac33082ab446e0235509a208b72e9ef3f47))
+
 # [3.19.0](https://github.com/vishal2457/mx/compare/v3.18.0...v3.19.0) (2024-08-27)
 
 
