@@ -63,7 +63,7 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: HUSKY=0 npx semantic-release
 
       - name: Copy docker-compose.yml to VPS
         uses: appleboy/scp-action@v0.1.4
