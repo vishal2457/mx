@@ -142,7 +142,11 @@ class MemberService {
       .select()
       .from(TB_member)
       .where(where)
-      .leftJoin(TB_user, eq(TB_member.userID, TB_user.id));
+      .leftJoin(TB_user, eq(TB_member.userID, TB_user.id))
+      .leftJoin(
+        TB_organisation,
+        eq(TB_member.organisationID, TB_organisation.id),
+      );
   }
 
   // start new subscription

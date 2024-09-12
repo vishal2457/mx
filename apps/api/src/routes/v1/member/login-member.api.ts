@@ -35,7 +35,11 @@ export default Router().post(
       res,
       {
         token,
-        member: { ...result.member, trainer: result.user },
+        member: {
+          ...result.member,
+          trainer: result.user,
+          organisation: result.organisation,
+        },
         enableAI: APP_SETTINGS.ENABLE_AI_TAB,
       },
       'success',

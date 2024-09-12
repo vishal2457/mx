@@ -139,7 +139,7 @@ type Steps = '1' | '2';
                     label="Repetitions"
                     [control]="form.controls.reps"
                   />
-                  <mx-input
+                  <mx-input-number
                     label="Calorie Burn"
                     [control]="form.controls.approxCalorieBurn"
                   />
