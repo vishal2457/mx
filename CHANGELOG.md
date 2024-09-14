@@ -1,3 +1,10 @@
+# [3.21.0](https://github.com/vishal2457/mx/compare/v3.20.0...v3.21.0) (2024-09-14)
+
+
+### Features
+
+* wght history api changes ([c43190e](https://github.com/vishal2457/mx/commit/c43190e2342d277cd620edb80bb95c615837db0f))
+
 # [3.20.0](https://github.com/vishal2457/mx/compare/v3.19.0...v3.20.0) (2024-09-12)
 
 
