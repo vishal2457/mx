@@ -129,6 +129,11 @@ class MemberService {
         TB_workoutTemplate,
         eq(TB_member.workoutTemplateID, TB_workoutTemplate.id),
       )
+      .leftJoin(TB_user, eq(TB_member.userID, TB_user.id))
+      .leftJoin(
+        TB_organisation,
+        eq(TB_member.organisationID, TB_organisation.id),
+      )
       .where(eq(TB_member.id, id));
   }
 
@@ -142,6 +147,10 @@ class MemberService {
       .select()
       .from(TB_member)
       .where(where)
+      .leftJoin(
+        TB_workoutTemplate,
+        eq(TB_member.workoutTemplateID, TB_workoutTemplate.id),
+      )
       .leftJoin(TB_user, eq(TB_member.userID, TB_user.id))
       .leftJoin(
         TB_organisation,
@@ -226,7 +235,7 @@ class MemberService {
       .from(TB_memberWeightHistory)
       .where(eq(TB_memberWeightHistory.memberID, memberID))
       .orderBy(desc(TB_memberWeightHistory.id))
-      .limit(10);
+      .limit(7);
   }
 
   getCountMemberAddedByMonth(params: {
