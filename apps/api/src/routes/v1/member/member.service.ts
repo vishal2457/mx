@@ -18,7 +18,6 @@ import {
   TB_memberWeightHistory,
   TB_memberWorkoutLog,
   TB_organisation,
-  TB_plan,
   TB_user,
   TB_workoutTemplate,
   TMemberPlan,
@@ -327,6 +326,19 @@ class MemberService {
     return getTotalCountByOrg(TB_memberWorkoutLog).where(
       eq(TB_memberWorkoutLog.memberID, memberID),
     );
+  }
+
+  getMemberWorkoutCountLastSevenDays(memberID: number) {
+    return db
+      .select({
+        totalEntries: sql<number>`cast(count(*) as int)`.as('totalEntries'),
+      })
+      .from(TB_memberWorkoutLog)
+      .where(
+        sql`${TB_memberWorkoutLog.memberID} = ${memberID}
+            AND ${TB_memberWorkoutLog.createdAt} >= CURRENT_DATE - INTERVAL '7 days'
+            AND ${TB_memberWorkoutLog.createdAt} < CURRENT_DATE + INTERVAL '1 day'`,
+      );
   }
 
   getAtRisk(organisationID: Member['organisationID']) {
