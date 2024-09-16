@@ -1,3 +1,10 @@
+# [3.22.0](https://github.com/vishal2457/mx/compare/v3.21.0...v3.22.0) (2024-09-16)
+
+
+### Features
+
+* count api added ([6acefae](https://github.com/vishal2457/mx/commit/6acefaecc640d86239de21a3760dffd4372fe616))
+
 # [3.21.0](https://github.com/vishal2457/mx/compare/v3.20.0...v3.21.0) (2024-09-14)
 
 
