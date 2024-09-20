@@ -331,14 +331,35 @@ class MemberService {
   getMemberWorkoutCountLastSevenDays(memberID: number) {
     return db
       .select({
-        totalEntries: sql<number>`cast(count(*) as int)`.as('totalEntries'),
+        date: sql`DATE_TRUNC('day', ${TB_memberWorkoutLog.createdAt})`,
+        entryCount: sql`COUNT(*)`,
       })
       .from(TB_memberWorkoutLog)
       .where(
-        sql`${TB_memberWorkoutLog.memberID} = ${memberID}
-            AND ${TB_memberWorkoutLog.createdAt} >= CURRENT_DATE - INTERVAL '7 days'
-            AND ${TB_memberWorkoutLog.createdAt} < CURRENT_DATE + INTERVAL '1 day'`,
-      );
+        and(
+          sql`${TB_memberWorkoutLog.createdAt} >= NOW() - INTERVAL '7 days'`,
+          eq(TB_memberWorkoutLog.memberID, memberID),
+        ),
+      )
+      .groupBy(sql`DATE_TRUNC('day', ${TB_memberWorkoutLog.createdAt})`)
+      .orderBy(sql`DATE_TRUNC('day', ${TB_memberWorkoutLog.createdAt}) DESC`);
+  }
+
+  getCaloriesBurntLastSevenDays(memberID: number) {
+    return db
+      .select({
+        date: sql`DATE_TRUNC('day', ${TB_memberWorkoutLog.createdAt})`,
+        totalCaloriesBurnt: sql`SUM(${TB_memberWorkoutLog.approxCalorieBurn})`,
+      })
+      .from(TB_memberWorkoutLog)
+      .where(
+        and(
+          sql`${TB_memberWorkoutLog.createdAt} >= NOW() - INTERVAL '7 days'`,
+          eq(TB_memberWorkoutLog.memberID, memberID),
+        ),
+      )
+      .groupBy(sql`DATE_TRUNC('day', ${TB_memberWorkoutLog.createdAt})`)
+      .orderBy(sql`DATE_TRUNC('day', ${TB_memberWorkoutLog.createdAt}) ASC`);
   }
 
   getAtRisk(organisationID: Member['organisationID']) {

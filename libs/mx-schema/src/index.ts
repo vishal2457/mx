@@ -23,6 +23,7 @@ export * from './lib/workout/workout-template.schema';
 export * from './lib/workout/workout-template-detail.schema';
 export * from './lib/enquiry/enquiry.schema';
 export * from './lib/enquiry/enquiry-status-history.schema';
+export * from './lib/event.schema';
 
 // zod utils
 export * from './lib/_zod-utils/v-pagination';
