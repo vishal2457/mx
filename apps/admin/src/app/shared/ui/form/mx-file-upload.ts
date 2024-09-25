@@ -76,7 +76,7 @@ import { MxTooltipDirective } from '../tooltip/tooltip.directive';
               <mx-overlay containerClass="p-4">
                 <mx-image
                   [fileURL]="file['previewURL']"
-                  imageClass="w-5"
+                  imageClass="w-5 rounded-xs"
                   mxTooltip="Click to preview"
                   alt="small Image"
                   trigger

@@ -55,7 +55,8 @@ export class MxDropdownItemComponent {
         cdkMenu
       >
         @if (dropdownTitle) {
-          <p class="text-sm my-1 pl-1">{{ dropdownTitle }}</p>
+          <p class="text-sm mt-1 pl-1">{{ dropdownTitle }}</p>
+          <div class=" my-1 h-[0.5px] border w-full"></div>
         }
         @for (dropdownItem of dropdownItems; track dropdownItem.text) {
           @if (dropdownItem.seperator) {

@@ -51,4 +51,9 @@ export const MENU_DATA = [
     icon: 'file-text',
     link: '/member-plan/list',
   },
+  {
+    name: RESOURCES.EVENT,
+    icon: 'calendar',
+    link: '/event/list',
+  },
 ] as const;

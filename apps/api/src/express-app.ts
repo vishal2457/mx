@@ -1,14 +1,13 @@
-import express from 'express';
 import compression from 'compression';
 import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
 import path from 'path';
+import promClient from 'prom-client';
 import routerv1 from './routes/v1/router';
 import { logHttpRequests } from './shared/logger/morgan-logger';
 import errorHandler from './shared/middlewares/error-handler.middleware';
 import { serverAdapter } from './shared/queue/queue-board';
-import helmet from 'helmet';
-import responseTime from 'response-time';
-import promClient from 'prom-client';
 
 // Use default collection metric and register it with promethus client
 // const collectDefcollectDefaultMetrics = promClient.collectDefaultMetrics;

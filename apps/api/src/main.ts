@@ -1,14 +1,11 @@
 import * as dotenv from 'dotenv';
-dotenv.config({ path: `${process.cwd()}/.env` });
 import http from 'http';
+import { checkDbConnection } from './db/db';
 import app from './express-app';
 import { APP_SETTINGS } from './shared/app-settings';
 import { logger } from './shared/logger/logger';
-import { checkDbConnection } from './db/db';
 import { socketManager } from './shared/socket';
-
-// 2141
-// $2a$10$iYvyIXyxLbxezcRP.S/G/.pHPe.cnd2o7izvdjVv9pi78NyXk0ifC
+dotenv.config({ path: `${process.cwd()}/.env` });
 
 async function main() {
   const server = http.createServer(app);

@@ -5,9 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-// default
-@layer base {
-
 
 @layer base {
   :root {
@@ -180,7 +177,7 @@
 
   //   --ring: 215 82% 44%;
   // }
-}
+
 
 // blue
 // @layer base {

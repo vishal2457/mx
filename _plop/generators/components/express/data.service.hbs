@@ -40,9 +40,7 @@ class {{properCase name}}Service {
   }
 
   getByID(id: {{properCase name}}['id']) {
-    return db.query.{{dbSchema}}.findFirst({
-      where: eq({{dbSchema}}.id, id),
-    });
+    return db.select().from({{dbSchema}}).where(eq({{dbSchema}}.id, id));
   }
 
 }

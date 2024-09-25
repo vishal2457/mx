@@ -15,5 +15,6 @@ export const RESOURCES = {
   ROLES: 'Roles',
   PLAN: 'Plan',
   MEMBER_PLAN: 'Member Plans',
+  EVENT: 'Event',
   ORGANISATION: 'Organisation',
 } as const;

@@ -39,6 +39,8 @@ import meApi from './user/me.api';
 import { workoutTemplate } from './workout-template';
 
 import { enquiry } from './enquiry';
+import { event } from './event';
+
 // IMPORT GENERATED FILES
 
 const routerv1 = Router();
@@ -79,7 +81,8 @@ routerv1
   .use('/body-part', bodyPart)
   .use('/exercise', exercise)
   .use('/workout-template', workoutTemplate)
-  .use('/enquiry', enquiry);
+  .use('/enquiry', enquiry)
+  .use('/event', event);
 // APPEND API ROUTES
 
 export default routerv1;

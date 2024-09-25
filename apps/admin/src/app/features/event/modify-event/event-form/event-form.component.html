@@ -1,0 +1,20 @@
+<mx-form [form]="eventForm" [zodSchema]="Z_Event">
+  <div class="grid md:grid-cols-4 sm:grid-cols-1 gap-4 items-center">
+    <mx-input label="Title" [control]="formControls.title" />
+    <mx-input label="Event Date" [control]="formControls.eventDate" [type]="'date'" />
+    <mx-input label="Event Time" [control]="formControls.eventTime" [type]="'time'" />
+    <mx-checkbox label="Active" [control]="formControls.active" />
+  </div>
+  <mx-textarea label="Description" [control]="formControls.description" />
+  <div class="mt-4">
+
+    <mx-file-upload
+      label="Image"
+      [maxFileSizeMB]="25"
+      (handleFileChange)="handleFileChange($event)"
+    />    <mx-hint
+    type="error"
+    [message]="eventForm.controls.image.touched && eventForm.controls.image.errors?.['required'] ? 'This field is required' : ''"
+    />
+  </div>
+</mx-form>

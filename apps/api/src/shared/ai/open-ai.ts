@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { APP_SETTINGS } from './app-settings';
+import { APP_SETTINGS } from '../app-settings';
 
 class OpenAi {
   constructor() {
