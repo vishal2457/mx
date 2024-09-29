@@ -4,6 +4,13 @@ import deleteOrganisation from './id/delete-organisation.api';
 import updateOrganisation from './id/update-organisation.api';
 import getOrganisation from './id/get-organisation.api';
 import { asyncHandler } from '../../../shared/async-handler.util';
+import askAiApi from './ask-ai.api';
 
-
-export const organisation = asyncHandler([getOrganisationList, getOrganisation, createOrganisation, deleteOrganisation, updateOrganisation])
+export const organisation = asyncHandler([
+  getOrganisationList,
+  getOrganisation,
+  createOrganisation,
+  deleteOrganisation,
+  updateOrganisation,
+  askAiApi,
+]);

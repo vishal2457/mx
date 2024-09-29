@@ -41,6 +41,7 @@ export const TB_member = pgTable('member', {
   height: numeric('height'),
   weight: numeric('weight'),
   weightGoal: numeric('weightGoal'),
+  calorieGoal: numeric('calorieGoal'),
   emergencyContact: text('emergencyContact'),
   gender: genderEnum('gender').default('Male'),
   profilePic: text('profilePic'),

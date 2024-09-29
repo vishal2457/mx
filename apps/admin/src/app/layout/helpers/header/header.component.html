@@ -43,6 +43,17 @@
         [clearable]="true"
         leftIcon="search"
       /> -->
+      @if (devEnv) {
+
+        <mx-button
+        variant="ghost"
+        class=" mx-2"
+        size="icon"
+        (handleClick)="openAskModal()"
+      >
+        <mx-icon icon="chat" />
+      </mx-button>
+      }
         <mx-dropdown>
           <mx-button
             variant="ghost"

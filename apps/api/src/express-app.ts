@@ -8,6 +8,7 @@ import routerv1 from './routes/v1/router';
 import { logHttpRequests } from './shared/logger/morgan-logger';
 import errorHandler from './shared/middlewares/error-handler.middleware';
 import { serverAdapter } from './shared/queue/queue-board';
+import { askDB } from './shared/ai/langchain-openai';
 
 // Use default collection metric and register it with promethus client
 // const collectDefcollectDefaultMetrics = promClient.collectDefaultMetrics;
@@ -26,6 +27,12 @@ import { serverAdapter } from './shared/queue/queue-board';
 //   name: 'total_req',
 //   help: 'Total requests',
 // });
+
+// const test = async () => {
+//   const result = await askDB.query('how many members are there?');
+//   console.log(result, 'result');
+// };
+// test();
 
 const app = express();
 

@@ -37,6 +37,7 @@ type TMemberForm = Omit<
   | 'experience'
   | 'goal'
   | 'weightGoal'
+  | 'calorieGoal'
 > & {
   joinDate?: string;
   planID?: number;

@@ -111,3 +111,11 @@ services:
       - 4300:4300
     depends_on:
       - api-mx
+
+  mindsdb:
+    image: mindsdb/mindsdb
+    container_name: mindsdb_container
+    ports:
+      - '47334:47334'
+      - '47335:47335'
+    restart: unless-stopped
