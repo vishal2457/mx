@@ -1,3 +1,10 @@
+# [3.23.0](https://github.com/vishal2457/mx/compare/v3.22.0...v3.23.0) (2024-09-29)
+
+
+### Features
+
+* new build added for member app ([a625548](https://github.com/vishal2457/mx/commit/a625548cb0b7cc34253a5ccd79b68711620a6176))
+
 # [3.22.0](https://github.com/vishal2457/mx/compare/v3.21.0...v3.22.0) (2024-09-16)
 
 
