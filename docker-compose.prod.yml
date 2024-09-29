@@ -2,7 +2,7 @@ services:
   # Postgres service
   db-mx:
     # Image to be pulled from Docker Hub
-    image: postgres:alpine
+    image: postgres:16-alpine
     restart: always
     # Environment variables
     environment:

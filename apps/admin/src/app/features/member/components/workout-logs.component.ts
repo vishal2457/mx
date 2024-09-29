@@ -56,7 +56,7 @@ export class WorkoutLogsComponent implements OnInit {
       .getList<TmemberWorkoutLog>(`/member/workout-log-list/${this.data.id}`, {
         page: 1,
         limit: 100,
-        sort: safeStringify({}),
+        sort: safeStringify({ Desc: 'createdAt' }),
         filters: safeStringify({}),
         fields: '',
       })
