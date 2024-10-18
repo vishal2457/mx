@@ -1,4 +1,4 @@
-import { and, count, desc, eq, isNull, ne, not, sql } from 'drizzle-orm';
+import { and, count, desc, eq, isNull, ne, sql } from 'drizzle-orm';
 import { Request } from 'express';
 import {
   TB_exercise,
@@ -8,10 +8,7 @@ import {
   TMember,
 } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import {
-  getTotalCount,
-  getTotalCountByOrg,
-} from '../../../db/utils-db/pg/count-rows';
+import { getTotalCountByOrg } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type WorkoutTemplate = typeof TB_workoutTemplate.$inferSelect;

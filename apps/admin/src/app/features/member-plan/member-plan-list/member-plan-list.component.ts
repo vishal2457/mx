@@ -8,6 +8,7 @@ import { MxGridShellComponent } from '../../../shared/grid-shell/grid-shell';
     <mx-grid-shell
       gridTitle="Member Plan List"
       apiURL="/member/member-plan/list"
+      [defaultSort]="{ Desc: 'id' }"
     >
       <!-- columns -->
       <mx-column field="id" alignment="left" [visible]="false" />

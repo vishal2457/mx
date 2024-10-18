@@ -5,7 +5,6 @@
   <div class="flex justify-between items-center">
     <div
       class="flex w-72 py-1 px-2 bg-background justify-between items-center"
-
     >
       <div class="flex justify-center items-center">
         @let organisation = organisation$ | async;
@@ -28,7 +27,6 @@
         icon="dock_to_right"
         size="lg"
         class="cursor-pointer"
-
       />
     </div>
     <div
@@ -44,6 +42,23 @@
         leftIcon="search"
       /> -->
       @if (devEnv) {
+
+        <mx-overlay >
+          <mx-button
+          variant="ghost"
+          class=" mr-2"
+          size="icon"
+          trigger
+        >
+          <mx-icon icon="grid" />
+        </mx-button>
+          <div >
+            <div class="p-2 bg-secondary inline-block">
+              <p class="text-lg">Shortcuts</p>
+            </div>
+
+          </div>
+        </mx-overlay>
 
         <mx-button
         variant="ghost"
@@ -80,6 +95,9 @@
           />
           <mx-dropdown-item [seperator]="true" />
           <mx-dropdown-item icon="time" [text]="'Last Build: ' + lastBuild" />
+          @let user = userService.user$|async;
+            <mx-dropdown-item icon="person" [text]="user?.name || ''" />
+
         </mx-dropdown>
       </div>
     </div>

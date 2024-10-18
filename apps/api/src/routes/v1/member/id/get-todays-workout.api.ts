@@ -15,12 +15,12 @@ export default Router().get(
       Number(req.params.id),
     );
 
-    // const totalWorkoutCount =
-    //   await workoutTemplateService.getWorkoutTemplateDetailCount(
-    //     req.user.workoutTemplateID,
-    //   );
+    const totalWorkoutCount =
+      await workoutTemplateService.getWorkoutTemplateDetailCount(
+        req.user.workoutTemplateID,
+      );
 
-    const nextDay = getNextDay(lastWorkout?.day, 7);
+    const nextDay = getNextDay(lastWorkout?.day, totalWorkoutCount[0].count);
 
     const todaysWorkout = await workoutTemplateService.getTodaysWorkout(
       nextDay,

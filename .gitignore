@@ -120,3 +120,6 @@ yarn-error.log
 # testing
 /coverage
 
+# Next.js
+.next
+out

@@ -2,10 +2,7 @@ import { eq } from 'drizzle-orm';
 import { Request } from 'express';
 import { TB_plan } from '../../../../../../libs/mx-schema/src';
 import { db } from '../../../db/db';
-import {
-  getTotalCount,
-  getTotalCountByOrg,
-} from '../../../db/utils-db/pg/count-rows';
+import { getTotalCountByOrg } from '../../../db/utils-db/pg/count-rows';
 import { getListQueryWithFilters } from '../../../db/utils-db/pg/list-filters/list-filters';
 
 type Plan = typeof TB_plan.$inferSelect;
@@ -17,8 +14,11 @@ class PlanService {
     ]);
   }
 
-  getAllPlans() {
-    return db.select().from(TB_plan);
+  getAllPlans(organisationID: Plan['organisationID']) {
+    return db
+      .select()
+      .from(TB_plan)
+      .where(eq(TB_plan.organisationID, organisationID));
   }
 
   getTotalCount(organisationID: Plan['organisationID']) {

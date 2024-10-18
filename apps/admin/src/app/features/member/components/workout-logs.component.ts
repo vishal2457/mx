@@ -36,6 +36,10 @@ import { safeStringify } from '../../../shared/utils/safe-json';
               </div>
             </div>
           </div>
+        } @empty {
+          <div class="h-full flex justify-center items-center">
+            <p>No workouts to show</p>
+          </div>
         }
       </div>
     </mx-dialog-header>

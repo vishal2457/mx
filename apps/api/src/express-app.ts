@@ -8,7 +8,7 @@ import routerv1 from './routes/v1/router';
 import { logHttpRequests } from './shared/logger/morgan-logger';
 import errorHandler from './shared/middlewares/error-handler.middleware';
 import { serverAdapter } from './shared/queue/queue-board';
-import { askDB } from './shared/ai/langchain-openai';
+import { hashPassword } from './shared/password-hash';
 
 // Use default collection metric and register it with promethus client
 // const collectDefcollectDefaultMetrics = promClient.collectDefaultMetrics;
@@ -28,11 +28,8 @@ import { askDB } from './shared/ai/langchain-openai';
 //   help: 'Total requests',
 // });
 
-// const test = async () => {
-//   const result = await askDB.query('how many members are there?');
-//   console.log(result, 'result');
-// };
-// test();
+// console.log(hashPassword('1234'));
+// $2a$10$ehLPRLXAVZdjmFwi.oxkU.g52q1XrG0vD/0sMcTmAwxdBQIMo6gs2
 
 const app = express();
 

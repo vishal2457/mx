@@ -32,8 +32,11 @@ class UserService {
     );
   }
 
-  getAll() {
-    return db.select().from(TB_user);
+  getAll(organisationID: TUser['organisationID']) {
+    return db
+      .select()
+      .from(TB_user)
+      .where(eq(TB_user.organisationID, organisationID));
   }
 
   getUserByEmail(email: string) {

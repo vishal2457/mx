@@ -31,7 +31,7 @@ import { ToolbarService } from '../../services/toolbar.service';
           <mx-button trigger variant="outline">
             <span class="flex items-center">
               <mx-icon icon="columns" class="mr-2" />
-              <p>Columns</p>
+              <p class="text-xs tracking-wide">Columns</p>
             </span>
           </mx-button>
 
