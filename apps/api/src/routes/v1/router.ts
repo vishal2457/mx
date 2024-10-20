@@ -29,6 +29,7 @@ import meApi from './user/me.api';
 import { workoutTemplate } from './workout-template';
 import { enquiry } from './enquiry';
 import { event } from './event';
+import createLeadApi from './landing-page-leads/create-lead.api';
 
 // IMPORT GENERATED FILES
 
@@ -71,7 +72,8 @@ routerv1
   .use('/exercise', exercise)
   .use('/workout-template', workoutTemplate)
   .use('/enquiry', enquiry)
-  .use('/event', event);
+  .use('/event', event)
+  .use('/landing-page-leads', [createLeadApi]);
 // APPEND API ROUTES
 
 export default routerv1;
